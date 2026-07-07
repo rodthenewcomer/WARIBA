@@ -2,7 +2,12 @@
 
 Terminal de charting et d'analyse des actions africaines — MVP BRVM.
 « La BRVM devient lisible » : charts, fondamentaux, dividendes, documents
-officiels et signaux intelligents, sur données **simulées** (aucune API externe).
+officiels et signaux intelligents.
+
+L'application tourne aujourd'hui sur des données **simulées** (`lib/mock/`),
+mais un pipeline de données réelles existe déjà en parallèle dans
+`scripts/boc/` (voir [Pipeline de données réelles](#pipeline-de-données-réelles-brvm)
+plus bas) — pas encore branché dans l'app.
 
 ## Prérequis
 
@@ -69,12 +74,45 @@ lib/
 `ETIT` Ecobank ETI · `ONTBF` Onatel BF · `PALC` Palm CI · `SPHC` SAPH ·
 `UNXC` Uniwax · `CIEC` CIE · `TTLC` TotalEnergies Marketing CI
 
-## Brancher de vraies données plus tard
+## Pipeline de données réelles (BRVM)
 
-Toute la donnée passe par `lib/data.ts` (snapshots) et
-`lib/mock/series.ts` (`getSeries`, `seriesForTimeframe`). Remplacer ces
-deux modules par des appels API (Supabase / flux BRVM licencié) suffit —
-les composants ne connaissent que les types de `lib/types.ts`.
+Un pipeline fonctionnel existe dans `scripts/boc/` (Python), **indépendant
+de l'app Next.js pour l'instant** — rien n'est encore branché dans `lib/`.
+Détails complets : `scripts/boc/README.md`.
+
+- **`parse_boc.py`** — extrait un bulletin officiel de la cote (PDF
+  quotidien BRVM) en JSON : ticker, nom, OHLC, volume, valeur, dividende
+  net, rendement, PER. Gère deux schémas de table (16 et 15 colonnes)
+  détectés automatiquement, validé sur des bulletins réels 2021→2026.
+- **`backfill.py`** — boucle sur les jours ouvrés d'une période, télécharge
+  et parse chaque bulletin, reprenable après interruption. En cours
+  d'exécution pour 2019-01-01 → aujourd'hui au moment de la rédaction.
+- **`aggregate.py`** — regroupe les JSON quotidiens en une série par
+  ticker (`data/boc/series/TICKER.json`).
+- **`live_poll.py`** — script prêt mais **pas encore planifié en
+  exécution récurrente** (décision en attente) : interroge la page
+  d'accueil brvm.org (cours différés de 15 min) pour reconstruire un
+  vrai plus haut/bas intraday, que le BOC ne publie pas.
+
+**Limite connue à ne pas oublier** : le BOC ne publie que l'ouverture et
+la clôture par action, jamais de plus haut/bas intraday. Tant que
+`live_poll.py` ne tourne pas en continu, les séries historiques agrégées
+n'auront jamais de vraies mèches de bougie (high = low = max/min(open,
+close)).
+
+**Écart réel vs les 15 sociétés mockées** : l'univers réel BRVM compte
+~45-50 tickers (ex. `NTLC`, `BOAC`, `ECOC`...) qui ne correspondent pas
+tous exactement aux tickers inventés dans `lib/mock/stocks.ts` (ex.
+`ETIT` n'existe pas dans les données réelles — le vrai ticker Ecobank CI
+est `ECOC`). Une réconciliation sera nécessaire avant de brancher les
+vraies données dans l'app.
+
+Pour brancher ces données plus tard : toute la donnée de l'app passe par
+`lib/data.ts` (snapshots) et `lib/mock/series.ts` (`getSeries`,
+`seriesForTimeframe`) — remplacer ces deux modules par une lecture de
+`data/boc/series/*.json` (ou une vraie base de données alimentée par ce
+pipeline) suffit, les composants ne connaissent que les types de
+`lib/types.ts`.
 
 ## Avertissement
 
