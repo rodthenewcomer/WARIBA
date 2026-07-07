@@ -101,11 +101,15 @@ n'auront jamais de vraies mèches de bougie (high = low = max/min(open,
 close)).
 
 **Écart réel vs les 15 sociétés mockées** : l'univers réel BRVM compte
-~45-50 tickers (ex. `NTLC`, `BOAC`, `ECOC`...) qui ne correspondent pas
-tous exactement aux tickers inventés dans `lib/mock/stocks.ts` (ex.
-`ETIT` n'existe pas dans les données réelles — le vrai ticker Ecobank CI
-est `ECOC`). Une réconciliation sera nécessaire avant de brancher les
-vraies données dans l'app.
+~45-50 tickers (contre 15 modélisés) — mais bonne nouvelle vérifiée
+par diff systématique le 2026-07-07 : **les 15 tickers mockés sont
+tous de vrais tickers BRVM** (`ETIT` = Ecobank Transnational Inc., la
+holding panafricaine, existe bien séparément de `ECOC` = Ecobank Côte
+d'Ivoire, sa filiale — deux sociétés cotées distinctes, pas une
+erreur). Le vrai travail de réconciliation restant : les **cours
+mockés sont fictifs** (ex. SNTS à 24 500 FCFA inventé vs ~29 500 FCFA
+réel début juillet 2026) et les 30-35 autres tickers réels ne sont pas
+encore modélisés du tout.
 
 Pour brancher ces données plus tard : toute la donnée de l'app passe par
 `lib/data.ts` (snapshots) et `lib/mock/series.ts` (`getSeries`,
