@@ -104,3 +104,26 @@ officielle.
 régénérable, pas committée telle quelle. `data/boc/series/` (sortie de
 `aggregate.py`, plus compacte et directement utile) peut être committée
 une fois le backfill terminé et validé.
+
+## Combler l'absence de plus haut/bas : `live_poll.py`
+
+La page d'accueil brvm.org affiche des cours différés de 15 minutes en
+HTML statique simple (`<span>TICKER</span>&nbsp;<span>PRIX</span>...`),
+sans API cachée à trouver. `live_poll.py` interroge cette page et met à
+jour un fichier `data/live/AAAA-MM-JJ.json` par jour : open (premier
+prix vu), high/low (min/max observés), close (dernier prix vu), par
+ticker.
+
+Ce n'est utile que si le script tourne **répétitivement pendant la
+séance** (09h45–14h45, heure d'Abidjan = GMT, lun-ven) — un seul appel
+ne construit qu'un point de mesure. Ça reconstruit un vrai (quasi-)
+intraday **à partir du jour où on le fait tourner**, pas rétroactivement.
+
+```bash
+python3 live_poll.py --out-dir ../../data/live
+```
+
+Testé le 2026-07-07 : 47 cotations récupérées en un appel, format
+stable. Reste à décider : exécution en cron local (fragile si la
+machine est éteinte/en veille) ou agent planifié dans le cloud (plus
+robuste, tourne indépendamment de l'ordinateur).
