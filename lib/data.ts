@@ -1,0 +1,119 @@
+import type {
+  Derived,
+  IndexInfo,
+  SectorStats,
+  Stock,
+  StockSnapshot,
+} from "./types";
+import { STOCKS, STOCK_MAP } from "./mock/stocks";
+import { getIndexSeries, getSeries } from "./mock/series";
+import { IRVM_RATE } from "./mock/dividends";
+import { computeScores, detectSignals } from "./signals";
+import { generateInsight } from "./insights";
+
+function pctChange(from: number, to: number): number {
+  if (from === 0) return 0;
+  return ((to - from) / from) * 100;
+}
+
+function computeDerived(stock: Stock): Derived {
+  const { daily } = getSeries(stock.ticker);
+  const n = daily.length;
+  const last = daily[n - 1];
+  const closeAt = (back: number): number => daily[Math.max(0, n - 1 - back)].close;
+
+  const year = String(new Date(`${last.time}T00:00:00Z`).getUTCFullYear());
+  const firstOfYear =
+    daily.find((d) => typeof d.time === "string" && d.time >= `${year}-01-01`) ??
+    daily[0];
+
+  const avg30 =
+    daily.slice(-31, -1).reduce((acc, d) => acc + d.volume, 0) / 30;
+
+  const f = stock.fundamentals;
+  const marketCap = stock.lastPrice * stock.sharesM * 1e6;
+  const per = f.netIncome > 0 ? marketCap / (f.netIncome * 1e6) : -1;
+  const netDividend = f.grossDividend * (1 - IRVM_RATE);
+
+  return {
+    marketCap,
+    per,
+    dayChange: pctChange(closeAt(1), last.close),
+    weekChange: pctChange(closeAt(5), last.close),
+    monthChange: pctChange(closeAt(21), last.close),
+    ytdChange: pctChange(firstOfYear.close, last.close),
+    yearChange: pctChange(closeAt(252), last.close),
+    dayVolume: last.volume,
+    volumeRatio: avg30 > 0 ? last.volume / avg30 : 1,
+    yieldGross: (f.grossDividend / stock.lastPrice) * 100,
+    yieldNet: (netDividend / stock.lastPrice) * 100,
+    netDividend,
+    netIncomeGrowth: pctChange(Math.abs(f.netIncomePrev), f.netIncome),
+    revenueGrowth: pctChange(f.revenuePrev, f.revenue),
+  };
+}
+
+let snapshots: StockSnapshot[] | null = null;
+
+export function getSnapshots(): StockSnapshot[] {
+  if (snapshots) return snapshots;
+  snapshots = STOCKS.map((stock) => {
+    const derived = computeDerived(stock);
+    const signals = detectSignals(stock, derived);
+    const scores = computeScores(stock, derived);
+    const insight = generateInsight(stock, derived, signals);
+    return { ...stock, ...derived, scores, signals, insight };
+  });
+  return snapshots;
+}
+
+export function getSnapshot(ticker: string): StockSnapshot | undefined {
+  return getSnapshots().find((s) => s.ticker === ticker);
+}
+
+export function getSectorStats(): SectorStats[] {
+  const groups = new Map<string, StockSnapshot[]>();
+  for (const s of getSnapshots()) {
+    const arr = groups.get(s.sector) ?? [];
+    arr.push(s);
+    groups.set(s.sector, arr);
+  }
+  return [...groups.entries()].map(([sector, arr]) => ({
+    sector: sector as SectorStats["sector"],
+    avgPer:
+      arr.filter((s) => s.per > 0).reduce((acc, s) => acc + s.per, 0) /
+      Math.max(1, arr.filter((s) => s.per > 0).length),
+    avgRoe: arr.reduce((acc, s) => acc + s.fundamentals.roe, 0) / arr.length,
+    avgYieldNet: arr.reduce((acc, s) => acc + s.yieldNet, 0) / arr.length,
+    avgNetIncomeGrowth:
+      arr.reduce((acc, s) => acc + s.netIncomeGrowth, 0) / arr.length,
+    count: arr.length,
+  }));
+}
+
+export function getIndices(): IndexInfo[] {
+  const composite = getIndexSeries("BRVMC", 291.4, 0.14);
+  const brvm30 = getIndexSeries("BRVM30", 146.2, 0.12);
+  const build = (code: string, name: string, daily: typeof composite): IndexInfo => {
+    const n = daily.length;
+    const last = daily[n - 1];
+    const year = String(new Date().getUTCFullYear());
+    const firstOfYear =
+      daily.find((d) => typeof d.time === "string" && d.time >= `${year}-01-01`) ??
+      daily[0];
+    return {
+      code,
+      name,
+      level: last.close,
+      dayChange: pctChange(daily[n - 2].close, last.close),
+      ytdChange: pctChange(firstOfYear.close, last.close),
+      spark: daily.slice(-60).map((d) => d.close),
+    };
+  };
+  return [
+    build("BRVMC", "BRVM Composite", composite),
+    build("BRVM30", "BRVM 30", brvm30),
+  ];
+}
+
+export { STOCKS, STOCK_MAP };

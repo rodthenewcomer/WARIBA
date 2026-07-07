@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #eef1f6;
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --line: rgba(15, 23, 42, 0.09);
+  --ink: #0f172a;
+  --ink-2: #475569;
+  --ink-3: #94a3b8;
+  --glow-a: rgba(56, 189, 248, 0.06);
+  --glow-b: rgba(139, 92, 246, 0.05);
+}
+
+.dark {
+  --background: #050816;
+  --surface: #0b1122;
+  --surface-2: #101830;
+  --line: rgba(255, 255, 255, 0.08);
+  --ink: #f8fafc;
+  --ink-2: #94a3b8;
+  --ink-3: #5b6b84;
+  --glow-a: rgba(56, 189, 248, 0.07);
+  --glow-b: rgba(139, 92, 246, 0.06);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-up: #22c55e;
+  --color-down: #ef4444;
+  --color-warn: #f59e0b;
+  --color-accent: #38bdf8;
+  --color-violet: #8b5cf6;
+  --color-gold: #d4af37;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --radius-2xl: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(1100px 500px at 85% -10%, var(--glow-a), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, var(--glow-b), transparent 55%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-feature-settings: "cv02", "cv03";
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars discrets */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+*::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Carte "verre" signature */
+.card-glass {
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--surface) 92%, transparent),
+      color-mix(in oklab, var(--surface) 78%, transparent)
+    );
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+}
+
+.fade-in {
+  animation: fadeIn 0.35s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    color-mix(in oklab, var(--surface-2) 60%, var(--line)) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
