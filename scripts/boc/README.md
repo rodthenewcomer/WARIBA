@@ -70,9 +70,37 @@ deux schémas déjà gérés (2019+ couvre large avec de la marge). L'ère
 développement disproportionné vu son gain marginal — traité comme
 chantier séparé, pas bloquant pour le backfill principal.
 
-## Suite logique
+## Pipeline complet
 
-Un script de backfill (fetch + parse en boucle sur toutes les dates
-ouvrées depuis ~2019, avec pause entre requêtes par courtoisie envers
-le serveur BRVM) reste à écrire — ce script-ci ne traite qu'un PDF à la
-fois.
+```bash
+python3 backfill.py --start 2019-01-01 --end 2026-07-07 \
+    --out-dir ../../data/boc/raw --delay 0.8      # fetch + parse, un JSON par jour
+python3 aggregate.py --raw-dir ../../data/boc/raw \
+    --out-dir ../../data/boc/series                # regroupe par ticker, trié par date
+```
+
+`backfill.py` boucle sur les jours ouvrés, essaie les deux conventions
+de nom de fichier, et sait reprendre après interruption (les jours déjà
+présents dans `--out-dir` sont ignorés). Les jours sans bulletin
+(fériés) ou au format non supporté sont journalisés, pas traités comme
+des erreurs.
+
+`aggregate.py` produit un fichier JSON par ticker
+(`data/boc/series/TICKER.json`), trié chronologiquement, avec tous les
+champs du BOC (pas seulement OHLCV).
+
+### Limite importante : pas de vrai plus haut/plus bas intraday
+
+Le BOC ne publie, pour chaque action, que le **cours d'ouverture et de
+clôture** de la séance — aucune fourchette intraday. `aggregate.py`
+calcule donc `high`/`low` comme `max`/`min(open, close)` : les bougies
+générées à partir de ces données n'auront jamais de mèche plus large
+que le corps. C'est une limite de la source, pas un bug du parseur —
+à mentionner clairement si ces séries alimentent un jour l'UI, pour ne
+pas laisser croire à une precision qui n'existe pas dans la donnée
+officielle.
+
+`data/boc/raw/` (sortie de `backfill.py`) est dans `.gitignore` —
+régénérable, pas committée telle quelle. `data/boc/series/` (sortie de
+`aggregate.py`, plus compacte et directement utile) peut être committée
+une fois le backfill terminé et validé.
