@@ -70,6 +70,25 @@ deux schémas déjà gérés (2019+ couvre large avec de la marge). L'ère
 développement disproportionné vu son gain marginal — traité comme
 chantier séparé, pas bloquant pour le backfill principal.
 
+## Résultat du backfill complet (2026-07-07)
+
+Exécuté sur 2019-01-01 → 2026-07-07 : **1745 bulletins parsés avec
+succès** (2019-01-02 → 2026-07-06 réellement couverts), 0 jour au
+format non supporté (les deux schémas 15/16 colonnes ont couvert toute
+la période sans exception), 215 jours sans bulletin (fériés + un vrai
+vide d'archive d'environ 3-4 semaines en octobre 2021, vérifié
+manuellement — les deux conventions d'URL retournent 404 de façon
+cohérente sur cette fenêtre, ce n'est pas une erreur réseau).
+`data/boc/series/` contient 48 tickers, aucune date dupliquée.
+
+Un bug a été trouvé et corrigé en cours de route : sur 5/1745
+bulletins, le regex d'extraction de date sur le texte du PDF échouait
+silencieusement et `parse_bulletin()` retombait sur la date système du
+jour d'exécution — `backfill.py` impose désormais la date de calendrier
+qu'il a explicitement demandée plutôt que de faire confiance à ce
+regex. Le premier run complet a aussi crashé une fois après 155 jours
+sur un `TimeoutError` non catché (corrigé, voir historique git).
+
 ## Pipeline complet
 
 ```bash
