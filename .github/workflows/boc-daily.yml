@@ -1,0 +1,73 @@
+# Pipeline quotidien BOC : télécharge le bulletin officiel du jour,
+# le fusionne dans les séries historiques, reconstruit les données de
+# l'app, committe, puis redéploie le site.
+#
+# Heure d'Abidjan = UTC toute l'année. La séance ferme à 14h45 GMT et
+# le bulletin est publié dans l'après-midi : on tente à 17h30 UTC puis
+# on retente à 20h00 UTC (si la 1ère passe a réussi, la 2ème ne
+# produit aucun diff et s'arrête sans commit — merge_day.py est
+# idempotent). Jours fériés : pas de bulletin → aucun diff → no-op.
+name: boc-daily
+
+on:
+  schedule:
+    - cron: "30 17 * * 1-5"
+    - cron: "0 20 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: boc-daily
+  cancel-in-progress: false
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/boc/requirements.txt
+      - name: Télécharger et parser les bulletins récents
+        # Fenêtre glissante de 7 jours, pas seulement aujourd'hui : un
+        # run raté (panne Actions, bulletin publié en retard) est
+        # rattrapé automatiquement au run suivant — merge_day.py étant
+        # idempotent, les jours déjà en série ne produisent aucun diff.
+        run: |
+          python3 scripts/boc/backfill.py \
+            --start "$(date -u -d '7 days ago' +%F)" \
+            --end "$(date -u +%F)" \
+            --out-dir data/boc/raw
+      - name: Fusionner dans les séries historiques
+        run: python3 scripts/boc/merge_day.py --raw-dir data/boc/raw --series-dir data/boc/series
+      - name: Reconstruire les données consommées par l'app
+        run: python3 scripts/boc/build_app_data.py --series-dir data/boc/series --out-dir data
+      - name: Committer les données du jour
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/boc/series data/real
+          if git diff --cached --quiet; then
+            echo "Aucune nouvelle donnée (bulletin pas encore publié, férié, ou déjà traité)."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data: BOC du $(date -u +%F)"
+            git pull --rebase origin main
+            git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: update-data
+    if: needs.update-data.outputs.pushed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

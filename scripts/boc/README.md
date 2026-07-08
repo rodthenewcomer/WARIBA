@@ -143,9 +143,14 @@ python3 live_poll.py --out-dir ../../data/live
 ```
 
 Testé le 2026-07-07 : 47 cotations récupérées en un appel, format
-stable. Reste à décider : exécution en cron local (fragile si la
-machine est éteinte/en veille) ou agent planifié dans le cloud (plus
-robuste, tourne indépendamment de l'ordinateur).
+stable. **Décision prise (2026-07-08)** : exécution planifiée dans
+GitHub Actions (`.github/workflows/live-poll.yml`), toutes les 15 min
+pendant la séance (10h00–15h15 UTC, décalé de 15 min pour tenir compte
+du différé des cours affichés), l'état du jour étant committé dans le
+repo à chaque run — pas de dépendance à une machine locale. Le
+bulletin quotidien est lui aussi automatisé
+(`.github/workflows/boc-daily.yml` : fetch + merge_day.py +
+build_app_data.py + commit + redéploiement du site).
 
 ## Pipeline fondamentaux (prototype, non branché — 2026-07-08)
 

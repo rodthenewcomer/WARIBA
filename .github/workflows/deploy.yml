@@ -1,0 +1,64 @@
+# Déploiement GitHub Pages du site statique Next.js.
+#
+# Déclencheurs :
+# - push sur main (changements de code ou de données poussés à la main) ;
+# - workflow_call : appelé par boc-daily.yml après un commit de données,
+#   car les pushes faits avec GITHUB_TOKEN ne déclenchent PAS les
+#   workflows `on: push` (garde-fou GitHub contre les boucles) ;
+# - workflow_dispatch : relance manuelle depuis l'onglet Actions.
+#
+# Le checkout se fait toujours sur la pointe de main (pas github.sha) :
+# quand ce workflow est appelé juste après un commit de données, ce
+# commit est plus récent que le SHA qui a déclenché le run planifié.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/live/**" # collecte intraday, pas encore consommée par le build
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Configurer GitHub Pages (activation auto au premier run)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - run: npm ci
+      - name: Build statique (basePath /AfriTerminal pour Pages)
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /AfriTerminal
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

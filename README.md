@@ -156,3 +156,24 @@ pipeline) suffit, les composants ne connaissent que les types de
 
 Données simulées, à but éducatif et démonstratif uniquement.
 Ceci n'est pas un conseil en investissement.
+
+## Déploiement & automatisation (depuis le 2026-07-08)
+
+Le site est un export statique Next.js (`output: "export"`) déployé sur
+**GitHub Pages** : https://rodthenewcomer.github.io/AfriTerminal/
+
+Trois workflows GitHub Actions (`.github/workflows/`) :
+
+- **deploy.yml** — build + déploiement Pages à chaque push sur `main`
+  (le `basePath` `/AfriTerminal` est injecté au build via
+  `NEXT_PUBLIC_BASE_PATH`, absent en dev local) ;
+- **boc-daily.yml** — chaque jour ouvré (17h30 UTC, retente 20h00) :
+  télécharge le bulletin officiel du jour, le fusionne dans
+  `data/boc/series/` (`scripts/boc/merge_day.py`, incrémental et
+  idempotent), reconstruit `data/real/`, committe et redéploie ;
+- **live-poll.yml** — toutes les 15 min pendant la séance : collecte
+  les cours différés de brvm.org dans `data/live/` pour reconstruire
+  le plus haut/plus bas intraday que le bulletin ne publie pas.
+
+Aucune machine locale n'est nécessaire : la fraîcheur des données et le
+déploiement sont entièrement portés par GitHub Actions.

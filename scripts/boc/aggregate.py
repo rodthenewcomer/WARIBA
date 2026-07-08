@@ -26,6 +26,34 @@ from collections import defaultdict
 from pathlib import Path
 
 
+def stock_record(date: str, s: dict) -> dict:
+    """Convertit une ligne action d'un JSON journalier en enregistrement de série.
+
+    high/low = max/min(open, close) : le BOC ne publie pas de fourchette
+    intraday (voir docstring du module). Réutilisé par merge_day.py.
+    """
+    open_ = s["open"] if s["open"] is not None else s["close"]
+    return {
+        "time": date,
+        "open": open_,
+        "high": max(open_, s["close"]),
+        "low": min(open_, s["close"]),
+        "close": s["close"],
+        "volume": s["volume"],
+        "value": s["value"],
+        "sector_code": s["sector_code"],
+        "name": s["name"],
+        "prev_close": s["prev_close"],
+        "ref_price": s["ref_price"],
+        "day_change_pct": s["day_change_pct"],
+        "ytd_change_pct": s["ytd_change_pct"],
+        "last_dividend_net": s["last_dividend_net"],
+        "last_dividend_date": s["last_dividend_date"],
+        "net_yield_pct": s["net_yield_pct"],
+        "per": s["per"],
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-dir", default="data/boc/raw")
@@ -42,28 +70,7 @@ def main() -> None:
     for f in files:
         day = json.loads(f.read_text(encoding="utf-8"))
         for s in day["stocks"]:
-            open_ = s["open"] if s["open"] is not None else s["close"]
-            by_ticker[s["ticker"]].append(
-                {
-                    "time": day["date"],
-                    "open": open_,
-                    "high": max(open_, s["close"]),
-                    "low": min(open_, s["close"]),
-                    "close": s["close"],
-                    "volume": s["volume"],
-                    "value": s["value"],
-                    "sector_code": s["sector_code"],
-                    "name": s["name"],
-                    "prev_close": s["prev_close"],
-                    "ref_price": s["ref_price"],
-                    "day_change_pct": s["day_change_pct"],
-                    "ytd_change_pct": s["ytd_change_pct"],
-                    "last_dividend_net": s["last_dividend_net"],
-                    "last_dividend_date": s["last_dividend_date"],
-                    "net_yield_pct": s["net_yield_pct"],
-                    "per": s["per"],
-                }
-            )
+            by_ticker[s["ticker"]].append(stock_record(day["date"], s))
 
     for ticker, records in by_ticker.items():
         records.sort(key=lambda r: r["time"])
