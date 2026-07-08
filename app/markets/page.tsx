@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { Grid3X3 } from "lucide-react";
 import { getSnapshots } from "@/lib/data";
 import type { Country, Sector } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -68,12 +70,20 @@ export default function MarketsPage() {
 
   return (
     <div className="space-y-4 fade-in">
-      <div>
-        <h1 className="text-xl font-bold tracking-tight text-ink">Marchés</h1>
-        <p className="mt-1 text-sm text-ink-3">
-          {snapshots.length} actions BRVM · cours et volumes réels (bulletins
-          officiels de la cote)
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-bold tracking-tight text-ink">Marchés</h1>
+          <p className="mt-1 text-sm text-ink-3">
+            {snapshots.length} actions BRVM · cours et volumes réels (bulletins
+            officiels de la cote)
+          </p>
+        </div>
+        <Link
+          href="/map"
+          className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface/60 px-2.5 text-xs font-medium text-ink-2 hover:bg-surface-2 transition-colors"
+        >
+          <Grid3X3 className="h-3.5 w-3.5" /> Vue carte
+        </Link>
       </div>
 
       <div className="space-y-2">
