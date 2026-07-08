@@ -4,10 +4,13 @@ Terminal de charting et d'analyse des actions africaines — MVP BRVM.
 « La BRVM devient lisible » : charts, fondamentaux, dividendes, documents
 officiels et signaux intelligents.
 
-L'application tourne aujourd'hui sur des données **simulées** (`lib/mock/`),
-mais un pipeline de données réelles existe déjà en parallèle dans
-`scripts/boc/` (voir [Pipeline de données réelles](#pipeline-de-données-réelles-brvm)
-plus bas) — pas encore branché dans l'app.
+Depuis le 2026-07-08, la **page action** (`/stocks/[ticker]`) affiche des
+données réelles BRVM (chart, prix, variations, volume, PER, dividende) pour
+les 15 sociétés modélisées — voir
+[Pipeline de données réelles](#pipeline-de-données-réelles-brvm) plus bas.
+Le reste de l'app (dashboard, marchés, screener, watchlist) tourne encore
+sur des données **simulées** (`lib/mock/`), une incohérence temporaire
+assumée en attendant une passe de branchement suivante.
 
 ## Prérequis
 
@@ -93,6 +96,26 @@ Détails complets : `scripts/boc/README.md`.
   exécution récurrente** (décision en attente) : interroge la page
   d'accueil brvm.org (cours différés de 15 min) pour reconstruire un
   vrai plus haut/bas intraday, que le BOC ne publie pas.
+- **`build_app_data.py`** — génère `data/real/` (voir ci-dessous) à
+  partir de `data/boc/series/*.json`, pour les 15 tickers modélisés.
+
+### Branché dans l'app : `/stocks/[ticker]` uniquement
+
+`data/real/snapshot.json` (7,5 Ko, toutes les 15 valeurs — prix,
+variations, volume, PER, rendement, dernier dividende) et
+`data/real/series/{TICKER}.json` (historique OHLCV complet, ~150-190 Ko
+par ticker, chargé à la demande via import dynamique — jamais tous en
+même temps) alimentent `lib/real-data.ts`, consommé par la page action.
+
+**Volontairement non branché sur cette page** : capitalisation, P/B,
+ROE, revenu, résultat net, payout, scores et analyse IA — tout ce qui
+dépend de fondamentaux d'états financiers, qu'aucun pipeline ne
+collecte. Ces sections sont masquées avec une explication, pas
+remplies avec les anciens chiffres inventés.
+
+**Pas encore branché** : dashboard, marchés, screener, watchlist
+affichent encore les prix mockés — incohérent avec la page action tant
+qu'une passe suivante ne les branche pas aussi.
 
 **Limite connue à ne pas oublier** : le BOC ne publie que l'ouverture et
 la clôture par action, jamais de plus haut/bas intraday. Tant que
