@@ -5,30 +5,56 @@ import { useRouter } from "next/navigation";
 import { getSnapshots } from "@/lib/data";
 import { squarify, type TreemapRect } from "@/lib/treemap";
 import { fcfa, pct } from "@/lib/format";
-import type { StockSnapshot } from "@/lib/types";
+import type { RealQuote, StockSnapshot } from "@/lib/types";
+import { PillTabs } from "@/components/ui/tabs";
 
-const GROUP_GAP = 3;
-const HEADER_H = 17;
+const GROUP_GAP = 5;
+const HEADER_H = 19;
 
 /**
- * Couleur d'une tuile selon la variation du jour, saturation pleine à
- * ±4 %. Palette fixe (indépendante du thème) : la carte est un canvas
- * de données, comme le chart — texte blanc lisible sur toutes les tuiles.
+ * Horizons de performance (façon Finviz). `range` = variation à laquelle
+ * la couleur sature : ±4 % est énorme sur un jour, banal sur 5 ans.
  */
-export function tileColor(changePct: number): string {
-  const t = Math.min(Math.abs(changePct) / 4, 1);
-  const base = [63, 63, 70]; // zinc-700 : stable / ± 0 %
+const HORIZONS = [
+  { id: "1J", label: "1 jour", get: (r: RealQuote) => r.dayChangePct, range: 4 },
+  { id: "1S", label: "1 sem.", get: (r: RealQuote) => r.weekChangePct, range: 6 },
+  { id: "1M", label: "1 mois", get: (r: RealQuote) => r.monthChangePct, range: 10 },
+  { id: "3M", label: "3 mois", get: (r: RealQuote) => r.quarterChangePct, range: 15 },
+  { id: "6M", label: "6 mois", get: (r: RealQuote) => r.halfYearChangePct, range: 25 },
+  { id: "YTD", label: "YTD", get: (r: RealQuote) => r.ytdChangePct, range: 40 },
+  { id: "1A", label: "1 an", get: (r: RealQuote) => r.yearChangePct, range: 40 },
+  { id: "5A", label: "5 ans", get: (r: RealQuote) => r.fiveYearChangePct, range: 150 },
+] as const;
+
+type HorizonId = (typeof HORIZONS)[number]["id"];
+
+/** Couleur de tuile : neutre à 0, sature à ±range. Palette fixe (canvas de données). */
+export function tileColor(changePct: number, range: number): string {
+  const t = Math.min(Math.abs(changePct) / range, 1);
+  const base = [63, 63, 70];
   const target = changePct >= 0 ? [22, 163, 74] : [220, 38, 38];
-  const mix = base.map((b, i) => Math.round(b + (target[i] - b) * t));
   if (Math.abs(changePct) < 0.005) return `rgb(${base.join(",")})`;
+  const mix = base.map((b, i) => Math.round(b + (target[i] - b) * t));
   return `rgb(${mix.join(",")})`;
 }
 
-/** Poids d'une tuile : liquidité (volume moyen 30 j × cours). Un plancher
- * garde les valeurs illiquides visibles (fine tuile plutôt qu'absente). */
+/** Poids d'une tuile : liquidité (volume moyen 30 j × cours), plancher
+ * pour garder les valeurs illiquides visibles et cliquables. */
 function weight(s: StockSnapshot): number {
   return s.avgVolume30d * s.lastPrice;
 }
+
+/** Ordre fixe des secteurs (les poids font le reste) — lecture stable
+ * d'un jour à l'autre, comme l'option « fixed sector order » de Finviz. */
+const SECTOR_ORDER = [
+  "Banque",
+  "Télécom",
+  "Agro-industrie",
+  "Industrie",
+  "Distribution",
+  "Services publics",
+  "Autre",
+];
 
 interface Layout {
   groups: {
@@ -50,13 +76,17 @@ function computeLayout(
     bySector.set(s.sector, arr);
   }
   const maxW = Math.max(...snapshots.map(weight));
-  const floor = maxW * 0.004;
+  const floor = maxW * 0.006;
   const w = (s: StockSnapshot) => Math.max(weight(s), floor);
 
-  const sectorItems = [...bySector.entries()].map(([sector, stocks]) => ({
-    id: sector,
-    weight: stocks.reduce((a, s) => a + w(s), 0),
-  }));
+  const sectorItems = [...bySector.entries()]
+    .map(([sector, stocks]) => ({
+      id: sector,
+      weight: stocks.reduce((a, s) => a + w(s), 0),
+    }))
+    .sort(
+      (a, b) => SECTOR_ORDER.indexOf(a.id) - SECTOR_ORDER.indexOf(b.id)
+    );
 
   const sectorRects = squarify(sectorItems, 0, 0, width, height);
 
@@ -94,8 +124,10 @@ export function MarketMap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   const [hover, setHover] = useState<Hover | null>(null);
+  const [horizonId, setHorizonId] = useState<HorizonId>("1J");
   const router = useRouter();
   const snapshots = getSnapshots();
+  const horizon = HORIZONS.find((h) => h.id === horizonId) ?? HORIZONS[0];
 
   useEffect(() => {
     const el = containerRef.current;
@@ -113,99 +145,138 @@ export function MarketMap() {
     [snapshots, size]
   );
 
+  const change = (s: StockSnapshot): number =>
+    s.real ? horizon.get(s.real) : s.dayChange;
+
+  const legendStops = [-1, -0.5, 0, 0.5, 1].map((f) => ({
+    label: `${f > 0 ? "+" : ""}${Math.round(f * horizon.range)} %`,
+    color: tileColor(f * horizon.range, horizon.range),
+  }));
+
   return (
-    <div
-      ref={containerRef}
-      className="relative h-[62vh] min-h-[460px] w-full overflow-hidden rounded-xl bg-[#0c0c0e]"
-      onMouseLeave={() => setHover(null)}
-    >
-      {layout?.groups.map((g) => (
-        <div key={g.sector}>
-          {g.rect.width > 70 && g.rect.height > 42 ? (
-            <div
-              className="pointer-events-none absolute truncate px-1.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-400"
-              style={{
-                left: g.rect.x + GROUP_GAP / 2,
-                top: g.rect.y + GROUP_GAP / 2,
-                width: g.rect.width - GROUP_GAP,
-                height: HEADER_H,
-                lineHeight: `${HEADER_H}px`,
-              }}
-            >
-              {g.sector}
-            </div>
-          ) : null}
-          {g.tiles.map(({ stock, rect }) => {
-            const showTicker = rect.width >= 34 && rect.height >= 16;
-            const showPct = rect.width >= 44 && rect.height >= 34;
-            const big = rect.width >= 90 && rect.height >= 56;
-            return (
-              <button
-                key={stock.ticker}
-                onClick={() => router.push(`/stocks/${stock.ticker}`)}
-                onMouseMove={(e) =>
-                  setHover({ stock, x: e.clientX, y: e.clientY })
-                }
-                className="absolute flex cursor-pointer flex-col items-center justify-center overflow-hidden outline outline-1 outline-black/40 transition-[filter] hover:brightness-125 hover:z-10"
-                style={{
-                  left: rect.x,
-                  top: rect.y,
-                  width: Math.max(0, rect.width - 1),
-                  height: Math.max(0, rect.height - 1),
-                  background: tileColor(stock.dayChange),
-                }}
-                aria-label={`${stock.ticker} ${pct(stock.dayChange)}`}
-              >
-                {showTicker ? (
-                  <span
-                    className="font-bold leading-none text-white drop-shadow-sm"
-                    style={{ fontSize: big ? 15 : rect.width >= 56 ? 12 : 9 }}
-                  >
-                    {stock.ticker}
-                  </span>
-                ) : null}
-                {showPct ? (
-                  <span
-                    className="num mt-0.5 leading-none text-white/85"
-                    style={{ fontSize: big ? 12 : 9 }}
-                  >
-                    {pct(stock.dayChange)}
-                  </span>
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
-      ))}
-
-      {!layout ? (
-        <div className="absolute inset-0 animate-pulse bg-surface-2" />
-      ) : null}
-
-      {hover ? (
-        <div
-          className="pointer-events-none fixed z-50 w-56 rounded-lg border border-line bg-surface p-2.5 shadow-xl"
-          style={{
-            left: Math.min(hover.x + 14, (size?.w ?? 320) - 230),
-            top: hover.y + 14,
-          }}
-        >
-          <p className="text-xs font-bold text-ink">
-            {hover.stock.ticker}{" "}
-            <span className="font-medium text-ink-3">{hover.stock.name}</span>
-          </p>
-          <div className="num mt-1 flex items-baseline justify-between text-xs">
-            <span className="font-semibold text-ink">{fcfa(hover.stock.lastPrice)}</span>
-            <span className={hover.stock.dayChange >= 0 ? "text-up" : "text-down"}>
-              {pct(hover.stock.dayChange)}
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <PillTabs
+          options={HORIZONS.map((h) => ({ value: h.id, label: h.label }))}
+          value={horizonId}
+          onChange={(v) => setHorizonId(v as HorizonId)}
+          className="max-w-full"
+        />
+        <div className="flex items-center gap-1.5 text-[10px] text-ink-3">
+          {legendStops.map((s) => (
+            <span key={s.label} className="flex items-center gap-1">
+              <span
+                className="inline-block h-3 w-5 rounded-[3px]"
+                style={{ background: s.color }}
+              />
+              {s.label}
             </span>
-          </div>
-          <p className="mt-1 text-[10px] text-ink-3">
-            {hover.stock.sector} · volume {hover.stock.volumeRatio.toFixed(1)}× la
-            moyenne 30 j
-          </p>
+          ))}
         </div>
-      ) : null}
+      </div>
+
+      <div
+        ref={containerRef}
+        className="relative h-[68vh] min-h-[500px] w-full overflow-hidden rounded-xl bg-[#0c0c0e]"
+        onMouseLeave={() => setHover(null)}
+      >
+        {layout?.groups.map((g) => (
+          <div key={g.sector}>
+            {g.rect.width > 56 && g.rect.height > 40 ? (
+              <div
+                className="pointer-events-none absolute flex items-center truncate bg-[#0c0c0e] px-1.5 text-[10px] font-bold uppercase tracking-widest text-zinc-300"
+                style={{
+                  left: g.rect.x + GROUP_GAP / 2,
+                  top: g.rect.y + GROUP_GAP / 2,
+                  width: g.rect.width - GROUP_GAP,
+                  height: HEADER_H,
+                }}
+              >
+                {g.sector}
+              </div>
+            ) : null}
+            {g.tiles.map(({ stock, rect }) => {
+              const chg = change(stock);
+              const showTicker = rect.width >= 30 && rect.height >= 14;
+              const showPct = rect.width >= 40 && rect.height >= 30;
+              const showPrice = rect.width >= 96 && rect.height >= 64;
+              const big = rect.width >= 90 && rect.height >= 54;
+              return (
+                <button
+                  key={stock.ticker}
+                  onClick={() => router.push(`/stocks/${stock.ticker}`)}
+                  onMouseMove={(e) =>
+                    setHover({ stock, x: e.clientX, y: e.clientY })
+                  }
+                  className="absolute flex cursor-pointer flex-col items-center justify-center overflow-hidden outline outline-1 outline-black/50 transition-[filter] hover:brightness-125 hover:z-10"
+                  style={{
+                    left: rect.x,
+                    top: rect.y,
+                    width: Math.max(0, rect.width - 1),
+                    height: Math.max(0, rect.height - 1),
+                    background: tileColor(chg, horizon.range),
+                  }}
+                  aria-label={`${stock.ticker} ${pct(chg)}`}
+                >
+                  {showTicker ? (
+                    <span
+                      className="font-bold leading-none text-white drop-shadow-sm"
+                      style={{ fontSize: big ? 15 : rect.width >= 52 ? 12 : 9 }}
+                    >
+                      {stock.ticker}
+                    </span>
+                  ) : null}
+                  {showPct ? (
+                    <span
+                      className="num mt-0.5 leading-none text-white/90"
+                      style={{ fontSize: big ? 12 : 9 }}
+                    >
+                      {pct(chg)}
+                    </span>
+                  ) : null}
+                  {showPrice ? (
+                    <span className="num mt-1 text-[10px] leading-none text-white/60">
+                      {fcfa(stock.lastPrice)}
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+        ))}
+
+        {!layout ? (
+          <div className="absolute inset-0 animate-pulse bg-surface-2" />
+        ) : null}
+
+        {hover ? (
+          <div
+            className="pointer-events-none fixed z-50 w-60 rounded-lg border border-line bg-surface p-2.5 shadow-xl"
+            style={{
+              left: Math.min(hover.x + 14, (size?.w ?? 320) - 240),
+              top: hover.y + 14,
+            }}
+          >
+            <p className="text-xs font-bold text-ink">
+              {hover.stock.ticker}{" "}
+              <span className="font-medium text-ink-3">{hover.stock.name}</span>
+            </p>
+            <div className="num mt-1 flex items-baseline justify-between text-xs">
+              <span className="font-semibold text-ink">
+                {fcfa(hover.stock.lastPrice)}
+              </span>
+              <span className={change(hover.stock) >= 0 ? "text-up" : "text-down"}>
+                {pct(change(hover.stock))}{" "}
+                <span className="text-ink-3">({horizon.label})</span>
+              </span>
+            </div>
+            <p className="mt-1 text-[10px] text-ink-3">
+              {hover.stock.sector} · jour {pct(hover.stock.dayChange)} · volume{" "}
+              {hover.stock.volumeRatio.toFixed(1)}× la moyenne 30 j
+            </p>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -76,8 +76,13 @@ def build_snapshot(records: list[dict]) -> dict:
         "dayChangePct": last["day_change_pct"],
         "weekChangePct": round(pct_change(close_at(5), last["close"]), 2),
         "monthChangePct": round(pct_change(close_at(21), last["close"]), 2),
+        "quarterChangePct": round(pct_change(close_at(66), last["close"]), 2),
+        "halfYearChangePct": round(pct_change(close_at(130), last["close"]), 2),
         "ytdChangePct": round(pct_change(first_of_year["close"], last["close"]), 2),
         "yearChangePct": round(pct_change(close_at(252), last["close"]), 2),
+        # série plus courte que l'horizon : close_at borne au 1er point
+        # connu -> performance « depuis l'introduction », comme Finviz.
+        "fiveYearChangePct": round(pct_change(close_at(1260), last["close"]), 2),
         "dayVolume": last["volume"],
         "avgVolume30d": round(avg30, 1),
         "volumeRatio": round(last["volume"] / avg30, 2) if avg30 else 1.0,

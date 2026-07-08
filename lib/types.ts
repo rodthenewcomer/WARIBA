@@ -256,8 +256,12 @@ export interface RealQuote {
   dayChangePct: number;
   weekChangePct: number;
   monthChangePct: number;
+  quarterChangePct: number;
+  halfYearChangePct: number;
   ytdChangePct: number;
   yearChangePct: number;
+  /** Borné à l'historique disponible : « depuis l'introduction » si la série est plus courte. */
+  fiveYearChangePct: number;
   dayVolume: number;
   avgVolume30d: number;
   volumeRatio: number;
