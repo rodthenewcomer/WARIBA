@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Bell, Sparkles } from "lucide-react";
 import { getSectorStats, getSnapshot } from "@/lib/data";
 import { getRealQuote } from "@/lib/real-data";
 import { getRealFundamentals, growthPct } from "@/lib/real-fundamentals";
+import { newsDate, newsForTicker } from "@/lib/news";
 import { docsForTicker } from "@/lib/mock/documents";
 import { DIVIDEND_MAP } from "@/lib/mock/dividends";
 import type { DocItem } from "@/lib/types";
@@ -31,9 +32,15 @@ import { DocumentCard } from "@/components/documents/document-card";
 import { DocumentViewerModal } from "@/components/documents/document-viewer-modal";
 
 export function StockView({ ticker }: { ticker: string }) {
+  // Ouvrir une fiche depuis le bas d'une longue liste (48 lignes) pouvait
+  // conserver la position de scroll : la page arrivait « ouverte en bas ».
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [ticker]);
   const stock = useMemo(() => getSnapshot(ticker), [ticker]);
   const real = useMemo(() => getRealQuote(ticker), [ticker]);
   const realFund = useMemo(() => getRealFundamentals(ticker), [ticker]);
+  const news = useMemo(() => newsForTicker(ticker), [ticker]);
   const [openDoc, setOpenDoc] = useState<DocItem | null>(null);
 
   if (!stock) return null;
@@ -303,6 +310,35 @@ export function StockView({ ticker }: { ticker: string }) {
           </div>
         </div>
       )}
+
+      {/* Actualités réelles */}
+      {news.length > 0 ? (
+        <section>
+          <div className="mb-2.5 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-ink">Actualités</h2>
+            <Badge tone="positive">Sources réelles</Badge>
+          </div>
+          <div className="grid gap-2.5 md:grid-cols-2">
+            {news.map((n) => (
+              <a
+                key={n.link}
+                href={n.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-xl border border-line bg-surface/50 p-3 hover:bg-surface-2 transition-colors"
+              >
+                <p className="text-xs font-semibold text-ink line-clamp-2">{n.title}</p>
+                {n.summary ? (
+                  <p className="mt-1 text-[11px] text-ink-3 line-clamp-2">{n.summary}</p>
+                ) : null}
+                <p className="mt-1.5 text-[10px] text-ink-3">
+                  {n.source} · {newsDate(n.publishedAt)}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Documents */}
       <section>

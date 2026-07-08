@@ -169,7 +169,7 @@ Ceci n'est pas un conseil en investissement.
 Le site est un export statique Next.js (`output: "export"`) déployé sur
 **GitHub Pages** : https://rodthenewcomer.github.io/AfriTerminal/
 
-Trois workflows GitHub Actions (`.github/workflows/`) :
+Quatre workflows GitHub Actions (`.github/workflows/`) :
 
 - **deploy.yml** — build + déploiement Pages à chaque push sur `main`
   (le `basePath` `/AfriTerminal` est injecté au build via
@@ -180,7 +180,12 @@ Trois workflows GitHub Actions (`.github/workflows/`) :
   idempotent), reconstruit `data/real/`, committe et redéploie ;
 - **live-poll.yml** — toutes les 15 min pendant la séance : collecte
   les cours différés de brvm.org dans `data/live/` pour reconstruire
-  le plus haut/plus bas intraday que le bulletin ne publie pas.
+  le plus haut/plus bas intraday que le bulletin ne publie pas ;
+- **news.yml** — toutes les 2 h en journée : agrège les actualités
+  Sika Finance + Financial Afrik (`scripts/news/fetch_news.py`,
+  rattachement aux tickers, liens vers les articles originaux) et
+  redéploie. Fraîcheur en heures — le temps réel exigera un hébergement
+  serveur (ISR), limite assumée du statique.
 
 Aucune machine locale n'est nécessaire : la fraîcheur des données et le
 déploiement sont entièrement portés par GitHub Actions.

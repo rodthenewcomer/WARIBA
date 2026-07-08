@@ -15,15 +15,17 @@
 }
 
 .dark {
-  --background: #050816;
-  --surface: #0b1122;
-  --surface-2: #101830;
+  /* Vrai dark neutre (base zinc, sans dominante bleue) — les halos
+     de marque restent mais très atténués pour ne pas teinter le fond. */
+  --background: #09090b;
+  --surface: #111113;
+  --surface-2: #18181b;
   --line: rgba(255, 255, 255, 0.08);
-  --ink: #f8fafc;
-  --ink-2: #94a3b8;
-  --ink-3: #5b6b84;
-  --glow-a: rgba(56, 189, 248, 0.07);
-  --glow-b: rgba(139, 92, 246, 0.06);
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #63636b;
+  --glow-a: rgba(56, 189, 248, 0.03);
+  --glow-b: rgba(139, 92, 246, 0.025);
 }
 
 @theme inline {

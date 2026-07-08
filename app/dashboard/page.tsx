@@ -16,7 +16,7 @@ import { getIndices, getSnapshots } from "@/lib/data";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
 import { TODAY } from "@/lib/mock/stocks";
 import { alertsOfDay } from "@/lib/mock/alerts";
-import { latestDocuments } from "@/lib/mock/documents";
+import { latestNews, newsDate } from "@/lib/news";
 import { upcomingDividends } from "@/lib/mock/dividends";
 import { IPOS } from "@/lib/mock/ipos";
 import { dateFr, fcfa, num, pct } from "@/lib/format";
@@ -25,7 +25,6 @@ import { PriceChange, SignalBadges } from "@/components/stocks/badges";
 import { AlertCard } from "@/components/alerts/alert-card";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ImportanceBadge } from "@/components/documents/document-card";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -80,7 +79,7 @@ export default function DashboardPage() {
       : s.scores.quality + s.scores.momentum - s.scores.risk;
   const toWatch = [...snapshots].sort((a, b) => watchScore(b) - watchScore(a)).slice(0, 4);
   const dayAlerts = alertsOfDay();
-  const docs = latestDocuments(4);
+  const news = latestNews(5);
   const dividends = upcomingDividends(TODAY).slice(0, 5);
   const liveOps = IPOS.filter((i) => i.status !== "Clôturée").slice(0, 2);
 
@@ -242,34 +241,36 @@ export default function DashboardPage() {
           <CardHeader
             title={
               <span className="inline-flex items-center gap-1.5">
-                <FileText className="h-3.5 w-3.5 text-accent" /> Derniers documents BRVM
+                <FileText className="h-3.5 w-3.5 text-accent" /> Actualités marchés
               </span>
             }
-            action={
-              <Link href="/documents" className="inline-flex items-center gap-1 text-xs text-accent hover:underline">
-                Tout voir <ArrowRight className="h-3 w-3" />
-              </Link>
-            }
+            subtitle="Sika Finance · Financial Afrik — liens vers les articles originaux"
           />
           <CardBody className="space-y-2.5">
-            {docs.map((d) => (
-              <Link
-                key={d.id}
-                href="/documents"
+            {news.map((n) => (
+              <a
+                key={n.link}
+                href={n.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-start gap-3 rounded-xl border border-line bg-surface/50 p-3 hover:bg-surface-2 transition-colors"
               >
-                <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-accent/10 text-[9px] font-bold text-accent">
-                  {d.ticker}
-                </span>
+                {n.tickers.length > 0 ? (
+                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-accent/10 text-[9px] font-bold text-accent">
+                    {n.tickers[0]}
+                  </span>
+                ) : (
+                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-surface-2 text-[9px] font-bold text-ink-3">
+                    BRVM
+                  </span>
+                )}
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-xs font-semibold text-ink">{d.title}</span>
-                  <span className="mt-0.5 block text-[11px] text-ink-3 line-clamp-1">{d.summary}</span>
+                  <span className="block text-xs font-semibold text-ink line-clamp-2">{n.title}</span>
+                  <span className="mt-0.5 block text-[11px] text-ink-3">
+                    {n.source} · {newsDate(n.publishedAt)}
+                  </span>
                 </span>
-                <span className="flex shrink-0 flex-col items-end gap-1">
-                  <ImportanceBadge level={d.importance} />
-                  <time className="text-[10px] text-ink-3">{dateFr(d.date)}</time>
-                </span>
-              </Link>
+              </a>
             ))}
           </CardBody>
         </Card>

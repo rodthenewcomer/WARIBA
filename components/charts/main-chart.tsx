@@ -127,7 +127,7 @@ export function MainChart({ ticker }: { ticker: string }) {
       if (cancelled) return;
 
       const dark = resolvedTheme !== "light";
-      const ink2 = dark ? "#94a3b8" : "#475569";
+      const ink2 = dark ? "#a1a1aa" : "#475569";
       const grid = dark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.05)";
       const border = dark ? "rgba(255,255,255,0.10)" : "rgba(15,23,42,0.12)";
 
@@ -145,8 +145,8 @@ export function MainChart({ ticker }: { ticker: string }) {
         },
         crosshair: {
           mode: CrosshairMode.Normal,
-          vertLine: { color: border, labelBackgroundColor: dark ? "#1e293b" : "#334155" },
-          horzLine: { color: border, labelBackgroundColor: dark ? "#1e293b" : "#334155" },
+          vertLine: { color: border, labelBackgroundColor: dark ? "#27272a" : "#334155" },
+          horzLine: { color: border, labelBackgroundColor: dark ? "#27272a" : "#334155" },
         },
         rightPriceScale: {
           borderColor: "transparent",

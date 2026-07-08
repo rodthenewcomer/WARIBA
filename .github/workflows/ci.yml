@@ -30,5 +30,8 @@ jobs:
       - name: Tests Python (fusion BOC, données app, golden test parseur)
         working-directory: scripts/boc
         run: python3 -m unittest discover -p "test_*.py" -v
+      - name: Tests Python (pipeline actualités)
+        working-directory: scripts/news
+        run: python3 -m unittest discover -p "test_*.py" -v
       - name: Build Next.js (lint + type-check inclus)
         run: npm run build
