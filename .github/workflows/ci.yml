@@ -25,8 +25,10 @@ jobs:
       - run: npm ci
       - name: Tests unitaires TypeScript (vitest)
         run: npx vitest run
-      - name: Tests unitaires Python (fusion BOC)
+      - name: Dépendances Python (pdfplumber pour le golden test du parseur)
+        run: pip install -r scripts/boc/requirements.txt
+      - name: Tests Python (fusion BOC, données app, golden test parseur)
         working-directory: scripts/boc
-        run: python3 -m unittest test_merge_day -v
+        run: python3 -m unittest discover -p "test_*.py" -v
       - name: Build Next.js (lint + type-check inclus)
         run: npm run build

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSnapshot, getSnapshots } from "@/lib/data";
+import { dateFr, fcfa, pct } from "@/lib/format";
 import { StockView } from "@/components/stocks/stock-view";
 
 export function generateStaticParams() {
@@ -14,8 +15,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { ticker } = await params;
   const stock = getSnapshot(ticker.toUpperCase());
+  if (!stock) return { title: "Action introuvable" };
+  // Description programmatique sur données réelles — le contenu SEO
+  // (« cours SNTS BRVM », « dividende SGBC »...) vient du pipeline.
+  const description = stock.real
+    ? `Cours ${stock.ticker} (${stock.name}) : ${fcfa(stock.lastPrice)} au ${dateFr(stock.real.asOfDate)} (${pct(stock.dayChange)}). Graphique, volumes, PER, dividendes et historique BRVM depuis 2019.`
+    : undefined;
   return {
-    title: stock ? `${stock.ticker} — ${stock.name}` : "Action introuvable",
+    title: `${stock.ticker} — ${stock.name}`,
+    description,
   };
 }
 

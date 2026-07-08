@@ -89,6 +89,42 @@ def build_snapshot(records: list[dict]) -> dict:
     }
 
 
+def load_live_bounds(live_dir: Path) -> dict[str, dict[str, dict]]:
+    """Charge data/live/*.json en {date: {ticker: {"high", "low"}}}.
+
+    Ces fichiers sont produits par live_poll.py (collecte des cours
+    différés pendant la séance). Ils n'existent qu'à partir du jour où le
+    collecteur a commencé à tourner (2026-07-08) — aucun rétroactif.
+    """
+    out: dict[str, dict[str, dict]] = {}
+    if not live_dir.exists():
+        return out
+    for f in sorted(live_dir.glob("*.json")):
+        day = json.loads(f.read_text(encoding="utf-8"))
+        out[f.stem] = {
+            ticker: {"high": rec["high"], "low": rec["low"]}
+            for ticker, rec in day.items()
+        }
+    return out
+
+
+def with_live_bounds(row: dict, bounds: dict | None) -> dict:
+    """Élargit high/low d'une bougie avec la fourchette observée en séance.
+
+    Le BOC reste la vérité pour open/close ; le collecteur intraday ne
+    peut qu'élargir la fourchette avec des prix réellement observés
+    (le BOC ne publie aucun plus haut/plus bas). Sans donnée live pour
+    ce jour/ticker, la bougie reste max/min(open, close) — sans mèche.
+    """
+    if not bounds:
+        return row
+    return {
+        **row,
+        "high": max(row["high"], bounds["high"]),
+        "low": min(row["low"], bounds["low"]),
+    }
+
+
 def build_indices(indices_src: Path, real_dir: Path) -> None:
     """Écrit indices.json (snapshot compact) et index-series/ (historique)."""
     if not indices_src.exists():
@@ -139,7 +175,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--series-dir", default="data/boc/series")
     parser.add_argument("--out-dir", default="data")
+    parser.add_argument("--live-dir", default="data/live")
     args = parser.parse_args()
+    live_by_date = load_live_bounds(Path(args.live_dir))
 
     series_dir = Path(args.series_dir)
     out_dir = Path(args.out_dir)
@@ -160,14 +198,17 @@ def main() -> None:
         snapshots[ticker] = snap
 
         ohlcv = [
-            {
-                "time": r["time"],
-                "open": r["open"],
-                "high": r["high"],
-                "low": r["low"],
-                "close": r["close"],
-                "volume": r["volume"],
-            }
+            with_live_bounds(
+                {
+                    "time": r["time"],
+                    "open": r["open"],
+                    "high": r["high"],
+                    "low": r["low"],
+                    "close": r["close"],
+                    "volume": r["volume"],
+                },
+                live_by_date.get(r["time"], {}).get(ticker),
+            )
             for r in records
         ]
         (series_out / f"{ticker}.json").write_text(

@@ -114,7 +114,7 @@ incrémentalement en CI, et `build_app_data.py` en dérive les artefacts
 consommés par l'app (`data/real/` : snapshot 48 tickers, séries OHLCV,
 indices + historique par indice).
 
-### Limite importante : pas de vrai plus haut/plus bas intraday
+### Limite importante : pas de vrai plus haut/plus bas intraday (atténuée depuis le 2026-07-08)
 
 Le BOC ne publie, pour chaque action, que le **cours d'ouverture et de
 clôture** de la séance — aucune fourchette intraday. `aggregate.py`
@@ -123,7 +123,13 @@ générées à partir de ces données n'auront jamais de mèche plus large
 que le corps. C'est une limite de la source, pas un bug du parseur —
 à mentionner clairement si ces séries alimentent un jour l'UI, pour ne
 pas laisser croire à une precision qui n'existe pas dans la donnée
-officielle.
+officielle. **Atténuation** : depuis le 2026-07-08, `build_app_data.py`
+élargit high/low avec la fourchette réellement observée par
+`live_poll.py` (`data/live/`, collecte GitHub Actions toutes les 15 min
+en séance) — les bougies gagnent de vraies mèches à partir de ce jour,
+jamais rétroactivement. Le golden test `test_parse_boc.py` (fixture PDF
+committée, bulletin du 2023-06-05) fige par ailleurs le comportement du
+parseur contre les régressions silencieuses.
 
 `data/boc/raw/` (sortie de `backfill.py`) est dans `.gitignore` —
 régénérable, pas committée telle quelle. `data/boc/series/` (sortie de
