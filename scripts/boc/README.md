@@ -146,3 +146,56 @@ Testé le 2026-07-07 : 47 cotations récupérées en un appel, format
 stable. Reste à décider : exécution en cron local (fragile si la
 machine est éteinte/en veille) ou agent planifié dans le cloud (plus
 robuste, tourne indépendamment de l'ordinateur).
+
+## Pipeline fondamentaux (prototype, non branché — 2026-07-08)
+
+Reconnaissance et prototypes pour aller au-delà des prix : la BRVM publie
+de vrais états financiers par société, une fiche par société sur
+`/fr/rapports-societe-cotes/[slug]` (ex. `/sonatel`, `/palm-ci`,
+`/coris-bank-international`), avec des PDF téléchargeables remontant à
+2019. Les 15 sociétés modélisées ont été mappées à leur slug (voir
+historique git).
+
+**Deux familles de documents, deux approches, résultats très différents :**
+
+1. **Sociétés non-bancaires (SYSCOHADA "Système Normal")** —
+   `parse_fundamentals_syscohada.py`. Le compte de résultat suit une
+   nomenclature légalement standardisée ("CHIFFRE D'AFFAIRES",
+   "RESULTAT DES ACTIVITES ORDINAIRES", "RESULTAT NET") — en théorie
+   identique d'une société à l'autre. Extraction **par tableau**
+   (`pdfplumber.extract_tables()`), pas par regex sur texte brut : les
+   nombres français groupés par espaces ("10 074 573 973") deviennent
+   ambigus une fois aplatis en texte, mais restent des cellules
+   distinctes dans les tables détectées.
+   - **Validé** sur ERIUM CI (ex Air Liquide) et Palm CI : CA, résultat
+     des activités ordinaires, résultat net, tous corrects (vérifiés à
+     la main contre le PDF).
+   - **Casse/accents non résolus** : CIEC utilise "Chiffre d'affaires"
+     et "RÉSULTAT NET" (accentué) au lieu de "CHIFFRE D'AFFAIRES" /
+     "RESULTAT NET". Une tentative de recherche insensible à la
+     casse/aux accents a été essayée et **rejetée** : elle fait
+     remonter par erreur la ligne "Résultat net" du bilan (report à
+     nouveau) au lieu de celle du compte de résultat — un vrai fix
+     demanderait de restreindre la recherche à la section "COMPTE DE
+     RESULTAT" du document, pas juste ignorer casse/accents. Non fait.
+
+2. **Banques** — `parse_fundamentals_bank.py`. Les indicateurs clés
+   (PNB, résultat net, coefficient d'exploitation, coût du risque)
+   apparaissent en texte libre dans un communiqué de résultats, **en
+   mise en page 2 colonnes** (nécessite un découpage gauche/droite
+   avant extraction, sinon les phrases sont entrelacées entre colonnes).
+   - **Validé** sur NSIA Banque CI : les 4 indicateurs extraits
+     correctement par regex sur des tournures récurrentes ("X s'établit
+     à N milliards FCFA contre M milliards FCFA au 31 décembre AAAA").
+   - **Ne généralise pas** : testé sur SGBC, gabarit de rapport
+     complètement différent (rapport d'activité façon "executive
+     summary" vs communiqué court chez NSIA). Chaque banque semble
+     avoir son propre template — un extracteur par société serait
+     probablement nécessaire, pas un extracteur par secteur.
+
+**Conclusion à ce stade** : faisable, mais l'ampleur réelle est
+supérieure aux estimations initiales — potentiellement un extracteur
+sur mesure par société plutôt qu'un par format. 2 des ~10 sociétés
+non-bancaires sont pleinement validées, aucune des 5 banques ne l'est
+de façon fiable. Rien de tout ceci n'est branché dans l'app — chantier
+à reprendre séparément.
