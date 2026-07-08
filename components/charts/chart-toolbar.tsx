@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronDown, GitCompareArrows, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, GitCompareArrows, Maximize2, Minimize2, SlidersHorizontal } from "lucide-react";
 import type { ChartType, IndicatorId, Timeframe } from "@/lib/types";
+import type { MaId } from "@/hooks/use-chart-prefs";
 import { cn } from "@/lib/utils";
 import { PillTabs } from "@/components/ui/tabs";
 
@@ -16,12 +17,13 @@ const CHART_TYPES: { value: ChartType; label: string }[] = [
   { value: "heikin-ashi", label: "Heikin Ashi" },
 ];
 
-const INDICATORS: { id: IndicatorId; label: string }[] = [
-  { id: "sma20", label: "SMA 20" },
-  { id: "sma50", label: "SMA 50" },
-  { id: "sma100", label: "SMA 100" },
-  { id: "sma200", label: "SMA 200" },
-  { id: "ema20", label: "EMA 20" },
+// colorable : les moyennes mobiles ont une pastille de couleur éditable
+const INDICATORS: { id: IndicatorId; label: string; colorable?: MaId }[] = [
+  { id: "sma20", label: "SMA 20", colorable: "sma20" },
+  { id: "sma50", label: "SMA 50", colorable: "sma50" },
+  { id: "sma100", label: "SMA 100", colorable: "sma100" },
+  { id: "sma200", label: "SMA 200", colorable: "sma200" },
+  { id: "ema20", label: "EMA 20", colorable: "ema20" },
   { id: "bollinger", label: "Bandes de Bollinger" },
   { id: "rsi", label: "RSI 14" },
   { id: "macd", label: "MACD" },
@@ -69,7 +71,7 @@ function Dropdown({
         <ChevronDown className="h-3 w-3 opacity-60" />
       </button>
       {open ? (
-        <div className="absolute right-0 z-30 mt-1.5 w-56 rounded-xl border border-line bg-surface p-1.5 shadow-xl">
+        <div className="absolute right-0 z-30 mt-1.5 max-h-80 w-56 overflow-y-auto rounded-xl border border-line bg-surface p-1.5 shadow-xl">
           {children}
         </div>
       ) : null}
@@ -129,6 +131,11 @@ export interface ChartToolbarProps {
   onCompare: (codes: string[]) => void;
   compareOptions: { code: string; label: string }[];
   intraday: boolean;
+  maColors: Record<MaId, string>;
+  onMaColor: (id: MaId, color: string) => void;
+  onResetMaColors: () => void;
+  fullscreen: boolean;
+  onFullscreen: (v: boolean) => void;
 }
 
 export function ChartToolbar(props: ChartToolbarProps) {
@@ -194,13 +201,32 @@ export function ChartToolbar(props: ChartToolbarProps) {
           count={props.indicators.length}
         >
           {INDICATORS.map((ind) => (
-            <CheckItem
-              key={ind.id}
-              label={ind.label}
-              checked={props.indicators.includes(ind.id)}
-              onToggle={() => toggleIndicator(ind.id)}
-            />
+            <div key={ind.id} className="flex items-center gap-1">
+              <div className="flex-1">
+                <CheckItem
+                  label={ind.label}
+                  checked={props.indicators.includes(ind.id)}
+                  onToggle={() => toggleIndicator(ind.id)}
+                />
+              </div>
+              {ind.colorable ? (
+                <input
+                  type="color"
+                  value={props.maColors[ind.colorable]}
+                  onChange={(e) => props.onMaColor(ind.colorable as MaId, e.target.value)}
+                  title={`Couleur ${ind.label}`}
+                  suppressHydrationWarning
+                  className="h-5 w-5 shrink-0 cursor-pointer rounded border border-line bg-transparent p-0 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded [&::-webkit-color-swatch]:border-0"
+                />
+              ) : null}
+            </div>
           ))}
+          <button
+            onClick={props.onResetMaColors}
+            className="mt-1 w-full rounded-lg px-2.5 py-1.5 text-left text-[11px] text-ink-3 hover:bg-surface-2 hover:text-ink cursor-pointer"
+          >
+            Réinitialiser les couleurs
+          </button>
         </Dropdown>
         <Dropdown
           label="Comparer"
@@ -222,6 +248,14 @@ export function ChartToolbar(props: ChartToolbarProps) {
             />
           ))}
         </Dropdown>
+        <button
+          onClick={() => props.onFullscreen(!props.fullscreen)}
+          title={props.fullscreen ? "Quitter le plein écran (Échap)" : "Plein écran"}
+          aria-label={props.fullscreen ? "Quitter le plein écran" : "Plein écran"}
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-line bg-surface/60 text-ink-2 hover:bg-surface-2 hover:text-ink cursor-pointer transition-colors"
+        >
+          {props.fullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
+        </button>
       </div>
     </div>
   );

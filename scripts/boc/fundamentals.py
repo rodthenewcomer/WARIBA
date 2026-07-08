@@ -12,6 +12,13 @@ millions, rarement libellés) et un extracteur validé sur ce gabarit.
 Il s'exécute à la main quand de nouveaux états sortent, pas en cron :
 ajouter une société = travail de validation, pas de configuration.
 
+Inférence d'unité semi-automatique pour les ajouts du 2026-07-08 :
+unité retenue = la seule parmi {FCFA, milliers, millions, milliards}
+qui rende à la fois le CA plausible (0,5-2000 Md) ET le nombre
+d'actions implicite (PER officiel BOC × RN / cours) réaliste — puis
+revue à la main. SNTS/TTLS/SCRC écartés : extractions contradictoires
+ou cellules fusionnées ambiguës.
+
 Vérifications d'unités (2026-07-08, exercice 2025) :
 - SPHC/ONTBF/SIVC : montants à 11-12 chiffres, FCFA pleins sans ambiguïté.
 - CIEC : « en millions de francs CFA » libellé dans le PDF.
@@ -77,6 +84,64 @@ REGISTRY: dict[str, dict] = {
         "pdf": f"{BASE}/20260626_-_etats_financiers_-_exercice_2025_-_erium_ci.pdf",
         "publishedOn": "2026-06-26",
         "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1,
+    },
+    "ORAC": {
+        # États financiers en MILLIARDS de FCFA (rare) — triangulé : PER
+        # BOC × RN 167,8 Md / cours ≈ 150 M d'actions, le vrai flottant
+        # d'Orange CI (~150,4 M).
+        "pdf": f"{BASE}/20260217_-_etats_financiers_-_exercice_2025_-_orange_ci.pdf",
+        "publishedOn": "2026-02-17",
+        "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1_000_000_000,
+    },
+    "BNBC": {
+        "pdf": f"{BASE}/20260430_-_etats_financiers_-_exercice_2025_-_bernabe_ci.pdf",
+        "publishedOn": "2026-04-30",
+        "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1,
+    },
+    "CABC": {
+        "pdf": f"{BASE}/20260311_-_etats_financiers_ifrs_-_exercice_2025_-_sicable_ci.pdf",
+        "publishedOn": "2026-03-11",
+        "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1_000,
+    },
+    "CFAC": {
+        # Dernier exercice publié : 2024 (pas encore d'états 2025 en ligne).
+        "pdf": f"{BASE}/20250516_-_etats_financiers_-_exercice_2024_-_cfao_motors_ci.pdf",
+        "publishedOn": "2025-05-16",
+        "fiscalYear": 2024,
+        "extractor": "syscohada",
+        "unit": 1,
+    },
+    # FTSC écarté : la ligne "Résultat Net 465 981 / 18 595 275" du PDF
+    # 2025 impliquerait une marge nette 2024 de ~60 % (impossible pour un
+    # emballeur) — colonnes probablement désalignées dans le tableau
+    # extrait. À reprendre avec une vérification visuelle du document.
+    "LNBB": {
+        "pdf": f"{BASE}/20260430_-_etats_financiers_-_exercice_2025_-_lnb_bn.pdf",
+        "publishedOn": "2026-04-30",
+        "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1,
+    },
+    "SHEC": {
+        "pdf": f"{BASE}/20260603_-_etats_financiers_-_exercice_2025_-_vivo_energy.pdf",
+        "publishedOn": "2026-06-03",
+        "fiscalYear": 2025,
+        "extractor": "syscohada",
+        "unit": 1,
+    },
+    "UNLC": {
+        # Derniers états publiés : exercice 2023 (société en restructuration).
+        "pdf": f"{BASE}/20240904_-_etats_financiers_-_exercice_2023_-_unilever_ci.pdf",
+        "publishedOn": "2024-09-04",
+        "fiscalYear": 2023,
         "extractor": "syscohada",
         "unit": 1,
     },

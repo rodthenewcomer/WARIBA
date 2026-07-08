@@ -36,6 +36,8 @@ import {
 } from "@/lib/indicators";
 import { adjustForDividends, CHART_COLORS, COMPARE_COLORS } from "@/lib/chart-utils";
 import { compactVolume, pct } from "@/lib/format";
+import { useChartPrefs } from "@/hooks/use-chart-prefs";
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChartToolbar } from "./chart-toolbar";
 
@@ -49,11 +51,11 @@ function fmtPrice(p: number): string {
   return p < 100 ? PRICE_FMT2.format(p) : PRICE_FMT.format(p);
 }
 
-const OVERLAYS: { id: IndicatorId; period: number; color: string }[] = [
-  { id: "sma20", period: 20, color: CHART_COLORS.sma20 },
-  { id: "sma50", period: 50, color: CHART_COLORS.sma50 },
-  { id: "sma100", period: 100, color: CHART_COLORS.sma100 },
-  { id: "sma200", period: 200, color: CHART_COLORS.sma200 },
+const OVERLAYS: { id: "sma20" | "sma50" | "sma100" | "sma200"; period: number }[] = [
+  { id: "sma20", period: 20 },
+  { id: "sma50", period: 50 },
+  { id: "sma100", period: 100 },
+  { id: "sma200", period: 200 },
 ];
 
 async function compareSeriesData(code: string, tf: Timeframe): Promise<OHLCV[]> {
@@ -76,6 +78,8 @@ export function MainChart({ ticker }: { ticker: string }) {
   const [compare, setCompare] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
   const [noIntraday, setNoIntraday] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
+  const { maColors, setMaColor, resetMaColors } = useChartPrefs();
   const isReal = isRealTicker(ticker);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -255,7 +259,7 @@ export function MainChart({ ticker }: { ticker: string }) {
         for (const ov of OVERLAYS) {
           if (!indicators.includes(ov.id)) continue;
           const s = c.addSeries(LineSeries, {
-            color: ov.color,
+            color: maColors[ov.id],
             lineWidth: 1,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -270,7 +274,7 @@ export function MainChart({ ticker }: { ticker: string }) {
         }
         if (indicators.includes("ema20")) {
           const s = c.addSeries(LineSeries, {
-            color: CHART_COLORS.ema20,
+            color: maColors.ema20,
             lineWidth: 1,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -396,7 +400,22 @@ export function MainChart({ ticker }: { ticker: string }) {
     isReal,
     resolvedTheme,
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    JSON.stringify(maColors),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   ]);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullscreen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [fullscreen]);
 
   const compareOptions = useMemo(
     () => [
@@ -412,7 +431,12 @@ export function MainChart({ ticker }: { ticker: string }) {
   );
 
   return (
-    <div className="flex flex-col gap-2.5">
+    <div
+      className={cn(
+        "flex flex-col gap-2.5",
+        fullscreen && "fixed inset-0 z-50 bg-background p-3 sm:p-5"
+      )}
+    >
       <ChartToolbar
         tf={tf}
         onTf={setTf}
@@ -428,6 +452,11 @@ export function MainChart({ ticker }: { ticker: string }) {
         onCompare={setCompare}
         compareOptions={compareOptions}
         intraday={intraday}
+        maColors={maColors}
+        onMaColor={setMaColor}
+        onResetMaColors={resetMaColors}
+        fullscreen={fullscreen}
+        onFullscreen={setFullscreen}
       />
       {comparing ? (
         <div className="flex flex-wrap items-center gap-2 text-[11px]">
@@ -448,8 +477,11 @@ export function MainChart({ ticker }: { ticker: string }) {
         </div>
       ) : null}
       <div
-        className="relative w-full rounded-xl border border-line bg-surface/40 overflow-hidden"
-        style={{ height: hasPanes ? 560 : 440 }}
+        className={cn(
+          "relative w-full rounded-xl border border-line bg-surface/40 overflow-hidden",
+          fullscreen && "min-h-0 flex-1"
+        )}
+        style={fullscreen ? undefined : { height: hasPanes ? 560 : 440 }}
       >
         {!ready ? <Skeleton className="absolute inset-2" /> : null}
         {ready && noIntraday ? (
