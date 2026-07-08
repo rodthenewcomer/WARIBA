@@ -114,15 +114,17 @@ export default function WatchlistPage() {
                 </Link>
                 <div className="hidden sm:block">
                   <Sparkline
-                    data={getSeries(s.ticker).daily.slice(-30).map((d) => d.close)}
+                    data={s.real ? s.real.sparkline : getSeries(s.ticker).daily.slice(-30).map((d) => d.close)}
                     width={90}
                     height={30}
                   />
                 </div>
-                <div className="hidden md:flex items-center gap-1.5">
-                  <ScoreBadge kind="quality" value={s.scores.quality} compact />
-                  <ScoreBadge kind="risk" value={s.scores.risk} compact />
-                </div>
+                {!s.real ? (
+                  <div className="hidden md:flex items-center gap-1.5">
+                    <ScoreBadge kind="quality" value={s.scores.quality} compact />
+                    <ScoreBadge kind="risk" value={s.scores.risk} compact />
+                  </div>
+                ) : null}
                 <div className="text-right">
                   <p className="num text-sm font-semibold text-ink">{fcfa(s.lastPrice)}</p>
                   <PriceChange value={s.dayChange} className="text-xs" />
@@ -135,7 +137,7 @@ export default function WatchlistPage() {
                   <Star className="h-4 w-4 fill-current" />
                 </button>
               </div>
-              {s.signals.length > 0 ? (
+              {!s.real && s.signals.length > 0 ? (
                 <div className="mt-2 pl-12">
                   <SignalBadges signals={s.signals} max={4} />
                 </div>

@@ -132,6 +132,14 @@ export interface StockSnapshot extends Stock, Derived {
   scores: Scores;
   signals: Signal[];
   insight: AIInsight;
+  /**
+   * Présent si un vrai historique BRVM existe pour ce ticker (voir
+   * lib/real-data.ts). Quand présent, les champs de prix/volume/PER/
+   * dividende ci-dessus ont déjà été remplacés par les vraies valeurs —
+   * scores/signals/insight restent calculés sur les fondamentaux fictifs
+   * et NE DOIVENT PAS être affichés pour ce ticker (voir stock-view.tsx).
+   */
+  real?: RealQuote;
 }
 
 export interface DividendRecord {
@@ -244,6 +252,8 @@ export interface RealQuote {
   netYieldPct: number | null;
   lastDividendNet: number | null;
   lastDividendDate: string | null;
+  /** Derniers ~30 cours de clôture, pour les sparklines — évite un import dynamique juste pour un mini-graphe. */
+  sparkline: number[];
 }
 
 export interface IndexInfo {

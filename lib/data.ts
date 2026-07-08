@@ -10,6 +10,7 @@ import { getIndexSeries, getSeries } from "./mock/series";
 import { IRVM_RATE } from "./mock/dividends";
 import { computeScores, detectSignals } from "./signals";
 import { generateInsight } from "./insights";
+import { getRealQuote } from "./real-data";
 
 function pctChange(from: number, to: number): number {
   if (from === 0) return 0;
@@ -62,7 +63,31 @@ export function getSnapshots(): StockSnapshot[] {
     const signals = detectSignals(stock, derived);
     const scores = computeScores(stock, derived);
     const insight = generateInsight(stock, derived, signals);
-    return { ...stock, ...derived, scores, signals, insight };
+    const real = getRealQuote(stock.ticker);
+    const base: StockSnapshot = { ...stock, ...derived, scores, signals, insight, real };
+
+    if (!real) return base;
+
+    // Prix/volume/PER/dividende réels remplacent les valeurs mockées partout
+    // où ce snapshot est consommé (dashboard, marchés, screener, watchlist,
+    // recherche). scores/signals/insight restent calculés sur les
+    // fondamentaux fictifs — les composants doivent vérifier `real` avant
+    // de les afficher (voir stock-view.tsx pour le pattern).
+    return {
+      ...base,
+      lastPrice: real.lastClose,
+      avgVolume30d: real.avgVolume30d,
+      dayChange: real.dayChangePct,
+      weekChange: real.weekChangePct,
+      monthChange: real.monthChangePct,
+      ytdChange: real.ytdChangePct,
+      yearChange: real.yearChangePct,
+      dayVolume: real.dayVolume,
+      volumeRatio: real.volumeRatio,
+      per: real.per ?? base.per,
+      yieldNet: real.netYieldPct ?? base.yieldNet,
+      netDividend: real.lastDividendNet ?? base.netDividend,
+    };
   });
   return snapshots;
 }

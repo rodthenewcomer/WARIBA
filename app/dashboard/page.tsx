@@ -70,13 +70,14 @@ export default function DashboardPage() {
     .filter((s) => s.volumeRatio >= 1.5)
     .sort((a, b) => b.volumeRatio - a.volumeRatio)
     .slice(0, 5);
-  const toWatch = [...snapshots]
-    .sort(
-      (a, b) =>
-        b.scores.quality + b.scores.momentum - b.scores.risk -
-        (a.scores.quality + a.scores.momentum - a.scores.risk)
-    )
-    .slice(0, 4);
+  // Sur données réelles, pas de scores fondamentaux fiables : on classe par
+  // amplitude du mouvement (variation absolue + ratio de volume) plutôt que
+  // par qualité/momentum/risque (fictifs pour les tickers réels).
+  const watchScore = (s: (typeof snapshots)[number]) =>
+    s.real
+      ? Math.abs(s.weekChange) * 1.5 + s.volumeRatio * 10
+      : s.scores.quality + s.scores.momentum - s.scores.risk;
+  const toWatch = [...snapshots].sort((a, b) => watchScore(b) - watchScore(a)).slice(0, 4);
   const dayAlerts = alertsOfDay();
   const docs = latestDocuments(4);
   const dividends = upcomingDividends(TODAY).slice(0, 5);
@@ -95,7 +96,9 @@ export default function DashboardPage() {
             Comprends le mouvement.
           </p>
         </div>
-        <Badge tone="gold">Démo — données simulées</Badge>
+        <Badge tone="positive" title="Cours, variations et volumes réels (BRVM) — alertes, documents et IPO restent simulés">
+          Cours réels · reste en démo
+        </Badge>
       </div>
 
       {/* Indices */}
@@ -204,7 +207,7 @@ export default function DashboardPage() {
                 <Radar className="h-3.5 w-3.5 text-violet" /> Actions à surveiller cette semaine
               </span>
             }
-            subtitle="Meilleur mix qualité × momentum × risque"
+            subtitle="Plus forte amplitude (semaine × volume)"
           />
           <CardBody className="space-y-3">
             {toWatch.map((s) => (
@@ -222,7 +225,13 @@ export default function DashboardPage() {
                     <PriceChange value={s.dayChange} className="text-xs" arrow={false} />
                   </span>
                 </div>
-                <SignalBadges signals={s.signals} max={3} />
+                {s.real ? (
+                  <p className="text-[11px] text-ink-3">
+                    Variation 1 sem. {pct(s.weekChange)} · volume {s.volumeRatio.toFixed(1)}× la moyenne
+                  </p>
+                ) : (
+                  <SignalBadges signals={s.signals} max={3} />
+                )}
               </Link>
             ))}
           </CardBody>

@@ -12,32 +12,27 @@ import { StockTable } from "@/components/stocks/stock-table";
 interface Filters {
   sector: Sector | "";
   perMax: string;
-  pbMax: string;
-  roeMin: string;
   yieldMin: string;
-  growthMin: string;
-  qualityMin: string;
-  riskMax: string;
+  ytdMin: string;
+  volumeRatioMin: string;
 }
 
 const EMPTY: Filters = {
   sector: "",
   perMax: "",
-  pbMax: "",
-  roeMin: "",
   yieldMin: "",
-  growthMin: "",
-  qualityMin: "",
-  riskMax: "",
+  ytdMin: "",
+  volumeRatioMin: "",
 };
 
+// Uniquement des critères réels (PER, rendement net, variation, volume) —
+// pas de P/B, ROE, croissance ou score qualité/risque : ces fondamentaux ne
+// sont pas disponibles dans le pipeline réel (voir scripts/boc/README.md).
 const PRESETS: { id: string; label: string; filters: Partial<Filters> }[] = [
-  { id: "banques", label: "Banques rentables", filters: { sector: "Banque", roeMin: "18", perMax: "12" } },
-  { id: "dividendes", label: "Dividendes solides", filters: { yieldMin: "5.5", riskMax: "50" } },
-  { id: "value", label: "Sous-évaluées", filters: { perMax: "8", pbMax: "1.2" } },
-  { id: "momentum", label: "Momentum fort", filters: { growthMin: "15", qualityMin: "55" } },
-  { id: "qualite", label: "Qualité premium", filters: { qualityMin: "70", riskMax: "45" } },
-  { id: "danger", label: "Actions à éviter", filters: { riskMax: "", qualityMin: "" } },
+  { id: "dividendes", label: "Dividendes solides", filters: { yieldMin: "5.5" } },
+  { id: "value", label: "PER faible", filters: { perMax: "8" } },
+  { id: "momentum", label: "Momentum fort (YTD)", filters: { ytdMin: "15" } },
+  { id: "volume", label: "Volume anormal", filters: { volumeRatioMin: "2" } },
 ];
 
 function num(v: string): number | null {
@@ -45,38 +40,26 @@ function num(v: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-function applyFilters(stocks: StockSnapshot[], f: Filters, dangerMode: boolean): StockSnapshot[] {
-  if (dangerMode) {
-    return stocks.filter((s) => s.scores.risk >= 55 || s.scores.quality <= 35);
-  }
+function applyFilters(stocks: StockSnapshot[], f: Filters): StockSnapshot[] {
   return stocks.filter((s) => {
     if (f.sector && s.sector !== f.sector) return false;
     const perMax = num(f.perMax);
     if (perMax !== null && (s.per <= 0 || s.per > perMax)) return false;
-    const pbMax = num(f.pbMax);
-    if (pbMax !== null && s.fundamentals.pb > pbMax) return false;
-    const roeMin = num(f.roeMin);
-    if (roeMin !== null && s.fundamentals.roe < roeMin) return false;
     const yieldMin = num(f.yieldMin);
     if (yieldMin !== null && s.yieldNet < yieldMin) return false;
-    const growthMin = num(f.growthMin);
-    if (growthMin !== null && s.netIncomeGrowth < growthMin) return false;
-    const qualityMin = num(f.qualityMin);
-    if (qualityMin !== null && s.scores.quality < qualityMin) return false;
-    const riskMax = num(f.riskMax);
-    if (riskMax !== null && s.scores.risk > riskMax) return false;
+    const ytdMin = num(f.ytdMin);
+    if (ytdMin !== null && s.ytdChange < ytdMin) return false;
+    const volumeRatioMin = num(f.volumeRatioMin);
+    if (volumeRatioMin !== null && s.volumeRatio < volumeRatioMin) return false;
     return true;
   });
 }
 
 const FIELDS: { key: keyof Filters; label: string; placeholder: string }[] = [
   { key: "perMax", label: "PER max", placeholder: "ex. 12" },
-  { key: "pbMax", label: "P/B max", placeholder: "ex. 1,5" },
-  { key: "roeMin", label: "ROE min (%)", placeholder: "ex. 18" },
   { key: "yieldMin", label: "Rdt net min (%)", placeholder: "ex. 6" },
-  { key: "growthMin", label: "Croiss. RN min (%)", placeholder: "ex. 15" },
-  { key: "qualityMin", label: "Qualité min", placeholder: "0–100" },
-  { key: "riskMax", label: "Risque max", placeholder: "0–100" },
+  { key: "ytdMin", label: "Variation YTD min (%)", placeholder: "ex. 15" },
+  { key: "volumeRatioMin", label: "Volume min (× moyenne)", placeholder: "ex. 2" },
 ];
 
 export default function ScreenerPage() {
@@ -84,10 +67,7 @@ export default function ScreenerPage() {
   const [preset, setPreset] = useState<string | null>(null);
 
   const snapshots = getSnapshots();
-  const results = useMemo(
-    () => applyFilters(snapshots, filters, preset === "danger"),
-    [snapshots, filters, preset]
-  );
+  const results = useMemo(() => applyFilters(snapshots, filters), [snapshots, filters]);
 
   const setField = (key: keyof Filters, value: string) => {
     setPreset(null);
@@ -107,8 +87,7 @@ export default function ScreenerPage() {
         <div>
           <h1 className="text-xl font-bold tracking-tight text-ink">Screener</h1>
           <p className="mt-1 text-sm text-ink-3">
-            « Banques sous PER 10 », « dividende net &gt; 6 % »… trouvez-les en
-            deux clics.
+            « PER sous 8 », « dividende net &gt; 6 % »… trouvez-les en deux clics.
           </p>
         </div>
         <Button
@@ -140,8 +119,8 @@ export default function ScreenerPage() {
         ))}
       </div>
 
-      <div className="card-glass p-4">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="card-glass p-4 space-y-2.5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           <label className="space-y-1">
             <span className="text-[11px] font-medium text-ink-3">Secteur</span>
             <Select
@@ -167,6 +146,11 @@ export default function ScreenerPage() {
             </label>
           ))}
         </div>
+        <p className="text-[11px] text-ink-3">
+          P/B, ROE, croissance et scores qualité/risque ne sont pas
+          filtrables : ces fondamentaux ne sont pas publiés dans le bulletin
+          BRVM (voir la page action de chaque valeur pour le détail).
+        </p>
       </div>
 
       <div className="flex items-center justify-between">

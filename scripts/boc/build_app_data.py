@@ -80,6 +80,7 @@ def build_snapshot(records: list[dict]) -> dict:
         "netYieldPct": last["net_yield_pct"],
         "lastDividendNet": last["last_dividend_net"],
         "lastDividendDate": last["last_dividend_date"],
+        "sparkline": [r["close"] for r in records[-30:]],
     }
 
 

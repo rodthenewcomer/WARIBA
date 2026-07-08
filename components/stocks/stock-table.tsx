@@ -51,7 +51,10 @@ function sortValue(s: StockSnapshot, key: SortKey): number | string {
 }
 
 export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
-  const [sortKey, setSortKey] = useState<SortKey>("marketCap");
+  // "marketCap" n'a pas d'équivalent réel (pas d'actions en circulation
+  // publiées) — tri par défaut sur une colonne réelle pour ne pas ouvrir
+  // sur un ordre basé sur une valeur cachée.
+  const [sortKey, setSortKey] = useState<SortKey>("ytdChange");
   const [asc, setAsc] = useState(false);
 
   const sorted = useMemo(() => {
@@ -131,13 +134,23 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                 <td className={cn("px-3 py-2.5 text-right num", s.volumeRatio >= 3 ? "text-warn font-semibold" : "text-ink-2")}>
                   {compactVolume(s.dayVolume)}
                 </td>
-                <td className="px-3 py-2.5 text-right num text-ink-2">{compactFcfa(s.marketCap)}</td>
+                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
+                  {s.real ? "—" : compactFcfa(s.marketCap)}
+                </td>
                 <td className="px-3 py-2.5 text-right num text-ink-2">{s.per > 0 ? ratio(s.per) : "—"}</td>
-                <td className="px-3 py-2.5 text-right num text-ink-2">{ratio(s.fundamentals.pb)}</td>
-                <td className="px-3 py-2.5 text-right num text-ink-2">{pct(s.fundamentals.roe, { signed: false, digits: 1 })}</td>
+                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
+                  {s.real ? "—" : ratio(s.fundamentals.pb)}
+                </td>
+                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
+                  {s.real ? "—" : pct(s.fundamentals.roe, { signed: false, digits: 1 })}
+                </td>
                 <td className="px-3 py-2.5 text-right num text-ink-2">{pct(s.yieldNet, { signed: false, digits: 1 })}</td>
-                <td className="px-3 py-2.5 text-right"><ScoreBadge kind="quality" value={s.scores.quality} compact /></td>
-                <td className="px-3 py-2.5 text-right"><ScoreBadge kind="risk" value={s.scores.risk} compact /></td>
+                <td className="px-3 py-2.5 text-right">
+                  {s.real ? <span className="text-ink-3" title="Non disponible sur données réelles">—</span> : <ScoreBadge kind="quality" value={s.scores.quality} compact />}
+                </td>
+                <td className="px-3 py-2.5 text-right">
+                  {s.real ? <span className="text-ink-3" title="Non disponible sur données réelles">—</span> : <ScoreBadge kind="risk" value={s.scores.risk} compact />}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -156,13 +169,17 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                 <p className="truncate text-sm font-semibold text-ink">{s.name}</p>
                 <p className="text-[11px] text-ink-3">{s.sector} · {s.country}</p>
               </div>
-              <Sparkline data={getSeries(s.ticker).daily.slice(-30).map((d) => d.close)} width={72} height={28} />
+              <Sparkline
+                data={s.real ? s.real.sparkline : getSeries(s.ticker).daily.slice(-30).map((d) => d.close)}
+                width={72}
+                height={28}
+              />
               <div className="text-right">
                 <p className="num text-sm font-semibold text-ink">{fcfa(s.lastPrice)}</p>
                 <PriceChange value={s.dayChange} className="text-xs" />
               </div>
             </div>
-            {s.signals.length > 0 ? (
+            {!s.real && s.signals.length > 0 ? (
               <div className="mt-2.5">
                 <SignalBadges signals={s.signals} max={3} />
               </div>
