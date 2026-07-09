@@ -121,7 +121,10 @@ export function MainChart({ ticker }: { ticker: string }) {
         return;
       }
 
-      const bars = adjusted && !intraday ? adjustForDividends(ticker, raw) : raw;
+      // adjustForDividends s'appuie sur un historique de dividendes fictif
+      // (lib/mock/dividends.ts) : jamais appliqué à une valeur réelle, sous
+      // peine de multiplier de vrais cours BRVM par un facteur inventé.
+      const bars = adjusted && !intraday && !isReal ? adjustForDividends(ticker, raw) : raw;
 
       const compareData = comparing
         ? await Promise.all(compare.map((code) => compareSeriesData(code, tf)))
@@ -454,6 +457,7 @@ export function MainChart({ ticker }: { ticker: string }) {
         onShowVolume={setShowVolume}
         adjusted={adjusted}
         onAdjusted={setAdjusted}
+        isReal={isReal}
         compare={compare}
         onCompare={setCompare}
         compareOptions={compareOptions}

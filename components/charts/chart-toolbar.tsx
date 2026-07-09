@@ -127,6 +127,7 @@ export interface ChartToolbarProps {
   onShowVolume: (v: boolean) => void;
   adjusted: boolean;
   onAdjusted: (v: boolean) => void;
+  isReal: boolean;
   compare: string[];
   onCompare: (codes: string[]) => void;
   compareOptions: { code: string; label: string }[];
@@ -208,8 +209,12 @@ export function ChartToolbar(props: ChartToolbarProps) {
         </button>
         <button
           onClick={() => props.onAdjusted(!props.adjusted)}
-          disabled={props.intraday}
-          title="Cours ajustés des dividendes"
+          disabled={props.intraday || props.isReal}
+          title={
+            props.isReal
+              ? "Indisponible : historique de dividendes non couvert par le pipeline de données réelles"
+              : "Cours ajustés des dividendes"
+          }
           className={cn(
             "h-8 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40",
             props.adjusted
