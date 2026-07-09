@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { getSeries } from "@/lib/mock/series";
 import { Sparkline } from "@/components/charts/sparkline";
 import { PriceChange, ScoreBadge, SignalBadges } from "./badges";
+import { WatchlistStar } from "./watchlist-star";
 
 type SortKey =
   | "ticker"
@@ -92,6 +93,9 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                     c.align === "right" ? "text-right" : "text-left"
                   )}
                   onClick={() => onSort(c.key)}
+                  title={
+                    { per: "Cours / bénéfice par action", pb: "Cours / capitaux propres par action", roe: "Résultat net / capitaux propres", yieldNet: "Dividende net (après IRVM 10 %) / cours", marketCap: "Cours × nombre d'actions" }[c.key as string]
+                  }
                 >
                   <span className="inline-flex items-center gap-0.5">
                     {c.label}
@@ -114,7 +118,8 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                 className="group border-b border-line/60 last:border-0 hover:bg-surface-2/50 transition-colors"
               >
                 <td className="px-3 py-2.5">
-                  <Link href={`/stocks/${s.ticker}`} className="flex items-center gap-2.5">
+                  <Link href={`/stocks/${s.ticker}`} className="flex items-center gap-2">
+                    <WatchlistStar ticker={s.ticker} />
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-[9px] font-bold text-accent">
                       {s.ticker}
                     </span>
@@ -178,6 +183,7 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                 <p className="num text-sm font-semibold text-ink">{fcfa(s.lastPrice)}</p>
                 <PriceChange value={s.dayChange} className="text-xs" />
               </div>
+              <WatchlistStar ticker={s.ticker} />
             </div>
             {!s.real && s.signals.length > 0 ? (
               <div className="mt-2.5">

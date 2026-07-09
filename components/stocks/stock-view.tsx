@@ -156,15 +156,17 @@ export function StockView({ ticker }: { ticker: string }) {
         {real ? (
           <>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              <MetricCard label="PER" value={real.per ? ratio(real.per) : "—"} />
+              <MetricCard label="PER" term="per" value={real.per ? ratio(real.per) : "—"} />
               <MetricCard
                 label="Rendement net"
+                term="rendement-net"
                 value={real.netYieldPct ? pct(real.netYieldPct, { signed: false, digits: 2 }) : "—"}
                 tone={real.netYieldPct && real.netYieldPct >= 6 ? "up" : undefined}
               />
-              <MetricCard label="Vol. moyen 30 j" value={compactVolume(real.avgVolume30d)} />
+              <MetricCard label="Vol. moyen 30 j" term="vol-moyen" value={compactVolume(real.avgVolume30d)} />
               <MetricCard
                 label="Dernier dividende net"
+                term="dividende-net"
                 value={real.lastDividendNet ? fcfa(real.lastDividendNet) : "—"}
                 hint={real.lastDividendDate ? `Payé le ${dateFr(real.lastDividendDate)}` : undefined}
               />
@@ -188,11 +190,13 @@ export function StockView({ ticker }: { ticker: string }) {
                   />
                   <MetricCard
                     label="Marge nette"
+                    term="marge-nette"
                     value={pct((realFund.netIncomeM / realFund.revenueM) * 100, { signed: false, digits: 1 })}
                   />
                   {realFund.ordinaryIncomeM !== null ? (
                     <MetricCard
                       label="Résultat ordinaire"
+                      term="resultat-ordinaire"
                       value={millions(realFund.ordinaryIncomeM)}
                       tone={realFund.ordinaryIncomeM < 0 ? "down" : undefined}
                     />
@@ -200,6 +204,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   {realFund.cirPct !== null ? (
                     <MetricCard
                       label="Coefficient d'exploitation"
+                      term="cir"
                       value={pct(realFund.cirPct, { signed: false, digits: 1 })}
                       hint={realFund.cirPrevPct !== null ? `${pct(realFund.cirPrevPct, { signed: false, digits: 1 })} en ${realFund.fiscalYear - 1}` : undefined}
                     />
@@ -207,6 +212,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   {realFund.costOfRiskM !== null ? (
                     <MetricCard
                       label="Coût du risque"
+                      term="cout-du-risque"
                       value={millions(realFund.costOfRiskM)}
                       hint={realFund.costOfRiskM < 0 ? "Négatif = reprise nette" : undefined}
                     />
@@ -247,14 +253,14 @@ export function StockView({ ticker }: { ticker: string }) {
           </>
         ) : (
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
-            <MetricCard label="Capitalisation" value={compactFcfa(stock.marketCap)} />
+            <MetricCard label="Capitalisation" term="capitalisation" value={compactFcfa(stock.marketCap)} />
             <MetricCard
               label="PER"
               value={stock.per > 0 ? ratio(stock.per) : "—"}
               hint={sectorStats ? `Secteur : ${ratio(sectorStats.avgPer)}` : undefined}
             />
-            <MetricCard label="P/B" value={ratio(f.pb)} />
-            <MetricCard label="ROE" value={pct(f.roe, { signed: false, digits: 1 })} />
+            <MetricCard label="P/B" term="pb" value={ratio(f.pb)} />
+            <MetricCard label="ROE" term="roe" value={pct(f.roe, { signed: false, digits: 1 })} />
             <MetricCard
               label="Rendement net"
               value={pct(stock.yieldNet, { signed: false, digits: 2 })}
@@ -262,6 +268,7 @@ export function StockView({ ticker }: { ticker: string }) {
             />
             <MetricCard
               label="Payout"
+              term="payout"
               value={pct(f.payout, { signed: false, digits: 0 })}
               tone={f.payout > 90 ? "warn" : undefined}
             />
