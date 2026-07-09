@@ -1,4 +1,22 @@
 {
+  "ABJC": {
+    "ticker": "ABJC",
+    "fiscalYear": 2025,
+    "revenueLabel": "CA",
+    "revenueM": 13298,
+    "revenuePrevM": 12467,
+    "netIncomeM": 1331,
+    "netIncomePrevM": 1515,
+    "ordinaryIncomeM": null,
+    "ordinaryIncomePrevM": null,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "source": "https://www.brvm.org/sites/default/files/20260427_-_etats_financiers_ifrs_-_exercice_2025_-_servair_abidjan_ci.pdf",
+    "publishedOn": "2026-04-27"
+  },
   "BNBC": {
     "ticker": "BNBC",
     "fiscalYear": 2025,
@@ -179,6 +197,24 @@
     "source": "https://www.brvm.org/sites/default/files/20260323_-_etats_financiers_-_exercice_2025_-_palm_ci.pdf",
     "publishedOn": "2026-03-23"
   },
+  "SDCC": {
+    "ticker": "SDCC",
+    "fiscalYear": 2025,
+    "revenueLabel": "CA",
+    "revenueM": 189400,
+    "revenuePrevM": null,
+    "netIncomeM": 4663,
+    "netIncomePrevM": null,
+    "ordinaryIncomeM": null,
+    "ordinaryIncomePrevM": null,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": 525,
+    "source": "https://www.brvm.org/sites/default/files/20260427_-_etats_financiers_-_exercice_2025_-_sodeci.pdf",
+    "publishedOn": "2026-04-27"
+  },
   "SHEC": {
     "ticker": "SHEC",
     "fiscalYear": 2025,
@@ -268,6 +304,24 @@
     "proposedGrossDividend": null,
     "source": "https://www.brvm.org/sites/default/files/20260318_-_etats_financiers_syscohada_-_exercice_2025_-_saph_ci.pdf",
     "publishedOn": "2026-03-18"
+  },
+  "SVOC": {
+    "ticker": "SVOC",
+    "fiscalYear": 2019,
+    "revenueLabel": "CA",
+    "revenueM": 12079,
+    "revenuePrevM": 14289,
+    "netIncomeM": -4496,
+    "netIncomePrevM": 170,
+    "ordinaryIncomeM": -4524,
+    "ordinaryIncomePrevM": -776,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "source": "https://www.brvm.org/sites/default/files/20201022_-_etats_financiers_-_exercice_2019_-_movis_ci.pdf",
+    "publishedOn": "2020-10-22"
   },
   "TTLC": {
     "ticker": "TTLC",

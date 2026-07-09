@@ -237,6 +237,67 @@ REGISTRY: dict[str, dict] = {
             "ordinary_income_prev": 13_178,
         },
     },
+    "SDCC": {
+        "pdf": f"{BASE}/20260427_-_etats_financiers_-_exercice_2025_-_sodeci.pdf",
+        "publishedOn": "2026-04-27",
+        "fiscalYear": 2025,
+        "extractor": "manual",
+        "unit": 1,
+        # Source = communiqué de presse (page 1 du PDF), pas un tableau —
+        # chiffres donnés en toutes lettres ("189,4 milliards", "4,663
+        # milliards"). Pas de RN/CA de l'exercice précédent en valeur
+        # absolue (seulement des %), donc laissés absents plutôt
+        # qu'estimés. RAO non extrait : le communiqué ne donne que le
+        # "Résultat d'exploitation" (pré-financier), différent du RAO
+        # SYSCOHADA (post-financier) — pas le même agrégat.
+        # Dividende recoupé : 4,725 Md / 525 FCFA = 9 000 000 actions
+        # (nombre rond, cohérent).
+        "raw": {
+            "revenue": 189_400_000_000,
+            "net_income": 4_663_000_000,
+            "proposed_gross_dividend": 525,
+        },
+    },
+    "ABJC": {
+        "pdf": f"{BASE}/20260427_-_etats_financiers_ifrs_-_exercice_2025_-_servair_abidjan_ci.pdf",
+        "publishedOn": "2026-04-27",
+        "fiscalYear": 2025,
+        "extractor": "manual",
+        "unit": 1_000_000,
+        # Meilleur recoupement de tout le batch : le PDF donne le nombre
+        # d'actions (10 912 000) ET le résultat net par action (122 FCFA)
+        # en plus du résultat net total — 1 331 M / 10 912 000 = 122,0
+        # FCFA, exact. RAO non extrait : présentation IFRS, pas
+        # d'équivalent direct au RAO SYSCOHADA (le proche candidat,
+        # "Résultat avant impôt", mélange des notions différentes).
+        "raw": {
+            "revenue": 13_298,
+            "revenue_prev": 12_467,
+            "net_income": 1_331,
+            "net_income_prev": 1_515,
+        },
+    },
+    "SVOC": {
+        "pdf": f"{BASE}/20201022_-_etats_financiers_-_exercice_2019_-_movis_ci.pdf",
+        "publishedOn": "2020-10-22",
+        "fiscalYear": 2019,
+        "extractor": "manual",
+        "unit": 1_000_000,
+        # Dernier exercice publié : 2019 (cf. UNLC, même situation) — le
+        # cours réel de MOVIS CI sur le site est lui-même figé au
+        # 2019-05-10, la valeur semble inactive depuis. Pas de PER BOC
+        # pour recouper (résultat négatif) : confiance basée sur la
+        # cohérence interne du document (le résultat net apparaît
+        # deux fois, bilan et compte de résultat, valeurs identiques).
+        "raw": {
+            "revenue": 12_079,
+            "revenue_prev": 14_289,
+            "net_income": -4_496,
+            "net_income_prev": 170,
+            "ordinary_income": -4_524,
+            "ordinary_income_prev": -776,
+        },
+    },
 }
 
 
