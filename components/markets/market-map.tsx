@@ -120,7 +120,7 @@ interface Hover {
   y: number;
 }
 
-export function MarketMap() {
+export function MarketMap({ compact = false }: { compact?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   const [hover, setHover] = useState<Hover | null>(null);
@@ -155,7 +155,7 @@ export function MarketMap() {
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={compact ? "hidden" : "flex flex-wrap items-center justify-between gap-3"}>
         <PillTabs
           options={HORIZONS.map((h) => ({ value: h.id, label: h.label }))}
           value={horizonId}
@@ -177,7 +177,11 @@ export function MarketMap() {
 
       <div
         ref={containerRef}
-        className="relative h-[68vh] min-h-[500px] w-full overflow-hidden rounded-xl bg-[#0c0c0e]"
+        className={
+          compact
+            ? "relative h-[300px] min-h-[260px] w-full overflow-hidden rounded-xl bg-[#0c0c0e]"
+            : "relative h-[68vh] min-h-[500px] w-full overflow-hidden rounded-xl bg-[#0c0c0e]"
+        }
         onMouseLeave={() => setHover(null)}
       >
         {layout?.groups.map((g) => (

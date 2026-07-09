@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import { getIndices, getSnapshots } from "@/lib/data";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
-import { latestSessionAlerts } from "@/lib/real-alerts";
+import { latestSessionAlerts, REAL_ALERTS } from "@/lib/real-alerts";
+import { MarketMap } from "@/components/markets/market-map";
 import { latestNews, newsDate } from "@/lib/news";
 import { IPOS } from "@/lib/mock/ipos";
 import { dateFr, fcfa, num, pct } from "@/lib/format";
@@ -77,6 +78,15 @@ export default function DashboardPage() {
       : s.scores.quality + s.scores.momentum - s.scores.risk;
   const toWatch = [...snapshots].sort((a, b) => watchScore(b) - watchScore(a)).slice(0, 4);
   const dayAlerts = latestSessionAlerts(3);
+  // Breadth de la dernière séance (barre hausses/baisses façon Finviz)
+  const advancing = snapshots.filter((s) => s.dayChange > 0).length;
+  const declining = snapshots.filter((s) => s.dayChange < 0).length;
+  const unchanged = snapshots.length - advancing - declining;
+  // Extrêmes 52 semaines depuis le moteur d'alertes (fenêtre 5 séances)
+  const extremes = REAL_ALERTS.filter((a) => a.title.includes("52 semaines"));
+  const highs = extremes.filter((a) => a.severity === "positive").slice(0, 5);
+  const lows = extremes.filter((a) => a.severity === "warning").slice(0, 5);
+  const byTicker = new Map(snapshots.map((s) => [s.ticker, s]));
   const news = latestNews(5);
   // Derniers dividendes réellement payés (bulletin officiel) — remplace
   // l'ancien calendrier fictif. Tri par date de paiement décroissante.
@@ -125,6 +135,65 @@ export default function DashboardPage() {
             <Sparkline data={idx.spark} width={130} height={44} />
           </Card>
         ))}
+      </div>
+
+      {/* Breadth : hausses / baisses de la séance */}
+      <div className="card-glass px-4 py-3">
+        <div className="flex items-center justify-between text-[11px] font-medium">
+          <span className="text-up">Hausses {advancing}</span>
+          <span className="text-ink-3">Inchangées {unchanged}</span>
+          <span className="text-down">Baisses {declining}</span>
+        </div>
+        <div className="mt-1.5 flex h-1.5 w-full gap-0.5 overflow-hidden rounded-full">
+          <span className="bg-up" style={{ width: `${(advancing / snapshots.length) * 100}%` }} />
+          <span className="bg-ink-3/30" style={{ width: `${(unchanged / snapshots.length) * 100}%` }} />
+          <span className="bg-down" style={{ width: `${(declining / snapshots.length) * 100}%` }} />
+        </div>
+      </div>
+
+      {/* Mini carte + extrêmes 52 semaines */}
+      <div className="grid gap-3 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+          <CardHeader
+            title="Carte du marché"
+            action={
+              <Link href="/map" className="inline-flex items-center gap-1 text-xs text-accent hover:underline">
+                Agrandir <ArrowRight className="h-3 w-3" />
+              </Link>
+            }
+          />
+          <CardBody>
+            <MarketMap compact />
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader
+            title="Extrêmes 52 semaines"
+            subtitle="Franchissements des 5 dernières séances"
+          />
+          <CardBody className="space-y-0.5">
+            {highs.length === 0 && lows.length === 0 ? (
+              <p className="py-4 text-center text-xs text-ink-3">
+                Aucun extrême franchi récemment.
+              </p>
+            ) : (
+              <>
+                {highs.map((a) => {
+                  const s = a.ticker ? byTicker.get(a.ticker) : undefined;
+                  return s ? (
+                    <MoverRow key={a.id} ticker={s.ticker} name={s.name} price={s.lastPrice} change={s.dayChange} extra="Plus haut 52 semaines" />
+                  ) : null;
+                })}
+                {lows.map((a) => {
+                  const s = a.ticker ? byTicker.get(a.ticker) : undefined;
+                  return s ? (
+                    <MoverRow key={a.id} ticker={s.ticker} name={s.name} price={s.lastPrice} change={s.dayChange} extra="Plus bas 52 semaines" />
+                  ) : null;
+                })}
+              </>
+            )}
+          </CardBody>
+        </Card>
       </div>
 
       {/* Movers */}
