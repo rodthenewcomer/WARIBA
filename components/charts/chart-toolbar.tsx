@@ -180,13 +180,20 @@ export function ChartToolbar(props: ChartToolbarProps) {
           {props.fullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
         </button>
       </div>
-      <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-0.5">
-        <PillTabs
-          options={CHART_TYPES.map((t) => ({ value: t.value, label: t.label }))}
-          value={props.chartType}
-          onChange={props.onChartType}
-          className="shrink-0"
-        />
+      <div className="flex min-w-0 items-center gap-2">
+        {/* Scroll horizontal isolé du groupe de droite : overflow-x-auto
+            force overflow-y à auto (spec CSS), ce qui coupait net les
+            menus déroulants Indicateurs/Comparer s'ils partageaient ce
+            conteneur — leur panneau de ~270px se retrouvait rogné à la
+            hauteur de la rangée (34px), invisible bien qu'ouvert. */}
+        <div className="min-w-0 overflow-x-auto pb-0.5">
+          <PillTabs
+            options={CHART_TYPES.map((t) => ({ value: t.value, label: t.label }))}
+            value={props.chartType}
+            onChange={props.onChartType}
+            className="shrink-0"
+          />
+        </div>
         <div className="ml-auto flex shrink-0 items-center gap-2">
         <button
           onClick={() => props.onShowVolume(!props.showVolume)}
