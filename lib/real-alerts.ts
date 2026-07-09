@@ -1,0 +1,21 @@
+import alertsJson from "@/data/real/alerts.json";
+import type { AlertItem } from "./types";
+
+/**
+ * Alertes réelles générées par scripts/boc/build_alerts.py à partir des
+ * bulletins officiels (variations fortes, extrêmes 52 semaines, volumes
+ * inhabituels, dividendes payés, états financiers publiés). Factuel,
+ * jamais prescriptif — régénérées à chaque bulletin par la CI.
+ */
+export const REAL_ALERTS = alertsJson as AlertItem[];
+
+/** Alertes de la séance la plus récente (pour le dashboard). */
+export function latestSessionAlerts(limit = 3): AlertItem[] {
+  if (REAL_ALERTS.length === 0) return [];
+  const latestDay = REAL_ALERTS[0].time.slice(0, 10);
+  return REAL_ALERTS.filter((a) => a.time.startsWith(latestDay)).slice(0, limit);
+}
+
+export function alertsForTicker(ticker: string, limit = 5): AlertItem[] {
+  return REAL_ALERTS.filter((a) => a.ticker === ticker).slice(0, limit);
+}

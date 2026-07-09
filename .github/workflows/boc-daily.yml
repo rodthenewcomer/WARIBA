@@ -47,6 +47,8 @@ jobs:
         run: python3 scripts/boc/merge_day.py --raw-dir data/boc/raw --series-dir data/boc/series
       - name: Reconstruire les données consommées par l'app
         run: python3 scripts/boc/build_app_data.py --series-dir data/boc/series --out-dir data
+      - name: Générer les alertes réelles
+        run: python3 scripts/boc/build_alerts.py --out data/real/alerts.json
       - name: Committer les données du jour
         id: commit
         run: |

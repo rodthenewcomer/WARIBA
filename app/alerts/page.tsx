@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { BellPlus } from "lucide-react";
-import { ALERTS } from "@/lib/mock/alerts";
+import { REAL_ALERTS } from "@/lib/real-alerts";
 import type { AlertType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { AlertCard } from "@/components/alerts/alert-card";
@@ -10,11 +10,9 @@ import { Button } from "@/components/ui/button";
 
 const TYPE_FILTERS: { value: AlertType | "all"; label: string }[] = [
   { value: "all", label: "Toutes" },
-  { value: "ia", label: "Signaux IA" },
   { value: "prix", label: "Prix" },
   { value: "volume", label: "Volume" },
   { value: "dividende", label: "Dividendes" },
-  { value: "document", label: "Documents" },
   { value: "fondamental", label: "Fondamentaux" },
 ];
 
@@ -23,7 +21,7 @@ export default function AlertsPage() {
 
   const filtered = useMemo(
     () =>
-      [...ALERTS]
+      [...REAL_ALERTS]
         .sort((a, b) => b.time.localeCompare(a.time))
         .filter((a) => type === "all" || a.type === type),
     [type]
@@ -35,8 +33,9 @@ export default function AlertsPage() {
         <div>
           <h1 className="text-xl font-bold tracking-tight text-ink">Alertes</h1>
           <p className="mt-1 text-sm text-ink-3">
-            Prix, volume, dividendes, documents et signaux fondamentaux détectés
-            par le moteur.
+            Détectées dans les bulletins officiels des 5 dernières séances :
+            variations fortes, extrêmes 52 semaines, volumes inhabituels,
+            dividendes, publications. Factuel — jamais un conseil.
           </p>
         </div>
         <Button variant="accent" size="sm" title="Création d'alerte (démo)">

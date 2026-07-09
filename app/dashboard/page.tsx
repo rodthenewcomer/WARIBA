@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getIndices, getSnapshots } from "@/lib/data";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
-import { alertsOfDay } from "@/lib/mock/alerts";
+import { latestSessionAlerts } from "@/lib/real-alerts";
 import { latestNews, newsDate } from "@/lib/news";
 import { IPOS } from "@/lib/mock/ipos";
 import { dateFr, fcfa, num, pct } from "@/lib/format";
@@ -76,7 +76,7 @@ export default function DashboardPage() {
       ? Math.abs(s.weekChange) * 1.5 + s.volumeRatio * 10
       : s.scores.quality + s.scores.momentum - s.scores.risk;
   const toWatch = [...snapshots].sort((a, b) => watchScore(b) - watchScore(a)).slice(0, 4);
-  const dayAlerts = alertsOfDay();
+  const dayAlerts = latestSessionAlerts(3);
   const news = latestNews(5);
   // Derniers dividendes réellement payés (bulletin officiel) — remplace
   // l'ancien calendrier fictif. Tri par date de paiement décroissante.
@@ -190,7 +190,7 @@ export default function DashboardPage() {
       <section>
         <div className="mb-2.5 flex items-center justify-between">
           <h2 className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink">
-            <Bell className="h-4 w-4 text-accent" /> Alertes intelligentes du jour
+            <Bell className="h-4 w-4 text-accent" /> Alertes de la dernière séance
           </h2>
           <Link href="/alerts" className="inline-flex items-center gap-1 text-xs text-accent hover:underline">
             Tout voir <ArrowRight className="h-3 w-3" />
