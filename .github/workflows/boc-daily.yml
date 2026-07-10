@@ -4,15 +4,22 @@
 #
 # Heure d'Abidjan = UTC toute l'année. La séance ferme à 14h45 GMT et
 # le bulletin est publié dans l'après-midi : on tente à 17h30 UTC puis
-# on retente à 20h00 UTC (si la 1ère passe a réussi, la 2ème ne
-# produit aucun diff et s'arrête sans commit — merge_day.py est
-# idempotent). Jours fériés : pas de bulletin → aucun diff → no-op.
+# on retente à 20h00, 22h30, et enfin 05h00 le lendemain (si une passe
+# a réussi, les suivantes ne produisent aucun diff et s'arrêtent sans
+# commit — merge_day.py est idempotent). Les deux derniers crons
+# existent parce que la BRVM publie parfois tard : le bulletin du
+# 9 juil. 2026 n'était toujours pas en ligne à 21h13 UTC — sans
+# rattrapage nocturne, la donnée n'arrivait que le lendemain soir.
+# Le cron de 05h00 tourne mar-sam pour rattraper la veille (lun-ven).
+# Jours fériés : pas de bulletin → aucun diff → no-op.
 name: boc-daily
 
 on:
   schedule:
     - cron: "30 17 * * 1-5"
     - cron: "0 20 * * 1-5"
+    - cron: "30 22 * * 1-5"
+    - cron: "0 5 * * 2-6"
   workflow_dispatch:
 
 permissions:
