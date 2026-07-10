@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { User } from "lucide-react";
+import Link from "next/link";
+import { Database, Monitor, Moon, Sun, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Select } from "@/components/ui/input";
@@ -68,7 +69,10 @@ export default function SettingsPage() {
     <div className="space-y-4 fade-in max-w-2xl">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">Réglages</h1>
-        <p className="mt-1 text-sm text-ink-3">Préférences de l&apos;application.</p>
+        <p className="mt-1 text-sm text-ink-3">
+          Préférences d&apos;affichage et transparence sur les données —
+          aucune n&apos;exige de compte.
+        </p>
       </div>
 
       <Card>
@@ -90,18 +94,37 @@ export default function SettingsPage() {
       <Card>
         <CardHeader title="Affichage" />
         <CardBody className="space-y-3">
-          <label className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-3">
             <span className="text-sm font-medium text-ink">Thème</span>
             {mounted ? (
-              <Select value={theme ?? "dark"} onChange={(e) => setTheme(e.target.value)}>
-                <option value="dark">Sombre</option>
-                <option value="light">Clair</option>
-                <option value="system">Système</option>
-              </Select>
+              <div className="flex items-center gap-0.5 rounded-lg border border-line bg-surface-2/60 p-0.5" role="radiogroup" aria-label="Thème">
+                {(
+                  [
+                    ["dark", "Sombre", Moon],
+                    ["light", "Clair", Sun],
+                    ["system", "Système", Monitor],
+                  ] as const
+                ).map(([value, label, Icon]) => (
+                  <button
+                    key={value}
+                    role="radio"
+                    aria-checked={(theme ?? "dark") === value}
+                    onClick={() => setTheme(value)}
+                    className={cn(
+                      "inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium cursor-pointer transition-colors",
+                      (theme ?? "dark") === value
+                        ? "bg-surface text-ink shadow-sm border border-line"
+                        : "text-ink-3 hover:text-ink"
+                    )}
+                  >
+                    <Icon className="h-3.5 w-3.5" /> {label}
+                  </button>
+                ))}
+              </div>
             ) : (
-              <span className="h-9 w-24 rounded-lg bg-surface-2" />
+              <span className="h-9 w-56 rounded-lg bg-surface-2" />
             )}
-          </label>
+          </div>
           <label className="flex items-center justify-between gap-3">
             <span className="text-sm font-medium text-ink">Devise d&apos;affichage</span>
             <Select value={currency} onChange={(e) => setCurrency(e.target.value)}>
@@ -156,6 +179,33 @@ export default function SettingsPage() {
             hint="Rappel avant chaque date de détachement."
             disabled
           />
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardHeader
+          title={
+            <span className="inline-flex items-center gap-1.5">
+              <Database className="h-3.5 w-3.5 text-accent" /> Données & sources
+            </span>
+          }
+        />
+        <CardBody className="space-y-2 text-xs leading-relaxed text-ink-2">
+          <p>
+            Cours, volumes, indices, dividendes et PER proviennent des{" "}
+            <strong className="font-semibold text-ink">bulletins officiels
+            de la cote</strong> (BRVM), mis à jour chaque soir de bourse. Les
+            états financiers sont extraits des PDF publiés par les sociétés,
+            vérifiés à la main. Actualités : Sika Finance et Financial Afrik,
+            liens vers les articles originaux.
+          </p>
+          <p className="text-ink-3">
+            Fraîcheur et provenance détaillées par source :{" "}
+            <Link href="/status" className="text-accent underline hover:no-underline">
+              statut des données
+            </Link>
+            .
+          </p>
         </CardBody>
       </Card>
 

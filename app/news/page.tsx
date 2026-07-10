@@ -16,9 +16,11 @@ export default function NewsPage() {
     <div className="space-y-4 fade-in">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">Actualités</h1>
-        <p className="mt-1 text-sm text-ink-3">
+        <p className="mt-1 max-w-3xl text-sm text-ink-3">
           {news.length} articles · Sika Finance & Financial Afrik · rafraîchi
-          toutes les 2 h — chaque lien ouvre l&apos;article original.
+          toutes les 2 h — chaque lien ouvre l&apos;article original. Le
+          contexte derrière les mouvements de cours : résultats, contrats,
+          nominations, macro régionale.
         </p>
       </div>
 

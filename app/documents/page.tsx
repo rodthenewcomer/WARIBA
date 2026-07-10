@@ -38,6 +38,8 @@ export default function DocumentsPage() {
         <p className="mt-1 text-sm text-ink-3">
           {REAL_DOCUMENTS.length} publications officielles des sociétés cotées,
           référencées depuis brvm.org — chaque lien ouvre le PDF original.
+          La source primaire : états financiers, résultats et convocations,
+          tels que publiés par les sociétés elles-mêmes.
         </p>
       </div>
 

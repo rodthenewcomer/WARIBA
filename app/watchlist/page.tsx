@@ -38,8 +38,10 @@ export default function WatchlistPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-ink">Watchlist</h1>
-          <p className="mt-1 text-sm text-ink-3">
-            Vos valeurs suivies, avec signaux et prochains dividendes.
+          <p className="mt-1 max-w-3xl text-sm text-ink-3">
+            Vos valeurs suivies, avec signaux et prochains dividendes. Pour en
+            ajouter une, cliquez l&apos;étoile ☆ à côté de n&apos;importe
+            quelle action (tableaux, fiches) — tout reste dans ce navigateur.
           </p>
         </div>
         <Button

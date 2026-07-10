@@ -19,7 +19,10 @@ export default function MapPage() {
           </h1>
           <p className="mt-1 text-sm text-ink-3">
             La cote BRVM en un coup d&apos;œil · séance du{" "}
-            {dateFr(LATEST_TRADING_DATE)}
+            {dateFr(LATEST_TRADING_DATE)}. Chaque tuile est une société :
+            sa taille reflète l&apos;activité du titre (liquidité), sa
+            couleur la variation sur l&apos;horizon choisi. Cliquez une
+            tuile pour ouvrir la fiche.
           </p>
         </div>
       </div>

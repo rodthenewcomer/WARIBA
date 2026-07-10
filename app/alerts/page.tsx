@@ -35,7 +35,9 @@ export default function AlertsPage() {
           <p className="mt-1 text-sm text-ink-3">
             Détectées dans les bulletins officiels des 5 dernières séances :
             variations fortes, extrêmes 52 semaines, volumes inhabituels,
-            dividendes, publications. Factuel — jamais un conseil.
+            dividendes, publications. Rien à configurer : générées
+            automatiquement à chaque bulletin, pour savoir où regarder.
+            Factuel — jamais un conseil.
           </p>
         </div>
         <Button
