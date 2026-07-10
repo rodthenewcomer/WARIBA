@@ -5,50 +5,53 @@ import Link from "next/link";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import type { StockSnapshot } from "@/lib/types";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
-import { compactFcfa, compactVolume, dateFr, fcfa, pct, ratio } from "@/lib/format";
+import { compactVolume, dateFr, fcfa, pct, ratio } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { getSeries } from "@/lib/mock/series";
 import { Sparkline } from "@/components/charts/sparkline";
 import { Badge } from "@/components/ui/badge";
-import { PriceChange, ScoreBadge, SignalBadges } from "./badges";
+import { PriceChange, SignalBadges } from "./badges";
 import { WatchlistStar } from "./watchlist-star";
 
 type SortKey =
   | "ticker"
   | "lastPrice"
   | "dayChange"
+  | "weekChange"
   | "ytdChange"
   | "dayVolume"
-  | "marketCap"
   | "per"
-  | "pb"
-  | "roe"
   | "yieldNet"
-  | "quality"
-  | "risk";
+  | "pos52";
 
+// Toutes les colonnes sont réelles : les anciennes Capitalisation/P/B/
+// ROE/Qualité/Risque affichaient « — » sur CHAQUE ligne depuis le passage
+// de tout l'univers en données réelles (fondamentaux non publiés au
+// bulletin) — cinq colonnes mortes remplacées par Var. semaine et la
+// position dans la fourchette 52 semaines (dérivée des séries BOC).
 const COLUMNS: { key: SortKey; label: string; align?: "right" }[] = [
   { key: "ticker", label: "Société" },
   { key: "lastPrice", label: "Cours", align: "right" },
   { key: "dayChange", label: "Var. jour", align: "right" },
+  { key: "weekChange", label: "Var. sem.", align: "right" },
   { key: "ytdChange", label: "YTD", align: "right" },
   { key: "dayVolume", label: "Volume", align: "right" },
-  { key: "marketCap", label: "Capitalisation", align: "right" },
   { key: "per", label: "PER", align: "right" },
-  { key: "pb", label: "P/B", align: "right" },
-  { key: "roe", label: "ROE", align: "right" },
   { key: "yieldNet", label: "Rdt net", align: "right" },
-  { key: "quality", label: "Qualité", align: "right" },
-  { key: "risk", label: "Risque", align: "right" },
+  { key: "pos52", label: "52 semaines", align: "right" },
 ];
+
+/** Position du cours dans sa fourchette 52 semaines, 0 (plus bas) à 1. */
+function pos52(s: StockSnapshot): number {
+  const r = s.real;
+  if (!r || r.week52High <= r.week52Low) return 0.5;
+  return (r.lastClose - r.week52Low) / (r.week52High - r.week52Low);
+}
 
 function sortValue(s: StockSnapshot, key: SortKey): number | string {
   switch (key) {
     case "ticker": return s.ticker;
-    case "pb": return s.fundamentals.pb;
-    case "roe": return s.fundamentals.roe;
-    case "quality": return s.scores.quality;
-    case "risk": return s.scores.risk;
+    case "pos52": return pos52(s);
     default: return s[key];
   }
 }
@@ -96,7 +99,7 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                   )}
                   onClick={() => onSort(c.key)}
                   title={
-                    { per: "Cours / bénéfice par action", pb: "Cours / capitaux propres par action", roe: "Résultat net / capitaux propres", yieldNet: "Dividende net (après IRVM 10 %) / cours", marketCap: "Cours × nombre d'actions" }[c.key as string]
+                    { per: "Cours / bénéfice par action", yieldNet: "Dividende net (après IRVM 10 %) / cours", pos52: "Position du cours entre son plus bas et son plus haut des 52 dernières semaines" }[c.key as string]
                   }
                 >
                   <span className="inline-flex items-center gap-0.5">
@@ -144,26 +147,31 @@ export function StockTable({ stocks }: { stocks: StockSnapshot[] }) {
                 </td>
                 <td className="px-3 py-2.5 text-right num font-medium">{fcfa(s.lastPrice)}</td>
                 <td className="px-3 py-2.5 text-right"><PriceChange value={s.dayChange} arrow={false} /></td>
+                <td className="px-3 py-2.5 text-right"><PriceChange value={s.weekChange} arrow={false} /></td>
                 <td className="px-3 py-2.5 text-right"><PriceChange value={s.ytdChange} arrow={false} /></td>
-                <td className={cn("px-3 py-2.5 text-right num", s.volumeRatio >= 3 ? "text-warn font-semibold" : "text-ink-2")}>
-                  {compactVolume(s.dayVolume)}
-                </td>
-                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
-                  {s.real ? "—" : compactFcfa(s.marketCap)}
+                <td className="px-3 py-2.5 text-right num" style={undefined}>
+                  <span className={cn(s.volumeRatio >= 3 ? "text-warn font-semibold" : "text-ink-2")}>
+                    {compactVolume(s.dayVolume)}
+                  </span>
                 </td>
                 <td className="px-3 py-2.5 text-right num text-ink-2">{s.per > 0 ? ratio(s.per) : "—"}</td>
-                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
-                  {s.real ? "—" : ratio(s.fundamentals.pb)}
-                </td>
-                <td className="px-3 py-2.5 text-right num text-ink-3" title={s.real ? "Non disponible : pas d'états financiers dans le pipeline réel" : undefined}>
-                  {s.real ? "—" : pct(s.fundamentals.roe, { signed: false, digits: 1 })}
-                </td>
                 <td className="px-3 py-2.5 text-right num text-ink-2">{pct(s.yieldNet, { signed: false, digits: 1 })}</td>
-                <td className="px-3 py-2.5 text-right">
-                  {s.real ? <span className="text-ink-3" title="Non disponible sur données réelles">—</span> : <ScoreBadge kind="quality" value={s.scores.quality} compact />}
-                </td>
-                <td className="px-3 py-2.5 text-right">
-                  {s.real ? <span className="text-ink-3" title="Non disponible sur données réelles">—</span> : <ScoreBadge kind="risk" value={s.scores.risk} compact />}
+                <td className="px-3 py-2.5">
+                  {s.real ? (
+                    <span
+                      className="block"
+                      title={`52 sem : ${fcfa(s.real.week52Low)} – ${fcfa(s.real.week52High)}`}
+                    >
+                      <span className="relative block h-1.5 w-20 ml-auto rounded-full bg-surface-2">
+                        <span
+                          className="absolute top-1/2 h-2.5 w-1 -translate-y-1/2 rounded-sm bg-accent"
+                          style={{ left: `calc(${(pos52(s) * 100).toFixed(0)}% - 2px)` }}
+                        />
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="block text-right text-ink-3">—</span>
+                  )}
                 </td>
                 </tr>
               );

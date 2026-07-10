@@ -84,8 +84,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           })}
         </nav>
         <div className="px-4 py-4 text-[10px] leading-relaxed text-ink-3 border-t border-line">
-          Cours, indices, dividendes, documents et alertes : sources BRVM.
-          IPO : démo.
+          Cours, indices, dividendes, documents, alertes et opérations sur
+          titres : sources officielles BRVM. Seuls les exemples pédagogiques
+          d&apos;analyse (page IPO) sont simulés.
           <br />
           Ceci n&apos;est pas un conseil en investissement.
         </div>

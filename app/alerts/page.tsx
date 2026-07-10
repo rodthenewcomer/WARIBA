@@ -28,7 +28,7 @@ export default function AlertsPage() {
   );
 
   return (
-    <div className="space-y-4 fade-in">
+    <div className="space-y-4 stagger">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-ink">Alertes</h1>

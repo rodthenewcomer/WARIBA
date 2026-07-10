@@ -136,6 +136,28 @@ export function getSectorStats(): SectorStats[] {
   }));
 }
 
+/** Moyenne des variations du jour par secteur — pour les barres
+ * divergentes de l'accueil. Trié de la meilleure à la pire. */
+export function getSectorPerformance(): {
+  sector: string;
+  avgDayChange: number;
+  count: number;
+}[] {
+  const groups = new Map<string, number[]>();
+  for (const s of getSnapshots()) {
+    const arr = groups.get(s.sector) ?? [];
+    arr.push(s.dayChange);
+    groups.set(s.sector, arr);
+  }
+  return [...groups.entries()]
+    .map(([sector, changes]) => ({
+      sector,
+      avgDayChange: changes.reduce((a, b) => a + b, 0) / changes.length,
+      count: changes.length,
+    }))
+    .sort((a, b) => b.avgDayChange - a.avgDayChange);
+}
+
 /** Indices réels BRVM (bulletins officiels) — plus aucune valeur synthétique. */
 export function getIndices(): IndexInfo[] {
   return REAL_INDICES;

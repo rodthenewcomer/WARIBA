@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function NewsPage() {
   const news = latestNews(120);
   return (
-    <div className="space-y-4 fade-in">
+    <div className="space-y-4 stagger">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">Actualités</h1>
         <p className="mt-1 max-w-3xl text-sm text-ink-3">

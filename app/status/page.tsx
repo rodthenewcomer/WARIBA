@@ -70,7 +70,7 @@ export default function StatusPage() {
   ];
 
   return (
-    <div className="space-y-4 fade-in">
+    <div className="space-y-4 stagger">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">
           Statut des données

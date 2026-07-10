@@ -15,7 +15,7 @@ export default function IPOPage() {
   const operations = CAPITAL_OPERATIONS.slice(0, 12);
 
   return (
-    <div className="space-y-6 fade-in">
+    <div className="space-y-6 stagger">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">
           IPO & opérations sur titres

@@ -16,6 +16,7 @@ import { getIndices, getSnapshots } from "@/lib/data";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
 import { latestSessionAlerts, REAL_ALERTS } from "@/lib/real-alerts";
 import { MarketMap } from "@/components/markets/market-map";
+import { SectorPerformance } from "@/components/markets/sector-performance";
 import { latestNews, newsDate } from "@/lib/news";
 import { latestNotices } from "@/lib/real-operations";
 import { dateFr, fcfa, num, pct } from "@/lib/format";
@@ -99,7 +100,7 @@ export default function DashboardPage() {
   const liveOps = latestNotices(3);
 
   return (
-    <div className="space-y-5 fade-in">
+    <div className="space-y-5 stagger">
       {/* Hero */}
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
@@ -194,6 +195,17 @@ export default function DashboardPage() {
           <span className="bg-down" style={{ width: `${(declining / snapshots.length) * 100}%` }} />
         </div>
       </div>
+
+      {/* Performance sectorielle — barres divergentes (moyenne du jour) */}
+      <Card>
+        <CardHeader
+          title="Performance par secteur"
+          subtitle="Moyenne des variations de la séance · nombre de valeurs à droite"
+        />
+        <CardBody>
+          <SectorPerformance />
+        </CardBody>
+      </Card>
 
       {/* Mini carte + extrêmes 52 semaines */}
       <div className="grid gap-3 lg:grid-cols-3">

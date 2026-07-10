@@ -66,7 +66,7 @@ export default function SettingsPage() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <div className="space-y-4 fade-in max-w-2xl">
+    <div className="stagger space-y-4">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">Réglages</h1>
         <p className="mt-1 text-sm text-ink-3">
@@ -75,6 +75,8 @@ export default function SettingsPage() {
         </p>
       </div>
 
+      <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
+      <div className="space-y-4">
       <Card>
         <CardHeader title="Profil" />
         <CardBody className="flex items-center gap-3">
@@ -152,6 +154,8 @@ export default function SettingsPage() {
         </CardBody>
       </Card>
 
+      </div>
+      <div className="space-y-4">
       <Card>
         <CardHeader
           title="Notifications"
@@ -208,6 +212,9 @@ export default function SettingsPage() {
           </p>
         </CardBody>
       </Card>
+
+      </div>
+      </div>
 
       <p className="text-[10px] text-ink-3">
         AfriTerminal — version publique. Les informations présentées sont fournies à titre

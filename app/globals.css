@@ -100,6 +100,58 @@ body {
   animation: fadeIn 0.35s ease both;
 }
 
+/* Entrée en cascade des sections d'une page. `backwards` (jamais
+   `both`/`forwards`) : le transform n'existe QUE pendant l'animation —
+   une fois finie l'élément revient à transform:none, donc aucun risque
+   de containing block pour les position:fixed descendants (la leçon
+   des modales). Écart de 45 ms par enfant, plafonné au 12e. */
+.stagger > * {
+  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 45ms; }
+.stagger > *:nth-child(3) { animation-delay: 90ms; }
+.stagger > *:nth-child(4) { animation-delay: 135ms; }
+.stagger > *:nth-child(5) { animation-delay: 180ms; }
+.stagger > *:nth-child(6) { animation-delay: 225ms; }
+.stagger > *:nth-child(7) { animation-delay: 270ms; }
+.stagger > *:nth-child(8) { animation-delay: 315ms; }
+.stagger > *:nth-child(9) { animation-delay: 360ms; }
+.stagger > *:nth-child(10) { animation-delay: 405ms; }
+.stagger > *:nth-child(11) { animation-delay: 450ms; }
+.stagger > *:nth-child(n + 12) { animation-delay: 495ms; }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Réactivité au survol des cartes cliquables et tuiles — feedback
+   discret (bord + ombre), pas de translation (sobriété + perf). */
+.card-glass {
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.card-glass:hover {
+  border-color: color-mix(in oklab, var(--line) 40%, var(--accent) 60%);
+  box-shadow: 0 4px 24px -12px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger > *,
+  .fade-in {
+    animation: none;
+  }
+  .card-glass {
+    transition: none;
+  }
+}
+
 /* Opacité seule : un transform, même translateY(0), resté appliqué par
    fill-mode fait de l'élément le containing block de tout position:fixed
    descendant (modales, plein écran). Plus jamais de transform ici. */

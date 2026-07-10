@@ -18,9 +18,12 @@ const TYPES: (RealDocument["type"] | "Tous")[] = [
   "Communiqué",
 ];
 
+const PAGE_SIZE = 24;
+
 export default function DocumentsPage() {
   const [type, setType] = useState<(typeof TYPES)[number]>("Tous");
   const [query, setQuery] = useState("");
+  const [limit, setLimit] = useState(PAGE_SIZE);
 
   const filtered = useMemo(() => {
     const q = query.trim().toUpperCase();
@@ -28,11 +31,17 @@ export default function DocumentsPage() {
       (d) =>
         (type === "Tous" || d.type === type) &&
         (!q || d.ticker.includes(q) || d.title.toUpperCase().includes(q))
-    ).slice(0, 120);
+    );
   }, [type, query]);
+  const shown = filtered.slice(0, limit);
+
+  const pickType = (t: (typeof TYPES)[number]) => {
+    setType(t);
+    setLimit(PAGE_SIZE);
+  };
 
   return (
-    <div className="space-y-4 fade-in">
+    <div className="space-y-4 stagger">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-ink">Documents</h1>
         <p className="mt-1 text-sm text-ink-3">
@@ -48,7 +57,7 @@ export default function DocumentsPage() {
           {TYPES.map((t) => (
             <button
               key={t}
-              onClick={() => setType(t)}
+              onClick={() => pickType(t)}
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs font-medium whitespace-nowrap cursor-pointer transition-colors",
                 type === t
@@ -63,13 +72,22 @@ export default function DocumentsPage() {
         <Input
           placeholder="Filtrer par ticker ou titre…"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setLimit(PAGE_SIZE);
+          }}
           className="max-w-xs"
         />
       </div>
 
-      <div className="grid gap-2.5">
-        {filtered.map((d) => (
+      <p className="text-xs text-ink-3">
+        <span className="font-semibold text-ink">{filtered.length}</span>{" "}
+        document{filtered.length > 1 ? "s" : ""}
+        {type !== "Tous" || query ? " pour ces critères" : ""}
+      </p>
+
+      <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+        {shown.map((d) => (
           <article key={d.url} className="min-w-0 card-glass flex items-start gap-3 p-3.5">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
               <FileText className="h-4 w-4" />
@@ -81,7 +99,7 @@ export default function DocumentsPage() {
                 rel="noopener noreferrer"
                 className="group flex items-start justify-between gap-2"
               >
-                <span className="text-sm font-semibold text-ink group-hover:text-accent">
+                <span className="text-xs font-semibold leading-snug text-ink line-clamp-2 group-hover:text-accent">
                   {d.title}
                 </span>
                 <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ink-3 group-hover:text-accent" />
@@ -100,6 +118,18 @@ export default function DocumentsPage() {
           </article>
         ))}
       </div>
+
+      {filtered.length > limit ? (
+        <div className="flex justify-center">
+          <button
+            onClick={() => setLimit((l) => l + PAGE_SIZE)}
+            className="rounded-lg border border-line bg-surface/60 px-4 py-2 text-xs font-medium text-ink-2 hover:bg-surface-2 cursor-pointer transition-colors"
+          >
+            Afficher {Math.min(PAGE_SIZE, filtered.length - limit)} de plus (
+            {filtered.length - limit} restants)
+          </button>
+        </div>
+      ) : null}
 
       <p className="text-[11px] text-ink-3">
         Source : fiches sociétés officielles de la BRVM, actualisées chaque
