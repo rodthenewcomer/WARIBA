@@ -140,3 +140,73 @@ export function valuePortfolio(
     positions: valued,
   };
 }
+
+export interface ValuePoint {
+  time: string;
+  /** Valeur de marché du portefeuille ce jour-là, FCFA */
+  value: number;
+  /** Montant net investi cumulé à cette date (apports − retraits), FCFA */
+  invested: number;
+}
+
+/**
+ * Reconstruit la valeur du portefeuille séance par séance à partir des
+ * transactions et des clôtures quotidiennes réelles. Les cours sont
+ * reportés (forward-fill) les jours sans cotation d'un titre. Les achats
+ * apparaissent comme des « marches » d'apport — c'est voulu et honnête,
+ * la courbe montre le patrimoine, pas un rendement pondéré du temps.
+ */
+export function portfolioValueSeries(
+  transactions: PortfolioTransaction[],
+  closesByTicker: Record<string, { time: string; close: number }[]>
+): ValuePoint[] {
+  if (transactions.length === 0) return [];
+  const txs = [...transactions].sort((a, b) => a.date.localeCompare(b.date));
+  const firstDate = txs[0].date;
+
+  // union des dates de séance ≥ première transaction
+  const dateSet = new Set<string>();
+  for (const closes of Object.values(closesByTicker)) {
+    for (const c of closes) if (c.time >= firstDate) dateSet.add(c.time);
+  }
+  const dates = [...dateSet].sort();
+  if (dates.length === 0) return [];
+
+  // pointeurs de forward-fill par ticker
+  const pointers: Record<string, { i: number; last: number | null }> = {};
+  for (const t of Object.keys(closesByTicker)) pointers[t] = { i: 0, last: null };
+
+  let txIdx = 0;
+  const qty: Record<string, number> = {};
+  let invested = 0;
+
+  const out: ValuePoint[] = [];
+  for (const date of dates) {
+    // applique les transactions jusqu'à cette date incluse
+    while (txIdx < txs.length && txs[txIdx].date <= date) {
+      const tx = txs[txIdx++];
+      const fees = tx.fees ?? 0;
+      if (tx.side === "achat") {
+        qty[tx.ticker] = (qty[tx.ticker] ?? 0) + tx.quantity;
+        invested += tx.quantity * tx.price + fees;
+      } else {
+        const sellable = Math.min(tx.quantity, qty[tx.ticker] ?? 0);
+        qty[tx.ticker] = (qty[tx.ticker] ?? 0) - sellable;
+        invested -= sellable * tx.price - fees;
+      }
+    }
+    // avance les cours
+    let value = 0;
+    for (const [ticker, closes] of Object.entries(closesByTicker)) {
+      const ptr = pointers[ticker];
+      while (ptr.i < closes.length && closes[ptr.i].time <= date) {
+        ptr.last = closes[ptr.i].close;
+        ptr.i++;
+      }
+      const q = qty[ticker] ?? 0;
+      if (q > 0 && ptr.last !== null) value += q * ptr.last;
+    }
+    out.push({ time: date, value, invested });
+  }
+  return out;
+}

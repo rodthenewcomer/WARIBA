@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   computePositions,
+  portfolioValueSeries,
   valuePortfolio,
   type PortfolioTransaction,
 } from "./portfolio";
@@ -101,5 +102,58 @@ describe("valuePortfolio", () => {
     const positions = computePositions([tx({ ticker: "XXXX" })]);
     const summary = valuePortfolio(positions, () => undefined);
     expect(summary.positions[0].unrealizedPnl).toBe(0);
+  });
+});
+
+describe("portfolioValueSeries", () => {
+  const closes = {
+    SNTS: [
+      { time: "2026-01-05", close: 25_000 },
+      { time: "2026-01-06", close: 26_000 },
+      { time: "2026-01-08", close: 27_000 },
+    ],
+    PALC: [
+      { time: "2026-01-06", close: 8_000 },
+      { time: "2026-01-07", close: 8_500 },
+      { time: "2026-01-08", close: 8_200 },
+    ],
+  };
+
+  it("reconstruit la valeur jour par jour avec forward-fill", () => {
+    const series = portfolioValueSeries(
+      [
+        tx({ ticker: "SNTS", date: "2026-01-05", quantity: 10, price: 25_000 }),
+        tx({ ticker: "PALC", date: "2026-01-06", quantity: 100, price: 8_000 }),
+      ],
+      closes
+    );
+    expect(series.map((p) => p.time)).toEqual([
+      "2026-01-05",
+      "2026-01-06",
+      "2026-01-07",
+      "2026-01-08",
+    ]);
+    expect(series[0].value).toBe(10 * 25_000);
+    expect(series[1].value).toBe(10 * 26_000 + 100 * 8_000);
+    // 01-07 : SNTS sans cotation -> report du 26 000
+    expect(series[2].value).toBe(10 * 26_000 + 100 * 8_500);
+    expect(series[3].value).toBe(10 * 27_000 + 100 * 8_200);
+  });
+
+  it("l'investi cumule les apports et décroît à la vente", () => {
+    const series = portfolioValueSeries(
+      [
+        tx({ ticker: "SNTS", date: "2026-01-05", quantity: 10, price: 25_000 }),
+        tx({ ticker: "SNTS", date: "2026-01-08", side: "vente", quantity: 5, price: 27_000 }),
+      ],
+      { SNTS: closes.SNTS }
+    );
+    expect(series[0].invested).toBe(250_000);
+    expect(series[2].invested).toBe(250_000 - 5 * 27_000);
+    expect(series[2].value).toBe(5 * 27_000);
+  });
+
+  it("aucune transaction -> série vide", () => {
+    expect(portfolioValueSeries([], closes)).toEqual([]);
   });
 });

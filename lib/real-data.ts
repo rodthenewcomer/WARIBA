@@ -98,6 +98,29 @@ function sliceByTimeframe(daily: OHLCV[], tf: Timeframe): OHLCV[] {
   }
 }
 
+/** Clôtures quotidiennes complètes d'un ticker depuis une date (incluse) —
+ * pour la reconstruction de la valeur d'un portefeuille dans le temps. */
+export async function realDailyClosesSince(
+  ticker: string,
+  fromDate: string
+): Promise<{ time: string; close: number }[]> {
+  const daily = await loadRealDaily(ticker);
+  return daily
+    .filter((d) => typeof d.time === "string" && d.time >= fromDate)
+    .map((d) => ({ time: d.time as string, close: d.close }));
+}
+
+/** Clôtures quotidiennes d'un indice depuis une date (incluse). */
+export async function realIndexDailyClosesSince(
+  code: string,
+  fromDate: string
+): Promise<{ time: string; close: number }[]> {
+  const all = await loadIndexDaily(code);
+  return all
+    .filter((d) => typeof d.time === "string" && d.time >= fromDate)
+    .map((d) => ({ time: d.time as string, close: d.close }));
+}
+
 export async function realSeriesForTimeframe(
   ticker: string,
   tf: Timeframe
@@ -108,15 +131,7 @@ export async function realSeriesForTimeframe(
 
 const indexSeriesCache = new Map<string, Promise<OHLCV[]>>();
 
-/**
- * Historique réel d'un indice (BRVMC, BRVM30, BRVMPRES) découpé comme les
- * actions, pour la comparaison dans le chart. Le bulletin ne publie qu'un
- * niveau de clôture par jour : open/high/low sont ce même niveau.
- */
-export async function realIndexSeriesForTimeframe(
-  code: string,
-  tf: Timeframe
-): Promise<OHLCV[]> {
+function loadIndexDaily(code: string): Promise<OHLCV[]> {
   let cached = indexSeriesCache.get(code);
   if (!cached) {
     cached = import(`../data/real/index-series/${code}.json`).then((mod) =>
@@ -131,5 +146,17 @@ export async function realIndexSeriesForTimeframe(
     );
     indexSeriesCache.set(code, cached);
   }
-  return sliceByTimeframe(await cached, tf);
+  return cached;
+}
+
+/**
+ * Historique réel d'un indice (BRVMC, BRVM30, BRVMPRES) découpé comme les
+ * actions, pour la comparaison dans le chart. Le bulletin ne publie qu'un
+ * niveau de clôture par jour : open/high/low sont ce même niveau.
+ */
+export async function realIndexSeriesForTimeframe(
+  code: string,
+  tf: Timeframe
+): Promise<OHLCV[]> {
+  return sliceByTimeframe(await loadIndexDaily(code), tf);
 }

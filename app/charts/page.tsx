@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Columns2, Grid2X2, Sparkles, Square } from "lucide-react";
 import { getSnapshots } from "@/lib/data";
+import { usePortfolio, usePortfolioHydrated } from "@/hooks/use-portfolio";
+import { computePositions } from "@/lib/portfolio";
 import { cn } from "@/lib/utils";
 import { Select } from "@/components/ui/input";
 import { MainChart } from "@/components/charts/main-chart";
@@ -49,6 +51,14 @@ export default function ChartsPage() {
   }, [layout, tickers, restored]);
 
   const snapshots = getSnapshots();
+  usePortfolioHydrated();
+  const transactions = usePortfolio((s) => s.transactions);
+  const held = new Set(
+    computePositions(transactions)
+      .filter((p) => p.quantity > 0)
+      .map((p) => p.ticker)
+  );
+  const heldSnapshots = snapshots.filter((s) => held.has(s.ticker));
   const setTickerAt = (i: number, t: string) =>
     setTickers((prev) => prev.map((x, j) => (j === i ? t : x)));
 
@@ -106,11 +116,22 @@ export default function ChartsPage() {
               className="w-full max-w-xs"
               aria-label={`Valeur du panneau ${i + 1}`}
             >
-              {snapshots.map((s) => (
-                <option key={s.ticker} value={s.ticker}>
-                  {s.ticker} — {s.name}
-                </option>
-              ))}
+              {heldSnapshots.length > 0 ? (
+                <optgroup label="Mon portefeuille">
+                  {heldSnapshots.map((s) => (
+                    <option key={s.ticker} value={s.ticker}>
+                      {s.ticker} — {s.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ) : null}
+              <optgroup label="Toute la cote">
+                {snapshots.map((s) => (
+                  <option key={s.ticker} value={s.ticker}>
+                    {s.ticker} — {s.name}
+                  </option>
+                ))}
+              </optgroup>
             </Select>
             <MainChart ticker={ticker} />
           </div>

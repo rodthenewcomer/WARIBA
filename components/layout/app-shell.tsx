@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -10,9 +10,12 @@ import {
   Filter,
   Grid3X3,
   LayoutDashboard,
-  Menu,
   Briefcase,
   CandlestickChart,
+  Newspaper,
+  Plus,
+  ShieldCheck,
+  X,
   Rocket,
   Settings,
 } from "lucide-react";
@@ -41,7 +44,21 @@ const MOBILE_NAV = [
   { href: "/map", label: "Carte", icon: Grid3X3 },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
-  { href: "/settings", label: "Menu", icon: Menu },
+] as const;
+
+/** Toutes les sections restantes, accessibles depuis le bouton « + » de
+ * la barre mobile — avant lui, Screener, Graphiques, Alertes, IPO,
+ * Documents, Actualités, Statut et Réglages étaient introuvables au
+ * doigt (le 5e onglet menait directement aux Réglages). */
+const MOBILE_MORE = [
+  { href: "/screener", label: "Screener", icon: Filter },
+  { href: "/charts", label: "Graphiques", icon: CandlestickChart },
+  { href: "/alerts", label: "Alertes", icon: Bell },
+  { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
+  { href: "/documents", label: "Documents", icon: FileText },
+  { href: "/news", label: "Actualités", icon: Newspaper },
+  { href: "/status", label: "Statut des données", icon: ShieldCheck },
+  { href: "/settings", label: "Réglages", icon: Settings },
 ] as const;
 
 function Logo() {
@@ -59,6 +76,7 @@ function Logo() {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <div className="min-h-dvh">
@@ -154,8 +172,61 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Link>
             );
           })}
+          <button
+            onClick={() => setMoreOpen(true)}
+            aria-label="Toutes les sections"
+            className={cn(
+              "flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium cursor-pointer",
+              MOBILE_MORE.some((m) => pathname.startsWith(m.href))
+                ? "text-accent"
+                : "text-ink-3"
+            )}
+          >
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/15">
+              <Plus className="h-3.5 w-3.5 text-accent" />
+            </span>
+            Plus
+          </button>
         </div>
       </nav>
+
+      {/* Feuille « toutes les sections » (mobile) */}
+      {moreOpen ? (
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Toutes les sections">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm fade-in"
+            onClick={() => setMoreOpen(false)}
+          />
+          <div className="absolute inset-x-0 bottom-0 rounded-t-2xl border-t border-line bg-surface p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-2xl fade-in">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-sm font-semibold text-ink">Toutes les sections</p>
+              <button
+                onClick={() => setMoreOpen(false)}
+                aria-label="Fermer"
+                className="rounded-lg p-1.5 text-ink-3 hover:bg-surface-2 cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="grid grid-cols-4 gap-2">
+              {MOBILE_MORE.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMoreOpen(false)}
+                  className={cn(
+                    "flex flex-col items-center gap-1.5 rounded-xl border border-line bg-surface-2/50 px-1 py-3 text-center text-[10px] font-medium leading-tight",
+                    pathname.startsWith(href) ? "text-accent border-accent/30" : "text-ink-2"
+                  )}
+                >
+                  <Icon className="h-5 w-5" />
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

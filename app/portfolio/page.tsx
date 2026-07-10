@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { PriceChange } from "@/components/stocks/badges";
 import { TransactionDialog } from "@/components/portfolio/transaction-dialog";
+import { PerformanceChart } from "@/components/portfolio/performance-chart";
+import { HoldingsFeed } from "@/components/portfolio/holdings-feed";
 
 const PITCH: { icon: typeof BarChart3; text: string }[] = [
   {
@@ -178,13 +180,24 @@ export default function PortfolioPage() {
             />
           </div>
 
+          {/* Courbe du patrimoine */}
+          <Card>
+            <CardHeader
+              title="Évolution de votre patrimoine"
+              subtitle="Valeur du portefeuille séance par séance vs montant investi et BRVM Composite"
+            />
+            <CardBody>
+              <PerformanceChart transactions={transactions} />
+            </CardBody>
+          </Card>
+
           {/* Positions */}
           <Card>
             <CardHeader
               title="Positions"
               subtitle="Valorisées au dernier cours officiel · PRU = prix de revient unitaire (coût moyen, frais inclus)"
             />
-            <CardBody className="overflow-x-auto p-0">
+            <CardBody className="hidden overflow-x-auto p-0 md:block">
               <table className="w-full min-w-[760px] text-sm">
                 <thead>
                   <tr className="border-b border-line bg-surface-2/50 text-[11px] uppercase tracking-wide text-ink-3">
@@ -237,6 +250,35 @@ export default function PortfolioPage() {
                 </tbody>
               </table>
             </CardBody>
+            {/* Mobile : cartes compactes au lieu du tableau défilant */}
+            <CardBody className="space-y-2 md:hidden">
+              {summary.positions.map((p) => (
+                <Link
+                  key={p.ticker}
+                  href={`/stocks/${p.ticker}`}
+                  className="block min-w-0 rounded-xl border border-line bg-surface/50 p-3"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold text-ink">
+                      <span className="text-[11px] font-bold text-accent">{p.ticker}</span>{" "}
+                      · {p.quantity} titres
+                    </span>
+                    <span className="num text-sm font-semibold text-ink">
+                      {fcfa(p.marketValue)}
+                    </span>
+                  </div>
+                  <div className="mt-1 flex items-center justify-between gap-2 text-[11px]">
+                    <span className="text-ink-3">
+                      PRU {fcfa(p.averageCost)} → {fcfa(p.lastPrice)}
+                    </span>
+                    <span className={cn("num font-medium", p.unrealizedPnl >= 0 ? "text-up" : "text-down")}>
+                      {p.unrealizedPnl >= 0 ? "+" : ""}
+                      {fcfa(p.unrealizedPnl)} ({pct(p.unrealizedPnlPct, { digits: 1 })})
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </CardBody>
           </Card>
 
           {/* Répartition */}
@@ -280,6 +322,9 @@ export default function PortfolioPage() {
               </CardBody>
             </Card>
           </div>
+
+          {/* Actus / docs / alertes des valeurs détenues */}
+          <HoldingsFeed tickers={summary.positions.map((p) => p.ticker)} />
 
           {/* Transactions */}
           <Card>

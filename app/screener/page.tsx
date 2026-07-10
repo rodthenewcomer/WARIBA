@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { BookmarkPlus, Grid3X3, RotateCcw, X } from "lucide-react";
+import { BookmarkPlus, Briefcase, Grid3X3, RotateCcw, X } from "lucide-react";
 import { useSavedFilters, useSavedFiltersHydrated } from "@/hooks/use-saved-filters";
+import { usePortfolio, usePortfolioHydrated } from "@/hooks/use-portfolio";
+import { computePositions } from "@/lib/portfolio";
 import { getSnapshots } from "@/lib/data";
 import type { Country, Sector, StockSnapshot } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -70,12 +72,27 @@ const FIELDS: { key: keyof Filters; label: string; placeholder: string }[] = [
 export default function ScreenerPage() {
   const [filters, setFilters] = useState<Filters>(EMPTY);
   const [preset, setPreset] = useState<string | null>(null);
+  const [portfolioOnly, setPortfolioOnly] = useState(false);
+  const portfolioHydrated = usePortfolioHydrated();
+  const transactions = usePortfolio((s) => s.transactions);
+  const heldTickers = useMemo(
+    () =>
+      new Set(
+        computePositions(transactions)
+          .filter((p) => p.quantity > 0)
+          .map((p) => p.ticker)
+      ),
+    [transactions]
+  );
   const savedHydrated = useSavedFiltersHydrated();
   const { saved, save, remove } = useSavedFilters();
   const hasActiveFilters = Object.values(filters).some(Boolean);
 
   const snapshots = getSnapshots();
-  const results = useMemo(() => applyFilters(snapshots, filters), [snapshots, filters]);
+  const results = useMemo(() => {
+    const base = applyFilters(snapshots, filters);
+    return portfolioOnly ? base.filter((s) => heldTickers.has(s.ticker)) : base;
+  }, [snapshots, filters, portfolioOnly, heldTickers]);
 
   const setField = (key: keyof Filters, value: string) => {
     setPreset(null);
@@ -147,6 +164,23 @@ export default function ScreenerPage() {
             {p.label}
           </button>
         ))}
+        <button
+          onClick={() => setPortfolioOnly((v) => !v)}
+          disabled={!portfolioHydrated || heldTickers.size === 0}
+          title={
+            heldTickers.size === 0
+              ? "Ajoutez d'abord des transactions dans votre portefeuille"
+              : "Restreindre aux valeurs de votre portefeuille"
+          }
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium whitespace-nowrap cursor-pointer transition-colors disabled:opacity-40 disabled:cursor-not-allowed",
+            portfolioOnly
+              ? "border-gold/40 bg-gold/15 text-gold"
+              : "border-line bg-surface/60 text-ink-2 hover:bg-surface-2"
+          )}
+        >
+          <Briefcase className="h-3 w-3" /> Mon portefeuille
+        </button>
       </div>
 
       {savedHydrated && saved.length > 0 ? (
