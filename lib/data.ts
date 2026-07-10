@@ -12,6 +12,7 @@ import { computeScores, detectSignals } from "./signals";
 import { generateInsight } from "./insights";
 import { getAllRealQuotes, getRealQuote, REAL_INDICES } from "./real-data";
 import { realOnlySnapshot } from "./real-universe";
+import { companyProfile } from "./company-profiles";
 
 function pctChange(from: number, to: number): number {
   if (from === 0) return 0;
@@ -70,7 +71,17 @@ export function getSnapshots(): StockSnapshot[] {
     const scores = computeScores(stock, derived);
     const insight = generateInsight(stock, derived, signals);
     const real = getRealQuote(stock.ticker);
-    const base: StockSnapshot = { ...stock, ...derived, scores, signals, insight, real };
+    const base: StockSnapshot = {
+      ...stock,
+      ...derived,
+      scores,
+      signals,
+      insight,
+      real,
+      // Fiche société curée (lib/company-profiles.ts) prioritaire sur la
+      // description héritée de l'ère mock.
+      description: companyProfile(stock.ticker) ?? stock.description,
+    };
 
     if (!real) return base;
 

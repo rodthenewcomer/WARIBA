@@ -161,8 +161,47 @@ export function StockView({ ticker }: { ticker: string }) {
 
           <Card>
             <CardHeader title="À propos" />
-            <CardBody>
+            <CardBody className="space-y-3">
               <p className="text-xs leading-relaxed text-ink-2">{stock.description}</p>
+              {real ? (
+                <div className="space-y-2.5 border-t border-line pt-3">
+                  <div>
+                    <div className="flex items-center justify-between text-[11px] text-ink-3">
+                      <span>Extrêmes 52 semaines</span>
+                      <span className="num text-ink-2">
+                        {fcfa(real.week52Low)} – {fcfa(real.week52High)}
+                      </span>
+                    </div>
+                    {/* Position du cours dans la fourchette 52 semaines */}
+                    <div className="relative mt-1.5 h-1.5 rounded-full bg-surface-2">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-down/50 to-up/60"
+                        style={{
+                          width: `${
+                            real.week52High > real.week52Low
+                              ? Math.min(100, Math.max(0, ((real.lastClose - real.week52Low) / (real.week52High - real.week52Low)) * 100))
+                              : 100
+                          }%`,
+                        }}
+                      />
+                    </div>
+                    <p className="mt-1 text-[10px] text-ink-3">
+                      {real.lastClose >= real.week52High
+                        ? "Au plus haut de ses 52 dernières semaines."
+                        : `À ${pct(((real.lastClose - real.week52High) / real.week52High) * 100, { digits: 1 })} de son plus haut 52 semaines.`}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-ink-3">Record de clôture (depuis 2019)</span>
+                    <span className="num font-medium text-ink">
+                      {fcfa(real.allTimeHigh)}{" "}
+                      <span className="font-normal text-ink-3">
+                        le {dateFr(real.allTimeHighDate)}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              ) : null}
             </CardBody>
           </Card>
         </div>

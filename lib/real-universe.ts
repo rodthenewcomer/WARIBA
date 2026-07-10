@@ -1,4 +1,5 @@
 import type { Country, RealQuote, Sector, StockSnapshot } from "./types";
+import { companyProfile } from "./company-profiles";
 
 /**
  * Nomenclature secteur du bulletin officiel (BOC) → libellés de l'app.
@@ -66,10 +67,12 @@ export function realOnlySnapshot(q: RealQuote): StockSnapshot {
     sharesM: 0,
     lastPrice: q.lastClose,
     avgVolume30d: q.avgVolume30d,
+    // Fiche curée si disponible ; sinon phrase générique SANS affirmer
+    // que les états financiers manquent (faux pour les sociétés dont les
+    // fondamentaux sont intégrés — la provenance est déjà affichée ailleurs).
     description:
-      `${q.name} est cotée à la BRVM${sectorPart} — ${country}. ` +
-      "Cours, volumes, PER et dividendes proviennent des bulletins officiels " +
-      "de la cote ; les états financiers ne sont pas encore intégrés.",
+      companyProfile(q.ticker) ??
+      `${q.name} est cotée à la BRVM${sectorPart} — ${country}.`,
     profile: { drift: 0, vol: 0 },
     fundamentals: {
       revenue: 0,

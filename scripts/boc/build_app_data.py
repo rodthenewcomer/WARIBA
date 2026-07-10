@@ -80,6 +80,14 @@ def build_snapshot(records: list[dict]) -> dict:
     )
     dividend_net, dividend_date = last_valid_dividend(records)
 
+    # Extrêmes réels : 52 semaines (~251 séances avant la dernière) et
+    # record de toute la série (2019+) — dérivés du même historique BOC
+    # que le chart, aucune estimation.
+    win52 = records[-252:]
+    week52_high = max(r["close"] for r in win52)
+    week52_low = min(r["close"] for r in win52)
+    record_bar = max(records, key=lambda r: r["close"])
+
     return {
         "ticker": None,  # rempli par l'appelant
         "name": last["name"],
@@ -104,6 +112,10 @@ def build_snapshot(records: list[dict]) -> dict:
         "netYieldPct": last["net_yield_pct"],
         "lastDividendNet": dividend_net,
         "lastDividendDate": dividend_date,
+        "week52High": week52_high,
+        "week52Low": week52_low,
+        "allTimeHigh": record_bar["close"],
+        "allTimeHighDate": record_bar["time"],
         "sparkline": [r["close"] for r in records[-30:]],
     }
 

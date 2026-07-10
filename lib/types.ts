@@ -269,6 +269,12 @@ export interface RealQuote {
   netYieldPct: number | null;
   lastDividendNet: number | null;
   lastDividendDate: string | null;
+  /** Extrêmes de clôture sur ~252 séances (52 semaines), séries BOC réelles. */
+  week52High: number;
+  week52Low: number;
+  /** Record de clôture de toute la série disponible (2019+). */
+  allTimeHigh: number;
+  allTimeHighDate: string;
   /** Derniers ~30 cours de clôture, pour les sparklines — évite un import dynamique juste pour un mini-graphe. */
   sparkline: number[];
 }

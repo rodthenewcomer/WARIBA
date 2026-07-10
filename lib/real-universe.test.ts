@@ -65,6 +65,10 @@ function quote(overrides: Partial<RealQuote> = {}): RealQuote {
     netYieldPct: 5.6,
     lastDividendNet: 176,
     lastDividendDate: "2026-05-20",
+    week52High: 3570,
+    week52Low: 1600,
+    allTimeHigh: 3570,
+    allTimeHighDate: "2026-06-25",
     sparkline: [3100, 3150],
     ...overrides,
   };
