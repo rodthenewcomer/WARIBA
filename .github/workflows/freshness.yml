@@ -1,0 +1,26 @@
+# Watchdog de fraîcheur : échoue (→ e-mail GitHub au propriétaire du
+# repo) quand la BRVM a publié un bulletin que nos données n'ont pas.
+#
+# Né de l'incident du 2026-07-10 : bulletin du 09/07 publié tard par la
+# BRVM, site sur « séance du 8 » toute la matinée, détecté à l'œil nu.
+# Tourne à 07h00 UTC mar-sam — APRÈS la passe de rattrapage boc-daily
+# de 05h00 : si le rattrapage a fait son travail, ce check est vert.
+# Distingue férié (bulletin absent en ligne → toléré) d'un échec du
+# pipeline (bulletin en ligne mais non ingéré → rouge).
+name: freshness
+
+on:
+  schedule:
+    - cron: "0 7 * * 2-6"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier la fraîcheur des données (stdlib Python uniquement)
+        run: python3 scripts/boc/check_freshness.py --snapshot data/real/snapshot.json
