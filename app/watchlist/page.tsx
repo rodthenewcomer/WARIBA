@@ -4,13 +4,13 @@ import Link from "next/link";
 import { Plus, Star, Trash2 } from "lucide-react";
 import { getSnapshots } from "@/lib/data";
 import { getSeries } from "@/lib/mock/series";
-import { fcfa } from "@/lib/format";
+import { fcfa, pct, ratio } from "@/lib/format";
 import { useWatchlist, useWatchlistHydrated } from "@/hooks/use-watchlist";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/input";
 import { Sparkline } from "@/components/charts/sparkline";
-import { PriceChange, ScoreBadge, SignalBadges } from "@/components/stocks/badges";
+import { PriceChange, SignalBadges } from "@/components/stocks/badges";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function WatchlistPage() {
@@ -119,12 +119,27 @@ export default function WatchlistPage() {
                     height={30}
                   />
                 </div>
-                {!s.real ? (
-                  <div className="hidden md:flex items-center gap-1.5">
-                    <ScoreBadge kind="quality" value={s.scores.quality} compact />
-                    <ScoreBadge kind="risk" value={s.scores.risk} compact />
+                {/* Recherche en un coup d'œil : métriques réelles (les
+                    anciens scores qualité/risque ne se rendaient jamais,
+                    tout l'univers étant réel) */}
+                <div className="hidden md:flex items-center gap-4 text-right">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-ink-3">PER</p>
+                    <p className="num text-xs font-medium text-ink-2">
+                      {s.per > 0 ? ratio(s.per) : "—"}
+                    </p>
                   </div>
-                ) : null}
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-ink-3">Rdt net</p>
+                    <p className="num text-xs font-medium text-ink-2">
+                      {pct(s.yieldNet, { signed: false, digits: 1 })}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-ink-3">YTD</p>
+                    <PriceChange value={s.ytdChange} className="text-xs" arrow={false} />
+                  </div>
+                </div>
                 <div className="text-right">
                   <p className="num text-sm font-semibold text-ink">{fcfa(s.lastPrice)}</p>
                   <PriceChange value={s.dayChange} className="text-xs" />

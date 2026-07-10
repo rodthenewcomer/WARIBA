@@ -12,7 +12,15 @@ import {
   Trash2,
 } from "lucide-react";
 import { usePortfolio, usePortfolioHydrated } from "@/hooks/use-portfolio";
-import { computePositions, dividendIncome, projectedIncome, valuePortfolio } from "@/lib/portfolio";
+import {
+  computePositions,
+  dividendIncome,
+  monthlyIncomeForecast,
+  projectedIncome,
+  valuePortfolio,
+} from "@/lib/portfolio";
+import { Donut } from "@/components/ui/donut";
+import { IncomePanel } from "@/components/portfolio/income-panel";
 import { dividendHistoryFor } from "@/lib/real-dividends";
 import { Coins } from "lucide-react";
 import { getSnapshot } from "@/lib/data";
@@ -112,10 +120,28 @@ export default function PortfolioPage() {
       (t) => dividendHistoryFor(t).at(-1)?.net ?? null
     );
   }, [transactions]);
+  const forecast = useMemo(() => {
+    const positions = computePositions(transactions);
+    return monthlyIncomeForecast(
+      positions,
+      dividendHistoryFor,
+      new Date().toISOString().slice(0, 10)
+    );
+  }, [transactions]);
+
   const yieldOnCostOf = useMemo(
     () => new Map(projection.perPosition.map((x) => [x.ticker, x.yieldOnCost])),
     [projection]
   );
+
+  const countryAllocation = useMemo(() => {
+    const byCountry = new Map<string, number>();
+    for (const p of summary.positions) {
+      const country = getSnapshot(p.ticker)?.country ?? "Autre";
+      byCountry.set(country, (byCountry.get(country) ?? 0) + p.marketValue);
+    }
+    return [...byCountry.entries()].map(([label, value]) => ({ label, value }));
+  }, [summary]);
 
   const orderedTx = useMemo(
     () => [...transactions].sort((a, b) => b.date.localeCompare(a.date)),
@@ -320,47 +346,87 @@ export default function PortfolioPage() {
             </CardBody>
           </Card>
 
-          {/* Répartition */}
-          <div className="grid gap-3 lg:grid-cols-2">
+          {/* Répartition — anneaux valeur / secteur / pays */}
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             <Card>
-              <CardHeader title="Répartition par valeur" subtitle="Part de la valeur actuelle du portefeuille" />
-              <CardBody className="space-y-1.5">
-                {summary.positions.map((p) => (
-                  <div key={p.ticker} className="flex items-center gap-2" title={`${p.ticker} : ${pct(p.weightPct, { signed: false, digits: 1 })} · ${fcfa(p.marketValue)}`}>
-                    <span className="w-14 shrink-0 text-[11px] font-bold text-accent">{p.ticker}</span>
-                    <div className="h-3.5 min-w-0 flex-1 rounded bg-surface-2/60">
-                      <div
-                        className="h-full rounded-[3px] bg-accent/70"
-                        style={{ width: `${Math.max(1, p.weightPct)}%` }}
-                      />
-                    </div>
-                    <span className="num w-12 shrink-0 text-right text-[11px] text-ink-2">
-                      {pct(p.weightPct, { signed: false, digits: 1 })}
-                    </span>
-                  </div>
-                ))}
+              <CardHeader title="Par valeur" subtitle="Part de la valeur actuelle" />
+              <CardBody>
+                <Donut
+                  slices={summary.positions.map((p) => ({ label: p.ticker, value: p.marketValue }))}
+                  centerLabel={`${summary.positions.length}`}
+                  centerSub={`position${summary.positions.length > 1 ? "s" : ""}`}
+                />
               </CardBody>
             </Card>
             <Card>
-              <CardHeader title="Répartition par secteur" subtitle="Concentration sectorielle — la diversification se voit ici" />
-              <CardBody className="space-y-1.5">
-                {sectorAllocation.map((s) => (
-                  <div key={s.sector} className="flex items-center gap-2">
-                    <span className="w-28 shrink-0 truncate text-[11px] text-ink-2">{s.sector}</span>
-                    <div className="h-3.5 min-w-0 flex-1 rounded bg-surface-2/60">
-                      <div
-                        className="h-full rounded-[3px] bg-gold/70"
-                        style={{ width: `${Math.max(1, s.weightPct)}%` }}
-                      />
-                    </div>
-                    <span className="num w-12 shrink-0 text-right text-[11px] text-ink-2">
-                      {pct(s.weightPct, { signed: false, digits: 1 })}
-                    </span>
-                  </div>
-                ))}
+              <CardHeader title="Par secteur" subtitle="La diversification se voit ici" />
+              <CardBody>
+                <Donut
+                  slices={sectorAllocation.map((s) => ({ label: s.sector, value: s.weightPct }))}
+                  centerLabel={`${sectorAllocation.length}`}
+                  centerSub={`secteur${sectorAllocation.length > 1 ? "s" : ""}`}
+                />
+              </CardBody>
+            </Card>
+            <Card className="md:col-span-2 xl:col-span-1">
+              <CardHeader title="Par pays" subtitle="Exposition géographique UEMOA" />
+              <CardBody>
+                <Donut
+                  slices={countryAllocation}
+                  centerLabel={`${countryAllocation.length}`}
+                  centerSub={`pays`}
+                />
               </CardBody>
             </Card>
           </div>
+
+          {/* D'où vient votre performance ? */}
+          <Card>
+            <CardHeader
+              title="D'où vient votre performance ?"
+              subtitle="Décomposition du gain total : plus-value latente + résultat réalisé + dividendes perçus"
+            />
+            <CardBody className="space-y-1.5">
+              {(() => {
+                const parts = [
+                  { label: "Plus-value latente", value: summary.totalUnrealizedPnl, color: "bg-accent/70" },
+                  { label: "Résultat réalisé (ventes)", value: summary.totalRealizedPnl, color: "bg-sky-400/70" },
+                  { label: "Dividendes perçus (est.)", value: dividends.total, color: "bg-up/70" },
+                ];
+                const totalGain = parts.reduce((a, x) => a + x.value, 0);
+                const maxAbs = Math.max(1, ...parts.map((x) => Math.abs(x.value)));
+                return (
+                  <>
+                    {parts.map((x) => (
+                      <div key={x.label} className="flex items-center gap-2">
+                        <span className="w-44 shrink-0 truncate text-[11px] text-ink-2">{x.label}</span>
+                        <div className="h-3.5 min-w-0 flex-1 rounded bg-surface-2/60">
+                          <div
+                            className={cn("h-full rounded-[3px]", x.value >= 0 ? x.color : "bg-down/70")}
+                            style={{ width: `${Math.max(1, (Math.abs(x.value) / maxAbs) * 100)}%` }}
+                          />
+                        </div>
+                        <span className={cn("num w-28 shrink-0 text-right text-[11px] font-medium", x.value >= 0 ? "text-ink" : "text-down")}>
+                          {x.value >= 0 ? "+" : ""}
+                          {fcfa(x.value)}
+                        </span>
+                      </div>
+                    ))}
+                    <p className="pt-1.5 text-xs">
+                      <span className="text-ink-3">Gain total : </span>
+                      <span className={cn("num font-semibold", totalGain >= 0 ? "text-up" : "text-down")}>
+                        {totalGain >= 0 ? "+" : ""}
+                        {fcfa(totalGain)}
+                      </span>
+                    </p>
+                  </>
+                );
+              })()}
+            </CardBody>
+          </Card>
+
+          {/* Revenus passifs : historique + calendrier projeté */}
+          <IncomePanel events={dividends.events} forecast={forecast} />
 
           {/* Dividendes perçus + revenu projeté */}
           {dividends.events.length > 0 || projection.totalAnnual > 0 ? (

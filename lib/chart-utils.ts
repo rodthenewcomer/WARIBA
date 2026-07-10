@@ -21,6 +21,22 @@ export const CHART_COLORS = {
 export const COMPARE_COLORS = ["#8b5cf6", "#d4af37", "#ec4899", "#f59e0b"];
 
 /**
+ * Palette catégorielle FIXE (identité) pour les répartitions — ordre
+ * stable, jamais recyclée : au-delà de 7 catégories on replie dans
+ * « Autres ». L'identité n'est jamais portée par la couleur seule
+ * (légende étiquetée systématique à côté).
+ */
+export const CATEGORICAL_COLORS = [
+  "#e2a63d", // ambre (marque)
+  "#8b5cf6", // violet
+  "#38bdf8", // ciel
+  "#ec4899", // rose
+  "#22c55e", // vert
+  "#fb923c", // orange
+  "#94a3b8", // ardoise
+] as const;
+
+/**
  * Ajustement dividendes (back-adjustment) : pour chaque détachement,
  * les barres antérieures sont multipliées par (1 - dividende / cours au détachement).
  */

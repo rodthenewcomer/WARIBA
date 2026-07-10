@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   computePositions,
   dividendIncome,
+  incomeByYear,
+  monthlyIncomeForecast,
   portfolioValueSeries,
   projectedIncome,
   valuePortfolio,
@@ -230,5 +232,51 @@ describe("projectedIncome", () => {
     ]);
     const { totalAnnual } = projectedIncome(positions, () => 1_740);
     expect(totalAnnual).toBe(0);
+  });
+});
+
+describe("incomeByYear", () => {
+  it("regroupe et trie par année", () => {
+    const events = [
+      { ticker: "SNTS", date: "2026-05-26", netPerShare: 1740, quantityHeld: 10, amount: 17_400 },
+      { ticker: "SNTS", date: "2025-05-22", netPerShare: 1655, quantityHeld: 10, amount: 16_550 },
+      { ticker: "PALC", date: "2025-06-29", netPerShare: 441, quantityHeld: 100, amount: 44_100 },
+    ];
+    expect(incomeByYear(events)).toEqual([
+      { year: "2025", amount: 60_650 },
+      { year: "2026", amount: 17_400 },
+    ]);
+  });
+});
+
+describe("monthlyIncomeForecast", () => {
+  const history = (t: string) =>
+    t === "SNTS"
+      ? [{ date: "2026-05-26", net: 1_740 }]
+      : t === "PALC"
+        ? [{ date: "2026-06-29", net: 441 }]
+        : [];
+
+  it("projette au mois du dernier versement, occurrence à venir", () => {
+    const positions = computePositions([
+      tx({ ticker: "SNTS", quantity: 10, price: 25_000 }),
+      tx({ ticker: "PALC", quantity: 100, price: 8_000 }),
+    ]);
+    // on est en juillet 2026 : mai et juin sont passés → projetés en 2027
+    const fc = monthlyIncomeForecast(positions, history, "2026-07-10");
+    expect(fc.map((m) => m.month)).toEqual(["2027-05", "2027-06"]);
+    expect(fc[0].total).toBe(17_400);
+    expect(fc[1].total).toBe(44_100);
+  });
+
+  it("mois pas encore passé cette année : projeté cette année", () => {
+    const positions = computePositions([tx({ ticker: "SNTS", quantity: 10, price: 25_000 })]);
+    const fc = monthlyIncomeForecast(positions, history, "2026-03-01");
+    expect(fc.map((m) => m.month)).toEqual(["2026-05"]);
+  });
+
+  it("valeur sans historique : exclue", () => {
+    const positions = computePositions([tx({ ticker: "XXXX", quantity: 5, price: 1_000 })]);
+    expect(monthlyIncomeForecast(positions, history, "2026-07-10")).toEqual([]);
   });
 });

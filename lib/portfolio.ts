@@ -314,3 +314,65 @@ export function projectedIncome(
     portfolioYieldOnCost: totalInvested > 0 ? (totalAnnual / totalInvested) * 100 : 0,
   };
 }
+
+/** Dividendes perçus regroupés par année — la croissance du revenu
+ * passif dans le temps. */
+export function incomeByYear(
+  events: DividendIncomeEvent[]
+): { year: string; amount: number }[] {
+  const byYear = new Map<string, number>();
+  for (const e of events) {
+    const y = e.date.slice(0, 4);
+    byYear.set(y, (byYear.get(y) ?? 0) + e.amount);
+  }
+  return [...byYear.entries()]
+    .map(([year, amount]) => ({ year, amount }))
+    .sort((a, b) => a.year.localeCompare(b.year));
+}
+
+export interface MonthForecast {
+  /** AAAA-MM */
+  month: string;
+  items: { ticker: string; amount: number }[];
+  total: number;
+}
+
+/**
+ * Calendrier de revenu projeté sur les 12 prochains mois : chaque
+ * valeur détenue est projetée au MOIS de son dernier versement (les
+ * sociétés BRVM paient à date remarquablement stable d'une année sur
+ * l'autre), au dernier montant net connu. Projection à dividende
+ * constant — pas une prévision. `today` injecté pour la testabilité.
+ */
+export function monthlyIncomeForecast(
+  positions: Position[],
+  historyOf: (ticker: string) => { date: string; net: number }[],
+  today: string
+): MonthForecast[] {
+  const byMonth = new Map<string, { ticker: string; amount: number }[]>();
+  const todayYear = parseInt(today.slice(0, 4), 10);
+  const horizon = `${todayYear + 1}${today.slice(4, 7)}`; // +12 mois
+
+  for (const p of positions) {
+    if (p.quantity <= 0) continue;
+    const history = historyOf(p.ticker);
+    const last = history[history.length - 1];
+    if (!last || last.net <= 0) continue;
+    const payMonth = last.date.slice(5, 7);
+    // prochaine occurrence du mois de paiement, strictement après today
+    let month = `${todayYear}-${payMonth}`;
+    if (month <= today.slice(0, 7)) month = `${todayYear + 1}-${payMonth}`;
+    if (month > horizon.slice(0, 7)) continue;
+    const arr = byMonth.get(month) ?? [];
+    arr.push({ ticker: p.ticker, amount: p.quantity * last.net });
+    byMonth.set(month, arr);
+  }
+
+  return [...byMonth.entries()]
+    .map(([month, items]) => ({
+      month,
+      items: items.sort((a, b) => b.amount - a.amount),
+      total: items.reduce((a, x) => a + x.amount, 0),
+    }))
+    .sort((a, b) => a.month.localeCompare(b.month));
+}
