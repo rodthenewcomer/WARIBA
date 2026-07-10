@@ -107,6 +107,24 @@
     "source": "https://www.brvm.org/sites/default/files/20260430_-_etats_financiers_-_exercice_2025_-_lnb_bn.pdf",
     "publishedOn": "2026-04-30"
   },
+  "NEIC": {
+    "ticker": "NEIC",
+    "fiscalYear": 2025,
+    "revenueLabel": "CA",
+    "revenueM": 5139,
+    "revenuePrevM": 6744,
+    "netIncomeM": 2037,
+    "netIncomePrevM": -759,
+    "ordinaryIncomeM": 1336,
+    "ordinaryIncomePrevM": 715,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "source": "https://www.brvm.org/sites/default/files/20260423_-_etats_financiers_syscohada_-_exercice_2025_-_nei_ceda_ci.pdf",
+    "publishedOn": "2026-04-23"
+  },
   "NSBC": {
     "ticker": "NSBC",
     "fiscalYear": 2025,
@@ -251,6 +269,24 @@
     "source": "https://www.brvm.org/sites/default/files/20260626_-_etats_financiers_-_exercice_2025_-_erium_ci.pdf",
     "publishedOn": "2026-06-26"
   },
+  "SLBC": {
+    "ticker": "SLBC",
+    "fiscalYear": 2025,
+    "revenueLabel": "CA",
+    "revenueM": 378123,
+    "revenuePrevM": 309722,
+    "netIncomeM": 45781,
+    "netIncomePrevM": 21472,
+    "ordinaryIncomeM": 63245,
+    "ordinaryIncomePrevM": 30432,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "source": "https://www.brvm.org/sites/default/files/20260519_-_etats_financiers_-_exercice_2025_-_solibra_ci.pdf",
+    "publishedOn": "2026-05-19"
+  },
   "SMBC": {
     "ticker": "SMBC",
     "fiscalYear": 2025,
@@ -376,5 +412,23 @@
     "proposedGrossDividend": null,
     "source": "https://www.brvm.org/sites/default/files/20240904_-_etats_financiers_-_exercice_2023_-_unilever_ci.pdf",
     "publishedOn": "2024-09-04"
+  },
+  "UNXC": {
+    "ticker": "UNXC",
+    "fiscalYear": 2024,
+    "revenueLabel": "CA",
+    "revenueM": 27333,
+    "revenuePrevM": 29687,
+    "netIncomeM": -2189,
+    "netIncomePrevM": -2054,
+    "ordinaryIncomeM": -2159,
+    "ordinaryIncomePrevM": -1856,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "source": "https://www.brvm.org/sites/default/files/20250828_-_etats_financiers_-_exercice_2024_-_uniwax_ci.pdf",
+    "publishedOn": "2025-08-28"
   }
 }

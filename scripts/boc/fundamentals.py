@@ -322,15 +322,77 @@ REGISTRY: dict[str, dict] = {
             "ordinary_income_prev": -922_567,
         },
     },
-    # UNXC (Uniwax CI) essayé par OCR (600 dpi) mais écarté : le résultat
-    # net relevé sur deux tableaux différents du même document donne deux
-    # lectures qui NE CONCORDENT PAS (ex. "-2 064 070 774" vs
-    # "-3 054 070 773" pour la même case en théorie) malgré plusieurs
-    # passes (résolutions, PSM, recadrage/zoom ciblé) — scan trop
-    # dégradé à cet endroit précis pour une confiance suffisante. Le
-    # chiffre d'affaires, lui, était lisible et cohérent, mais un
-    # enregistrement sans résultat net fiable n'est pas exploitable
-    # (garde-fou main() : CA et RN doivent être tous les deux présents).
+    # NEIC, SLBC, UNXC (2026-07-10) : relevés via ocrmac (Vision.framework
+    # d'Apple, moteur radicalement différent de tesseract) plutôt que la
+    # table pdfplumber ou tesseract seul. NEIC avait un encodage de police
+    # corrompu au niveau texte — sans effet sur l'OCR, qui lit les pixels
+    # rendus, pas les codes caractère. UNXC avait mis tesseract en échec
+    # (5+ tentatives, résolutions/PSM/recadrages différents, chaque
+    # lecture du résultat net différente) ; ocrmac donne la MÊME valeur
+    # sur les deux occurrences du document (compte de résultat ET bilan/
+    # capitaux propres), confiance 1.00 les deux fois — recoupement réussi
+    # là où tesseract échouait spécifiquement.
+    "NEIC": {
+        "pdf": f"{BASE}/20260423_-_etats_financiers_syscohada_-_exercice_2025_-_nei_ceda_ci.pdf",
+        "publishedOn": "2026-04-23",
+        "fiscalYear": 2025,
+        "extractor": "manual",
+        "unit": 1,
+        # RN identique sur 2 occurrences (compte de résultat + bilan),
+        # conf. 1.00. Recoupé indépendamment : PER officiel BOC (13,29)
+        # × RN / cours ≈ 12,77 M actions, contre capital 255 316 500 FCFA
+        # ÷ 20 FCFA/action = 12 765 825 — <0,01% d'écart.
+        "raw": {
+            "revenue": 5_139_206_354,
+            "revenue_prev": 6_744_255_774,
+            "net_income": 2_036_626_234,
+            "net_income_prev": -759_371_358,
+            "ordinary_income": 1_335_940_310,
+            "ordinary_income_prev": 714_921_778,
+        },
+    },
+    "SLBC": {
+        "pdf": f"{BASE}/20260519_-_etats_financiers_-_exercice_2025_-_solibra_ci.pdf",
+        "publishedOn": "2026-05-19",
+        "fiscalYear": 2025,
+        "extractor": "manual",
+        "unit": 1_000_000,
+        # CA = "Chiffre d'affaires ET autres produits" (pas de ligne CA
+        # isolée sur ce document, cf. remarque équivalente pour SOGC).
+        # Colonnes 2024/2025 déduites (pas de recoupement PER — pas de
+        # nombre d'actions dans le document) par correspondance avec le
+        # tableau "Projet d'affectation des résultats... 2025" : le
+        # bénéfice net y est redonné en FCFA pleins (45 781 024 496),
+        # qui ne correspond qu'à UNE des deux colonnes du compte de
+        # résultat (45 781 M) — ça fixe sans ambiguïté quelle colonne
+        # est 2025.
+        "raw": {
+            "revenue": 378_123,
+            "revenue_prev": 309_722,
+            "net_income": 45_781,
+            "net_income_prev": 21_472,
+            "ordinary_income": 63_245,
+            "ordinary_income_prev": 30_432,
+        },
+    },
+    "UNXC": {
+        "pdf": f"{BASE}/20250828_-_etats_financiers_-_exercice_2024_-_uniwax_ci.pdf",
+        "publishedOn": "2025-08-28",
+        "fiscalYear": 2024,
+        "extractor": "manual",
+        "unit": 1,
+        # RN identique sur 2 occurrences (compte de résultat + capitaux
+        # propres du bilan), conf. 1.00 les deux fois. Pas de PER BOC
+        # (résultat négatif) pour un second recoupement.
+        "raw": {
+            "revenue": 27_333_349_555,
+            "revenue_prev": 29_686_986_976,
+            "net_income": -2_188_937_902,
+            "net_income_prev": -2_054_070_779,
+            "ordinary_income": -2_159_167_401,
+            "ordinary_income_prev": -1_855_715_900,
+        },
+    },
 }
 
 
