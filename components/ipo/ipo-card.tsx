@@ -16,6 +16,21 @@ const STATUS_TONE: Record<IPOItem["status"], "positive" | "accent" | "neutral" |
   "Clôturée": "warning",
 };
 
+// Le champ `date` a un sens différent selon le statut : sans préfixe,
+// "En cours · 20 juil. 2026" se lisait comme un début dans le futur pour
+// une opération censée être déjà ouverte. Clarifie ce que la date
+// représente pour chaque statut.
+const STATUS_DATE_PREFIX: Record<IPOItem["status"], string> = {
+  "En cours": "Clôture le",
+  "À venir": "Prévue le",
+  "À l'étude": "Échéance visée :",
+  "Clôturée": "Clôturée le",
+};
+
+function ipoDateLabel(ipo: IPOItem): string {
+  return `${STATUS_DATE_PREFIX[ipo.status]} ${dateFr(ipo.date)}`;
+}
+
 export function IPOCard({ ipo, featured }: { ipo: IPOItem; featured?: boolean }) {
   const [open, setOpen] = useState(false);
 
@@ -32,7 +47,7 @@ export function IPOCard({ ipo, featured }: { ipo: IPOItem; featured?: boolean })
               {ipo.name}
             </span>
           }
-          subtitle={`${ipo.kind} · ${dateFr(ipo.date)}`}
+          subtitle={`${ipo.kind} · ${ipoDateLabel(ipo)}`}
           action={<Badge tone={STATUS_TONE[ipo.status]}>{ipo.status}</Badge>}
         />
         <CardBody className="space-y-3.5">
@@ -56,7 +71,7 @@ export function IPOCard({ ipo, featured }: { ipo: IPOItem; featured?: boolean })
           <header className="pr-8">
             <h2 className="text-base font-semibold text-ink">{ipo.name}</h2>
             <p className="mt-0.5 text-xs text-ink-3">
-              {ipo.kind} · {dateFr(ipo.date)} · {ipo.status}
+              {ipo.kind} · {ipoDateLabel(ipo)} · {ipo.status}
             </p>
           </header>
           <p className="text-sm leading-relaxed text-ink-2">{ipo.summary}</p>
