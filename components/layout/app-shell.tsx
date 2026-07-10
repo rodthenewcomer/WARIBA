@@ -11,6 +11,8 @@ import {
   Grid3X3,
   LayoutDashboard,
   Menu,
+  Briefcase,
+  CandlestickChart,
   Rocket,
   Settings,
 } from "lucide-react";
@@ -25,8 +27,10 @@ const NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
+  { href: "/charts", label: "Graphiques", icon: CandlestickChart },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
+  { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
   { href: "/settings", label: "Réglages", icon: Settings },
@@ -35,8 +39,8 @@ const NAV = [
 const MOBILE_NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/map", label: "Carte", icon: Grid3X3 },
+  { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
-  { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/settings", label: "Menu", icon: Menu },
 ] as const;
 

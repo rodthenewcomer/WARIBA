@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/dashboard",
     "/map",
     "/screener",
+    "/charts",
+    "/portfolio",
     "/watchlist",
     "/news",
     "/documents",
