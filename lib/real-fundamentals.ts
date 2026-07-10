@@ -27,6 +27,12 @@ export interface RealFundamentals {
   costOfRiskPrevM: number | null;
   /** Dividende brut par action proposé à l'AG, en FCFA */
   proposedGrossDividend: number | null;
+  /** Nombre d'actions — présent seulement si deux sources indépendantes
+   * convergent (PER BOC × RN / cours vs capital ÷ nominal). */
+  sharesOutstanding: number | null;
+  /** Capitaux propres au bilan, millions de FCFA */
+  equityM: number | null;
+  equityPrevM: number | null;
   /** URL du PDF source sur brvm.org */
   source: string;
   publishedOn: string;

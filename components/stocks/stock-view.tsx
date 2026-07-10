@@ -261,6 +261,37 @@ export function StockView({ ticker }: { ticker: string }) {
                 value={real.lastDividendNet ? fcfa(real.lastDividendNet) : "—"}
                 hint={real.lastDividendDate ? `Payé le ${dateFr(real.lastDividendDate)}` : undefined}
               />
+              {realFund?.sharesOutstanding ? (
+                <>
+                  <MetricCard
+                    label="Capitalisation"
+                    term="capitalisation"
+                    value={compactFcfa(realFund.sharesOutstanding * lastPrice)}
+                    hint={`${(realFund.sharesOutstanding / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} M d'actions`}
+                  />
+                  <MetricCard
+                    label={`BPA ${realFund.fiscalYear}`}
+                    value={fcfa((realFund.netIncomeM * 1e6) / realFund.sharesOutstanding)}
+                    hint="Bénéfice net par action"
+                  />
+                  {realFund.equityM ? (
+                    <>
+                      <MetricCard
+                        label="P/B"
+                        term="pb"
+                        value={ratio(
+                          lastPrice / ((realFund.equityM * 1e6) / realFund.sharesOutstanding)
+                        )}
+                      />
+                      <MetricCard
+                        label={`ROE ${realFund.fiscalYear}`}
+                        term="roe"
+                        value={pct((realFund.netIncomeM / realFund.equityM) * 100, { signed: false, digits: 1 })}
+                      />
+                    </>
+                  ) : null}
+                </>
+              ) : null}
               {realFund ? (
                 <>
                   <MetricCard
@@ -330,9 +361,12 @@ export function StockView({ ticker }: { ticker: string }) {
                 >
                   document source (BRVM)
                 </a>
-                , extraction vérifiée manuellement. Capitalisation, P/B et ROE
-                restent indisponibles (nombre d&apos;actions et capitaux
-                propres non intégrés).
+                , extraction vérifiée manuellement.
+                {realFund.sharesOutstanding
+                  ? realFund.equityM
+                    ? " Capitalisation, BPA, P/B et ROE sont calculés sur le nombre d'actions et les capitaux propres vérifiés au document."
+                    : " Capitalisation et BPA sont calculés sur le nombre d'actions vérifié (deux sources concordantes) ; P/B et ROE attendent des capitaux propres lisibles au bilan."
+                  : " Capitalisation, P/B et ROE restent indisponibles (nombre d'actions et capitaux propres non encore vérifiés pour cette société)."}
               </p>
             ) : (
               <p className="mt-2.5 text-[11px] text-ink-3">

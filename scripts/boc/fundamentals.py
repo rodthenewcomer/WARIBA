@@ -168,6 +168,9 @@ REGISTRY: dict[str, dict] = {
         "fiscalYear": 2025,
         "extractor": "manual",
         "unit": 1_000,
+        # Capital 21 601 840 000 ÷ 1 000 F nominal = 21 601 840, confirmé
+        # par le PER BOC (implicite 21,61 M, <0,1 % d'écart).
+        "sharesOutstanding": 21_601_840,
         # Pas de ligne "Chiffre d'affaires" isolée (présentation
         # DEBIT/CREDIT) : CA reconstruit = Ventes de marchandises +
         # Ventes de produits fabriqués + Travaux/services rendus +
@@ -182,6 +185,10 @@ REGISTRY: dict[str, dict] = {
             "net_income_prev": 13_110_790,
             "ordinary_income": 17_161_525,
             "ordinary_income_prev": 18_040_224,
+            # Bilan (milliers) : Capital + Primes et réserves + Résultat —
+            # les trois seules lignes de capitaux propres de ce bilan.
+            "equity": 21_601_840 + 34_335_898 + 12_492_623,
+            "equity_prev": 21_601_840 + 34_186_212 + 13_110_790,
         },
     },
     "SMBC": {
@@ -207,6 +214,9 @@ REGISTRY: dict[str, dict] = {
         "fiscalYear": 2025,
         "extractor": "manual",
         "unit": 1,
+        # Capital 5 517 600 000 ÷ 250 F nominal = 22 070 400, confirmé
+        # par le PER BOC (implicite 22,06 M).
+        "sharesOutstanding": 22_070_400,
         # Montants en FCFA pleins dans le PDF (pas d'ambiguïté d'unité).
         # Actions implicites (18,43 Md×19,7 / 16450 ≈ 22,06 M) contre
         # capital 5 517 600 000 FCFA ÷ 250 FCFA/action = 22 070 400.
@@ -217,6 +227,12 @@ REGISTRY: dict[str, dict] = {
             "net_income_prev": 18_149_967_087,
             "ordinary_income": 29_730_140_706,
             "ordinary_income_prev": 28_968_728_930,
+            # Bilan : capital + prime de fusion + écart de rééval. +
+            # réserves indisponibles + report à nouveau + résultat.
+            "equity": 5_517_600_000 + 1_043_156_491 + 3_434_584_742
+            + 1_103_520_000 + 62_346_453 + 18_426_899_479,
+            "equity_prev": 5_517_600_000 + 1_043_156_491 + 3_434_584_742
+            + 1_103_520_000 + 10_107_366 + 18_149_967_087,
         },
     },
     "TTLC": {
@@ -224,6 +240,8 @@ REGISTRY: dict[str, dict] = {
         "publishedOn": "2026-06-01",
         "fiscalYear": 2025,
         "extractor": "manual",
+        # Capital 3 148 080 000 ÷ 50 F = 62 961 600, confirmé PER BOC (62,97 M).
+        "sharesOutstanding": 62_961_600,
         "unit": 1_000_000,
         # Le PDF labellise le résultat net "Bénéfice net" (pas "Résultat
         # net"). Actions implicites (9,087 Md×19,75 / 2850 ≈ 62,97 M)
@@ -242,6 +260,8 @@ REGISTRY: dict[str, dict] = {
         "publishedOn": "2026-04-27",
         "fiscalYear": 2025,
         "extractor": "manual",
+        # 4,725 Md distribués ÷ 525 F/action = 9 000 000 exactement (communiqué).
+        "sharesOutstanding": 9_000_000,
         "unit": 1,
         # Source = communiqué de presse (page 1 du PDF), pas un tableau —
         # chiffres donnés en toutes lettres ("189,4 milliards", "4,663
@@ -264,6 +284,9 @@ REGISTRY: dict[str, dict] = {
         "fiscalYear": 2025,
         "extractor": "manual",
         "unit": 1_000_000,
+        # Nombre d'actions ÉCRIT dans le PDF (10 912 000) et confirmé par
+        # le BPA publié (1 331 M / 10 912 000 = 122 F, exact).
+        "sharesOutstanding": 10_912_000,
         # Meilleur recoupement de tout le batch : le PDF donne le nombre
         # d'actions (10 912 000) ET le résultat net par action (122 FCFA)
         # en plus du résultat net total — 1 331 M / 10 912 000 = 122,0
@@ -275,6 +298,9 @@ REGISTRY: dict[str, dict] = {
             "revenue_prev": 12_467,
             "net_income": 1_331,
             "net_income_prev": 1_515,
+            # "Total capitaux propres" du bilan IFRS, en millions.
+            "equity": 5_512,
+            "equity_prev": 4_182,
         },
     },
     "SVOC": {
@@ -337,6 +363,8 @@ REGISTRY: dict[str, dict] = {
         "publishedOn": "2026-04-23",
         "fiscalYear": 2025,
         "extractor": "manual",
+        # Capital 255 316 500 ÷ 20 F = 12 765 825, confirmé PER BOC (<0,01 %).
+        "sharesOutstanding": 12_765_825,
         "unit": 1,
         # RN identique sur 2 occurrences (compte de résultat + bilan),
         # conf. 1.00. Recoupé indépendamment : PER officiel BOC (13,29)
@@ -402,6 +430,8 @@ REGISTRY: dict[str, dict] = {
         "publishedOn": "2025-08-29",
         "fiscalYear": 2024,
         "extractor": "manual",
+        # Capital 10 887 060 000 ÷ 200 F = 54 435 300, confirmé PER BOC (54,39 M).
+        "sharesOutstanding": 54_435_300,
         "unit": 1_000,
         # « en milliers de FCFA » libellé sur le document. RN confirmé
         # sur TROIS tableaux (compte de résultat, bilan, affectation).
@@ -423,6 +453,8 @@ REGISTRY: dict[str, dict] = {
         "publishedOn": "2024-12-16",
         "fiscalYear": 2023,
         "extractor": "manual",
+        # PER BOC (implicite 25,19 M) = capital 1 889 220 000 ÷ 75 F exactement.
+        "sharesOutstanding": 25_189_600,
         "unit": 1,
         # FCFA pleins (montants à 10-11 chiffres). RN 2023 identique
         # sur TROIS tableaux (compte de résultat, bilan, projet
@@ -471,6 +503,13 @@ def normalize(ticker: str, raw: dict, meta: dict) -> dict:
         "costOfRiskPrevM": to_millions(raw.get("cost_of_risk_prev"), unit),
         # dividende par action : déjà en FCFA, pas de normalisation
         "proposedGrossDividend": raw.get("proposed_gross_dividend"),
+        # Nombre d'actions : n'est inscrit au REGISTRY que si DEUX sources
+        # indépendantes convergent (PER officiel BOC × RN / cours d'une
+        # part, capital social ÷ valeur nominale d'autre part) — sinon
+        # absent. Capitaux propres : lus au bilan quand la ligne est nette.
+        "sharesOutstanding": meta.get("sharesOutstanding"),
+        "equityM": to_millions(raw.get("equity"), unit),
+        "equityPrevM": to_millions(raw.get("equity_prev"), unit),
         "source": meta["pdf"],
         "publishedOn": meta["publishedOn"],
     }
