@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookmarkPlus, RotateCcw, X } from "lucide-react";
+import Link from "next/link";
+import { BookmarkPlus, Grid3X3, RotateCcw, X } from "lucide-react";
 import { useSavedFilters, useSavedFiltersHydrated } from "@/hooks/use-saved-filters";
 import { getSnapshots } from "@/lib/data";
-import type { Sector, StockSnapshot } from "@/lib/types";
+import type { Country, Sector, StockSnapshot } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Input, Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { StockTable } from "@/components/stocks/stock-table";
 
 interface Filters {
   sector: Sector | "";
+  country: Country | "";
   perMax: string;
   yieldMin: string;
   ytdMin: string;
@@ -20,6 +22,7 @@ interface Filters {
 
 const EMPTY: Filters = {
   sector: "",
+  country: "",
   perMax: "",
   yieldMin: "",
   ytdMin: "",
@@ -44,6 +47,7 @@ function num(v: string): number | null {
 function applyFilters(stocks: StockSnapshot[], f: Filters): StockSnapshot[] {
   return stocks.filter((s) => {
     if (f.sector && s.sector !== f.sector) return false;
+    if (f.country && s.country !== f.country) return false;
     const perMax = num(f.perMax);
     if (perMax !== null && (s.per <= 0 || s.per > perMax)) return false;
     const yieldMin = num(f.yieldMin);
@@ -95,6 +99,12 @@ export default function ScreenerPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <Link
+            href="/map"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-line bg-surface/60 px-2.5 text-xs font-medium text-ink-2 hover:bg-surface-2 transition-colors"
+          >
+            <Grid3X3 className="h-3.5 w-3.5" /> Vue carte
+          </Link>
           <Button
             variant="outline"
             size="sm"
@@ -168,7 +178,7 @@ export default function ScreenerPage() {
       ) : null}
 
       <div className="card-glass p-4 space-y-2.5">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <label className="space-y-1">
             <span className="text-[11px] font-medium text-ink-3">Secteur</span>
             <Select
@@ -179,6 +189,19 @@ export default function ScreenerPage() {
               <option value="">Tous</option>
               {["Banque", "Télécom", "Agro-industrie", "Industrie", "Distribution", "Services publics", "Autre"].map((s) => (
                 <option key={s} value={s}>{s}</option>
+              ))}
+            </Select>
+          </label>
+          <label className="space-y-1">
+            <span className="text-[11px] font-medium text-ink-3">Pays</span>
+            <Select
+              value={filters.country}
+              onChange={(e) => setField("country", e.target.value)}
+              className="w-full"
+            >
+              <option value="">Tous</option>
+              {["Côte d'Ivoire", "Sénégal", "Burkina Faso", "Togo", "Bénin", "Mali", "Niger"].map((p) => (
+                <option key={p} value={p}>{p}</option>
               ))}
             </Select>
           </label>

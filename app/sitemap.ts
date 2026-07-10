@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sections = [
     "",
     "/dashboard",
-    "/markets",
     "/map",
     "/screener",
     "/watchlist",

@@ -10,7 +10,6 @@ import {
   Filter,
   Grid3X3,
   LayoutDashboard,
-  LineChart,
   Menu,
   Rocket,
   Settings,
@@ -23,8 +22,7 @@ import { MarketStatusBadge } from "./market-status-badge";
 import { ThemeToggle } from "./theme-toggle";
 
 const NAV = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/markets", label: "Marchés", icon: LineChart },
+  { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
   { href: "/documents", label: "Documents", icon: FileText },
@@ -36,7 +34,6 @@ const NAV = [
 
 const MOBILE_NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
-  { href: "/markets", label: "Marchés", icon: LineChart },
   { href: "/map", label: "Carte", icon: Grid3X3 },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
   { href: "/alerts", label: "Alertes", icon: Bell },
