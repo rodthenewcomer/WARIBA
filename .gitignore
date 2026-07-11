@@ -20,3 +20,4 @@ scripts/boc/__pycache__/
 **/__pycache__/
 # Cache local des PDF d'états financiers — retéléchargeables via scripts/boc/fundamentals.py
 data/fundamentals-pdf-cache/
+tmp/
