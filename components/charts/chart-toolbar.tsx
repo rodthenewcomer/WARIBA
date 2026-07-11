@@ -13,6 +13,7 @@ const CHART_TYPES: { value: ChartType; label: string }[] = [
   { value: "candlestick", label: "Bougies" },
   { value: "line", label: "Ligne" },
   { value: "area", label: "Aire" },
+  { value: "baseline", label: "Baseline" },
   { value: "bars", label: "OHLC" },
   { value: "heikin-ashi", label: "Heikin Ashi" },
 ];
@@ -24,9 +25,12 @@ const INDICATORS: { id: IndicatorId; label: string; colorable?: MaId }[] = [
   { id: "sma100", label: "SMA 100", colorable: "sma100" },
   { id: "sma200", label: "SMA 200", colorable: "sma200" },
   { id: "ema20", label: "EMA 20", colorable: "ema20" },
+  { id: "vwap", label: "VWAP" },
   { id: "bollinger", label: "Bandes de Bollinger" },
   { id: "rsi", label: "RSI 14" },
   { id: "macd", label: "MACD" },
+  { id: "atr", label: "ATR 14" },
+  { id: "stoch", label: "Stochastique 14-3" },
 ];
 
 function Dropdown({
@@ -127,6 +131,9 @@ export interface ChartToolbarProps {
   onShowVolume: (v: boolean) => void;
   adjusted: boolean;
   onAdjusted: (v: boolean) => void;
+  logScale: boolean;
+  onLogScale: (v: boolean) => void;
+  comparing: boolean;
   isReal: boolean;
   compare: string[];
   onCompare: (codes: string[]) => void;
@@ -223,6 +230,23 @@ export function ChartToolbar(props: ChartToolbarProps) {
           )}
         >
           Div. adj
+        </button>
+        <button
+          onClick={() => props.onLogScale(!props.logScale)}
+          disabled={props.comparing}
+          title={
+            props.comparing
+              ? "Indisponible en comparaison (échelle en %)"
+              : "Échelle logarithmique — les variations en % ont la même hauteur partout"
+          }
+          className={cn(
+            "h-8 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40",
+            props.logScale
+              ? "border-accent/30 bg-accent/10 text-accent"
+              : "border-line bg-surface/60 text-ink-3 hover:bg-surface-2"
+          )}
+        >
+          Log
         </button>
         <Dropdown
           label="Indicateurs"

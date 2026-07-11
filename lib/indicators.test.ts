@@ -8,6 +8,8 @@ import {
   calculateRSI,
   calculateSMA,
   calculateVWAP,
+  calculateATR,
+  calculateStochastic,
 } from "./indicators";
 
 /** Bougie plate à partir d'une simple clôture (open=high=low=close). */
@@ -173,5 +175,51 @@ describe("calculateVWAP", () => {
   it("volume nul -> retombe sur le prix typique (pas de division par zéro)", () => {
     const out = values(calculateVWAP(candles([15], 0)));
     expect(out).toEqual([15]);
+  });
+});
+
+describe("calculateATR", () => {
+  it("série plate : ATR nul", () => {
+    const flat = Array.from({ length: 30 }, (_, i) => ({
+      time: `2026-01-${String(i + 1).padStart(2, "0")}`,
+      open: 100, high: 100, low: 100, close: 100, volume: 10,
+    }));
+    const atr = calculateATR(flat);
+    expect(atr.length).toBeGreaterThan(0);
+    expect(atr.every((p) => p.value === 0)).toBe(true);
+  });
+
+  it("amplitude constante de 10 : ATR = 10", () => {
+    const bars = Array.from({ length: 30 }, (_, i) => ({
+      time: `2026-01-${String(i + 1).padStart(2, "0")}`,
+      open: 100, high: 105, low: 95, close: 100, volume: 10,
+    }));
+    const atr = calculateATR(bars);
+    expect(atr[atr.length - 1].value).toBeCloseTo(10);
+  });
+
+  it("données insuffisantes : vide", () => {
+    expect(calculateATR([{ time: "2026-01-01", open: 1, high: 1, low: 1, close: 1, volume: 0 }])).toEqual([]);
+  });
+});
+
+describe("calculateStochastic", () => {
+  it("clôture au plus haut de la fourchette : %K = 100", () => {
+    const bars = Array.from({ length: 25 }, (_, i) => ({
+      time: `2026-01-${String(i + 1).padStart(2, "0")}`,
+      open: 100 + i, high: 101 + i, low: 99 + i, close: 101 + i, volume: 10,
+    }));
+    const { k, d } = calculateStochastic(bars);
+    expect(k[k.length - 1].value).toBeGreaterThan(95);
+    expect(d.length).toBeLessThanOrEqual(k.length);
+  });
+
+  it("fourchette nulle : 50 (neutre, pas de division par zéro)", () => {
+    const flat = Array.from({ length: 20 }, (_, i) => ({
+      time: `2026-01-${String(i + 1).padStart(2, "0")}`,
+      open: 100, high: 100, low: 100, close: 100, volume: 10,
+    }));
+    const { k } = calculateStochastic(flat);
+    expect(k.every((p) => p.value === 50)).toBe(true);
   });
 });

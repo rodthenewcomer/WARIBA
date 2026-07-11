@@ -1,4 +1,4 @@
-export type ChartType = "candlestick" | "line" | "area" | "bars" | "heikin-ashi";
+export type ChartType = "candlestick" | "line" | "area" | "baseline" | "bars" | "heikin-ashi";
 
 export type Timeframe = "1D" | "1W" | "1M" | "3M" | "6M" | "YTD" | "1Y" | "3Y" | "5Y";
 
@@ -8,9 +8,12 @@ export type IndicatorId =
   | "sma100"
   | "sma200"
   | "ema20"
+  | "vwap"
   | "bollinger"
   | "rsi"
-  | "macd";
+  | "macd"
+  | "atr"
+  | "stoch";
 
 export type Sector =
   | "Banque"

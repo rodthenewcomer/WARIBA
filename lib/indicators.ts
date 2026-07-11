@@ -153,3 +153,52 @@ export function calculateVWAP(data: OHLCV[]): TimeValue[] {
   }
   return out;
 }
+
+/** ATR (Average True Range) — volatilité moyenne en FCFA, lissage Wilder. */
+export function calculateATR(data: OHLCV[], period = 14): TimeValue[] {
+  if (data.length < period + 1) return [];
+  const trs: number[] = [];
+  for (let i = 1; i < data.length; i++) {
+    const h = data[i].high;
+    const l = data[i].low;
+    const pc = data[i - 1].close;
+    trs.push(Math.max(h - l, Math.abs(h - pc), Math.abs(l - pc)));
+  }
+  const out: TimeValue[] = [];
+  let atr = trs.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  out.push({ time: data[period].time, value: atr });
+  for (let i = period; i < trs.length; i++) {
+    atr = (atr * (period - 1) + trs[i]) / period;
+    out.push({ time: data[i + 1].time, value: atr });
+  }
+  return out;
+}
+
+/** Stochastique %K/%D (14, 3) — position de la clôture dans la fourchette
+ * récente, 0-100. */
+export function calculateStochastic(
+  data: OHLCV[],
+  period = 14,
+  smooth = 3
+): { k: TimeValue[]; d: TimeValue[] } {
+  const rawK: TimeValue[] = [];
+  for (let i = period - 1; i < data.length; i++) {
+    const win = data.slice(i - period + 1, i + 1);
+    const hi = Math.max(...win.map((b) => b.high));
+    const lo = Math.min(...win.map((b) => b.low));
+    rawK.push({
+      time: data[i].time,
+      value: hi === lo ? 50 : ((data[i].close - lo) / (hi - lo)) * 100,
+    });
+  }
+  const sma = (src: TimeValue[]): TimeValue[] => {
+    const out: TimeValue[] = [];
+    for (let i = smooth - 1; i < src.length; i++) {
+      const s = src.slice(i - smooth + 1, i + 1);
+      out.push({ time: src[i].time, value: s.reduce((a, b) => a + b.value, 0) / smooth });
+    }
+    return out;
+  };
+  const k = sma(rawK);
+  return { k, d: sma(k) };
+}
