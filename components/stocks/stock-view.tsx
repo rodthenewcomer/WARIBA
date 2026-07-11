@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { Bell, Sparkles } from "lucide-react";
 import { getSectorStats, getSnapshot, getSnapshots } from "@/lib/data";
 import { getRealQuote, LATEST_TRADING_DATE } from "@/lib/real-data";
@@ -36,8 +37,30 @@ import { PriceAlertDialog } from "./price-alert-dialog";
 import { usePriceAlerts } from "@/hooks/use-price-alerts";
 import { useState } from "react";
 
+const STOCK_TABS = [
+  { id: "graphique", label: "Graphique" },
+  { id: "fondamentaux", label: "Fondamentaux" },
+  { id: "risque", label: "Risque & opérations" },
+  { id: "actus", label: "Actus & documents" },
+] as const;
+
+type StockTabId = (typeof STOCK_TABS)[number]["id"];
+
+const HASH_TO_TAB: Record<string, StockTabId> = {
+  "#chart": "graphique",
+  "#fondamentaux": "fondamentaux",
+  "#actualites": "actus",
+  "#documents": "actus",
+};
+
 export function StockView({ ticker }: { ticker: string }) {
   const [alertOpen, setAlertOpen] = useState(false);
+  const [tab, setTab] = useState<StockTabId>("graphique");
+  // Deep-links historiques (#fondamentaux…) → bon onglet au montage.
+  useEffect(() => {
+    const mapped = HASH_TO_TAB[window.location.hash];
+    if (mapped) setTab(mapped);
+  }, []);
   const alertCount = usePriceAlerts((s) => s.alerts).filter(
     (a) => a.ticker === ticker
   ).length;
@@ -115,24 +138,34 @@ export function StockView({ ticker }: { ticker: string }) {
       {/* Chart + résumé */}
       {/* min-w-0 sur l'item : 1fr = minmax(auto,1fr), le min-content de la
           toolbar défilante élargirait toute la page sur mobile sinon */}
-      {/* Navigation rapide vers les sections de la fiche */}
-      <nav className="flex gap-2 overflow-x-auto pb-1 text-xs" aria-label="Sections">
-        {[
-          ["#chart", "Graphique"],
-          ["#fondamentaux", "Fondamentaux"],
-          ...(news.length > 0 ? [["#actualites", "Actualités"]] : []),
-          ["#documents", "Documents"],
-        ].map(([href, label]) => (
-          <a
-            key={href}
-            href={href}
-            className="whitespace-nowrap rounded-full border border-line bg-surface/60 px-3 py-1.5 font-medium text-ink-2 hover:bg-surface-2 hover:text-ink transition-colors"
-          >
-            {label}
-          </a>
-        ))}
-      </nav>
+      {/* Vrais onglets (audit produit) : la fiche empilait ~10 sections
+          en un très long défilement, pénible sur mobile. Rendu paresseux :
+          seul l'onglet actif est monté (le chart ne charge que sur le
+          sien). Les anciens deep-links #fondamentaux etc. sont honorés
+          au montage. */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Sections de la fiche">
+        <div className="flex items-center gap-0.5 rounded-lg border border-line bg-surface-2/60 p-0.5">
+          {STOCK_TABS.map(({ id, label }) => (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={tab === id}
+              onClick={() => setTab(id)}
+              className={cn(
+                "inline-flex h-8 items-center whitespace-nowrap rounded-md px-3 text-xs font-medium cursor-pointer transition-colors",
+                tab === id
+                  ? "bg-surface text-ink shadow-sm border border-line"
+                  : "text-ink-3 hover:text-ink"
+              )}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
 
+      {tab === "graphique" ? (
+        <>
       <div id="chart" className="scroll-mt-20 grid gap-4 xl:grid-cols-[1fr_320px]">
         <Card className="min-w-0 p-4 sm:p-5">
           <MainChart ticker={stock.ticker} />
@@ -253,6 +286,11 @@ export function StockView({ ticker }: { ticker: string }) {
         </div>
       </div>
 
+        </>
+      ) : null}
+
+      {tab === "fondamentaux" ? (
+        <>
       {/* Métriques */}
       <section id="fondamentaux" className="scroll-mt-20">
         <h2 className="mb-2.5 text-sm font-semibold text-ink">Fondamentaux</h2>
@@ -463,6 +501,33 @@ export function StockView({ ticker }: { ticker: string }) {
       {/* Historique réel des dividendes (si ≥ 2 versements connus) */}
       {real ? <DividendHistory ticker={stock.ticker} /> : null}
 
+      {/* Analyse IA + dividendes */}
+      {real ? (
+        <Card>
+          <CardBody className="flex items-start gap-3 py-4">
+            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" />
+            <p className="text-xs leading-relaxed text-ink-2">
+              {realFund
+                ? `L'analyse IA, les signaux et la comparaison sectorielle ne sont pas encore calculés sur données réelles — les états financiers ${realFund.fiscalYear} de cette société sont intégrés (voir Fondamentaux), mais scores et signaux exigent des données que le pipeline ne couvre pas encore (ROE, capitaux propres, historique pluriannuel).`
+                : "L'analyse IA, les signaux et la comparaison sectorielle ne sont pas disponibles pour cette valeur : ils reposent sur des données d'états financiers (résultat net, ROE, coût du risque...) que le pipeline ne collecte pas encore pour cette société. Seuls les cours, volumes, PER et dividendes affichés ici sont réels."}
+            </p>
+          </CardBody>
+        </Card>
+      ) : (
+        <div className="grid gap-4 lg:grid-cols-2">
+          <AIInsightCard insight={stock.insight} />
+          <div className="space-y-4">
+            <DividendPanel stock={stock} dividend={dividend} />
+            <SectorComparison stock={stock} stats={sectorStats} />
+          </div>
+        </div>
+      )}
+
+        </>
+      ) : null}
+
+      {tab === "risque" ? (
+        <>
       {/* Profil de risque calculé (volatilité, bêta, perte max) */}
       <RiskStats ticker={stock.ticker} />
 
@@ -544,28 +609,11 @@ export function StockView({ ticker }: { ticker: string }) {
         );
       })()}
 
-      {/* Analyse IA + dividendes */}
-      {real ? (
-        <Card>
-          <CardBody className="flex items-start gap-3 py-4">
-            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" />
-            <p className="text-xs leading-relaxed text-ink-2">
-              {realFund
-                ? `L'analyse IA, les signaux et la comparaison sectorielle ne sont pas encore calculés sur données réelles — les états financiers ${realFund.fiscalYear} de cette société sont intégrés (voir Fondamentaux), mais scores et signaux exigent des données que le pipeline ne couvre pas encore (ROE, capitaux propres, historique pluriannuel).`
-                : "L'analyse IA, les signaux et la comparaison sectorielle ne sont pas disponibles pour cette valeur : ils reposent sur des données d'états financiers (résultat net, ROE, coût du risque...) que le pipeline ne collecte pas encore pour cette société. Seuls les cours, volumes, PER et dividendes affichés ici sont réels."}
-            </p>
-          </CardBody>
-        </Card>
-      ) : (
-        <div className="grid gap-4 lg:grid-cols-2">
-          <AIInsightCard insight={stock.insight} />
-          <div className="space-y-4">
-            <DividendPanel stock={stock} dividend={dividend} />
-            <SectorComparison stock={stock} stats={sectorStats} />
-          </div>
-        </div>
-      )}
+        </>
+      ) : null}
 
+      {tab === "actus" ? (
+        <>
       {/* Actualités réelles */}
       {news.length > 0 ? (
         <section id="actualites" className="scroll-mt-20">
@@ -626,6 +674,9 @@ export function StockView({ ticker }: { ticker: string }) {
           </div>
         )}
       </section>
+
+        </>
+      ) : null}
 
       <PriceAlertDialog
         open={alertOpen}
