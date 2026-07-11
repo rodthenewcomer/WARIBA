@@ -56,6 +56,7 @@ import { dividendHistoryFor } from "@/lib/real-dividends";
 import { operationsForTicker } from "@/lib/real-operations";
 import { compactVolume, pct } from "@/lib/format";
 import { useChartPrefs, useChartPrefsHydrated } from "@/hooks/use-chart-prefs";
+import { rehydrateChartLevels, useChartLevels } from "@/hooks/use-chart-levels";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChartToolbar } from "./chart-toolbar";
@@ -69,6 +70,8 @@ const PRICE_FMT2 = new Intl.NumberFormat("fr-FR", {
 function fmtPrice(p: number): string {
   return p < 100 ? PRICE_FMT2.format(p) : PRICE_FMT.format(p);
 }
+
+const NO_LEVELS: number[] = [];
 
 const OVERLAYS: { id: "sma20" | "sma50" | "sma100" | "sma200"; period: number }[] = [
   { id: "sma20", period: 20 },
@@ -106,7 +109,16 @@ export function MainChart({ ticker }: { ticker: string }) {
   const [noIntraday, setNoIntraday] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [epoch, setEpoch] = useState(0);
+  const [levelsMode, setLevelsMode] = useState(false);
   useChartPrefsHydrated();
+  useEffect(() => rehydrateChartLevels(), []);
+  // Sélecteur SANS `?? []` inline : un nouveau tableau à chaque snapshot
+  // ferait boucler useSyncExternalStore (React #185) — le défaut est
+  // une constante module.
+  const levels = useChartLevels((s) => s.levels[ticker]) ?? NO_LEVELS;
+  const addLevel = useChartLevels((s) => s.add);
+  const removeLevel = useChartLevels((s) => s.remove);
+  const clearLevels = useChartLevels((s) => s.clear);
   const { maColors, setMaColor, resetMaColors } = useChartPrefs();
   const isReal = isRealTicker(ticker);
 
@@ -117,8 +129,14 @@ export function MainChart({ ticker }: { ticker: string }) {
   const markersRef = useRef<ISeriesMarkersPluginApi<Time> | null>(null);
   const barsRef = useRef<OHLCV[]>([]);
   const fitKeyRef = useRef<string>("");
+  const mainSeriesRef = useRef<ISeriesApi<SeriesType> | null>(null);
+  const levelsModeRef = useRef(false);
+  levelsModeRef.current = levelsMode;
+  const levelsRef = useRef<number[]>([]);
+  levelsRef.current = levels;
   const { resolvedTheme } = useTheme();
 
+  const [hasMarkers, setHasMarkers] = useState(false);
   const intraday = tf === "1D" || tf === "1W";
   const comparing = compare.length > 0 && !intraday;
   const indKey = [...indicators].sort().join(",");
@@ -211,6 +229,29 @@ export function MainChart({ ticker }: { ticker: string }) {
     };
     chart.subscribeCrosshairMove(onMove);
 
+    // Pose/retrait de niveau au clic (mode « Niveau » de la toolbar).
+    // Clic à moins de 0,6 % d'un niveau existant = suppression.
+    const onClick = (param: MouseEventParams) => {
+      if (!levelsModeRef.current || !param.point) return;
+      const series = mainSeriesRef.current;
+      if (!series) return;
+      const price = series.coordinateToPrice(param.point.y);
+      if (price === null || price <= 0) return;
+      const near = levelsRef.current.find(
+        (p) => Math.abs(p - price) / price < 0.006
+      );
+      if (near !== undefined) {
+        useChartLevels.getState().remove(ticker, near);
+      } else {
+        useChartLevels.getState().add(ticker, Math.round(price));
+      }
+    };
+    chart.subscribeClick(onClick);
+
+    // Double-clic n'importe où sur le chart : recadrage (standard 2026).
+    const onDblClick = () => chart.timeScale().fitContent();
+    el.addEventListener("dblclick", onDblClick);
+
     chartRef.current = chart;
     seriesRef.current = [];
     markersRef.current = null;
@@ -219,6 +260,8 @@ export function MainChart({ ticker }: { ticker: string }) {
 
     return () => {
       chart.unsubscribeCrosshairMove(onMove);
+      chart.unsubscribeClick(onClick);
+      el.removeEventListener("dblclick", onDblClick);
       chart.remove();
       chartRef.current = null;
       seriesRef.current = [];
@@ -584,8 +627,24 @@ export function MainChart({ ticker }: { ticker: string }) {
           markers.sort((a, b) => String(a.time).localeCompare(String(b.time)));
           markersRef.current = createSeriesMarkers(mainSeries, markers);
         }
+        setHasMarkers(markers.length > 0);
+      } else {
+        setHasMarkers(false);
       }
 
+      // Niveaux utilisateur (supports/résistances) — recréés avec la série
+      for (const price of levelsRef.current) {
+        mainSeries.createPriceLine({
+          price,
+          color: "rgba(226,166,61,0.8)",
+          lineWidth: 1,
+          lineStyle: LineStyle.Solid,
+          axisLabelVisible: true,
+          title: "niveau",
+        });
+      }
+
+      mainSeriesRef.current = mainSeries;
       barsRef.current = bars;
       // fitContent seulement quand l'instrument/la fenêtre change — pas
       // quand on togglise un indicateur (le zoom de l'utilisateur reste).
@@ -601,7 +660,7 @@ export function MainChart({ ticker }: { ticker: string }) {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [epoch, tf, chartType, indKey, showVolume, adjusted, cmpKey, comparing, maKey]);
+  }, [epoch, tf, chartType, indKey, showVolume, adjusted, cmpKey, comparing, maKey, levels.join(",")]);
 
   useEffect(() => {
     if (!fullscreen) return;
@@ -615,6 +674,21 @@ export function MainChart({ ticker }: { ticker: string }) {
       document.body.style.overflow = "";
     };
   }, [fullscreen]);
+
+  // Raccourcis clavier du poste de travail : F plein écran, L log,
+  // V volume — ignorés quand un champ de saisie a le focus.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "f" || e.key === "F") setFullscreen((v) => !v);
+      else if (e.key === "l" || e.key === "L") setLogScale((v) => !v);
+      else if (e.key === "v" || e.key === "V") setShowVolume((v) => !v);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const compareOptions = useMemo(
     () => [
@@ -661,6 +735,11 @@ export function MainChart({ ticker }: { ticker: string }) {
         onAdjusted={setAdjusted}
         logScale={logScale}
         onLogScale={setLogScale}
+        levelsMode={levelsMode}
+        onLevelsMode={setLevelsMode}
+        levels={levels}
+        onRemoveLevel={(p) => removeLevel(ticker, p)}
+        onClearLevels={() => clearLevels(ticker)}
         compare={compare}
         onCompare={setCompare}
         compareOptions={compareOptions}
@@ -712,6 +791,11 @@ export function MainChart({ ticker }: { ticker: string }) {
           ref={legendRef}
           className="pointer-events-none absolute left-3 top-2 z-10 text-[11px] num text-ink-2"
         />
+        {levelsMode ? (
+          <div className="pointer-events-none absolute left-1/2 top-2 z-10 -translate-x-1/2 rounded-full border border-accent/40 bg-accent/15 px-3 py-1 text-[11px] font-medium text-accent">
+            Cliquez pour poser un niveau — recliquez dessus pour le retirer
+          </div>
+        ) : null}
         <button
           onClick={exportPng}
           title="Exporter le graphique en image PNG"
@@ -720,8 +804,19 @@ export function MainChart({ ticker }: { ticker: string }) {
         >
           <Camera className="h-3.5 w-3.5" />
         </button>
-        <div ref={containerRef} className="h-full w-full" />
+        <div
+          ref={containerRef}
+          className={cn("h-full w-full", levelsMode && "cursor-crosshair")}
+        />
       </div>
+      {hasMarkers ? (
+        <p className="text-[10px] text-ink-3">
+          <span style={{ color: CHART_COLORS.gold }}>●</span> D = dividende net
+          payé · <span style={{ color: CHART_COLORS.violet }}>■</span> S =
+          opération sur capital · double-clic : recadrer · touches F/L/V :
+          plein écran, échelle log, volume
+        </p>
+      ) : null}
     </div>
   );
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronDown, GitCompareArrows, Maximize2, Minimize2, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, GitCompareArrows, Maximize2, Minimize2, Ruler, SlidersHorizontal, Trash2 } from "lucide-react";
 import type { ChartType, IndicatorId, Timeframe } from "@/lib/types";
 import type { MaId } from "@/hooks/use-chart-prefs";
 import { cn } from "@/lib/utils";
@@ -133,6 +133,11 @@ export interface ChartToolbarProps {
   onAdjusted: (v: boolean) => void;
   logScale: boolean;
   onLogScale: (v: boolean) => void;
+  levelsMode: boolean;
+  onLevelsMode: (v: boolean) => void;
+  levels: number[];
+  onRemoveLevel: (price: number) => void;
+  onClearLevels: () => void;
   comparing: boolean;
   isReal: boolean;
   compare: string[];
@@ -248,6 +253,48 @@ export function ChartToolbar(props: ChartToolbarProps) {
         >
           Log
         </button>
+        <Dropdown
+          label="Niveaux"
+          icon={<Ruler className="h-3.5 w-3.5" />}
+          count={props.levels.length}
+        >
+          <button
+            onClick={() => props.onLevelsMode(!props.levelsMode)}
+            className={cn(
+              "mb-1 flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-xs cursor-pointer",
+              props.levelsMode ? "bg-accent/15 text-accent" : "text-ink-2 hover:bg-surface-2"
+            )}
+          >
+            <Ruler className="h-3.5 w-3.5" />
+            {props.levelsMode ? "Mode pose actif — cliquez le graphique" : "Poser un niveau au clic"}
+          </button>
+          {props.levels.length === 0 ? (
+            <p className="px-2.5 py-1 text-[10px] text-ink-3">
+              Vos supports/résistances, mémorisés pour ce titre.
+            </p>
+          ) : (
+            <>
+              {props.levels.map((price) => (
+                <div key={price} className="flex items-center justify-between gap-2 rounded-lg px-2.5 py-1 text-xs text-ink-2 hover:bg-surface-2">
+                  <span className="num">{price.toLocaleString("fr-FR")} FCFA</span>
+                  <button
+                    onClick={() => props.onRemoveLevel(price)}
+                    aria-label={`Retirer le niveau ${price}`}
+                    className="rounded p-0.5 text-ink-3 hover:text-down cursor-pointer"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+              <button
+                onClick={props.onClearLevels}
+                className="mt-1 w-full rounded-lg px-2.5 py-1.5 text-left text-[11px] text-ink-3 hover:bg-surface-2 hover:text-ink cursor-pointer"
+              >
+                Tout effacer
+              </button>
+            </>
+          )}
+        </Dropdown>
         <Dropdown
           label="Indicateurs"
           icon={<SlidersHorizontal className="h-3.5 w-3.5" />}
