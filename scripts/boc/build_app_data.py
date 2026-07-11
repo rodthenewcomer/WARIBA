@@ -234,6 +234,41 @@ def build_indices(indices_src: Path, real_dir: Path) -> None:
     print(f"{len(out)} indices écrits dans {real_dir / 'indices.json'}")
 
 
+class DataQualityError(Exception):
+    """Donnée aberrante détectée — on préfère un build qui échoue
+    bruyamment (workflow rouge, e-mail) à un site qui publie du faux."""
+
+
+def validate_snapshots(snapshots: dict) -> None:
+    """Garde-fous contre un bulletin corrompu ou un format qui a changé
+    silencieusement : effectif de la cote, prix/volumes plausibles,
+    variation sous le plafond BRVM, cohérence close/prev."""
+    errors: list[str] = []
+    if len(snapshots) < 45:
+        errors.append(f"seulement {len(snapshots)} tickers (attendu ≥ 45)")
+    for ticker, s in snapshots.items():
+        if not (0 < s["lastClose"] < 1_000_000):
+            errors.append(f"{ticker}: cours aberrant {s['lastClose']}")
+        if s["dayVolume"] < 0:
+            errors.append(f"{ticker}: volume négatif {s['dayVolume']}")
+        # Plafond de variation BRVM ±7,5 % (marge d'arrondi bulletin).
+        if abs(s["dayChangePct"]) > 8:
+            errors.append(f"{ticker}: variation {s['dayChangePct']} % > plafond")
+        if s["prevClose"] > 0:
+            implied = (s["lastClose"] / s["prevClose"] - 1) * 100
+            if abs(implied - s["dayChangePct"]) > 0.6:
+                errors.append(
+                    f"{ticker}: variation publiée {s['dayChangePct']} % ≠ "
+                    f"calculée {implied:.2f} %"
+                )
+        if s["dayLow"] > s["dayHigh"]:
+            errors.append(f"{ticker}: low {s['dayLow']} > high {s['dayHigh']}")
+    if errors:
+        raise DataQualityError(
+            "Qualité des données refusée :\n- " + "\n- ".join(errors[:20])
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--series-dir", default="data/boc/series")
@@ -286,6 +321,8 @@ def main() -> None:
         (series_out / f"{ticker}.json").write_text(
             json.dumps(ohlcv, ensure_ascii=False), encoding="utf-8"
         )
+
+    validate_snapshots(snapshots)
 
     (out_dir / "real" / "snapshot.json").write_text(
         json.dumps(snapshots, ensure_ascii=False, indent=2), encoding="utf-8"

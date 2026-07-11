@@ -209,10 +209,10 @@ export function ChartToolbar(props: ChartToolbarProps) {
         </button>
         <button
           onClick={() => props.onAdjusted(!props.adjusted)}
-          disabled={props.intraday || props.isReal}
+          disabled={props.intraday}
           title={
             props.isReal
-              ? "Indisponible : historique de dividendes non couvert par le pipeline de données réelles"
+              ? "Cours ajustés des dividendes nets réels (bulletins officiels) — utile pour juger la performance totale"
               : "Cours ajustés des dividendes"
           }
           className={cn(

@@ -138,50 +138,6 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Actualités — juste sous les indices (demande utilisateur) */}
-        <Card>
-          <CardHeader
-            title={
-              <span className="inline-flex items-center gap-1.5">
-                <FileText className="h-3.5 w-3.5 text-accent" /> Actualités marchés
-              </span>
-            }
-            subtitle="Sika Finance · Financial Afrik — liens vers les articles originaux"
-            action={
-              <Link href="/news" className="inline-flex items-center gap-1 text-xs text-accent hover:underline">
-                Tout voir <ArrowRight className="h-3 w-3" />
-              </Link>
-            }
-          />
-          <CardBody className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-            {news.map((n) => (
-              <a
-                key={n.link}
-                href={n.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 rounded-xl border border-line bg-surface/50 p-3 hover:bg-surface-2 transition-colors"
-              >
-                {n.tickers.length > 0 ? (
-                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-accent/10 text-[9px] font-bold text-accent">
-                    {n.tickers[0]}
-                  </span>
-                ) : (
-                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-surface-2 text-[9px] font-bold text-ink-3">
-                    BRVM
-                  </span>
-                )}
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-semibold text-ink line-clamp-2">{n.title}</span>
-                  <span className="mt-0.5 block text-[11px] text-ink-3">
-                    {n.source} · {newsDate(n.publishedAt)}
-                  </span>
-                </span>
-              </a>
-            ))}
-          </CardBody>
-        </Card>
-
       {/* Breadth : hausses / baisses de la séance */}
       <div className="card-glass px-4 py-3">
         <div className="flex items-center justify-between text-[11px] font-medium">
@@ -327,6 +283,52 @@ export default function DashboardPage() {
           ))}
         </div>
       </section>
+
+      {/* Actualités — après l'état du marché (hiérarchie revue sur
+          audit produit : le terminal répond d'abord à « que s'est-il
+          passé aujourd'hui ? », le contexte presse vient ensuite) */}
+        <Card>
+          <CardHeader
+            title={
+              <span className="inline-flex items-center gap-1.5">
+                <FileText className="h-3.5 w-3.5 text-accent" /> Actualités marchés
+              </span>
+            }
+            subtitle="Sika Finance · Financial Afrik — liens vers les articles originaux"
+            action={
+              <Link href="/news" className="inline-flex items-center gap-1 text-xs text-accent hover:underline">
+                Tout voir <ArrowRight className="h-3 w-3" />
+              </Link>
+            }
+          />
+          <CardBody className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+            {news.map((n) => (
+              <a
+                key={n.link}
+                href={n.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 rounded-xl border border-line bg-surface/50 p-3 hover:bg-surface-2 transition-colors"
+              >
+                {n.tickers.length > 0 ? (
+                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-accent/10 text-[9px] font-bold text-accent">
+                    {n.tickers[0]}
+                  </span>
+                ) : (
+                  <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-surface-2 text-[9px] font-bold text-ink-3">
+                    BRVM
+                  </span>
+                )}
+                <span className="min-w-0 flex-1">
+                  <span className="block text-xs font-semibold text-ink line-clamp-2">{n.title}</span>
+                  <span className="mt-0.5 block text-[11px] text-ink-3">
+                    {n.source} · {newsDate(n.publishedAt)}
+                  </span>
+                </span>
+              </a>
+            ))}
+          </CardBody>
+        </Card>
 
       {/* Actions à surveiller + Dividendes + Avis officiels */}
       <div className="grid gap-3 lg:grid-cols-3">

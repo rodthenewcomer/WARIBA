@@ -15,7 +15,7 @@ import { create } from "zustand";
 // donc deux modales empilées s'ouvraient. Un seul dialog global
 // (GlobalSearchDialog, monté une fois dans AppShell), des déclencheurs
 // muets.
-const useSearchOpen = create<{ open: boolean; setOpen: (v: boolean) => void }>(
+export const useSearchOpen = create<{ open: boolean; setOpen: (v: boolean) => void }>(
   (set) => ({ open: false, setOpen: (open) => set({ open }) })
 );
 

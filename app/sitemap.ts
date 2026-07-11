@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/alerts",
     "/ipo",
     "/status",
+    "/methodologie",
   ].map((path) => ({
     url: `${SITE_URL}${path}/`,
     changeFrequency: "daily" as const,

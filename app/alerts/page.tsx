@@ -6,6 +6,7 @@ import { REAL_ALERTS } from "@/lib/real-alerts";
 import type { AlertType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { AlertCard } from "@/components/alerts/alert-card";
+import { MyPriceAlerts } from "@/components/alerts/my-price-alerts";
 import { Button } from "@/components/ui/button";
 
 const TYPE_FILTERS: { value: AlertType | "all"; label: string }[] = [
@@ -66,6 +67,8 @@ export default function AlertsPage() {
           </button>
         ))}
       </div>
+
+      <MyPriceAlerts />
 
       {filtered.length === 0 ? (
         <div className="card-glass p-10 text-center">

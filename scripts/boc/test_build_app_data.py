@@ -154,3 +154,38 @@ class TestDividendHistory(unittest.TestCase):
         from build_app_data import dividend_history
         records = [{"time": "2025-06-01", "last_dividend_net": None, "last_dividend_date": None}]
         self.assertEqual(dividend_history(records), [])
+
+
+class TestValidateSnapshots(unittest.TestCase):
+    def snap(self, **over):
+        base = {
+            "lastClose": 1000.0, "prevClose": 990.0, "dayChangePct": 1.01,
+            "dayVolume": 100, "dayLow": 995.0, "dayHigh": 1005.0,
+        }
+        base.update(over)
+        return base
+
+    def full(self, bad=None):
+        snaps = {f"T{i:02d}": self.snap() for i in range(46)}
+        if bad:
+            snaps["T00"] = self.snap(**bad)
+        return snaps
+
+    def test_donnees_saines_passent(self) -> None:
+        from build_app_data import validate_snapshots
+        validate_snapshots(self.full())  # ne lève pas
+
+    def test_variation_au_dela_du_plafond(self) -> None:
+        from build_app_data import DataQualityError, validate_snapshots
+        with self.assertRaises(DataQualityError):
+            validate_snapshots(self.full({"dayChangePct": 12.0, "prevClose": 0}))
+
+    def test_incoherence_close_vs_variation(self) -> None:
+        from build_app_data import DataQualityError, validate_snapshots
+        with self.assertRaises(DataQualityError):
+            validate_snapshots(self.full({"dayChangePct": 5.0}))  # calculée ~1 %
+
+    def test_effectif_insuffisant(self) -> None:
+        from build_app_data import DataQualityError, validate_snapshots
+        with self.assertRaises(DataQualityError):
+            validate_snapshots({"SNTS": self.snap()})

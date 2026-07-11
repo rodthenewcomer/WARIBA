@@ -32,8 +32,15 @@ import { RiskStats } from "./risk-stats";
 import { operationsForTicker } from "@/lib/real-operations";
 import { Landmark } from "lucide-react";
 import { WatchlistButton } from "./watchlist-button";
+import { PriceAlertDialog } from "./price-alert-dialog";
+import { usePriceAlerts } from "@/hooks/use-price-alerts";
+import { useState } from "react";
 
 export function StockView({ ticker }: { ticker: string }) {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const alertCount = usePriceAlerts((s) => s.alerts).filter(
+    (a) => a.ticker === ticker
+  ).length;
   // Ouvrir une fiche depuis le bas d'une longue liste (48 lignes) pouvait
   // conserver la position de scroll : la page arrivait « ouverte en bas ».
   useEffect(() => {
@@ -91,10 +98,15 @@ export function StockView({ ticker }: { ticker: string }) {
             <Button
               variant="outline"
               size="sm"
-              disabled
-              title="Alertes personnalisées à venir (nécessite les comptes) — les alertes factuelles du marché sont dans l'onglet Alertes"
+              onClick={() => setAlertOpen(true)}
+              title="Alerte de prix locale : seuil vérifié à chaque ouverture contre le dernier cours officiel"
             >
-              <Bell className="h-3.5 w-3.5" /> Alerte — à venir
+              <Bell className="h-3.5 w-3.5" /> Alerte
+              {alertCount > 0 ? (
+                <span className="rounded-full bg-accent/20 px-1.5 text-[10px] text-accent">
+                  {alertCount}
+                </span>
+              ) : null}
             </Button>
           </div>
         </div>
@@ -614,6 +626,13 @@ export function StockView({ ticker }: { ticker: string }) {
           </div>
         )}
       </section>
+
+      <PriceAlertDialog
+        open={alertOpen}
+        onClose={() => setAlertOpen(false)}
+        ticker={stock.ticker}
+        lastPrice={lastPrice}
+      />
 
       <p className="text-[10px] text-ink-3">
         {real

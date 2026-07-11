@@ -12,6 +12,8 @@ import {
   LineSeries,
   PriceScaleMode,
   createChart,
+  createSeriesMarkers,
+  type SeriesMarker,
   type IChartApi,
   type ISeriesApi,
   type MouseEventParams,
@@ -34,7 +36,9 @@ import {
   calculateRSI,
   calculateSMA,
 } from "@/lib/indicators";
-import { adjustForDividends, CHART_COLORS, COMPARE_COLORS } from "@/lib/chart-utils";
+import { adjustForDividends, adjustForRealDividends, CHART_COLORS, COMPARE_COLORS } from "@/lib/chart-utils";
+import { dividendHistoryFor } from "@/lib/real-dividends";
+import { operationsForTicker } from "@/lib/real-operations";
 import { compactVolume, pct } from "@/lib/format";
 import { createPortal } from "react-dom";
 import { useChartPrefs, useChartPrefsHydrated } from "@/hooks/use-chart-prefs";
@@ -121,10 +125,14 @@ export function MainChart({ ticker }: { ticker: string }) {
         return;
       }
 
-      // adjustForDividends s'appuie sur un historique de dividendes fictif
-      // (lib/mock/dividends.ts) : jamais appliqué à une valeur réelle, sous
-      // peine de multiplier de vrais cours BRVM par un facteur inventé.
-      const bars = adjusted && !intraday && !isReal ? adjustForDividends(ticker, raw) : raw;
+      // Valeurs réelles : ajustement sur l'historique de dividendes RÉEL
+      // (nets, bulletins officiels). Le repli mock ne sert plus qu'aux
+      // éventuels tickers hors pipeline.
+      const bars = !adjusted || intraday
+        ? raw
+        : isReal
+          ? adjustForRealDividends(ticker, raw)
+          : adjustForDividends(ticker, raw);
 
       const compareData = comparing
         ? await Promise.all(compare.map((code) => compareSeriesData(code, tf)))
@@ -291,9 +299,16 @@ export function MainChart({ ticker }: { ticker: string }) {
         }
         if (indicators.includes("bollinger")) {
           const bb = calculateBollingerBands(bars);
-          for (const band of [bb.upper, bb.middle, bb.lower]) {
+          // Médiane affirmée, bandes discrètes — trois lignes identiques
+          // étaient indistinguables.
+          const styles = [
+            { band: bb.middle, color: "rgba(139,92,246,0.9)" },
+            { band: bb.upper, color: "rgba(139,92,246,0.35)" },
+            { band: bb.lower, color: "rgba(139,92,246,0.35)" },
+          ];
+          for (const { band, color } of styles) {
             const s = c.addSeries(LineSeries, {
-              color: "rgba(139,92,246,0.5)",
+              color,
               lineWidth: 1,
               priceLineVisible: false,
               lastValueVisible: false,
@@ -309,7 +324,7 @@ export function MainChart({ ticker }: { ticker: string }) {
       if (indicators.includes("rsi") && !comparing) {
         const rsi = c.addSeries(
           LineSeries,
-          { color: CHART_COLORS.violet, lineWidth: 2, priceLineVisible: false },
+          { color: CHART_COLORS.violet, lineWidth: 2, priceLineVisible: false, title: "RSI 14" },
           paneIndex
         );
         rsi.setData(
@@ -336,7 +351,7 @@ export function MainChart({ ticker }: { ticker: string }) {
         );
         const macdLine = c.addSeries(
           LineSeries,
-          { color: CHART_COLORS.accent, lineWidth: 1, priceLineVisible: false, lastValueVisible: false },
+          { color: CHART_COLORS.accent, lineWidth: 1, priceLineVisible: false, title: "MACD 12-26-9" },
           paneIndex
         );
         macdLine.setData(macd.map((p) => ({ time: toTime(p.time), value: p.value })));
@@ -379,6 +394,52 @@ export function MainChart({ ticker }: { ticker: string }) {
         renderLegend(byTime.get(param.time as string | number));
       };
       c.subscribeCrosshairMove(onMove);
+
+      // Événements sur le chart : D = dividende payé (net, réel),
+      // S = opération sur capital (split, augmentation…). Uniquement en
+      // vue quotidienne d'une valeur réelle, hors comparaison.
+      if (isReal && !intraday && !comparing && typeof bars[0]?.time === "string") {
+        const first = bars[0].time as string;
+        const last = bars[bars.length - 1].time as string;
+        const inRange = (d: string) => d >= first && d <= last;
+        const barTimes = new Set(bars.map((b) => b.time as string));
+        // aligne l'événement sur la 1re séance ≥ sa date (jour férié…)
+        const snap = (d: string) => {
+          if (barTimes.has(d)) return d;
+          const later = bars.find((b) => (b.time as string) >= d);
+          return later ? (later.time as string) : null;
+        };
+        const markers: SeriesMarker<Time>[] = [];
+        for (const ev of dividendHistoryFor(ticker)) {
+          if (!inRange(ev.date)) continue;
+          const t = snap(ev.date);
+          if (!t) continue;
+          markers.push({
+            time: t as Time,
+            position: "belowBar",
+            color: CHART_COLORS.gold,
+            shape: "circle",
+            text: `D ${fmtPrice(ev.net)}`,
+          });
+        }
+        for (const op of operationsForTicker(ticker)) {
+          if (!op.date || !inRange(op.date)) continue;
+          const t = snap(op.date);
+          if (!t) continue;
+          markers.push({
+            time: t as Time,
+            position: "aboveBar",
+            color: CHART_COLORS.violet,
+            shape: "square",
+            text: "S",
+          });
+        }
+        if (markers.length > 0) {
+          markers.sort((a, b) => String(a.time).localeCompare(String(b.time)));
+          createSeriesMarkers(mainSeries, markers);
+        }
+      }
+
       c.timeScale().fitContent();
       setReady(true);
     }

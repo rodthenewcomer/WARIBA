@@ -1,5 +1,6 @@
 import type { OHLCV } from "./types";
 import { DIVIDEND_MAP } from "./mock/dividends";
+import { dividendHistoryFor } from "./real-dividends";
 
 // Couleurs de SÉRIES (canvas lightweight-charts : littéraux requis, pas
 // de variables CSS). L'accent de marque est l'or/ambre ; les moyennes
@@ -58,6 +59,39 @@ export function adjustForDividends(ticker: string, data: OHLCV[]): OHLCV[] {
     if (idx <= 0) continue;
     const ref = out[idx].close;
     const factor = Math.max(0.5, 1 - ev.amount / ref);
+    for (let i = 0; i < idx; i++) {
+      out[i].open *= factor;
+      out[i].high *= factor;
+      out[i].low *= factor;
+      out[i].close *= factor;
+    }
+  }
+  return out;
+}
+
+/**
+ * Ajustement dividendes sur l'HISTORIQUE RÉEL (data/real/dividends.json,
+ * dividendes NETS après IRVM — la BRVM ne publie pas le brut au
+ * bulletin ; l'ajustement est donc légèrement conservateur). Même
+ * back-adjustment que la version mock : les barres antérieures à chaque
+ * versement sont multipliées par (1 − dividende / cours au versement).
+ * La date utilisée est la date de PAIEMENT publiée (le détachement n'est
+ * pas publié) — approximation assumée, cohérente avec le portefeuille.
+ */
+export function adjustForRealDividends(ticker: string, data: OHLCV[]): OHLCV[] {
+  const events = dividendHistoryFor(ticker);
+  if (events.length === 0 || data.length === 0) return data;
+  if (typeof data[0].time !== "string") return data;
+
+  const out = data.map((d) => ({ ...d }));
+  for (const ev of events) {
+    const idx = out.findIndex(
+      (d) => typeof d.time === "string" && d.time >= ev.date
+    );
+    if (idx <= 0) continue;
+    const ref = out[idx].close;
+    if (ref <= 0) continue;
+    const factor = Math.max(0.5, 1 - ev.net / ref);
     for (let i = 0; i < idx; i++) {
       out[i].open *= factor;
       out[i].high *= factor;

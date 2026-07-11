@@ -208,6 +208,10 @@ export default function SettingsPage() {
             Fraîcheur et provenance détaillées par source :{" "}
             <Link href="/status" className="text-accent underline hover:no-underline">
               statut des données
+            </Link>{" "}
+            · règles de vérification et formules :{" "}
+            <Link href="/methodologie" className="text-accent underline hover:no-underline">
+              méthodologie & sources
             </Link>
             .
           </p>

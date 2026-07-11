@@ -14,6 +14,7 @@ import {
   CandlestickChart,
   Newspaper,
   Plus,
+  Search as SearchIcon,
   ShieldCheck,
   X,
   Rocket,
@@ -22,7 +23,7 @@ import {
 import { cn } from "@/lib/utils";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
 import { dateFr } from "@/lib/format";
-import { GlobalSearch, GlobalSearchDialog } from "./global-search";
+import { GlobalSearch, GlobalSearchDialog, useSearchOpen } from "./global-search";
 import { MarketStatusBadge } from "./market-status-badge";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -39,11 +40,13 @@ const NAV = [
   { href: "/settings", label: "Réglages", icon: Settings },
 ] as const;
 
+// Recherche et alertes promues dans la barre (audit produit : gestes
+// quotidiens d'un investisseur) ; Carte et Portefeuille migrent dans
+// la feuille « + ».
 const MOBILE_NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
-  { href: "/map", label: "Carte", icon: Grid3X3 },
-  { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
+  { href: "/alerts", label: "Alertes", icon: Bell },
 ] as const;
 
 /** Toutes les sections restantes, accessibles depuis le bouton « + » de
@@ -51,9 +54,10 @@ const MOBILE_NAV = [
  * Documents, Actualités, Statut et Réglages étaient introuvables au
  * doigt (le 5e onglet menait directement aux Réglages). */
 const MOBILE_MORE = [
+  { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
+  { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
   { href: "/charts", label: "Graphiques", icon: CandlestickChart },
-  { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/news", label: "Actualités", icon: Newspaper },
@@ -110,7 +114,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           titres : sources officielles BRVM. Seuls les exemples pédagogiques
           d&apos;analyse (page IPO) sont simulés.
           <br />
-          Ceci n&apos;est pas un conseil en investissement.
+          Ceci n&apos;est pas un conseil en investissement.{" "}
+          <Link href="/methodologie" className="underline hover:text-ink">
+            Méthodologie
+          </Link>
         </div>
       </aside>
 
@@ -156,7 +163,31 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Bottom nav mobile */}
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/85 backdrop-blur-xl lg:hidden pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-stretch justify-around">
-          {MOBILE_NAV.map(({ href, label, icon: Icon }) => {
+          {MOBILE_NAV.slice(0, 1).map(({ href, label, icon: Icon }) => {
+            const active = pathname.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  "flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium",
+                  active ? "text-accent" : "text-ink-3"
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                {label}
+              </Link>
+            );
+          })}
+          <button
+            onClick={() => useSearchOpen.getState().setOpen(true)}
+            aria-label="Rechercher une action"
+            className="flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium text-ink-3 cursor-pointer"
+          >
+            <SearchIcon className="h-5 w-5" />
+            Recherche
+          </button>
+          {MOBILE_NAV.slice(1).map(({ href, label, icon: Icon }) => {
             const active = pathname.startsWith(href);
             return (
               <Link
@@ -208,19 +239,19 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {MOBILE_MORE.map(({ href, label, icon: Icon }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setMoreOpen(false)}
                   className={cn(
-                    "flex flex-col items-center gap-1.5 rounded-xl border border-line bg-surface-2/50 px-1 py-3 text-center text-[10px] font-medium leading-tight",
+                    "flex items-center gap-2.5 rounded-xl border border-line bg-surface-2/50 px-3 py-3 text-xs font-medium",
                     pathname.startsWith(href) ? "text-accent border-accent/30" : "text-ink-2"
                   )}
                 >
-                  <Icon className="h-5 w-5" />
-                  {label}
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{label}</span>
                 </Link>
               ))}
             </div>
