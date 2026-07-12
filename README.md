@@ -54,6 +54,8 @@ repli technique et aux scénarios pédagogiques explicitement simulés
 - Zustand persisté en localStorage : watchlists, portefeuille
   (transactions, PRU, dividendes perçus), filtres screener, préférences
   chart — avec sauvegarde/restauration JSON (Réglages)
+- Expo SDK 54 · React Native 0.81 · Expo Router · Skia · Reanimated pour
+  l'app iOS/Android dans `apps/mobile`, avec Zustand + AsyncStorage
 
 ## Écart connu par rapport au brief initial
 
@@ -202,7 +204,8 @@ Sept workflows GitHub Actions (`.github/workflows/`) :
 
 - **deploy.yml** — build + déploiement Pages à chaque push sur `main`
   (le `basePath` `/AfriTerminal` est injecté au build via
-  `NEXT_PUBLIC_BASE_PATH`, absent en dev local) ;
+  `NEXT_PUBLIC_BASE_PATH`, absent en dev local) ; l'export inclut aussi
+  `data/real/` et `data/news/`, consommés par l'app mobile ;
 - **boc-daily.yml** — chaque jour ouvré (17h30 UTC, retentes 20h00,
   22h30 et 05h00 le lendemain — la BRVM publie parfois tard) :
   télécharge le bulletin officiel, le fusionne dans `data/boc/series/`
@@ -230,8 +233,10 @@ déploiement sont entièrement portés par GitHub Actions.
 
 ## Roadmap — app mobile (iOS/Android)
 
-Planifiée, non démarrée : une app native (Expo/React Native, chart
-100 % natif via Skia, pas de wrapper web) partageant sa logique métier
-(`lib/`) avec ce site via un monorepo, sans rien changer au
-fonctionnement actuel du site. Détail complet, choix techniques,
-découpage par phases : [docs/mobile-app-plan.md](docs/mobile-app-plan.md).
+Implémentée dans `apps/mobile` : app Expo/React Native, chart 100 % natif
+via Skia, navigation Router, données réseau/cache, portefeuille,
+watchlist, screener, documents et alertes locales. La logique de calcul
+reste partagée dans `packages/core` et le site conserve son comportement.
+Les exports Hermes iOS/Android passent ; la validation finale des gestes
+sur appareil et les builds signés stores restent à effectuer. Détail :
+[docs/mobile-app-plan.md](docs/mobile-app-plan.md).

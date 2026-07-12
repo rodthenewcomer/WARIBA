@@ -1,9 +1,8 @@
 # AfriTerminal Mobile — plan Expo (iOS/Android)
 
-Statut : **Phase 0 terminée ; Phase 1 exportée, confirmation sur appareil
-en attente**. Ce document reste la référence d'architecture, de périmètre
-et de go/no-go. Le site web (Next.js, GitHub Pages) n'est **pas remplacé** :
-il continue de vivre à l'identique, en parallèle.
+Statut : **Phases 0 à 5 implémentées ; validation finale des gestes sur
+appareil et builds stores en attente**. Le site web (Next.js, GitHub Pages)
+n'est **pas remplacé** : il continue de vivre à l'identique, en parallèle.
 
 ## Contraintes fixées par le produit
 
@@ -46,10 +45,10 @@ change pas.
 
 **Ce qui se reconstruit entièrement** : tous les composants React
 (`components/*`) — écrits en JSX/Tailwind, incompatibles avec React
-Native. Reconstruction avec les primitives RN (`View`, `Text`,
-`Pressable`, `ScrollView`), en gardant NativeWind (Tailwind pour RN) pour
-réutiliser les mêmes tokens de couleur et éviter de réinventer un
-design system.
+Native. La reconstruction utilise les primitives RN (`View`, `Text`,
+`Pressable`, `ScrollView`) et un module de tokens typé avec `StyleSheet`.
+Ce choix évite une couche NativeWind supplémentaire tout en gardant les
+valeurs de `globals.css` comme source de vérité.
 
 ## Le moteur de graphique — le vrai chantier
 
@@ -114,29 +113,55 @@ est le prix du rendu 100 % natif demandé.
 - ✅ **Phase 0 — terminée** (commit `7d4bda1`). `packages/core` extrait,
   ~70 imports migrés, site web vérifié inchangé (tsc, 81 tests vitest,
   63 tests Python, build statique, CI + deploy GitHub Actions verts).
-- 🟡 **Phase 1 (spike) — code corrigé, poli, type-vérifié et exporté pour
-  iOS/Android ; rendu sur appareil non confirmé.** Le go/no-go reste soumis
-  au test iPhone physique décrit ci-dessous. Ne pas démarrer la Phase 2
-  avant cette confirmation.
+- 🟡 **Phase 1 — rendu Skia confirmé sur l'iPhone physique ; correctif des
+  gestes à revalider.** Le crash Hermes/Worklets a disparu et le chart se
+  rend. Le test appareil a ensuite révélé que la SMA suivait le geste mais
+  pas les chandelles. Les paths chandelles lisent désormais directement
+  `scale` et `translateX`, et le zoom focal a été extrait et testé. Le pinch
+  et le double-tap corrigés doivent encore être confirmés sur l'iPhone.
+- 🟡 **Phase 2 — implémentée et exportée.** Expo Router, stack + cinq tabs,
+  thème sombre, chargement réseau/cache, Accueil, Marché, Watchlist et
+  Alertes. Pull-to-refresh, skeletons, animations d'entrée, flash prix et
+  swipe-to-remove sont présents. Validation UX sur appareil en attente.
+- 🟡 **Phase 3 — implémentée et exportée.** Six rendus, onze sélections
+  d'indicateurs (SMA 20/50/100/200, EMA, VWAP, Bollinger, RSI, MACD, ATR,
+  Stochastique), panes synchronisés au viewport, marqueurs, échelles log/% ,
+  références, niveaux et partage PNG. Validation visuelle/performance sur
+  appareil en attente.
+- 🟡 **Phase 4 — implémentée et exportée.** Fiche action, portefeuille,
+  screener et filtres sauvegardés, dividendes, documents/actualités,
+  IPO/opérations, carte, réglages et statut. Les longues collections sont
+  rendues par lots pour protéger les appareils modestes.
+- 🟡 **Phase 5 — code et configuration terminés ; publication non exécutée.**
+  Notifications locales, vérification au premier plan et tâche opportuniste,
+  deep-link vers la fiche, icônes adaptatives, splash, identifiants iOS/
+  Android, versioning et profils EAS sont configurés. Les builds signés et
+  soumissions nécessitent les comptes Apple/Google et les identifiants EAS.
 
-## Résultat du spike (Phase 1)
+## Résultat du moteur natif
 
 `apps/mobile` utilise Expo SDK 54, React Native 0.81.5, React 19.1,
 Skia 2.2.12, Reanimated 4.1.x, Gesture Handler 2.28 et Worklets 0.5.1.
 Cette pile correspond exactement à l'Expo Go SDK 54 disponible sur le
 seul iPhone de test.
 
-Le composant `CandleChart` dessine les chandelles et la SMA 20 en
-`SkPath` via `useDerivedValue`. Pan, pinch et crosshair restent sur le
-thread UI. Le spike comprend désormais :
+Le composant `CandleChart` dessine prix, overlays et panes en `SkPath` via
+`useDerivedValue`. Pan, pinch, panes synchronisés et crosshair restent sur
+le thread UI. Le moteur comprend désormais :
 
 - axe de prix à droite, axe de dates en bas et grille légère ;
 - appui long avec crosshair et tooltip date/OHLC ;
 - pan inertiel borné (`withDecay`), zoom autour du point focal et reset
   au ressort (`withSpring`) ;
 - haptique légère au reset et à l'engagement du crosshair ;
+- six rendus, overlays et panes d'indicateurs, événements et niveaux ;
 - chrome natif conforme aux tokens web sombres, surfaces pleines et
   bordures fines, sans blur ni shader décoratif.
+
+Le zoom focal est une transformation testée : le point de contenu sous les
+doigts reste invariant pendant le changement d'échelle, puis translation et
+échelle sont bornées. Tous les paths lisent explicitement les mêmes shared
+values, ce qui évite le défaut où seule une moyenne mobile bougeait.
 
 ### Incident Hermes SDK 54
 
@@ -151,20 +176,44 @@ Correction : Worklets verrouillé à 0.5.1, arbre npm régénéré et dédupliqu
 React partagé en 19.1, New Architecture explicitement activée et preset
 Babel Expo présent. `expo-haptics` utilise la version SDK 54.
 
+## Architecture mobile livrée
+
+- **Navigation :** Expo Router, stack native et tabs Accueil, Marché,
+  Watchlist, Portefeuille, Plus.
+- **Données :** JSON communs sous `/data`, Pages en priorité puis miroir
+  `raw.githubusercontent.com`, timeout et cache AsyncStorage. Le workflow de
+  déploiement copie maintenant `data/real` et `data/news` dans l'export
+  statique ; le miroir brut reste le secours tant que ce workflow n'a pas
+  redéployé Pages.
+- **État :** stores Zustand persistés avec `skipHydration` et réhydratation
+  centralisée pour watchlist, portefeuille, seuils, chart, niveaux, filtres
+  du screener et réglages. Aucune donnée secrète n'est stockée ; SecureStore
+  est configuré pour une future authentification, pas utilisé artificiellement.
+- **Typographie :** police système iOS/Android retenue pour les métriques,
+  performances et scripts francophones ; tous les prix et pourcentages ont
+  `tabular-nums`. Aucun fichier Geist n'est embarqué.
+- **Alertes :** livraison locale uniquement. Sans backend, aucune garantie
+  de notification temps réel lorsque l'application est forcée à l'arrêt.
+  Les contrôles ont lieu au chargement, au retour au premier plan, au
+  rafraîchissement et dans les fenêtres de tâche accordées par le système.
+
+## Vérifications
+
 **Vérifié sur cette machine :**
 
 - TypeScript racine et mobile sans erreur ;
 - `expo install --check` : dépendances à jour ;
 - `expo-doctor apps/mobile` : 18/18 contrôles réussis ;
-- export Metro/Hermes iOS : 1 238 modules, bundle `.hbc` généré ;
-- export Metro/Hermes Android : 1 237 modules, bundle `.hbc` généré.
+- 83 tests Vitest, dont les invariants du zoom focal ;
+- build statique Next.js du site inchangé ;
+- exports Metro/Hermes iOS et Android, bundles `.hbc` générés.
 
-**Non vérifié :** démarrage dans Expo Go, rendu Skia, fluidité et haptique
-sur l'iPhone physique. Cette machine ne dispose toujours d'aucun
-simulateur iOS ni émulateur Android. Le correctif **devrait** résoudre le
-crash, mais ne sera déclaré confirmé qu'après le test appareil.
+**Non vérifié :** correctif final pinch/double-tap, synchronisation des panes,
+fluidité des longues séries, notifications réelles et partage PNG sur
+l'iPhone physique ; Android réel ; builds EAS signés et soumission stores.
+Cette machine ne dispose d'aucun simulateur iOS ni émulateur Android.
 
-## Prochaine étape concrète
+## Validation appareil
 
 Depuis la racine du dépôt :
 
@@ -175,15 +224,18 @@ npx expo start -c --lan
 
 Ouvrir ensuite l'URL `exp://` dans Expo Go SDK 54 sur l'iPhone et vérifier :
 
-1. l'écran SNTS s'ouvre sans erreur Hermes/Worklets ;
-2. chandelles, mèches, SMA 20, axes prix/date et grille sont visibles ;
-3. le pan finit avec une inertie courte sans sortir des bornes ;
-4. le pinch zoome autour des doigts ;
-5. l'appui long affiche le crosshair et le tooltip OHLC, avec haptique ;
-6. le double-tap recadre au ressort et déclenche une haptique légère ;
-7. aucune saccade, disparition du chart ou erreur rouge après plusieurs
-   cycles pan/zoom/crosshair.
-
-Si ces sept points passent, marquer Phase 1 « confirmée sur appareil » et
-commencer Phase 2. Sinon, conserver le go/no-go bloqué et relever le texte
-exact de l'erreur ou une vidéo du geste défaillant.
+1. ouvrir Marché > SNTS > Graphique et vérifier que chandelles, overlays et
+   panes bougent ensemble ;
+2. pincer près du bord gauche puis droit : la bougie sous les doigts reste
+   au même endroit et sa largeur change nettement ;
+3. double-taper après un fort zoom : échelle et cadrage reviennent au ressort
+   avec haptique ;
+4. tester pan inertiel, crosshair, six rendus, indicateurs, log, %, niveau et
+   export PNG ;
+5. parcourir les cinq tabs, ajouter/retirer une watchlist par swipe, saisir
+   une transaction et sauvegarder un filtre ;
+6. autoriser une alerte déjà franchie, rafraîchir, ouvrir la notification et
+   vérifier le deep-link ;
+7. passer hors ligne après un premier chargement et vérifier le mode cache ;
+8. relever toute erreur rouge, disparition, désynchronisation ou saccade avec
+   ticker, geste et capture/vidéo.
