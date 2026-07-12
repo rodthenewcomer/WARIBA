@@ -11,6 +11,7 @@ import {
   Grid3X3,
   LayoutDashboard,
   Briefcase,
+  CalendarClock,
   CandlestickChart,
   Newspaper,
   Plus,
@@ -36,6 +37,7 @@ const NAV = [
   { href: "/watchlist", label: "Watchlist", icon: Eye },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/alerts", label: "Alertes", icon: Bell },
+  { href: "/dividendes", label: "Dividendes", icon: CalendarClock },
   { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
   { href: "/settings", label: "Réglages", icon: Settings },
 ] as const;
@@ -58,6 +60,7 @@ const MOBILE_MORE = [
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
   { href: "/charts", label: "Graphiques", icon: CandlestickChart },
+  { href: "/dividendes", label: "Dividendes", icon: CalendarClock },
   { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/news", label: "Actualités", icon: Newspaper },

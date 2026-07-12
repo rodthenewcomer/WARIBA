@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/charts",
     "/portfolio",
     "/watchlist",
+    "/dividendes",
     "/news",
     "/documents",
     "/alerts",

@@ -73,6 +73,10 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     label: "Perte max.",
     def: "La pire baisse subie depuis un sommet de clôture — ce qu'aurait perdu, au pire moment, un investisseur entré au plus haut. Calculée sur tout l'historique disponible (2019+).",
   },
+  saisonnalite: {
+    label: "Saisonnalité",
+    def: "Les mois où une société a, par le passé, versé un dividende — pas une date annoncée à l'avance (la BRVM ne publie pas de calendrier d'ex-dividende exploitable). Un versement observé sur au moins 2 années différentes est marqué « récurrent », sans que cela garantisse le prochain versement.",
+  },
   ytd: {
     label: "YTD",
     def: "Year-to-date : la variation depuis le 1er janvier de l'année en cours.",
