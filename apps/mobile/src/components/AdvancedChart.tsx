@@ -1,16 +1,15 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import ViewShot, { captureRef } from "react-native-view-shot";
-import * as Sharing from "expo-sharing";
 import type { ChartType, IndicatorId, OHLCV } from "@afriterminal/core/types";
+import type { TimeValue } from "@afriterminal/core/indicators";
 import {
   calculateATR, calculateBollingerBands, calculateEMA, calculateHeikinAshi,
   calculateMACD, calculateRSI, calculateSMA, calculateStochastic, calculateVWAP,
 } from "@afriterminal/core/indicators";
-import { CandleChart, type ChartEvent, type ChartOverlay, type ChartPane } from "./CandleChart";
+import { WebChart, type WebChartHandle, type WebChartMarker, type WebChartOverlay, type WebChartPanes, type WebChartPayload } from "./chart/WebChart";
 import { ActionButton } from "./ui";
 import { useChartLevelStore, useChartStore } from "../stores";
-import { colors, radius, type } from "../theme";
+import { colors, type } from "../theme";
 
 /** Référence stable : un sélecteur zustand ne doit jamais fabriquer un nouveau tableau. */
 const EMPTY_LEVELS: number[] = [];
@@ -37,9 +36,15 @@ const INDICATORS: { id: IndicatorId; label: string }[] = [
   { id: "stoch", label: "Stoch" },
 ];
 
-function toValues(data: OHLCV[], points: { time: string | number; value: number }[]): (number | null)[] {
-  const map = new Map(points.map((point) => [String(point.time), point.value]));
-  return data.map((bar) => map.get(String(bar.time)) ?? null);
+/** Couleurs des moyennes mobiles — identiques à CHART_COLORS du site web. */
+const MA_COLORS: Record<string, string> = {
+  sma20: "#38bdf8", sma50: "#8b5cf6", sma100: "#fb923c", sma200: "#94a3b8", ema20: "#ec4899",
+};
+
+function toPoints(points: TimeValue[], since: string): { time: string; value: number }[] {
+  return points
+    .map((point) => ({ time: String(point.time), value: point.value }))
+    .filter((point) => point.time >= since);
 }
 
 export function AdvancedChart({
@@ -50,13 +55,13 @@ export function AdvancedChart({
   previousClose?: number;
   week52High?: number;
   week52Low?: number;
-  events?: ChartEvent[];
+  events?: WebChartMarker[];
 }) {
-  const shotRef = useRef<ViewShot>(null);
+  const chartRef = useRef<WebChartHandle>(null);
   const [showIndicators, setShowIndicators] = useState(false);
   const [levelMode, setLevelMode] = useState(false);
   const [range, setRange] = useState("6m");
-  const type_ = useChartStore((state) => state.type);
+  const chartType = useChartStore((state) => state.type);
   const indicators = useChartStore((state) => state.indicators);
   const logarithmic = useChartStore((state) => state.logarithmic);
   const percentMode = useChartStore((state) => state.percentMode);
@@ -71,51 +76,58 @@ export function AdvancedChart({
     const bars = RANGES.find((item) => item.id === range)?.bars ?? Number.POSITIVE_INFINITY;
     return Number.isFinite(bars) ? data.slice(-bars) : data;
   }, [data, range]);
-  const chartData = useMemo(() => type_ === "heikin-ashi" ? calculateHeikinAshi(visible) : visible, [visible, type_]);
+  const since = String(visible[0]?.time ?? "");
 
-  // Indicateurs calculés sur l'historique complet (une SMA 200 reste juste
-  // même en vue 1M), puis projetés sur la fenêtre visible par date.
-  const computed = useMemo(() => ({
-    sma20: calculateSMA(data, 20), sma50: calculateSMA(data, 50),
-    sma100: calculateSMA(data, 100), sma200: calculateSMA(data, 200),
-    ema20: calculateEMA(data, 20), vwap: calculateVWAP(data),
-    bollinger: calculateBollingerBands(data), rsi: calculateRSI(data),
-    macd: calculateMACD(data), atr: calculateATR(data), stoch: calculateStochastic(data),
-  }), [data]);
+  // fitContent uniquement quand l'instrument, la période ou le type change —
+  // pas quand on togglise un indicateur (même règle que le site web).
+  const fitKey = `${ticker}|${range}|${chartType}`;
+  const lastFitKeyRef = useRef("");
+  const fit = fitKey !== lastFitKeyRef.current;
+  useEffect(() => { lastFitKeyRef.current = fitKey; });
 
-  const overlays = useMemo<ChartOverlay[]>(() => {
-    const result: ChartOverlay[] = [];
-    const add = (id: IndicatorId, color: string, points: { time: string | number; value: number }[]) => {
-      if (indicators.includes(id)) result.push({ id, color, values: toValues(visible, points) });
-    };
-    add("sma20", colors.accent, computed.sma20);
-    add("sma50", "#60a5fa", computed.sma50);
-    add("sma100", "#c084fc", computed.sma100);
-    add("sma200", colors.warn, computed.sma200);
-    add("ema20", "#2dd4bf", computed.ema20);
-    add("vwap", colors.violet, computed.vwap);
-    if (indicators.includes("bollinger")) {
-      result.push({ id: "bollinger-upper", color: "rgba(96,165,250,0.65)", values: toValues(visible, computed.bollinger.upper) });
-      result.push({ id: "bollinger-middle", color: "rgba(96,165,250,0.4)", values: toValues(visible, computed.bollinger.middle) });
-      result.push({ id: "bollinger-lower", color: "rgba(96,165,250,0.65)", values: toValues(visible, computed.bollinger.lower) });
+  const payload = useMemo<WebChartPayload>(() => {
+    const bars = chartType === "heikin-ashi" ? calculateHeikinAshi(visible) : visible;
+    const overlays: WebChartOverlay[] = [];
+    for (const id of ["sma20", "sma50", "sma100", "sma200"] as const) {
+      if (indicators.includes(id)) {
+        overlays.push({ id, color: MA_COLORS[id], data: toPoints(calculateSMA(data, Number(id.slice(3))), since) });
+      }
     }
-    return result;
-  }, [computed, visible, indicators]);
+    if (indicators.includes("ema20")) overlays.push({ id: "ema20", color: MA_COLORS.ema20, data: toPoints(calculateEMA(data, 20), since) });
+    if (indicators.includes("vwap")) overlays.push({ id: "vwap", color: "#2dd4bf", dashed: true, data: toPoints(calculateVWAP(data), since) });
+    if (indicators.includes("bollinger")) {
+      const bands = calculateBollingerBands(data);
+      overlays.push({ id: "bb-mid", color: "rgba(139,92,246,0.9)", data: toPoints(bands.middle, since) });
+      overlays.push({ id: "bb-up", color: "rgba(139,92,246,0.35)", data: toPoints(bands.upper, since) });
+      overlays.push({ id: "bb-low", color: "rgba(139,92,246,0.35)", data: toPoints(bands.lower, since) });
+    }
 
-  const panes = useMemo(() => {
-    const result: ChartPane[] = [];
-    if (indicators.includes("rsi")) result.push({ id: "rsi", label: "RSI 14", values: toValues(visible, computed.rsi), color: colors.violet });
-    if (indicators.includes("macd")) result.push({ id: "macd", label: "MACD 12·26·9", values: toValues(visible, computed.macd.macd), second: toValues(visible, computed.macd.signal), color: colors.violet });
-    if (indicators.includes("atr")) result.push({ id: "atr", label: "ATR 14", values: toValues(visible, computed.atr), color: colors.warn });
-    if (indicators.includes("stoch")) result.push({ id: "stoch", label: "Stoch 14·3", values: toValues(visible, computed.stoch.k), second: toValues(visible, computed.stoch.d), color: colors.accent });
-    return result;
-  }, [computed, visible, indicators]);
+    const panes: WebChartPanes = {};
+    if (indicators.includes("rsi")) panes.rsi = toPoints(calculateRSI(data), since);
+    if (indicators.includes("macd")) {
+      const macd = calculateMACD(data);
+      panes.macd = { macd: toPoints(macd.macd, since), signal: toPoints(macd.signal, since), histogram: toPoints(macd.histogram, since) };
+    }
+    if (indicators.includes("atr")) panes.atr = toPoints(calculateATR(data), since);
+    if (indicators.includes("stoch")) {
+      const stoch = calculateStochastic(data);
+      panes.stoch = { k: toPoints(stoch.k, since), d: toPoints(stoch.d, since) };
+    }
 
-  const share = async () => {
-    if (!shotRef.current) return;
-    const uri = await captureRef(shotRef, { format: "png", quality: 1, result: "tmpfile" });
-    if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "image/png", dialogTitle: `${ticker} · AfriTerminal` });
-  };
+    const referenceLines = [
+      previousClose !== undefined ? { price: previousClose, title: "veille", color: "rgba(148,163,184,0.5)", dashed: true } : null,
+      week52High !== undefined ? { price: week52High, title: "52s haut", color: "rgba(34,197,94,0.35)", dashed: false } : null,
+      week52Low !== undefined ? { price: week52Low, title: "52s bas", color: "rgba(239,68,68,0.35)", dashed: false } : null,
+    ].filter((line): line is NonNullable<typeof line> => line !== null);
+
+    return {
+      ticker, chartType, bars, overlays, panes, referenceLines,
+      levels, markers: events, logarithmic, percentMode, levelMode, fit,
+    };
+  }, [chartType, data, events, fit, indicators, levelMode, levels, logarithmic, percentMode, previousClose, since, ticker, visible, week52High, week52Low]);
+
+  const paneCount = ["rsi", "macd", "atr", "stoch"].filter((id) => indicators.includes(id as IndicatorId)).length;
+  const height = 380 + paneCount * 90;
 
   return (
     <View style={styles.root}>
@@ -124,32 +136,17 @@ export function AdvancedChart({
           <ActionButton key={item.id} label={item.label} active={range === item.id} onPress={() => setRange(item.id)} />
         ))}
       </View>
-      <ViewShot ref={shotRef} options={{ format: "png", quality: 1 }} style={styles.capture}>
-        <CandleChart
-          data={chartData}
-          type={type_}
-          overlays={overlays}
-          referenceLines={[previousClose, week52High, week52Low].filter((value): value is number => value !== undefined)}
-          levels={levels}
-          events={events}
-          panes={panes}
-          logarithmic={logarithmic}
-          percentMode={percentMode}
-          levelMode={levelMode}
-          onToggleLevel={(price) => toggleLevel(ticker, price)}
-          height={360}
-        />
-      </ViewShot>
+      <WebChart ref={chartRef} payload={payload} height={height} onLevelTap={(price) => toggleLevel(ticker, price)} />
       {levelMode ? <Text style={styles.levelHint}>Touchez le graphique pour poser ou retirer un niveau de prix.</Text> : null}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.toolbar}>
-        {TYPES.map((item) => <ActionButton key={item.id} label={item.label} active={type_ === item.id} onPress={() => setType(item.id)} />)}
+        {TYPES.map((item) => <ActionButton key={item.id} label={item.label} active={chartType === item.id} onPress={() => setType(item.id)} />)}
       </ScrollView>
       <View style={styles.actions}>
         <ActionButton label="Indicateurs" icon="options-outline" active={showIndicators} onPress={() => setShowIndicators((value) => !value)} />
         <ActionButton label="Log" active={logarithmic} onPress={toggleLog} />
         <ActionButton label="%" active={percentMode} onPress={togglePercent} />
         <ActionButton label="Niveau" icon="remove-outline" active={levelMode} onPress={() => setLevelMode((value) => !value)} />
-        <ActionButton label="PNG" icon="share-outline" onPress={() => void share()} />
+        <ActionButton label="PNG" icon="share-outline" onPress={() => chartRef.current?.shoot()} />
       </View>
       {showIndicators ? (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.toolbar}>
@@ -165,6 +162,5 @@ const styles = StyleSheet.create({
   rangeRow: { flexDirection: "row", gap: 7 },
   toolbar: { gap: 7 },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: 7 },
-  capture: { backgroundColor: colors.background, gap: 6, borderRadius: radius.lg },
   levelHint: { ...type.caption, color: colors.accent },
 });

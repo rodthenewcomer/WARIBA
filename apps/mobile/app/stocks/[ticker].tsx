@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Linking, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { annualizedVolatility, maxDrawdown } from "@afriterminal/core/risk";
-import { fcfa, pct } from "@afriterminal/core/format";
+import { fcfa, num, pct } from "@afriterminal/core/format";
 import type { OHLCV } from "@afriterminal/core/types";
 import { AdvancedChart } from "../../src/components/AdvancedChart";
-import type { ChartEvent } from "../../src/components/CandleChart";
+import type { WebChartMarker } from "../../src/components/chart/WebChart";
 import { ActionButton, ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
 import { useWatchlistStore } from "../../src/stores";
@@ -27,9 +27,9 @@ export default function StockScreen() {
   const riskSeries = useMemo(() => series.map((bar) => ({ time: String(bar.time), close: bar.close })), [series]);
   const risk = useMemo(() => ({ volatility: annualizedVolatility(riskSeries), drawdown: maxDrawdown(riskSeries) }), [riskSeries]);
   const documents = market.documents.filter((document) => document.ticker === ticker).slice(0, 12);
-  const events = useMemo<ChartEvent[]>(() => [
-    ...(market.dividends[ticker] ?? []).map((item) => ({ time: item.date, color: colors.gold, kind: "dividend" as const })),
-    ...documents.filter((item) => /capital|split|fusion/i.test(item.title)).map((item) => ({ time: item.date, color: colors.violet, kind: "operation" as const })),
+  const events = useMemo<WebChartMarker[]>(() => [
+    ...(market.dividends[ticker] ?? []).map((item) => ({ time: item.date, kind: "dividend" as const, label: `D ${num(item.net)}` })),
+    ...documents.filter((item) => /capital|split|fusion/i.test(item.title)).map((item) => ({ time: item.date, kind: "operation" as const, label: "S" })),
   ], [documents, market.dividends, ticker]);
 
   if (!quote) return market.loading ? <LoadingState /> : <EmptyState title="Valeur introuvable" detail={`Aucune cotation pour ${ticker}.`} />;

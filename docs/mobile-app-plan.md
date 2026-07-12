@@ -12,9 +12,17 @@ n'est **pas remplacé** : il continue de vivre à l'identique, en parallèle.
    site (palette sombre `#09090b`/`#111113`/`#18181b`, accent ambre
    `#e2a63d`, vert/rouge `#22c55e`/`#ef4444`, violet `#8b5cf6` pour
    MACD/opérations, or pour dividendes).
-2. **Charts 100 % natifs** — pas de WebView autour de
-   `lightweight-charts`. Le moteur de rendu du graphique est réécrit
-   nativement. C'est le lot le plus coûteux du projet (voir plus bas).
+2. **Chart : moteur du site web via WebView** *(décision produit révisée
+   le 2026-07-12)*. Le spike Skia natif (Phase 1) a été mené à bout puis
+   remplacé : le rendu ne satisfaisait pas le niveau de finition visé, et
+   reconstruire la polish de TradingView en Skia coûtait plusieurs
+   semaines. Le graphique embarque désormais `lightweight-charts` (le
+   build standalone exact du site, hors-ligne, régénérable via
+   `apps/mobile/scripts/embed-lwc.mjs`) dans une WebView limitée à la
+   zone du chart — design identique au web pixel près. Tout le reste de
+   l'app (navigation, écrans, calculs, stores, toolbar du chart) reste
+   100 % natif : la WebView est un renderer muet piloté en JSON
+   (`src/components/chart/WebChart.tsx`).
 
 ## Architecture — monorepo, pas un nouveau dépôt
 
