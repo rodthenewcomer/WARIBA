@@ -109,9 +109,57 @@ est le prix du rendu 100 % natif demandé.
 - Aucune donnée n'est dupliquée : l'app mobile consomme les mêmes JSON
   publics déjà générés pour le site.
 
+## Statut
+
+- ✅ **Phase 0 — terminée** (commit `7d4bda1`). `packages/core` extrait,
+  ~70 imports migrés, site web vérifié inchangé (tsc, 81 tests vitest,
+  63 tests Python, build statique, CI + deploy GitHub Actions verts).
+- ✅ **Phase 1 (spike) — code écrit et type-vérifié, rendu non confirmé
+  visuellement.** Détail ci-dessous.
+
+## Résultat du spike (Phase 1)
+
+`apps/mobile` : app Expo SDK 57 + TypeScript, dépend de
+`@afriterminal/core` en workspace. Composant `CandleChart`
+(`apps/mobile/src/components/CandleChart.tsx`) : chandelles construites
+en `SkPath` via `useDerivedValue` (recalcul réactif sur `translateX`/
+`scale`, thread UI), pan + pinch-zoom via `Gesture.Pan`/`Gesture.Pinch`
+(react-native-gesture-handler), double-tap pour recadrer, overlay SMA 20
+calculé par `@afriterminal/core/indicators` sur 180 séances réelles
+SNTS (`data/real/series/SNTS.json`).
+
+**Ce qui est vérifié :** le code type-check intégralement contre les
+vraies définitions TypeScript des packages installés (`@shopify/
+react-native-skia@2.6.2`, `react-native-gesture-handler`, `react-native-
+reanimated@4.5.0`) — signal fort que l'API utilisée (Path/Canvas/
+Gesture/useDerivedValue) est correcte pour ces versions.
+
+**Ce qui n'est PAS vérifié — limite d'environnement, pas du code
+métier :** cette machine n'a ni Simulateur iOS (Xcode incomplet, pas de
+`simctl`) ni émulateur Android. La voie de repli — l'aperçu web d'Expo
+(`expo start --web`, react-native-skia y dessine via CanvasKit/WASM) —
+bute sur un problème d'initialisation : le singleton `Skia` de la
+librairie semble se construire avant que `LoadSkiaWeb()`/`WithSkiaWeb`
+n'aient fini de charger le WASM (`Skia.Path.Make()` échoue avec
+`Cannot read properties of undefined (reading 'PathBuilder')`), cohérent
+avec un bundle Metro web qui n'effectue pas de vrai découpage
+asynchrone par défaut dans cette config. Aucune des deux méthodes
+documentées par Shopify (code-splitting `WithSkiaWeb`, enregistrement
+différé `LoadSkiaWeb` + entrée `index.web.ts`) n'a résolu le problème
+après investigation ciblée ; approfondir demanderait de creuser la
+config Metro/`web.output` — non prioritaire puisque **le natif n'a pas
+du tout ce problème** (Skia y est compilé dans le binaire, pas chargé en
+WASM à l'exécution). Le code du spike a été laissé propre (pas
+d'artefacts web cassés committés) plutôt que de garder un faux-semblant
+qui donnerait l'impression que l'aperçu web fonctionne.
+
 ## Prochaine étape concrète
 
-Le point d'entrée sans risque pour le site actuel est la **Phase 0**
-(extraction de `packages/core`) — un déplacement de fichiers et de
-chemins d'import, pas une réécriture, mais qui touche la structure du
-dépôt. À valider explicitement avant de démarrer.
+Le go/no-go réel de la Phase 1 (fluidité du pan/pinch-zoom, rendu
+correct des chandelles) ne peut être tranché que sur un vrai
+Simulateur iOS / émulateur Android / device physique — à faire sur une
+machine qui en dispose (`cd apps/mobile && npx expo start`, puis `i`
+pour iOS ou `a` pour Android, ou scanner le QR code avec Expo Go). Si
+le rendu et les gestes sont concluants : passer en Phase 2 (squelette
+de navigation + écrans). Sinon, ce spike aura coûté une fraction de la
+Phase 3 complète — exactement ce pour quoi il a été fait.
