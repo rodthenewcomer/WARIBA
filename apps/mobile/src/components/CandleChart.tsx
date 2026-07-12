@@ -350,12 +350,12 @@ export function CandleChart({
     const currentScale = scale.value;
     const currentTranslateX = translateX.value;
     return buildCandlePath("up", currentScale, currentTranslateX);
-  }, [data, plotWidth, plotHeight]);
+  }, [data, plotWidth, plotHeight, yLo, yHi, logarithmic, percentMode]);
   const downPath = useDerivedValue(() => {
     const currentScale = scale.value;
     const currentTranslateX = translateX.value;
     return buildCandlePath("down", currentScale, currentTranslateX);
-  }, [data, plotWidth, plotHeight]);
+  }, [data, plotWidth, plotHeight, yLo, yHi, logarithmic, percentMode]);
 
   const closePath = useDerivedValue(() => {
     const path = Skia.Path.Make();
@@ -368,7 +368,7 @@ export function CandleChart({
       if (!started) { path.moveTo(x, y); started = true; } else path.lineTo(x, y);
     });
     return path;
-  }, [data, plotWidth, plotHeight, logarithmic, percentMode]);
+  }, [data, plotWidth, plotHeight, yLo, yHi, logarithmic, percentMode]);
 
   const areaPath = useDerivedValue(() => {
     const path = Skia.Path.Make();
@@ -386,7 +386,7 @@ export function CandleChart({
     path.lineTo(endX, plotBottom);
     path.close();
     return path;
-  }, [data, plotWidth, plotBottom, logarithmic, percentMode]);
+  }, [data, plotWidth, plotBottom, yLo, yHi, logarithmic, percentMode]);
 
   const barPath = useDerivedValue(() => {
     const path = Skia.Path.Make();
@@ -402,7 +402,7 @@ export function CandleChart({
       path.moveTo(x, priceToY(bar.close)); path.lineTo(x + tick, priceToY(bar.close));
     }
     return path;
-  }, [data, plotWidth, logarithmic, percentMode]);
+  }, [data, plotWidth, yLo, yHi, logarithmic, percentMode]);
 
   const smaPath = useDerivedValue(() => {
     const path = Skia.Path.Make();
@@ -426,7 +426,7 @@ export function CandleChart({
       }
     }
     return path;
-  }, [data, plotWidth, plotHeight, smaValues]);
+  }, [data, plotWidth, plotHeight, smaValues, yLo, yHi, logarithmic, percentMode]);
 
   const crosshairPath = useDerivedValue(() => {
     const path = Skia.Path.Make();
@@ -465,6 +465,8 @@ export function CandleChart({
 
   const panGesture = Gesture.Pan()
     .maxPointers(1)
+    .activeOffsetX([-12, 12])
+    .failOffsetY([-16, 16])
     .onStart(() => {
       cancelAnimation(translateX);
       startTranslateX.value = translateX.value;
@@ -623,7 +625,7 @@ export function CandleChart({
               <Text
                 key={tick.key}
                 numberOfLines={1}
-                style={[styles.axisText, styles.dateLabel, { left: tick.x - 30 }]}
+                style={[styles.axisText, styles.dateLabel, { left: Math.min(Math.max(tick.x - 30, 2), Math.max(2, plotWidth - 62)) }]}
               >
                 {tick.label}
               </Text>
@@ -752,8 +754,9 @@ const styles = StyleSheet.create({
   },
   axisText: {
     color: COLORS.ink3,
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: "600",
+    letterSpacing: 0.2,
     fontVariant: ["tabular-nums"],
   },
   priceLabel: {

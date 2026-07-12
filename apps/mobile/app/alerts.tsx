@@ -22,7 +22,7 @@ export default function AlertsScreen() {
     setTarget("");
   };
   return (
-    <Page title="Alertes" subtitle="Faits BRVM et seuils évalués par l’app" refreshing={market.refreshing} onRefresh={() => void market.refresh().then(() => evaluatePriceAlerts(market.quotes))}>
+    <Page subtitle="Faits BRVM et seuils de prix évalués par l’app" refreshing={market.refreshing} onRefresh={() => void market.refresh().then(() => evaluatePriceAlerts(market.quotes))}>
       <Section title="Livraison locale" detail={notifications ? "autorisée" : "désactivée"}>
         <Text style={styles.note}>Sans serveur, les seuils sont contrôlés à l’ouverture, au rafraîchissement et lors des fenêtres système autorisées. Une app totalement arrêtée ne reçoit pas de push temps réel.</Text>
         <ActionButton label={notifications ? "Désactiver" : "Autoriser les notifications"} icon="notifications-outline" active={notifications} onPress={() => void (notifications ? disableNotifications() : enableNotifications())} />

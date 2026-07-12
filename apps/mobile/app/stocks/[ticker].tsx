@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { Linking, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { annualizedVolatility, maxDrawdown } from "@afriterminal/core/risk";
 import { fcfa, pct } from "@afriterminal/core/format";
 import type { OHLCV } from "@afriterminal/core/types";
 import { AdvancedChart } from "../../src/components/AdvancedChart";
 import type { ChartEvent } from "../../src/components/CandleChart";
-import { ActionButton, EmptyState, LoadingState, Metric, Page, Row, Section } from "../../src/components/ui";
+import { ActionButton, ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
 import { useWatchlistStore } from "../../src/stores";
-import { colors } from "../../src/theme";
+import { colors, tabular, type } from "../../src/theme";
 
 type Tab = "chart" | "fundamentals" | "risk" | "documents";
 
@@ -33,18 +33,23 @@ export default function StockScreen() {
   ], [documents, market.dividends, ticker]);
 
   if (!quote) return market.loading ? <LoadingState /> : <EmptyState title="Valeur introuvable" detail={`Aucune cotation pour ${ticker}.`} />;
-  const up = quote.dayChangePct >= 0;
 
   return (
-    <Page
-      title={ticker}
-      subtitle={`${quote.name} · BRVM`}
-      action={<ActionButton label={watched ? "Suivie" : "Suivre"} icon={watched ? "star" : "star-outline"} active={watched} onPress={() => toggle(ticker)} />}
-    >
-      <View style={styles.quoteHeader}>
-        <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
-        <Text style={[styles.change, { color: up ? colors.up : colors.down }]}>{pct(quote.dayChangePct, { signed: true, digits: 2 })}</Text>
+    <Page>
+      <Stack.Screen options={{ title: ticker }} />
+
+      <View style={styles.hero}>
+        <View style={styles.heroCopy}>
+          <Text numberOfLines={2} style={styles.name}>{quote.name}</Text>
+          <View style={styles.priceRow}>
+            <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
+            <ChangePill value={quote.dayChangePct} label={pct(quote.dayChangePct, { signed: true, digits: 2 })} />
+          </View>
+          <Text style={styles.asOf}>Clôture du {quote.asOfDate}</Text>
+        </View>
+        <ActionButton label={watched ? "Suivie" : "Suivre"} icon={watched ? "star" : "star-outline"} active={watched} onPress={() => toggle(ticker)} />
       </View>
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs}>
         <ActionButton label="Graphique" active={tab === "chart"} onPress={() => setTab("chart")} />
         <ActionButton label="Fondamentaux" active={tab === "fundamentals"} onPress={() => setTab("fundamentals")} />
@@ -61,11 +66,11 @@ export default function StockScreen() {
           {fundamental ? <>
             <View style={styles.metrics}>
               <Metric label={`${fundamental.revenueLabel} (M FCFA)`} value={fundamental.revenueM.toLocaleString("fr-FR")} />
-              <Metric label="RÉSULTAT NET (M)" value={fundamental.netIncomeM.toLocaleString("fr-FR")} tone={fundamental.netIncomeM >= 0 ? "up" : "down"} />
-              <Metric label="MARGE NETTE" value={pct((fundamental.netIncomeM / fundamental.revenueM) * 100, { digits: 1 })} />
-              <Metric label="CAPITAUX PROPRES" value={fundamental.equityM === null ? "—" : `${fundamental.equityM.toLocaleString("fr-FR")} M`} />
-              {fundamental.cirPct !== null ? <Metric label="COEFFICIENT EXPLOIT." value={pct(fundamental.cirPct, { digits: 1 })} /> : null}
-              {fundamental.depositsM !== null ? <Metric label="DÉPÔTS" value={`${(fundamental.depositsM / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} Mds`} /> : null}
+              <Metric label="Résultat net (M)" value={fundamental.netIncomeM.toLocaleString("fr-FR")} tone={fundamental.netIncomeM >= 0 ? "up" : "down"} />
+              <Metric label="Marge nette" value={pct((fundamental.netIncomeM / fundamental.revenueM) * 100, { digits: 1 })} />
+              <Metric label="Capitaux propres" value={fundamental.equityM === null ? "—" : `${fundamental.equityM.toLocaleString("fr-FR")} M`} />
+              {fundamental.cirPct !== null ? <Metric label="Coefficient exploit." value={pct(fundamental.cirPct, { digits: 1 })} /> : null}
+              {fundamental.depositsM !== null ? <Metric label="Dépôts" value={`${(fundamental.depositsM / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} Mds`} /> : null}
             </View>
             <Row icon="open-outline" title="Document source BRVM" detail="Publication officielle liée" onPress={() => void Linking.openURL(fundamental.source)} />
           </> : <EmptyState title="Fondamentaux indisponibles" detail="Aucun état financier vérifié n’est chargé." />}
@@ -75,10 +80,10 @@ export default function StockScreen() {
       {tab === "risk" ? (
         <Section title="Risque historique" detail="Calculs packages/core">
           <View style={styles.metrics}>
-            <Metric label="VOLATILITÉ ANNUALISÉE" value={risk.volatility === null ? "—" : pct(risk.volatility, { digits: 1 })} />
-            <Metric label="MAX DRAWDOWN" value={risk.drawdown ? pct(risk.drawdown.pct, { signed: true, digits: 1 }) : "—"} tone="down" />
-            <Metric label="PLUS HAUT 52S" value={fcfa(quote.week52High)} />
-            <Metric label="PLUS BAS 52S" value={fcfa(quote.week52Low)} />
+            <Metric label="Volatilité annualisée" value={risk.volatility === null ? "—" : pct(risk.volatility, { digits: 1 })} />
+            <Metric label="Max drawdown" value={risk.drawdown ? pct(risk.drawdown.pct, { signed: true, digits: 1 }) : "—"} tone="down" />
+            <Metric label="Plus haut 52s" value={fcfa(quote.week52High)} />
+            <Metric label="Plus bas 52s" value={fcfa(quote.week52Low)} />
           </View>
           <Text style={styles.disclaimer}>Statistiques historiques descriptives, pas une prévision ni un conseil en investissement.</Text>
         </Section>
@@ -86,7 +91,9 @@ export default function StockScreen() {
 
       {tab === "documents" ? (
         <Section title="Publications officielles" detail={`${documents.length} récentes`}>
-          {documents.map((document) => <Row key={document.url} icon="document-text-outline" title={document.title} detail={`${document.type} · ${document.date}`} onPress={() => void Linking.openURL(document.url)} />)}
+          {documents.length
+            ? documents.map((document) => <Row key={document.url} icon="document-text-outline" title={document.title} detail={`${document.type} · ${document.date}`} onPress={() => void Linking.openURL(document.url)} />)
+            : <EmptyState icon="document-text-outline" title="Aucune publication" detail={`Aucun document officiel lié à ${ticker} pour le moment.`} />}
         </Section>
       ) : null}
     </Page>
@@ -94,9 +101,13 @@ export default function StockScreen() {
 }
 
 const styles = StyleSheet.create({
-  quoteHeader: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between" },
-  price: { color: colors.ink, fontSize: 28, fontWeight: "800", fontVariant: ["tabular-nums"] },
-  change: { fontSize: 14, fontWeight: "700", fontVariant: ["tabular-nums"] },
-  tabs: { gap: 7 }, metrics: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
-  disclaimer: { color: colors.ink3, fontSize: 10, lineHeight: 15 },
+  hero: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
+  heroCopy: { flex: 1, gap: 6 },
+  name: { ...type.sub },
+  priceRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  price: { color: colors.ink, fontSize: 30, fontWeight: "800", letterSpacing: -0.6, fontVariant: tabular },
+  asOf: { ...type.caption },
+  tabs: { gap: 7 },
+  metrics: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  disclaimer: { ...type.caption, marginTop: 10 },
 });

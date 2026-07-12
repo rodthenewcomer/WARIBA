@@ -1,32 +1,46 @@
 import { useEffect, type ReactNode } from "react";
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
-import { colors, radius, tabular } from "../theme";
+import { colors, radius, tabular, type } from "../theme";
 
+/**
+ * Conteneur d'écran. Les onglets n'ont pas d'en-tête natif : le titre est
+ * rendu ici, sous l'encoche grâce aux insets. Les écrans de pile (en-tête
+ * natif déjà présent) omettent `title` et gardent un padding standard.
+ */
 export function Page({
   title, subtitle, children, refreshing = false, onRefresh, action,
 }: {
-  title: string;
+  title?: string;
   subtitle?: string;
   children: ReactNode;
   refreshing?: boolean;
   onRefresh?: () => void;
   action?: ReactNode;
 }) {
+  const insets = useSafeAreaInsets();
   return (
     <ScrollView
       style={styles.page}
-      contentContainerStyle={styles.content}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: title ? insets.top + 14 : 20, paddingBottom: 36 + insets.bottom },
+      ]}
       refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} /> : undefined}
     >
-      <View style={styles.header}>
-        <View style={styles.headerCopy}>
-          <Text style={styles.title}>{title}</Text>
-          {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+      {title || subtitle ? (
+        <View style={styles.header}>
+          <View style={styles.headerCopy}>
+            {title ? <Text style={styles.title}>{title}</Text> : null}
+            {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+          </View>
+          {action}
         </View>
-        {action}
-      </View>
+      ) : action ? (
+        <View style={styles.header}><View style={styles.headerCopy} />{action}</View>
+      ) : null}
       {children}
     </ScrollView>
   );
@@ -34,7 +48,7 @@ export function Page({
 
 export function Section({ title, detail, children }: { title: string; detail?: string; children: ReactNode }) {
   return (
-    <Animated.View entering={FadeInDown.duration(300)} style={styles.section}>
+    <Animated.View entering={FadeInDown.duration(280)} style={styles.section}>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>{title}</Text>
         {detail ? <Text style={styles.sectionDetail}>{detail}</Text> : null}
@@ -44,26 +58,61 @@ export function Section({ title, detail, children }: { title: string; detail?: s
   );
 }
 
+/** Tuile de métrique — carte pleine, valeur qui se réduit plutôt que déborder. */
 export function Metric({ label, value, tone = "default", detail }: { label: string; value: string; tone?: "default" | "up" | "down" | "accent"; detail?: string }) {
   return (
     <View style={styles.metric}>
-      <Text style={styles.metricLabel}>{label}</Text>
-      <Text style={[styles.metricValue, tone === "up" && styles.up, tone === "down" && styles.down, tone === "accent" && styles.accent]}>{value}</Text>
-      {detail ? <Text style={styles.metricDetail}>{detail}</Text> : null}
+      <Text numberOfLines={1} style={styles.metricLabel}>{label}</Text>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.62}
+        style={[styles.metricValue, tone === "up" && styles.up, tone === "down" && styles.down, tone === "accent" && styles.accent]}
+      >
+        {value}
+      </Text>
+      {detail ? <Text numberOfLines={1} style={styles.metricDetail}>{detail}</Text> : null}
     </View>
   );
 }
 
-export function Row({ icon, title, detail, value, onPress, tone }: { icon?: keyof typeof Ionicons.glyphMap; title: string; detail?: string; value?: string; onPress?: () => void; tone?: "up" | "down" }) {
+/** Pastille de variation (+1,25 %) sur fond teinté — lisible d'un coup d'œil. */
+export function ChangePill({ value, label }: { value: number; label: string }) {
+  const up = value >= 0;
+  return (
+    <View style={[styles.pill, { backgroundColor: up ? colors.upSoft : colors.downSoft }]}>
+      <Text style={[styles.pillText, { color: up ? colors.up : colors.down }]}>{label}</Text>
+    </View>
+  );
+}
+
+export function Row({ icon, title, detail, value, valueDetail, onPress, tone }: {
+  icon?: keyof typeof Ionicons.glyphMap;
+  title: string;
+  detail?: string;
+  value?: string;
+  valueDetail?: string;
+  onPress?: () => void;
+  tone?: "up" | "down";
+}) {
   return (
     <Pressable onPress={onPress} disabled={!onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
-      {icon ? <Ionicons name={icon} size={18} color={colors.ink3} /> : null}
+      {icon ? (
+        <View style={styles.rowIcon}>
+          <Ionicons name={icon} size={17} color={colors.ink2} />
+        </View>
+      ) : null}
       <View style={styles.rowCopy}>
-        <Text style={styles.rowTitle}>{title}</Text>
+        <Text numberOfLines={2} style={styles.rowTitle}>{title}</Text>
         {detail ? <Text numberOfLines={2} style={styles.rowDetail}>{detail}</Text> : null}
       </View>
-      {value ? <Text style={[styles.rowValue, tone === "up" && styles.up, tone === "down" && styles.down]}>{value}</Text> : null}
-      {onPress ? <Ionicons name="chevron-forward" size={16} color={colors.ink3} /> : null}
+      {value || valueDetail ? (
+        <View style={styles.rowRight}>
+          {value ? <Text style={[styles.rowValue, tone === "up" && styles.up, tone === "down" && styles.down]}>{value}</Text> : null}
+          {valueDetail ? <Text style={[styles.rowValueDetail, tone === "up" && styles.up, tone === "down" && styles.down]}>{valueDetail}</Text> : null}
+        </View>
+      ) : null}
+      {onPress ? <Ionicons name="chevron-forward" size={15} color={colors.ink3} /> : null}
     </Pressable>
   );
 }
@@ -78,53 +127,84 @@ export function ActionButton({ label, icon, onPress, active = false }: { label: 
 }
 
 export function LoadingState({ label = "Chargement des données BRVM…" }: { label?: string }) {
-  const pulse = useSharedValue(0.42);
-  useEffect(() => { pulse.value = withRepeat(withTiming(1, { duration: 650 }), -1, true); }, [pulse]);
+  const pulse = useSharedValue(0.4);
+  useEffect(() => { pulse.value = withRepeat(withTiming(1, { duration: 700 }), -1, true); }, [pulse]);
   const pulseStyle = useAnimatedStyle(() => ({ opacity: pulse.value }));
   return (
     <View style={styles.loading}>
-      <View style={styles.loadingHeader}><ActivityIndicator size="small" color={colors.accent} /><Text style={styles.centerText}>{label}</Text></View>
-      {[0.78, 1, 0.9, 1].map((width, index) => <Animated.View key={index} style={[styles.skeleton, { width: `${width * 100}%` }, pulseStyle]} />)}
+      <View style={styles.loadingHeader}>
+        <ActivityIndicator size="small" color={colors.accent} />
+        <Text style={styles.loadingText}>{label}</Text>
+      </View>
+      {[0.8, 1, 0.92, 1].map((share, index) => (
+        <Animated.View key={index} style={[styles.skeleton, { width: `${share * 100}%` }, pulseStyle]} />
+      ))}
     </View>
   );
 }
 
 export function EmptyState({ icon = "file-tray-outline", title, detail }: { icon?: keyof typeof Ionicons.glyphMap; title: string; detail: string }) {
-  return <View style={styles.empty}><Ionicons name={icon} size={24} color={colors.ink3} /><Text style={styles.emptyTitle}>{title}</Text><Text style={styles.emptyDetail}>{detail}</Text></View>;
+  return (
+    <View style={styles.empty}>
+      <View style={styles.emptyIcon}><Ionicons name={icon} size={22} color={colors.ink2} /></View>
+      <Text style={styles.emptyTitle}>{title}</Text>
+      <Text style={styles.emptyDetail}>{detail}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 16, paddingBottom: 44, gap: 24 },
+  content: { paddingHorizontal: 18, gap: 26 },
   header: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
   headerCopy: { flex: 1 },
-  title: { color: colors.ink, fontSize: 25, fontWeight: "800" },
-  subtitle: { color: colors.ink3, fontSize: 11, lineHeight: 16, marginTop: 4 },
-  section: { gap: 10 },
-  sectionHeader: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: 10 },
-  sectionTitle: { color: colors.ink, fontSize: 14, fontWeight: "700" },
-  sectionDetail: { color: colors.ink3, fontSize: 10 },
-  metric: { flex: 1, minWidth: 145, paddingVertical: 12, borderTopColor: colors.line, borderTopWidth: 1 },
-  metricLabel: { color: colors.ink3, fontSize: 9, fontWeight: "700" },
-  metricValue: { color: colors.ink, fontSize: 19, fontWeight: "800", marginTop: 5, fontVariant: tabular },
-  metricDetail: { color: colors.ink3, fontSize: 9, marginTop: 3 },
-  row: { minHeight: 58, flexDirection: "row", alignItems: "center", gap: 10, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
+  title: { ...type.display },
+  subtitle: { ...type.caption, marginTop: 5 },
+  section: { gap: 4 },
+  sectionHeader: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: 10, marginBottom: 8 },
+  sectionTitle: { ...type.title },
+  sectionDetail: { ...type.caption },
+  metric: {
+    flexGrow: 1, flexBasis: "44%", paddingVertical: 13, paddingHorizontal: 14,
+    backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,
+  },
+  metricLabel: { ...type.label },
+  metricValue: { color: colors.ink, fontSize: 21, fontWeight: "800", letterSpacing: -0.4, marginTop: 7, fontVariant: tabular },
+  metricDetail: { ...type.caption, marginTop: 3 },
+  pill: { paddingHorizontal: 8, paddingVertical: 3.5, borderRadius: radius.full },
+  pillText: { fontSize: 12, fontWeight: "700", fontVariant: tabular },
+  row: { minHeight: 60, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 11 },
+  rowIcon: {
+    width: 34, height: 34, alignItems: "center", justifyContent: "center",
+    backgroundColor: colors.surface2, borderRadius: radius.md,
+  },
   rowCopy: { flex: 1 },
-  rowTitle: { color: colors.ink, fontSize: 13, fontWeight: "600" },
-  rowDetail: { color: colors.ink3, fontSize: 10, lineHeight: 14, marginTop: 3 },
-  rowValue: { color: colors.ink, fontSize: 12, fontWeight: "700", fontVariant: tabular },
-  action: { minHeight: 34, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, paddingHorizontal: 10, borderRadius: radius.sm, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface },
+  rowTitle: { ...type.body },
+  rowDetail: { ...type.caption, marginTop: 3 },
+  rowRight: { alignItems: "flex-end" },
+  rowValue: { color: colors.ink, fontSize: 14, fontWeight: "700", fontVariant: tabular },
+  rowValueDetail: { ...type.caption, marginTop: 2, fontVariant: tabular },
+  action: {
+    minHeight: 38, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6,
+    paddingHorizontal: 13, borderRadius: radius.full, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface,
+  },
   actionActive: { backgroundColor: colors.accent, borderColor: colors.accent },
-  actionText: { color: colors.ink2, fontSize: 11, fontWeight: "700" },
+  actionText: { color: colors.ink2, fontSize: 12.5, fontWeight: "700" },
   actionTextActive: { color: colors.background },
-  pressed: { opacity: 0.65 },
-  center: { minHeight: 240, alignItems: "center", justifyContent: "center", gap: 12 },
-  loading: { flex: 1, minHeight: 300, justifyContent: "center", gap: 12, paddingHorizontal: 16, backgroundColor: colors.background },
-  loadingHeader: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 8 },
-  skeleton: { height: 54, borderRadius: radius.sm, backgroundColor: colors.surface2, borderColor: colors.line, borderWidth: 1 },
-  centerText: { color: colors.ink3, fontSize: 11 },
-  empty: { minHeight: 160, alignItems: "center", justifyContent: "center", padding: 24, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg, backgroundColor: colors.surface },
-  emptyTitle: { color: colors.ink, fontSize: 14, fontWeight: "700", marginTop: 10 },
-  emptyDetail: { color: colors.ink3, fontSize: 10, lineHeight: 15, textAlign: "center", marginTop: 5 },
+  pressed: { opacity: 0.6 },
+  loading: { flex: 1, minHeight: 320, justifyContent: "center", gap: 12, paddingHorizontal: 18, backgroundColor: colors.background },
+  loadingHeader: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 6 },
+  loadingText: { ...type.caption },
+  skeleton: { height: 58, borderRadius: radius.lg, backgroundColor: colors.surface2, borderColor: colors.line, borderWidth: 1 },
+  empty: {
+    minHeight: 170, alignItems: "center", justifyContent: "center", padding: 24,
+    borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg, backgroundColor: colors.surface,
+  },
+  emptyIcon: {
+    width: 42, height: 42, alignItems: "center", justifyContent: "center",
+    backgroundColor: colors.surface2, borderRadius: radius.full,
+  },
+  emptyTitle: { ...type.body, marginTop: 12 },
+  emptyDetail: { ...type.caption, textAlign: "center", marginTop: 5, maxWidth: 260 },
   up: { color: colors.up }, down: { color: colors.down }, accent: { color: colors.accent },
 });

@@ -6,7 +6,8 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import type { RealQuote } from "@afriterminal/core/types";
 import { fcfa, pct } from "@afriterminal/core/format";
-import { colors, tabular } from "../theme";
+import { colors, radius, tabular, type } from "../theme";
+import { Sparkline } from "./Sparkline";
 import { useWatchlistStore } from "../stores";
 
 export function QuoteRow({ quote, rank, onRemove }: { quote: RealQuote; rank?: number; onRemove?: () => void }) {
@@ -26,24 +27,32 @@ export function QuoteRow({ quote, rank, onRemove }: { quote: RealQuote; rank?: n
     backgroundColor: interpolateColor(
       flash.value,
       [0, 1],
-      ["rgba(0,0,0,0)", up ? "rgba(34,197,94,0.14)" : "rgba(239,68,68,0.14)"]
+      ["rgba(0,0,0,0)", up ? colors.upSoft : colors.downSoft]
     ),
   }), [up]);
+
   const content = (
     <Animated.View style={flashStyle}>
-      <Pressable onPress={() => router.push(`/stocks/${quote.ticker}`)} style={({ pressed }) => [styles.row, pressed && { opacity: 0.65 }]}>
-      {rank ? <Text style={styles.rank}>{rank}</Text> : null}
-      <View style={styles.identity}>
-        <Text style={styles.ticker}>{quote.ticker}</Text>
-        <Text numberOfLines={1} style={styles.name}>{quote.name}</Text>
-      </View>
-      <View style={styles.quote}>
-        <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
-        <Text style={[styles.change, { color: up ? colors.up : colors.down }]}>{pct(quote.dayChangePct, { signed: true, digits: 2 })}</Text>
-      </View>
-      <Pressable hitSlop={10} onPress={(event) => { event.stopPropagation(); toggle(quote.ticker); }}>
-        <Ionicons name={watched ? "star" : "star-outline"} size={17} color={watched ? colors.accent : colors.ink3} />
-      </Pressable>
+      <Pressable onPress={() => router.push(`/stocks/${quote.ticker}`)} style={({ pressed }) => [styles.row, pressed && { opacity: 0.6 }]}>
+        {rank ? <Text style={styles.rank}>{rank}</Text> : null}
+        <View style={styles.identity}>
+          <Text style={styles.ticker}>{quote.ticker}</Text>
+          <Text numberOfLines={1} style={styles.name}>{quote.name}</Text>
+        </View>
+        {quote.sparkline?.length >= 2 ? (
+          <View style={styles.spark}>
+            <Sparkline values={quote.sparkline} width={54} height={22} color={up ? colors.up : colors.down} />
+          </View>
+        ) : null}
+        <View style={styles.quote}>
+          <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
+          <View style={[styles.pill, { backgroundColor: up ? colors.upSoft : colors.downSoft }]}>
+            <Text style={[styles.change, { color: up ? colors.up : colors.down }]}>{pct(quote.dayChangePct, { signed: true, digits: 2 })}</Text>
+          </View>
+        </View>
+        <Pressable hitSlop={10} onPress={(event) => { event.stopPropagation(); toggle(quote.ticker); }}>
+          <Ionicons name={watched ? "star" : "star-outline"} size={17} color={watched ? colors.accent : colors.ink3} />
+        </Pressable>
       </Pressable>
     </Animated.View>
   );
@@ -66,12 +75,16 @@ export function QuoteRow({ quote, rank, onRemove }: { quote: RealQuote; rank?: n
 }
 
 const styles = StyleSheet.create({
-  row: { minHeight: 62, flexDirection: "row", alignItems: "center", gap: 10, borderBottomColor: colors.line, borderBottomWidth: 1 },
-  rank: { width: 18, color: colors.ink3, fontSize: 10, fontVariant: tabular },
-  identity: { flex: 1 }, ticker: { color: colors.ink, fontSize: 13, fontWeight: "800" },
-  name: { color: colors.ink3, fontSize: 10, marginTop: 3 }, quote: { alignItems: "flex-end" },
-  price: { color: colors.ink, fontSize: 12, fontWeight: "700", fontVariant: tabular },
-  change: { fontSize: 10, fontWeight: "700", marginTop: 3, fontVariant: tabular },
-  remove: { width: 82, alignItems: "center", justifyContent: "center", gap: 4, backgroundColor: colors.down },
-  removeText: { color: colors.ink, fontSize: 9, fontWeight: "700" },
+  row: { minHeight: 64, flexDirection: "row", alignItems: "center", gap: 10, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
+  rank: { width: 20, ...type.caption, fontVariant: tabular },
+  identity: { flex: 1, minWidth: 0 },
+  ticker: { color: colors.ink, fontSize: 14.5, fontWeight: "800", letterSpacing: 0.2 },
+  name: { ...type.caption, marginTop: 2.5 },
+  spark: { opacity: 0.85 },
+  quote: { alignItems: "flex-end", gap: 4 },
+  price: { color: colors.ink, fontSize: 13.5, fontWeight: "700", fontVariant: tabular },
+  pill: { paddingHorizontal: 7, paddingVertical: 2.5, borderRadius: radius.full },
+  change: { fontSize: 11, fontWeight: "700", fontVariant: tabular },
+  remove: { width: 84, alignItems: "center", justifyContent: "center", gap: 4, backgroundColor: colors.down, borderRadius: radius.md, marginVertical: 6 },
+  removeText: { color: colors.ink, fontSize: 10, fontWeight: "700" },
 });

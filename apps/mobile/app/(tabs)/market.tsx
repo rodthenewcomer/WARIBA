@@ -37,5 +37,5 @@ export default function MarketScreen() {
 
 const styles = StyleSheet.create({
   actions: { flexDirection: "row", gap: 8 }, filters: { gap: 7 },
-  search: { height: 44, color: colors.ink, backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.md, paddingHorizontal: 12, fontSize: 12 },
+  search: { height: 46, color: colors.ink, backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg, paddingHorizontal: 14, fontSize: 13.5 },
 });
