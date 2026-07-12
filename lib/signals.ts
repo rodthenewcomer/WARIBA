@@ -1,4 +1,4 @@
-import type { Derived, Scores, Signal, Stock } from "./types";
+import type { Derived, Scores, Signal, Stock } from "@afriterminal/core/types";
 
 function clamp(n: number, min = 0, max = 100): number {
   return Math.max(min, Math.min(max, Math.round(n)));

@@ -21,9 +21,9 @@ import {
   Rocket,
   Settings,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
-import { dateFr } from "@/lib/format";
+import { dateFr } from "@afriterminal/core/format";
 import { GlobalSearch, GlobalSearchDialog, useSearchOpen } from "./global-search";
 import { MarketStatusBadge } from "./market-status-badge";
 import { ThemeToggle } from "./theme-toggle";

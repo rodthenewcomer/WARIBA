@@ -1,5 +1,5 @@
-import type { PortfolioTransaction } from "./portfolio";
-import type { WatchlistDef } from "./types";
+import type { PortfolioTransaction } from "@afriterminal/core/portfolio";
+import type { WatchlistDef } from "@afriterminal/core/types";
 import type { SavedFilter } from "@/hooks/use-saved-filters";
 
 /**

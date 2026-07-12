@@ -4,8 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, TrendingDown, TrendingUp } from "lucide-react";
 import { getSnapshots } from "@/lib/data";
-import { fcfa, pct } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { fcfa, pct } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 import { Dialog } from "@/components/ui/dialog";
 
 import { create } from "zustand";

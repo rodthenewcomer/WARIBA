@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { FileText, GraduationCap, Landmark } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 import { Badge } from "@/components/ui/badge";
 
 const TABS = [

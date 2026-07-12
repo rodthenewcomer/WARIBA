@@ -6,7 +6,7 @@ import { REAL_ALERTS } from "@/lib/real-alerts";
 import { REAL_DOCUMENTS } from "@/lib/real-documents";
 import { latestNews, newsDate } from "@/lib/news";
 import fundamentalsJson from "@/data/real/fundamentals.json";
-import { dateFr } from "@/lib/format";
+import { dateFr } from "@afriterminal/core/format";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 
 export const metadata: Metadata = {

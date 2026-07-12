@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { Database, Eraser, Keyboard, Monitor, Moon, Sun, User } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Select } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";

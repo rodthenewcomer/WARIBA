@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { GLOSSARY } from "@/lib/glossary";
+import { GLOSSARY } from "@afriterminal/core/glossary";
 import { TooltipBubble } from "@/components/ui/tooltip-bubble";
 import { useTapTooltip } from "@/hooks/use-tap-tooltip";
 

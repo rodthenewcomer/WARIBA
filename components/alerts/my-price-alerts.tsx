@@ -8,8 +8,8 @@ import {
   usePriceAlertsHydrated,
 } from "@/hooks/use-price-alerts";
 import { getSnapshot } from "@/lib/data";
-import { fcfa } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { fcfa } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 

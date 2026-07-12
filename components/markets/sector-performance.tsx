@@ -1,6 +1,6 @@
 import { getSectorPerformance } from "@/lib/data";
-import { pct } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { pct } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 
 /**
  * Barres divergentes de performance sectorielle (moyenne des variations

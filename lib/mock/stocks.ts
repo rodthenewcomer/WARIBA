@@ -1,4 +1,4 @@
-import type { Stock } from "../types";
+import type { Stock } from "@afriterminal/core/types";
 
 /** Dernière séance mockée (déterministe pour SSR/CSR). */
 export const TODAY = "2026-07-07";

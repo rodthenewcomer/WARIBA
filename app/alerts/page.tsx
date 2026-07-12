@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { BellPlus } from "lucide-react";
 import { REAL_ALERTS } from "@/lib/real-alerts";
-import type { AlertType } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import type { AlertType } from "@afriterminal/core/types";
+import { cn } from "@afriterminal/core/utils";
 import { AlertCard } from "@/components/alerts/alert-card";
 import { MyPriceAlerts } from "@/components/alerts/my-price-alerts";
 import { Button } from "@/components/ui/button";

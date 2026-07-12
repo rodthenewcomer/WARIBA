@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 // Export statique : l'image est générée au build, pas à la requête.
 export const dynamic = "force-static";
 import { LATEST_TRADING_DATE, REAL_INDICES } from "@/lib/real-data";
-import { dateFr } from "@/lib/format";
+import { dateFr } from "@afriterminal/core/format";
 
 export const alt = "AfriTerminal — La BRVM devient lisible";
 export const size = { width: 1200, height: 630 };

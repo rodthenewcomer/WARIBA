@@ -7,13 +7,13 @@ import {
   beta,
   maxDrawdown,
   type DailyClose,
-} from "@/lib/risk";
+} from "@afriterminal/core/risk";
 import {
   isRealTicker,
   realDailyClosesSince,
   realIndexDailyClosesSince,
 } from "@/lib/real-data";
-import { dateFr, pct, ratio } from "@/lib/format";
+import { dateFr, pct, ratio } from "@afriterminal/core/format";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { Term } from "@/components/ui/term";
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { PortfolioTransaction } from "@/lib/portfolio";
+import type { PortfolioTransaction } from "@afriterminal/core/portfolio";
 
 interface PortfolioState {
   transactions: PortfolioTransaction[];

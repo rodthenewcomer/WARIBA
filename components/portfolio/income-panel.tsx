@@ -1,9 +1,9 @@
 "use client";
 
 import { CalendarDays, TrendingUp } from "lucide-react";
-import type { DividendIncomeEvent, MonthForecast } from "@/lib/portfolio";
-import { incomeByYear } from "@/lib/portfolio";
-import { fcfa } from "@/lib/format";
+import type { DividendIncomeEvent, MonthForecast } from "@afriterminal/core/portfolio";
+import { incomeByYear } from "@afriterminal/core/portfolio";
+import { fcfa } from "@afriterminal/core/format";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 
 const MONTH_LABELS: Record<string, string> = {

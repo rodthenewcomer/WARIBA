@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getMarketPhase, type MarketPhase } from "@/lib/market-status";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 
 export function MarketStatusBadge() {
   const [phase, setPhase] = useState<MarketPhase | null>(null);

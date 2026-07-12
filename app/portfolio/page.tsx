@@ -18,14 +18,14 @@ import {
   monthlyIncomeForecast,
   projectedIncome,
   valuePortfolio,
-} from "@/lib/portfolio";
+} from "@afriterminal/core/portfolio";
 import { Donut } from "@/components/ui/donut";
 import { IncomePanel } from "@/components/portfolio/income-panel";
 import { dividendHistoryFor } from "@/lib/real-dividends";
 import { Coins } from "lucide-react";
 import { getSnapshot } from "@/lib/data";
-import { dateFr, fcfa, pct } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { dateFr, fcfa, pct } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 import { Badge } from "@/components/ui/badge";
 import { InfoHint } from "@/components/ui/info-hint";
 import { Button } from "@/components/ui/button";

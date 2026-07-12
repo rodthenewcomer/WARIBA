@@ -1,4 +1,4 @@
-import type { AIInsight, Derived, Signal, Stock } from "./types";
+import type { AIInsight, Derived, Signal, Stock } from "@afriterminal/core/types";
 
 const CUSTOM: Record<string, AIInsight> = {
   UNXC: {

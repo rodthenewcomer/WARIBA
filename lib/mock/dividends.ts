@@ -1,4 +1,4 @@
-import type { DividendInfo } from "../types";
+import type { DividendInfo } from "@afriterminal/core/types";
 import { STOCKS } from "./stocks";
 
 /** IRVM UEMOA : retenue de 10 % sur les dividendes. */

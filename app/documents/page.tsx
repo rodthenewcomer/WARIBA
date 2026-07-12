@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ExternalLink, FileText } from "lucide-react";
 import { REAL_DOCUMENTS, type RealDocument } from "@/lib/real-documents";
-import { dateFr } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { dateFr } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 

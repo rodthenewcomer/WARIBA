@@ -26,7 +26,7 @@ import {
   type SeriesType,
   type Time,
 } from "lightweight-charts";
-import type { ChartType, IndicatorId, OHLCV, Timeframe } from "@/lib/types";
+import type { ChartType, IndicatorId, OHLCV, Timeframe } from "@afriterminal/core/types";
 import { seriesForTimeframe } from "@/lib/mock/series";
 import {
   getRealQuote,
@@ -45,7 +45,7 @@ import {
   calculateSMA,
   calculateStochastic,
   calculateVWAP,
-} from "@/lib/indicators";
+} from "@afriterminal/core/indicators";
 import {
   adjustForDividends,
   adjustForRealDividends,
@@ -54,10 +54,10 @@ import {
 } from "@/lib/chart-utils";
 import { dividendHistoryFor } from "@/lib/real-dividends";
 import { operationsForTicker } from "@/lib/real-operations";
-import { compactVolume, pct } from "@/lib/format";
+import { compactVolume, pct } from "@afriterminal/core/format";
 import { useChartPrefs, useChartPrefsHydrated } from "@/hooks/use-chart-prefs";
 import { rehydrateChartLevels, useChartLevels } from "@/hooks/use-chart-levels";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChartToolbar } from "./chart-toolbar";
 

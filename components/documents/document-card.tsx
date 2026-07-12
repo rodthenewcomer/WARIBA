@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Download, FileSearch, FileText } from "lucide-react";
-import type { DocItem } from "@/lib/types";
-import { dateFr } from "@/lib/format";
+import type { DocItem } from "@afriterminal/core/types";
+import { dateFr } from "@afriterminal/core/format";
 import { Badge } from "@/components/ui/badge";
 import { DataBasisBadge } from "@/components/ui/data-basis-badge";
 import { Button } from "@/components/ui/button";

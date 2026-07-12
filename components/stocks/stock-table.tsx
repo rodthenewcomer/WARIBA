@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import type { StockSnapshot } from "@/lib/types";
+import type { StockSnapshot } from "@afriterminal/core/types";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
-import { compactVolume, dateFr, fcfa, pct, ratio } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { compactVolume, dateFr, fcfa, pct, ratio } from "@afriterminal/core/format";
+import { cn } from "@afriterminal/core/utils";
 import { getSeries } from "@/lib/mock/series";
 import { Sparkline } from "@/components/charts/sparkline";
 import { Badge } from "@/components/ui/badge";

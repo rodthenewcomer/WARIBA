@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   // Chaque page devient un répertoire/index.html — servi proprement
   // par GitHub Pages sans réécriture d'URL.
   trailingSlash: true,
+  // @afriterminal/core (packages/core) est un workspace TypeScript source,
+  // pas un paquet pré-compilé — Next doit le transpiler comme du code
+  // applicatif, pas comme une dépendance node_modules ordinaire.
+  transpilePackages: ["@afriterminal/core"],
   ...(basePath ? { basePath } : {}),
 };
 

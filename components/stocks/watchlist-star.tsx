@@ -3,7 +3,7 @@
 import type { MouseEvent } from "react";
 import { Star } from "lucide-react";
 import { useWatchlist, useWatchlistHydrated } from "@/hooks/use-watchlist";
-import { cn } from "@/lib/utils";
+import { cn } from "@afriterminal/core/utils";
 
 /**
  * Étoile compacte pour suivre/retirer une valeur directement depuis un

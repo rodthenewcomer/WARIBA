@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import { pct } from "@/lib/format";
-import type { Signal } from "@/lib/types";
+import { cn } from "@afriterminal/core/utils";
+import { pct } from "@afriterminal/core/format";
+import type { Signal } from "@afriterminal/core/types";
 import { Badge } from "@/components/ui/badge";
 
 export function PriceChange({

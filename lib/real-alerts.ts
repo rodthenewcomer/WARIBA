@@ -1,5 +1,5 @@
 import alertsJson from "@/data/real/alerts.json";
-import type { AlertItem } from "./types";
+import type { AlertItem } from "@afriterminal/core/types";
 
 /**
  * Alertes réelles générées par scripts/boc/build_alerts.py à partir des

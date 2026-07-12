@@ -4,8 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSnapshots } from "@/lib/data";
 import { squarify, type TreemapRect } from "@/lib/treemap";
-import { fcfa, pct } from "@/lib/format";
-import type { RealQuote, StockSnapshot } from "@/lib/types";
+import { fcfa, pct } from "@afriterminal/core/format";
+import type { RealQuote, StockSnapshot } from "@afriterminal/core/types";
 import { PillTabs } from "@/components/ui/tabs";
 
 // Espacement et en-têtes plus compacts sous 480 px : chaque pixel
