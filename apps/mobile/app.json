@@ -2,6 +2,7 @@
   "expo": {
     "name": "AfriTerminal",
     "slug": "afriterminal",
+    "scheme": "afriterminal",
     "version": "1.0.0",
     "newArchEnabled": true,
     "orientation": "portrait",
@@ -9,7 +10,9 @@
     "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true,
-      "backgroundColor": "#09090b"
+      "backgroundColor": "#09090b",
+      "bundleIdentifier": "com.afriterminal.app",
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,11 +21,34 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      "package": "com.afriterminal.app",
+      "versionCode": 1,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "backgroundColor": "#09090b"
+    "backgroundColor": "#09090b",
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-background-task",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/android-icon-monochrome.png",
+          "color": "#e2a63d"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "backgroundColor": "#09090b",
+          "imageWidth": 180,
+          "resizeMode": "contain"
+        }
+      ]
+    ]
   }
 }

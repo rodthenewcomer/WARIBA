@@ -1,0 +1,77 @@
+import type { AlertItem, OHLCV, RealQuote } from "@afriterminal/core/types";
+
+export type QuoteMap = Record<string, RealQuote>;
+
+export interface FundamentalRecord {
+  ticker: string;
+  fiscalYear: number;
+  revenueLabel: "CA" | "PNB";
+  revenueM: number;
+  revenuePrevM: number | null;
+  netIncomeM: number;
+  netIncomePrevM: number | null;
+  ordinaryIncomeM: number | null;
+  cirPct: number | null;
+  cirPrevPct: number | null;
+  depositsM: number | null;
+  loansM: number | null;
+  costOfRiskM: number | null;
+  sharesOutstanding: number | null;
+  equityM: number | null;
+  source: string;
+  publishedOn: string;
+}
+
+export interface IndexRecord {
+  code: string;
+  name: string;
+  asOfDate: string;
+  level: number;
+  dayChangePct: number;
+  ytdChangePct: number;
+  spark: number[];
+}
+
+export interface DocumentRecord {
+  ticker: string;
+  title: string;
+  type: string;
+  date: string;
+  url: string;
+}
+
+export interface NewsRecord {
+  title: string;
+  link: string;
+  source: string;
+  publishedAt: string;
+  summary: string;
+  tickers: string[];
+}
+
+export interface OperationNotice {
+  title: string;
+  date: string;
+  pdf: string;
+}
+
+export interface OperationsPayload {
+  avis: OperationNotice[];
+  operations: OperationNotice[];
+}
+
+export type DividendMap = Record<string, { date: string; net: number }[]>;
+
+export interface MarketPayload {
+  quotes: QuoteMap;
+  fundamentals: Record<string, FundamentalRecord>;
+  indices: IndexRecord[];
+  alerts: AlertItem[];
+  dividends: DividendMap;
+  documents: DocumentRecord[];
+  operations: OperationsPayload;
+  news: NewsRecord[];
+}
+
+export type SeriesPayload = OHLCV[];
+

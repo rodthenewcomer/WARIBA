@@ -1,0 +1,173 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+import type { ChartType, IndicatorId } from "@afriterminal/core/types";
+import type { PortfolioTransaction } from "@afriterminal/core/portfolio";
+
+const storage = createJSONStorage(() => AsyncStorage);
+
+interface WatchlistState {
+  tickers: string[];
+  toggle: (ticker: string) => void;
+  hasHydrated: boolean;
+  setHydrated: (value: boolean) => void;
+}
+export const useWatchlistStore = create<WatchlistState>()(persist(
+  (set, get) => ({
+    tickers: ["SNTS", "ORAC", "SGBC"],
+    toggle: (ticker) => set({ tickers: get().tickers.includes(ticker)
+      ? get().tickers.filter((item) => item !== ticker)
+      : [...get().tickers, ticker] }),
+    hasHydrated: false,
+    setHydrated: (hasHydrated) => set({ hasHydrated }),
+  }),
+  { name: "afriterminal-watchlist", storage, skipHydration: true, onRehydrateStorage: () => (state) => state?.setHydrated(true) }
+));
+
+interface PortfolioState {
+  transactions: PortfolioTransaction[];
+  add: (transaction: PortfolioTransaction) => void;
+  remove: (id: string) => void;
+  clear: () => void;
+  hasHydrated: boolean;
+  setHydrated: (value: boolean) => void;
+}
+export const usePortfolioStore = create<PortfolioState>()(persist(
+  (set, get) => ({
+    transactions: [],
+    add: (transaction) => set({ transactions: [...get().transactions, transaction] }),
+    remove: (id) => set({ transactions: get().transactions.filter((item) => item.id !== id) }),
+    clear: () => set({ transactions: [] }),
+    hasHydrated: false,
+    setHydrated: (hasHydrated) => set({ hasHydrated }),
+  }),
+  { name: "afriterminal-portfolio", storage, skipHydration: true, onRehydrateStorage: () => (state) => state?.setHydrated(true) }
+));
+
+export interface PriceAlertRule {
+  id: string;
+  ticker: string;
+  direction: "above" | "below";
+  target: number;
+  enabled: boolean;
+  triggeredAt?: string;
+}
+interface AlertState {
+  rules: PriceAlertRule[];
+  add: (rule: PriceAlertRule) => void;
+  remove: (id: string) => void;
+  markTriggered: (id: string, triggeredAt: string) => void;
+}
+export const usePriceAlertStore = create<AlertState>()(persist(
+  (set, get) => ({
+    rules: [],
+    add: (rule) => set({ rules: [...get().rules, rule] }),
+    remove: (id) => set({ rules: get().rules.filter((item) => item.id !== id) }),
+    markTriggered: (id, triggeredAt) => set({ rules: get().rules.map((item) => item.id === id ? { ...item, triggeredAt } : item) }),
+  }),
+  { name: "afriterminal-price-alerts", storage, skipHydration: true }
+));
+
+interface ChartState {
+  type: ChartType;
+  indicators: IndicatorId[];
+  logarithmic: boolean;
+  percentMode: boolean;
+  setType: (type: ChartType) => void;
+  toggleIndicator: (indicator: IndicatorId) => void;
+  toggleLog: () => void;
+  togglePercent: () => void;
+}
+export const useChartStore = create<ChartState>()(persist(
+  (set, get) => ({
+    type: "candlestick",
+    indicators: ["sma20"],
+    logarithmic: false,
+    percentMode: false,
+    setType: (type) => set({ type }),
+    toggleIndicator: (indicator) => set({ indicators: get().indicators.includes(indicator)
+      ? get().indicators.filter((item) => item !== indicator)
+      : [...get().indicators, indicator] }),
+    toggleLog: () => set({ logarithmic: !get().logarithmic }),
+    togglePercent: () => set({ percentMode: !get().percentMode }),
+  }),
+  { name: "afriterminal-chart", storage, skipHydration: true }
+));
+
+interface LevelState {
+  byTicker: Record<string, number[]>;
+  toggle: (ticker: string, price: number) => void;
+}
+export const useChartLevelStore = create<LevelState>()(persist(
+  (set, get) => ({
+    byTicker: {},
+    toggle: (ticker, price) => {
+      const current = get().byTicker[ticker] ?? [];
+      const near = current.find((value) => Math.abs(value - price) / Math.max(1, price) < 0.005);
+      set({ byTicker: { ...get().byTicker, [ticker]: near ? current.filter((value) => value !== near) : [...current, price] } });
+    },
+  }),
+  { name: "afriterminal-chart-levels", storage, skipHydration: true }
+));
+
+export type ScreenerSort = "variation" | "rendement" | "per" | "liquidite";
+export interface SavedScreenerFilter {
+  id: string;
+  label: string;
+  query: string;
+  sector: string;
+  sort: ScreenerSort;
+}
+interface ScreenerState {
+  query: string;
+  sector: string;
+  sort: ScreenerSort;
+  saved: SavedScreenerFilter[];
+  setQuery: (query: string) => void;
+  setSector: (sector: string) => void;
+  setSort: (sort: ScreenerSort) => void;
+  saveCurrent: () => void;
+  apply: (filter: SavedScreenerFilter) => void;
+  remove: (id: string) => void;
+}
+export const useScreenerStore = create<ScreenerState>()(persist(
+  (set, get) => ({
+    query: "",
+    sector: "Tous",
+    sort: "variation",
+    saved: [],
+    setQuery: (query) => set({ query }),
+    setSector: (sector) => set({ sector }),
+    setSort: (sort) => set({ sort }),
+    saveCurrent: () => {
+      const { query, sector, sort, saved } = get();
+      const id = `${query.trim().toLowerCase()}|${sector}|${sort}`;
+      if (saved.some((filter) => filter.id === id)) return;
+      const label = [query.trim(), sector === "Tous" ? "Toutes" : sector, sort].filter(Boolean).join(" · ");
+      set({ saved: [...saved, { id, label, query, sector, sort }] });
+    },
+    apply: ({ query, sector, sort }) => set({ query, sector, sort }),
+    remove: (id) => set({ saved: get().saved.filter((filter) => filter.id !== id) }),
+  }),
+  { name: "@afriterminal:screener", storage, skipHydration: true }
+));
+
+interface SettingsState {
+  notifications: boolean;
+  dataSaver: boolean;
+  setNotifications: (value: boolean) => void;
+  setDataSaver: (value: boolean) => void;
+}
+export const useSettingsStore = create<SettingsState>()(persist(
+  (set) => ({ notifications: false, dataSaver: false, setNotifications: (notifications) => set({ notifications }), setDataSaver: (dataSaver) => set({ dataSaver }) }),
+  { name: "afriterminal-settings", storage, skipHydration: true }
+));
+
+export async function rehydrateStores(): Promise<void> {
+  await Promise.all([
+    useWatchlistStore.persist.rehydrate(), usePortfolioStore.persist.rehydrate(),
+    usePriceAlertStore.persist.rehydrate(), useChartStore.persist.rehydrate(),
+    useChartLevelStore.persist.rehydrate(), useScreenerStore.persist.rehydrate(),
+    useSettingsStore.persist.rehydrate(),
+  ]);
+}

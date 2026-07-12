@@ -49,6 +49,13 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /AfriTerminal
+      - name: Publier les artefacts JSON pour l'app mobile
+        # Copie de déploiement uniquement : data/ reste l'unique source de
+        # vérité et le site web ne change pas de comportement.
+        run: |
+          mkdir -p out/data
+          cp -R data/real out/data/real
+          cp -R data/news out/data/news
       - name: Extension .png sur les images OG
         # GitHub Pages sert les fichiers sans extension en
         # application/octet-stream — les crawlers WhatsApp/X/Facebook
