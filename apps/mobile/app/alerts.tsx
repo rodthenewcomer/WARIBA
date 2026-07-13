@@ -8,9 +8,10 @@ import { AlertRow } from "../src/components/AlertRow";
 import { useMarketData } from "../src/providers/MarketDataProvider";
 import { usePriceAlertStore, useSettingsStore, type PriceAlertRule } from "../src/stores";
 import { disableNotifications, enableNotifications, evaluatePriceAlerts } from "../src/services/alerts";
+import { parseAmount } from "../src/lib/forms";
 import { colors, radius, tabular, type } from "../src/theme";
 
-function RuleRow({ rule, onRemove }: { rule: PriceAlertRule; onRemove: () => void }) {
+function RuleRow({ rule, onRemove, onRearm }: { rule: PriceAlertRule; onRemove: () => void; onRearm: () => void }) {
   const above = rule.direction === "above";
   return (
     <View style={styles.rule}>
@@ -22,10 +23,27 @@ function RuleRow({ rule, onRemove }: { rule: PriceAlertRule; onRemove: () => voi
           {rule.ticker} {above ? "≥" : "≤"} {rule.target.toLocaleString("fr-FR")} FCFA
         </Text>
         <Text style={styles.ruleDetail}>
-          {rule.triggeredAt ? `Déclenchée le ${rule.triggeredAt.slice(0, 10)}` : "En attente du prochain cours officiel"}
+          {rule.triggeredAt ? `Déclenchée le ${rule.triggeredAt.slice(0, 10)} — inactive, réarmez-la pour surveiller à nouveau` : "En attente du prochain cours officiel"}
         </Text>
       </View>
-      <Pressable hitSlop={8} onPress={onRemove} style={({ pressed }) => [styles.ruleDelete, pressed && { opacity: 0.6 }]}>
+      {rule.triggeredAt ? (
+        <Pressable
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={`Réarmer l'alerte ${rule.ticker}`}
+          onPress={onRearm}
+          style={({ pressed }) => [styles.ruleDelete, pressed && { opacity: 0.6 }]}
+        >
+          <Ionicons name="refresh-outline" size={17} color={colors.accent} />
+        </Pressable>
+      ) : null}
+      <Pressable
+        hitSlop={8}
+        accessibilityRole="button"
+        accessibilityLabel={`Supprimer l'alerte ${rule.ticker}`}
+        onPress={onRemove}
+        style={({ pressed }) => [styles.ruleDelete, pressed && { opacity: 0.6 }]}
+      >
         <Ionicons name="trash-outline" size={17} color={colors.ink3} />
       </Pressable>
     </View>
@@ -38,6 +56,7 @@ export default function AlertsScreen() {
   const rules = usePriceAlertStore((state) => state.rules);
   const add = usePriceAlertStore((state) => state.add);
   const remove = usePriceAlertStore((state) => state.remove);
+  const rearm = usePriceAlertStore((state) => state.rearm);
   const notifications = useSettingsStore((state) => state.notifications);
   const [ticker, setTicker] = useState(typeof params.ticker === "string" && params.ticker ? params.ticker.toUpperCase() : "SNTS");
   const [target, setTarget] = useState("");
@@ -45,8 +64,11 @@ export default function AlertsScreen() {
   const quote = market.quotes[ticker.toUpperCase()];
 
   const submit = () => {
-    const parsed = Number(target.replace(/\s/g, "").replace(",", "."));
-    if (!quote || parsed <= 0) return;
+    const parsed = parseAmount(target);
+    if (!quote || parsed === null) {
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      return;
+    }
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     add({ id: `${Date.now()}`, ticker: ticker.toUpperCase(), target: parsed, direction, enabled: true });
     setTarget("");
@@ -66,6 +88,7 @@ export default function AlertsScreen() {
           </Text>
         </View>
         <Switch
+          accessibilityLabel="Activer les notifications locales"
           value={notifications}
           onValueChange={(value) => void (value ? enableNotifications() : disableNotifications())}
           trackColor={{ false: colors.surface2, true: "rgba(226,166,61,0.45)" }}
@@ -98,7 +121,7 @@ export default function AlertsScreen() {
             active={direction}
             onChange={setDirection}
           />
-          <Pressable onPress={submit} style={({ pressed }) => [styles.submit, (!quote || !target) && styles.submitDisabled, pressed && { opacity: 0.75 }]}>
+          <Pressable accessibilityRole="button" accessibilityLabel="Créer l'alerte de prix" onPress={submit} style={({ pressed }) => [styles.submit, (!quote || !target) && styles.submitDisabled, pressed && { opacity: 0.75 }]}>
             <Ionicons name="notifications-outline" size={16} color={colors.background} />
             <Text style={styles.submitText}>Créer l'alerte</Text>
           </Pressable>
@@ -107,7 +130,7 @@ export default function AlertsScreen() {
 
       <Section title="Mes seuils" detail={rules.length ? `${rules.length} actif${rules.length > 1 ? "s" : ""}` : undefined}>
         {rules.length
-          ? rules.map((rule) => <RuleRow key={rule.id} rule={rule} onRemove={() => remove(rule.id)} />)
+          ? rules.map((rule) => <RuleRow key={rule.id} rule={rule} onRemove={() => remove(rule.id)} onRearm={() => rearm(rule.id)} />)
           : <EmptyState icon="notifications-off-outline" title="Aucun seuil" detail="Créez une alerte de prix locale — elle reste sur cet appareil." />}
       </Section>
 

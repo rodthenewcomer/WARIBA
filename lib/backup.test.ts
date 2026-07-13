@@ -54,3 +54,34 @@ describe("parseBackup", () => {
     expect(parseBackup(JSON.stringify(bad)).ok).toBe(false);
   });
 });
+
+describe("parseBackup — sauvegarde de l'app mobile", () => {
+  const MOBILE = {
+    app: "AfriTerminal",
+    version: 1,
+    exportedAt: "2026-07-13T08:00:00.000Z",
+    watchlist: ["SNTS", "ORAC"],
+    transactions: [{ id: "m1", ticker: "SNTS", side: "achat", date: "2026-05-02", quantity: 4, price: 21_000 }],
+    alerts: [{ id: "a1", ticker: "SNTS", direction: "above", target: 30_000, enabled: true }],
+  };
+
+  it("normalise une sauvegarde mobile vers le format web", () => {
+    const res = parseBackup(JSON.stringify(MOBILE));
+    expect(res.ok).toBe(true);
+    if (res.ok) {
+      expect(res.backup.portfolio).toHaveLength(1);
+      expect(res.backup.watchlists.lists[0].tickers).toEqual(["SNTS", "ORAC"]);
+      expect(res.backup.watchlists.activeId).toBe("mobile");
+      expect(res.backup.savedFilters).toEqual([]);
+    }
+  });
+
+  it("tout ou rien : une transaction mobile corrompue rejette le fichier", () => {
+    const bad = { ...MOBILE, transactions: [{ ...MOBILE.transactions[0], quantity: NaN }] };
+    expect(parseBackup(JSON.stringify(bad)).ok).toBe(false);
+  });
+
+  it("rejette une sauvegarde mobile sans donnée exploitable", () => {
+    expect(parseBackup(JSON.stringify({ ...MOBILE, watchlist: [], transactions: [] })).ok).toBe(false);
+  });
+});

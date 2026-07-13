@@ -111,6 +111,34 @@ export function parseBackup(raw: string): BackupParseResult {
         "Version de sauvegarde plus récente que cette application — mettez la page à jour.",
     };
   }
+  // Sauvegarde de l'app mobile (clés `transactions`/`watchlist`/`alerts`) :
+  // normalisée vers le format web. Les alertes de prix n'ont pas
+  // d'équivalent dans cette sauvegarde web et sont ignorées ici — l'app
+  // mobile, elle, sait les restaurer.
+  if (Array.isArray(b.transactions) || Array.isArray(b.watchlist)) {
+    const rawTransactions: unknown[] = Array.isArray(b.transactions) ? b.transactions : [];
+    const portfolio = rawTransactions.filter(isTransaction);
+    if (portfolio.length !== rawTransactions.length) {
+      return { ok: false, error: "Transactions du portefeuille invalides." };
+    }
+    const tickers = Array.isArray(b.watchlist)
+      ? b.watchlist.filter((t): t is string => typeof t === "string")
+      : [];
+    if (!portfolio.length && !tickers.length) {
+      return { ok: false, error: "Cette sauvegarde mobile ne contient ni transaction ni valeur suivie." };
+    }
+    return {
+      ok: true,
+      backup: {
+        app: "AfriTerminal",
+        version: BACKUP_VERSION,
+        exportedAt: typeof b.exportedAt === "string" ? b.exportedAt : new Date().toISOString(),
+        portfolio,
+        watchlists: { lists: [{ id: "mobile", name: "Depuis l'app mobile", tickers }], activeId: "mobile" },
+        savedFilters: [],
+      },
+    };
+  }
   if (!Array.isArray(b.portfolio) || !b.portfolio.every(isTransaction)) {
     return { ok: false, error: "Transactions du portefeuille invalides." };
   }

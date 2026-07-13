@@ -1,12 +1,14 @@
 import { type ReactNode } from "react";
 import { Alert, Linking, StyleSheet, Switch, Text, View } from "react-native";
 import Constants from "expo-constants";
+import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
 import { useRouter } from "expo-router";
 import { Page, Row, Section } from "../src/components/ui";
 import { usePortfolioStore, usePriceAlertStore, useSettingsStore, useWatchlistStore } from "../src/stores";
 import { disableNotifications, enableNotifications } from "../src/services/alerts";
+import { parseBackupPayload } from "../src/lib/forms";
 import { colors, radius, type } from "../src/theme";
 
 /** Groupe de réglages façon iOS : lignes rassemblées dans une carte. */
@@ -22,6 +24,7 @@ function Setting({ label, detail, value, onChange }: { label: string; detail: st
         <Text style={styles.settingDetail}>{detail}</Text>
       </View>
       <Switch
+        accessibilityLabel={label}
         value={value}
         onValueChange={onChange}
         trackColor={{ false: colors.surface2, true: "rgba(226,166,61,0.45)" }}
@@ -40,6 +43,7 @@ export default function SettingsScreen() {
 
   const exportBackup = async () => {
     const payload = {
+      app: "AfriTerminal",
       version: 1,
       exportedAt: new Date().toISOString(),
       watchlist: useWatchlistStore.getState().tickers,
@@ -49,6 +53,42 @@ export default function SettingsScreen() {
     const uri = `${FileSystem.cacheDirectory}afriterminal-backup.json`;
     await FileSystem.writeAsStringAsync(uri, JSON.stringify(payload, null, 2));
     if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "application/json" });
+  };
+
+  const importBackup = async () => {
+    try {
+      const picked = await DocumentPicker.getDocumentAsync({ type: ["application/json", "text/plain"], copyToCacheDirectory: true });
+      if (picked.canceled || !picked.assets[0]) return;
+      const raw = await FileSystem.readAsStringAsync(picked.assets[0].uri);
+      const result = parseBackupPayload(raw);
+      if ("error" in result) {
+        Alert.alert("Import impossible", result.error);
+        return;
+      }
+      const { payload, skipped } = result;
+      const summary = [
+        `${payload.watchlist.length} valeur${payload.watchlist.length > 1 ? "s" : ""} suivie${payload.watchlist.length > 1 ? "s" : ""}`,
+        `${payload.transactions.length} transaction${payload.transactions.length > 1 ? "s" : ""}`,
+        `${payload.alerts.length} alerte${payload.alerts.length > 1 ? "s" : ""}`,
+      ].join(", ");
+      Alert.alert(
+        "Restaurer cette sauvegarde ?",
+        `${summary}.${skipped ? `\n${skipped} entrée(s) invalide(s) ignorée(s).` : ""}\nLes données actuelles de cet appareil seront remplacées.`,
+        [
+          { text: "Annuler", style: "cancel" },
+          {
+            text: "Restaurer", style: "destructive",
+            onPress: () => {
+              useWatchlistStore.getState().replaceAll(payload.watchlist);
+              usePortfolioStore.getState().replaceAll(payload.transactions);
+              usePriceAlertStore.getState().replaceAll(payload.alerts);
+            },
+          },
+        ]
+      );
+    } catch {
+      Alert.alert("Import impossible", "Le fichier n'a pas pu être lu. Réessayez avec une sauvegarde AfriTerminal au format JSON.");
+    }
   };
 
   const confirmClear = () => {
@@ -98,6 +138,7 @@ export default function SettingsScreen() {
       <Section title="Sauvegarde locale">
         <Group>
           <Row icon="share-outline" title="Exporter une sauvegarde" detail="Watchlist, portefeuille et seuils au format JSON" onPress={() => void exportBackup()} />
+          <Row icon="download-outline" title="Importer une sauvegarde" detail="Restaure un fichier JSON exporté depuis l'app ou le site" onPress={() => void importBackup()} />
           <Row icon="trash-outline" title="Effacer le portefeuille" detail="Supprime toutes les transactions de cet appareil" onPress={confirmClear} />
         </Group>
       </Section>

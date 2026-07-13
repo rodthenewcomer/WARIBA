@@ -31,7 +31,6 @@
     "backgroundColor": "#09090b",
     "plugins": [
       "expo-router",
-      "expo-secure-store",
       "expo-background-task",
       [
         "expo-notifications",

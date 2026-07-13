@@ -9,6 +9,7 @@ const storage = createJSONStorage(() => AsyncStorage);
 interface WatchlistState {
   tickers: string[];
   toggle: (ticker: string) => void;
+  replaceAll: (tickers: string[]) => void;
   hasHydrated: boolean;
   setHydrated: (value: boolean) => void;
 }
@@ -18,6 +19,7 @@ export const useWatchlistStore = create<WatchlistState>()(persist(
     toggle: (ticker) => set({ tickers: get().tickers.includes(ticker)
       ? get().tickers.filter((item) => item !== ticker)
       : [...get().tickers, ticker] }),
+    replaceAll: (tickers) => set({ tickers: [...tickers] }),
     hasHydrated: false,
     setHydrated: (hasHydrated) => set({ hasHydrated }),
   }),
@@ -29,6 +31,7 @@ interface PortfolioState {
   add: (transaction: PortfolioTransaction) => void;
   remove: (id: string) => void;
   clear: () => void;
+  replaceAll: (transactions: PortfolioTransaction[]) => void;
   hasHydrated: boolean;
   setHydrated: (value: boolean) => void;
 }
@@ -38,6 +41,7 @@ export const usePortfolioStore = create<PortfolioState>()(persist(
     add: (transaction) => set({ transactions: [...get().transactions, transaction] }),
     remove: (id) => set({ transactions: get().transactions.filter((item) => item.id !== id) }),
     clear: () => set({ transactions: [] }),
+    replaceAll: (transactions) => set({ transactions: [...transactions] }),
     hasHydrated: false,
     setHydrated: (hasHydrated) => set({ hasHydrated }),
   }),
@@ -57,6 +61,8 @@ interface AlertState {
   add: (rule: PriceAlertRule) => void;
   remove: (id: string) => void;
   markTriggered: (id: string, triggeredAt: string) => void;
+  rearm: (id: string) => void;
+  replaceAll: (rules: PriceAlertRule[]) => void;
 }
 export const usePriceAlertStore = create<AlertState>()(persist(
   (set, get) => ({
@@ -64,6 +70,8 @@ export const usePriceAlertStore = create<AlertState>()(persist(
     add: (rule) => set({ rules: [...get().rules, rule] }),
     remove: (id) => set({ rules: get().rules.filter((item) => item.id !== id) }),
     markTriggered: (id, triggeredAt) => set({ rules: get().rules.map((item) => item.id === id ? { ...item, triggeredAt } : item) }),
+    rearm: (id) => set({ rules: get().rules.map((item) => item.id === id ? { ...item, triggeredAt: undefined } : item) }),
+    replaceAll: (rules) => set({ rules: [...rules] }),
   }),
   { name: "afriterminal-price-alerts", storage, skipHydration: true }
 ));

@@ -37,7 +37,7 @@ export function MarketDataProvider({ children }: { children: React.ReactNode }) 
       const result = await fetchMarketPayload();
       setPayload(result.payload);
       setOffline(result.offline);
-      setUpdatedAt(new Date().toISOString());
+      setUpdatedAt(result.dataTimestamp);
       setError(result.missing.length ? `Sources momentanément indisponibles : ${result.missing.join(", ")}.` : null);
       void evaluatePriceAlerts(result.payload.quotes);
     } catch (cause) {

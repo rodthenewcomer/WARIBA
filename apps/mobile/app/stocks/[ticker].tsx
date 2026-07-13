@@ -273,6 +273,8 @@ export default function StockScreen() {
 
     <View style={[styles.footer, { paddingBottom: insets.bottom + 10 }]}>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Créer une alerte de prix pour ${ticker}`}
         onPress={() => router.push(`/alerts?ticker=${ticker}`)}
         style={({ pressed }) => [styles.footerPrimary, pressed && { opacity: 0.75 }]}
       >
@@ -280,6 +282,9 @@ export default function StockScreen() {
         <Text style={styles.footerPrimaryText}>Créer une alerte</Text>
       </Pressable>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={watched ? `Retirer ${ticker} de la watchlist` : `Ajouter ${ticker} à la watchlist`}
+        accessibilityState={{ selected: watched }}
         onPress={() => toggle(ticker)}
         style={({ pressed }) => [styles.footerSecondary, watched && styles.footerSecondaryActive, pressed && { opacity: 0.75 }]}
       >

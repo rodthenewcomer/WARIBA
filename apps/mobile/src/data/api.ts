@@ -7,7 +7,7 @@ const CACHE_PREFIX = "@afriterminal:data:";
 const TIMEOUT_MS = 12_000;
 
 type CachedValue<T> = { savedAt: string; data: T };
-export type FetchResult<T> = { data: T; fromCache: boolean; source: string };
+export type FetchResult<T> = { data: T; fromCache: boolean; source: string; savedAt?: string };
 
 async function requestJson<T>(url: string): Promise<T> {
   const controller = new AbortController();
@@ -40,7 +40,7 @@ export async function fetchDataFile<T>(path: string): Promise<FetchResult<T>> {
   const cachedRaw = await AsyncStorage.getItem(cacheKey);
   if (cachedRaw) {
     const cached = JSON.parse(cachedRaw) as CachedValue<T>;
-    return { data: cached.data, fromCache: true, source: "cache-appareil" };
+    return { data: cached.data, fromCache: true, source: "cache-appareil", savedAt: cached.savedAt };
   }
   throw new Error(`Donnée indisponible: ${cleanPath}`);
 }
@@ -51,7 +51,7 @@ export async function fetchDataFile<T>(path: string): Promise<FetchResult<T>> {
  * avec un repli vide et la liste des sources manquantes remontée à l'UI.
  * Seules les cotations sont indispensables — leur échec est propagé.
  */
-export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; offline: boolean; missing: string[] }> {
+export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; offline: boolean; missing: string[]; dataTimestamp: string }> {
   const quotes = await fetchDataFile<MarketPayload["quotes"]>("real/snapshot.json");
 
   const optional = async <T>(label: string, path: string, fallback: T) => {
@@ -86,6 +86,9 @@ export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; of
     },
     offline: quotes.fromCache || secondary.some((result) => result.fromCache),
     missing: secondary.filter((result) => result.failed).map((result) => result.label),
+    // Si les cotations viennent du cache appareil, l'horodatage honnête est
+    // celui de leur sauvegarde, pas celui de la tentative de rafraîchissement.
+    dataTimestamp: quotes.fromCache && quotes.savedAt ? quotes.savedAt : new Date().toISOString(),
   };
 }
 

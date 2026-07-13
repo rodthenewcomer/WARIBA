@@ -3,6 +3,7 @@ import * as BackgroundTask from "expo-background-task";
 import * as TaskManager from "expo-task-manager";
 import { Platform } from "react-native";
 import { fetchDataFile } from "../data/api";
+import { priceAlertMatches } from "../lib/forms";
 import type { QuoteMap } from "../data/types";
 import { usePriceAlertStore, useSettingsStore } from "../stores";
 
@@ -25,7 +26,7 @@ export async function evaluatePriceAlerts(quotes: QuoteMap): Promise<number> {
     if (!rule.enabled || rule.triggeredAt) continue;
     const price = quotes[rule.ticker]?.lastClose;
     if (price === undefined) continue;
-    const matches = rule.direction === "above" ? price >= rule.target : price <= rule.target;
+    const matches = priceAlertMatches(rule, price);
     if (!matches) continue;
     await Notifications.scheduleNotificationAsync({
       content: {

@@ -419,6 +419,7 @@ export const WebChart = forwardRef<WebChartHandle, {
         ref={webRef}
         source={{ html }}
         originWhitelist={["*"]}
+        onShouldStartLoadWithRequest={(request) => !/^https?:/i.test(request.url)}
         onMessage={onMessage}
         scrollEnabled={false}
         overScrollMode="never"

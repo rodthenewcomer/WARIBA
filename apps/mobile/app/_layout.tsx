@@ -1,6 +1,7 @@
 import "react-native-gesture-handler";
 import { useEffect, useState } from "react";
-import { Stack, useRouter } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Stack, useRouter, type ErrorBoundaryProps } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import { StatusBar } from "expo-status-bar";
@@ -11,6 +12,29 @@ import { colors } from "../src/theme";
 import "../src/services/alerts";
 
 void SplashScreen.preventAutoHideAsync();
+
+/** Filet de sécurité : sans lui, une erreur de rendu laisse un écran noir muet. */
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return (
+    <View style={errorStyles.screen}>
+      <Text style={errorStyles.title}>L'écran a rencontré un problème</Text>
+      <Text style={errorStyles.detail}>{error.message}</Text>
+      <Pressable accessibilityRole="button" accessibilityLabel="Réessayer" onPress={() => void retry()} style={({ pressed }) => [errorStyles.button, pressed && { opacity: 0.75 }]}>
+        <Text style={errorStyles.buttonText}>Réessayer</Text>
+      </Pressable>
+      <Text style={errorStyles.hint}>Si le problème persiste, fermez puis rouvrez l'application. Vos données locales sont conservées.</Text>
+    </View>
+  );
+}
+
+const errorStyles = StyleSheet.create({
+  screen: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12, padding: 28, backgroundColor: colors.background },
+  title: { color: colors.ink, fontSize: 17, fontWeight: "800", textAlign: "center" },
+  detail: { color: colors.ink3, fontSize: 12, lineHeight: 17, textAlign: "center" },
+  button: { minHeight: 44, paddingHorizontal: 22, alignItems: "center", justifyContent: "center", borderRadius: 12, backgroundColor: colors.accent, marginTop: 6 },
+  buttonText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  hint: { color: colors.ink3, fontSize: 11, lineHeight: 15, textAlign: "center", marginTop: 8, maxWidth: 280 },
+});
 
 export default function RootLayout() {
   const router = useRouter();

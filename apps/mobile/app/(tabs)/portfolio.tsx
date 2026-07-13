@@ -6,6 +6,7 @@ import { ActionButton, ChangePill, EmptyState, Metric, Page, Row, Section } from
 import { useMarketData } from "../../src/providers/MarketDataProvider";
 import { usePortfolioStore } from "../../src/stores";
 import { AllocationDonut } from "../../src/components/AllocationDonut";
+import { parseAmount, parseDateInput, parseFees, parseQuantity, todayIso } from "../../src/lib/forms";
 import * as Haptics from "expo-haptics";
 import { colors, radius, tabular, type } from "../../src/theme";
 
@@ -19,6 +20,7 @@ export default function PortfolioScreen() {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [fees, setFees] = useState("0");
+  const [date, setDate] = useState(todayIso());
   const [side, setSide] = useState<"achat" | "vente">("achat");
   const [formError, setFormError] = useState<string | null>(null);
   const summary = useMemo(
@@ -32,25 +34,23 @@ export default function PortfolioScreen() {
   const pnlUp = summary.totalUnrealizedPnl >= 0;
 
   const submit = () => {
-    const parsedQuantity = Number(quantity.replace(",", "."));
-    const parsedPrice = Number(price.replace(/\s/g, "").replace(",", "."));
-    const parsedFees = Number(fees.replace(/\s/g, "").replace(",", ".")) || 0;
-    const symbol = ticker.toUpperCase();
-    const problem = !market.quotes[symbol]
-      ? `Ticker inconnu : ${symbol} n'est pas coté à la BRVM.`
-      : parsedQuantity <= 0
-        ? "Indiquez une quantité supérieure à zéro."
-        : parsedPrice <= 0
-          ? "Indiquez un prix par action supérieur à zéro."
-          : null;
-    if (problem) {
+    const symbol = ticker.trim().toUpperCase();
+    const fail = (message: string) => {
       void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      setFormError(problem);
-      return;
-    }
+      setFormError(message);
+    };
+    if (!market.quotes[symbol]) return fail(`Ticker inconnu : ${symbol || "—"} n'est pas coté à la BRVM.`);
+    const parsedQuantity = parseQuantity(quantity);
+    if (parsedQuantity === null) return fail("Quantité invalide — nombre entier de titres, supérieur à zéro.");
+    const parsedPrice = parseAmount(price);
+    if (parsedPrice === null) return fail("Prix invalide — montant en FCFA supérieur à zéro.");
+    const parsedFees = parseFees(fees);
+    if (parsedFees === null) return fail("Frais invalides — montant positif, ou laissez vide.");
+    const parsedDate = parseDateInput(date);
+    if (parsedDate === null) return fail("Date invalide — JJ/MM/AAAA, ni future ni antérieure à 1998.");
     void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    add({ id: `${Date.now()}`, ticker: symbol, side, date: new Date().toISOString().slice(0, 10), quantity: parsedQuantity, price: parsedPrice, fees: parsedFees });
-    setQuantity(""); setPrice(""); setFees("0"); setFormError(null); setOpen(false);
+    add({ id: `${Date.now()}`, ticker: symbol, side, date: parsedDate, quantity: parsedQuantity, price: parsedPrice, fees: parsedFees });
+    setQuantity(""); setPrice(""); setFees("0"); setDate(todayIso()); setFormError(null); setOpen(false);
   };
 
   const confirmRemove = (id: string, label: string) => {
@@ -177,7 +177,7 @@ export default function PortfolioScreen() {
             <View style={styles.sheetHandle} />
             <View style={styles.sheetHeader}>
               <Text style={styles.sheetTitle}>Nouvelle transaction</Text>
-              <Pressable onPress={() => setOpen(false)} hitSlop={8}><Text style={styles.close}>Fermer</Text></Pressable>
+              <Pressable accessibilityRole="button" accessibilityLabel="Fermer la saisie" onPress={() => setOpen(false)} hitSlop={8}><Text style={styles.close}>Fermer</Text></Pressable>
             </View>
             <View style={styles.sideRow}>
               <ActionButton label="Achat" active={side === "achat"} onPress={() => setSide("achat")} />
@@ -187,8 +187,17 @@ export default function PortfolioScreen() {
             <TextInput value={quantity} onChangeText={setQuantity} keyboardType="decimal-pad" placeholder="Quantité" placeholderTextColor={colors.ink3} style={styles.input} />
             <TextInput value={price} onChangeText={setPrice} keyboardType="decimal-pad" placeholder="Prix par action (FCFA)" placeholderTextColor={colors.ink3} style={styles.input} />
             <TextInput value={fees} onChangeText={setFees} keyboardType="decimal-pad" placeholder="Frais (FCFA)" placeholderTextColor={colors.ink3} style={styles.input} />
+            <TextInput
+              value={date}
+              onChangeText={setDate}
+              keyboardType="numbers-and-punctuation"
+              placeholder="Date d'exécution (JJ/MM/AAAA)"
+              placeholderTextColor={colors.ink3}
+              accessibilityLabel="Date d'exécution de la transaction"
+              style={styles.input}
+            />
             {formError ? <Text style={styles.formError}>{formError}</Text> : null}
-            <Pressable onPress={submit} style={({ pressed }) => [styles.submit, pressed && { opacity: 0.75 }]}>
+            <Pressable accessibilityRole="button" accessibilityLabel="Enregistrer la transaction" onPress={submit} style={({ pressed }) => [styles.submit, pressed && { opacity: 0.75 }]}>
               <Text style={styles.submitText}>Enregistrer</Text>
             </Pressable>
           </View>

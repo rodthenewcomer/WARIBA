@@ -99,7 +99,13 @@ export function Row({ icon, title, detail, value, valueDetail, onPress, tone }: 
   tone?: "up" | "down";
 }) {
   return (
-    <Pressable onPress={onPress} disabled={!onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
+    <Pressable
+      onPress={onPress}
+      disabled={!onPress}
+      accessibilityRole={onPress ? "button" : undefined}
+      accessibilityLabel={onPress ? [title, detail].filter(Boolean).join(", ") : undefined}
+      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+    >
       {icon ? (
         <View style={styles.rowIcon}>
           <Ionicons name={icon} size={17} color={colors.ink2} />
@@ -122,7 +128,13 @@ export function Row({ icon, title, detail, value, valueDetail, onPress, tone }: 
 
 export function ActionButton({ label, icon, onPress, active = false }: { label: string; icon?: keyof typeof Ionicons.glyphMap; onPress: () => void; active?: boolean }) {
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => [styles.action, active && styles.actionActive, pressed && styles.pressed]}>
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ selected: active }}
+      style={({ pressed }) => [styles.action, active && styles.actionActive, pressed && styles.pressed]}
+    >
       {icon ? <Ionicons name={icon} size={15} color={active ? colors.background : colors.ink2} /> : null}
       <Text style={[styles.actionText, active && styles.actionTextActive]}>{label}</Text>
     </Pressable>
@@ -140,6 +152,9 @@ export function SegmentedTabs<T extends string>({ tabs, active, onChange }: {
         {tabs.map((tab) => (
           <Pressable
             key={tab.id}
+            accessibilityRole="tab"
+            accessibilityLabel={tab.label}
+            accessibilityState={{ selected: active === tab.id }}
             onPress={() => { if (tab.id !== active) void Haptics.selectionAsync(); onChange(tab.id); }}
             style={[styles.segment, active === tab.id && styles.segmentActive]}
           >
