@@ -8,6 +8,7 @@ import { QuoteRow } from "../../src/components/QuoteRow";
 import { SectorPerformance } from "../../src/components/SectorPerformance";
 import { Sparkline } from "../../src/components/Sparkline";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
+import { useWatchlistStore } from "../../src/stores";
 import { colors, radius, tabular, type } from "../../src/theme";
 
 /** Carte héro : l'indice principal avec sa courbe 30 séances en grand. */
@@ -57,7 +58,12 @@ function IndexCard({ index }: { index: IndexRecord }) {
 export default function DashboardScreen() {
   const router = useRouter();
   const market = useMarketData();
+  const watchedTickers = useWatchlistStore((state) => state.tickers);
   const quotes = useMemo(() => Object.values(market.quotes), [market.quotes]);
+  const watched = useMemo(
+    () => watchedTickers.map((ticker) => market.quotes[ticker]).filter(Boolean).slice(0, 4),
+    [market.quotes, watchedTickers]
+  );
   const stats = useMemo(() => {
     const up = quotes.filter((quote) => quote.dayChangePct > 0).length;
     const down = quotes.filter((quote) => quote.dayChangePct < 0).length;
@@ -90,6 +96,15 @@ export default function DashboardScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.indexRow}>
           {otherIndices.map((index) => <IndexCard key={index.code} index={index} />)}
         </ScrollView>
+      ) : null}
+
+      {watched.length ? (
+        <Section title="Ma watchlist" detail="Vos valeurs suivies">
+          {watched.map((quote) => <QuoteRow key={quote.ticker} quote={quote} />)}
+          <View style={styles.moreRow}>
+            <ActionButton label="Toute la watchlist" icon="arrow-forward" onPress={() => router.push("/watchlist")} />
+          </View>
+        </Section>
       ) : null}
 
       <Section title="Séance" detail="Dernière clôture officielle">

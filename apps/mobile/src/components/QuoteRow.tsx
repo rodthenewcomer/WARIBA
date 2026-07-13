@@ -47,8 +47,8 @@ export function QuoteRow({ quote, rank, onRemove }: { quote: RealQuote; rank?: n
         ) : null}
         <View style={styles.quote}>
           <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
-          <View style={[styles.pill, { backgroundColor: up ? colors.upSoft : colors.downSoft }]}>
-            <Text style={[styles.change, { color: up ? colors.up : colors.down }]}>{pct(quote.dayChangePct, { signed: true, digits: 2 })}</Text>
+          <View style={[styles.block, { backgroundColor: up ? colors.up : colors.down }]}>
+            <Text style={styles.blockText}>{pct(quote.dayChangePct, { signed: true, digits: 2 })}</Text>
           </View>
         </View>
         <Pressable hitSlop={10} onPress={(event) => { event.stopPropagation(); void Haptics.selectionAsync(); toggle(quote.ticker); }}>
@@ -82,10 +82,11 @@ const styles = StyleSheet.create({
   ticker: { color: colors.ink, fontSize: 14.5, fontWeight: "800", letterSpacing: 0.2 },
   name: { ...type.caption, marginTop: 2.5 },
   spark: { opacity: 0.85 },
-  quote: { alignItems: "flex-end", gap: 4 },
+  quote: { alignItems: "flex-end", gap: 5 },
   price: { color: colors.ink, fontSize: 13.5, fontWeight: "700", fontVariant: tabular },
-  pill: { paddingHorizontal: 7, paddingVertical: 2.5, borderRadius: radius.full },
-  change: { fontSize: 11, fontWeight: "700", fontVariant: tabular },
+  // Bloc plein à largeur fixe (signature Webull) : colonne alignée, lisible d'un coup d'œil.
+  block: { width: 78, height: 24, alignItems: "center", justifyContent: "center", borderRadius: radius.sm },
+  blockText: { color: "#ffffff", fontSize: 11.5, fontWeight: "800", fontVariant: tabular },
   remove: { width: 84, alignItems: "center", justifyContent: "center", gap: 4, backgroundColor: colors.down, borderRadius: radius.md, marginVertical: 6 },
   removeText: { color: colors.ink, fontSize: 10, fontWeight: "700" },
 });

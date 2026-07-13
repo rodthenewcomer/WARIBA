@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { annualizedVolatility, maxDrawdown } from "@afriterminal/core/risk";
 import { compactFcfa, compactVolume, dateFr, fcfa, millions, num, pct, ratio } from "@afriterminal/core/format";
 import { companyProfile } from "@afriterminal/core/company-profiles";
 import type { OHLCV } from "@afriterminal/core/types";
 import { AdvancedChart } from "../../src/components/AdvancedChart";
 import type { WebChartMarker } from "../../src/components/chart/WebChart";
-import { ActionButton, ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section, SegmentedTabs } from "../../src/components/ui";
+import { ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section, SegmentedTabs } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
 import { useWatchlistStore } from "../../src/stores";
 import { sectorLabel } from "../../src/lib/sectors";
@@ -24,6 +26,28 @@ type Tab = (typeof STOCK_TABS)[number]["id"];
 function growthPct(current: number, previous: number | null): number | null {
   if (previous === null || previous === 0) return null;
   return ((current - previous) / Math.abs(previous)) * 100;
+}
+
+/** Cellule de la grille de stats dense (façon Webull : libellé au-dessus, valeur dessous). */
+function StatCell({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" | "warn" }) {
+  return (
+    <View style={styles.statCell}>
+      <Text numberOfLines={1} style={styles.statLabel}>{label}</Text>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.65}
+        style={[
+          styles.statValue,
+          tone === "up" && { color: colors.up },
+          tone === "down" && { color: colors.down },
+          tone === "warn" && { color: colors.warn },
+        ]}
+      >
+        {value}
+      </Text>
+    </View>
+  );
 }
 
 function FactRow({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" | "warn" }) {
@@ -44,6 +68,8 @@ function FactRow({ label, value, tone }: { label: string; value: string; tone?: 
 
 export default function StockScreen() {
   const params = useLocalSearchParams<{ ticker: string }>();
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
   const ticker = String(params.ticker ?? "SNTS").toUpperCase();
   const market = useMarketData();
   const quote = market.quotes[ticker];
@@ -71,6 +97,7 @@ export default function StockScreen() {
   const bpa = fundamental?.sharesOutstanding ? (fundamental.netIncomeM * 1e6) / fundamental.sharesOutstanding : null;
 
   return (
+    <View style={styles.screen}>
     <Page>
       <Stack.Screen options={{ title: ticker }} />
 
@@ -83,7 +110,6 @@ export default function StockScreen() {
           </View>
           <Text style={styles.asOf}>Clôture officielle du {dateFr(quote.asOfDate)}</Text>
         </View>
-        <ActionButton label={watched ? "Suivie" : "Suivre"} icon={watched ? "star" : "star-outline"} active={watched} onPress={() => toggle(ticker)} />
       </View>
 
       <SegmentedTabs tabs={STOCK_TABS} active={tab} onChange={setTab} />
@@ -94,12 +120,16 @@ export default function StockScreen() {
         ) : <LoadingState label="Chargement de la série…" />}
 
         <Section title="Résumé" detail="Séance et variations">
-          <View style={styles.factCard}>
-            <FactRow label="Ouverture" value={fcfa(quote.dayOpen)} />
-            <FactRow label="+ Haut / + Bas du jour" value={`${fcfa(quote.dayHigh)} / ${fcfa(quote.dayLow)}`} />
-            <FactRow label="Clôture veille" value={fcfa(quote.prevClose)} />
-            {quote.dayValueFcfa ? <FactRow label="Valeur échangée" value={compactFcfa(quote.dayValueFcfa)} /> : null}
-            <FactRow label="Volume du jour" value={`${compactVolume(quote.dayVolume)} (${quote.volumeRatio.toFixed(1)}×)`} tone={quote.volumeRatio >= 3 ? "warn" : undefined} />
+          <View style={styles.statsGrid}>
+            <StatCell label="Ouverture" value={fcfa(quote.dayOpen)} />
+            <StatCell label="+ Haut" value={fcfa(quote.dayHigh)} />
+            <StatCell label="+ Bas" value={fcfa(quote.dayLow)} />
+            <StatCell label="Veille" value={fcfa(quote.prevClose)} />
+            <StatCell label="Volume" value={compactVolume(quote.dayVolume)} tone={quote.volumeRatio >= 3 ? "warn" : undefined} />
+            <StatCell label="Val. échangée" value={quote.dayValueFcfa ? compactFcfa(quote.dayValueFcfa) : "—"} />
+            <StatCell label="52 s haut" value={fcfa(quote.week52High)} />
+            <StatCell label="52 s bas" value={fcfa(quote.week52Low)} />
+            <StatCell label="Ratio vol." value={`${quote.volumeRatio.toFixed(1)}×`} tone={quote.volumeRatio >= 3 ? "warn" : undefined} />
           </View>
           <View style={styles.factCard}>
             <FactRow label="Variation 1 semaine" value={pct(quote.weekChangePct, { signed: true, digits: 2 })} tone={quote.weekChangePct >= 0 ? "up" : "down"} />
@@ -208,11 +238,56 @@ export default function StockScreen() {
             : <EmptyState icon="document-text-outline" title="Aucune publication" detail={`Aucun document officiel lié à ${ticker} pour le moment.`} />}
         </Section>
       </> : null}
+      <View style={styles.footerSpacer} />
     </Page>
+
+    <View style={[styles.footer, { paddingBottom: insets.bottom + 10 }]}>
+      <Pressable
+        onPress={() => router.push(`/alerts?ticker=${ticker}`)}
+        style={({ pressed }) => [styles.footerPrimary, pressed && { opacity: 0.75 }]}
+      >
+        <Ionicons name="notifications-outline" size={16} color={colors.background} />
+        <Text style={styles.footerPrimaryText}>Créer une alerte</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => toggle(ticker)}
+        style={({ pressed }) => [styles.footerSecondary, watched && styles.footerSecondaryActive, pressed && { opacity: 0.75 }]}
+      >
+        <Ionicons name={watched ? "star" : "star-outline"} size={16} color={watched ? colors.accent : colors.ink2} />
+        <Text style={[styles.footerSecondaryText, watched && { color: colors.accent }]}>{watched ? "Suivie" : "Suivre"}</Text>
+      </Pressable>
+    </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.background },
+  statsGrid: {
+    flexDirection: "row", flexWrap: "wrap", rowGap: 12,
+    padding: 14, marginBottom: 10,
+    backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,
+  },
+  statCell: { width: "33.33%", gap: 3, paddingRight: 8 },
+  statLabel: { ...type.label, fontSize: 9.5 },
+  statValue: { color: colors.ink, fontSize: 13, fontWeight: "700", fontVariant: tabular },
+  footerSpacer: { height: 58 },
+  footer: {
+    position: "absolute", left: 0, right: 0, bottom: 0,
+    flexDirection: "row", gap: 10, paddingHorizontal: 18, paddingTop: 10,
+    backgroundColor: colors.surface, borderTopColor: colors.line, borderTopWidth: 1,
+  },
+  footerPrimary: {
+    flex: 1, minHeight: 46, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 7,
+    backgroundColor: colors.accent, borderRadius: radius.lg,
+  },
+  footerPrimaryText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  footerSecondary: {
+    flex: 1, minHeight: 46, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 7,
+    backgroundColor: colors.surface2, borderColor: colors.lineStrong, borderWidth: 1, borderRadius: radius.lg,
+  },
+  footerSecondaryActive: { borderColor: "rgba(226,166,61,0.5)", backgroundColor: colors.accentSoft },
+  footerSecondaryText: { color: colors.ink2, fontSize: 14, fontWeight: "700" },
   hero: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
   heroCopy: { flex: 1, gap: 6 },
   name: { ...type.sub },

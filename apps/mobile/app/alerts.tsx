@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { ActionButton, EmptyState, Page, Row, Section } from "../src/components/ui";
 import { useMarketData } from "../src/providers/MarketDataProvider";
 import { usePriceAlertStore, useSettingsStore } from "../src/stores";
@@ -12,7 +13,8 @@ export default function AlertsScreen() {
   const add = usePriceAlertStore((state) => state.add);
   const remove = usePriceAlertStore((state) => state.remove);
   const notifications = useSettingsStore((state) => state.notifications);
-  const [ticker, setTicker] = useState("SNTS");
+  const params = useLocalSearchParams<{ ticker?: string }>();
+  const [ticker, setTicker] = useState(typeof params.ticker === "string" && params.ticker ? params.ticker.toUpperCase() : "SNTS");
   const [target, setTarget] = useState("");
   const [direction, setDirection] = useState<"above" | "below">("above");
   const submit = () => {
