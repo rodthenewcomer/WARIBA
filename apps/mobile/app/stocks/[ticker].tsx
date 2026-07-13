@@ -7,13 +7,14 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { annualizedVolatility, maxDrawdown } from "@afriterminal/core/risk";
 import { compactFcfa, compactVolume, dateFr, fcfa, millions, num, pct, ratio } from "@afriterminal/core/format";
 import { companyProfile } from "@afriterminal/core/company-profiles";
+import { GLOSSARY } from "@afriterminal/core/glossary";
 import type { OHLCV } from "@afriterminal/core/types";
 import { AdvancedChart } from "../../src/components/AdvancedChart";
 import { YearComparison } from "../../src/components/YearComparison";
 import type { WebChartMarker } from "../../src/components/chart/WebChart";
 import { ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section, SegmentedTabs } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
-import { useWatchlistStore } from "../../src/stores";
+import { useSettingsStore, useWatchlistStore } from "../../src/stores";
 import { countryFromTicker, sectorLabel } from "../../src/lib/sectors";
 import { colors, radius, tabular, type } from "../../src/theme";
 
@@ -79,6 +80,7 @@ export default function StockScreen() {
   const [series, setSeries] = useState<OHLCV[]>([]);
   const [tab, setTab] = useState<Tab>("chart");
   const watched = useWatchlistStore((state) => state.tickers.includes(ticker));
+  const beginner = useSettingsStore((state) => state.experienceLevel === "debutant");
   const toggle = useWatchlistStore((state) => state.toggle);
   useEffect(() => { void market.loadSeries(ticker).then(setSeries); }, [market.loadSeries, ticker]);
   const riskSeries = useMemo(() => series.map((bar) => ({ time: String(bar.time), close: bar.close })), [series]);
@@ -188,6 +190,20 @@ export default function StockScreen() {
       </Animated.View> : null}
 
       {tab === "fundamentals" ? <Animated.View key="fundamentals" entering={FadeIn.duration(200)} style={styles.tabContent}>
+        {beginner ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Comprendre ces chiffres — ouvrir la méthodologie"
+            onPress={() => void Linking.openURL("https://rodthenewcomer.github.io/AfriTerminal/methodologie/")}
+            style={({ pressed }) => [styles.beginnerBanner, pressed && { opacity: 0.75 }]}
+          >
+            <Ionicons name="school-outline" size={17} color={colors.accent} />
+            <Text style={styles.beginnerBannerText}>
+              Comprendre ces chiffres — chaque terme est expliqué dans le lexique en bas de page, la méthode complète sur le site.
+            </Text>
+            <Ionicons name="open-outline" size={14} color={colors.ink3} />
+          </Pressable>
+        ) : null}
         <Section
           title="Fondamentaux"
           detail={fundamental ? `Exercice ${fundamental.fiscalYear} · publié le ${dateFr(fundamental.publishedOn)}` : undefined}
@@ -237,6 +253,16 @@ export default function StockScreen() {
             ))
             : <EmptyState icon="cash-outline" title="Aucun versement" detail={`Aucun dividende enregistré pour ${ticker} depuis 2019.`} />}
         </Section>
+        {beginner ? (
+          <Section title="Lexique express" detail="Explications sans jargon">
+            {(["per", "rendement-net", "dividende-net", "capitalisation"] as const).map((key) => (
+              <View key={key} style={styles.lexiqueRow}>
+                <Text style={styles.lexiqueTerm}>{GLOSSARY[key].label}</Text>
+                <Text style={styles.lexiqueDef}>{GLOSSARY[key].def}</Text>
+              </View>
+            ))}
+          </Section>
+        ) : null}
       </Animated.View> : null}
 
       {tab === "risk" ? <Animated.View key="risk" entering={FadeIn.duration(200)} style={styles.tabContent}>
@@ -363,4 +389,12 @@ const styles = StyleSheet.create({
   rangeFill: { height: 6, borderRadius: 3, backgroundColor: colors.up, opacity: 0.65 },
   rangeCaption: { ...type.caption },
   disclaimer: { ...type.caption, marginTop: 10 },
+  beginnerBanner: {
+    flexDirection: "row", alignItems: "center", gap: 10, padding: 13,
+    backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.35)", borderWidth: 1, borderRadius: radius.lg,
+  },
+  beginnerBannerText: { flex: 1, ...type.caption, color: colors.ink2, lineHeight: 16 },
+  lexiqueRow: { paddingVertical: 11, gap: 4, borderBottomColor: colors.line, borderBottomWidth: 1 },
+  lexiqueTerm: { ...type.body, fontWeight: "700", fontSize: 13 },
+  lexiqueDef: { ...type.caption, lineHeight: 17 },
 });

@@ -183,3 +183,52 @@ body {
   background-size: 800px 100%;
   animation: shimmer 1.4s infinite linear;
 }
+
+/* Signature de marque animée (bannière de bienvenue, écrans d'accueil).
+   Même séquence que l'ouverture de l'app mobile : le « A » se trace,
+   les chandelles poussent depuis leur base. */
+@keyframes sig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sig-grow {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+.sig-stroke {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: sig-draw 0.7s ease-out forwards;
+}
+.sig-stroke-bar {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation-duration: 0.4s;
+  animation-delay: 0.35s;
+}
+.sig-candle {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+  opacity: 0;
+  animation: sig-grow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sig-stroke,
+  .sig-stroke-bar {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .sig-candle {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}

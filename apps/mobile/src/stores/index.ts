@@ -82,6 +82,7 @@ interface ChartState {
   logarithmic: boolean;
   percentMode: boolean;
   setType: (type: ChartType) => void;
+  setIndicators: (indicators: IndicatorId[]) => void;
   toggleIndicator: (indicator: IndicatorId) => void;
   toggleLog: () => void;
   togglePercent: () => void;
@@ -93,6 +94,7 @@ export const useChartStore = create<ChartState>()(persist(
     logarithmic: false,
     percentMode: false,
     setType: (type) => set({ type }),
+    setIndicators: (indicators) => set({ indicators: [...indicators] }),
     toggleIndicator: (indicator) => set({ indicators: get().indicators.includes(indicator)
       ? get().indicators.filter((item) => item !== indicator)
       : [...get().indicators, indicator] }),
@@ -160,14 +162,31 @@ export const useScreenerStore = create<ScreenerState>()(persist(
   { name: "@afriterminal:screener", storage, skipHydration: true }
 ));
 
+export type ExperienceLevel = "debutant" | "intermediaire" | "avance";
+/** Version du flux de première ouverture — l'incrémenter re-présente l'onboarding. */
+export const ONBOARDING_VERSION = 1;
+
 interface SettingsState {
   notifications: boolean;
   dataSaver: boolean;
+  experienceLevel: ExperienceLevel | null;
+  onboardingVersion: number;
   setNotifications: (value: boolean) => void;
   setDataSaver: (value: boolean) => void;
+  setExperienceLevel: (level: ExperienceLevel | null) => void;
+  completeOnboarding: (level: ExperienceLevel | null) => void;
 }
 export const useSettingsStore = create<SettingsState>()(persist(
-  (set) => ({ notifications: false, dataSaver: false, setNotifications: (notifications) => set({ notifications }), setDataSaver: (dataSaver) => set({ dataSaver }) }),
+  (set) => ({
+    notifications: false,
+    dataSaver: false,
+    experienceLevel: null,
+    onboardingVersion: 0,
+    setNotifications: (notifications) => set({ notifications }),
+    setDataSaver: (dataSaver) => set({ dataSaver }),
+    setExperienceLevel: (experienceLevel) => set({ experienceLevel }),
+    completeOnboarding: (experienceLevel) => set({ experienceLevel, onboardingVersion: ONBOARDING_VERSION }),
+  }),
   { name: "afriterminal-settings", storage, skipHydration: true }
 ));
 

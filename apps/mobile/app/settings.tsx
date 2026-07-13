@@ -5,8 +5,8 @@ import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
 import { useRouter } from "expo-router";
-import { Page, Row, Section } from "../src/components/ui";
-import { usePortfolioStore, usePriceAlertStore, useSettingsStore, useWatchlistStore } from "../src/stores";
+import { ActionButton, Page, Row, Section } from "../src/components/ui";
+import { usePortfolioStore, usePriceAlertStore, useSettingsStore, useWatchlistStore, type ExperienceLevel } from "../src/stores";
 import { disableNotifications, enableNotifications } from "../src/services/alerts";
 import { parseBackupPayload } from "../src/lib/forms";
 import { colors, radius, type } from "../src/theme";
@@ -34,9 +34,17 @@ function Setting({ label, detail, value, onChange }: { label: string; detail: st
   );
 }
 
+const LEVELS: { id: ExperienceLevel; label: string }[] = [
+  { id: "debutant", label: "Débutant" },
+  { id: "intermediaire", label: "Intermédiaire" },
+  { id: "avance", label: "Avancé" },
+];
+
 export default function SettingsScreen() {
   const router = useRouter();
   const notifications = useSettingsStore((state) => state.notifications);
+  const experienceLevel = useSettingsStore((state) => state.experienceLevel);
+  const setExperienceLevel = useSettingsStore((state) => state.setExperienceLevel);
   const dataSaver = useSettingsStore((state) => state.dataSaver);
   const setDataSaver = useSettingsStore((state) => state.setDataSaver);
   const version = Constants.expoConfig?.version ?? "1.0.0";
@@ -123,6 +131,25 @@ export default function SettingsScreen() {
         </Group>
       </Section>
 
+      <Section title="Expérience">
+        <Group>
+          <View style={styles.levelRow}>
+            {LEVELS.map((level) => (
+              <ActionButton
+                key={level.id}
+                label={level.label}
+                active={experienceLevel === level.id}
+                onPress={() => setExperienceLevel(level.id)}
+              />
+            ))}
+          </View>
+          <Text style={styles.levelHint}>
+            Le mode débutant ajoute des explications simples (PER, PRU, rendement…) et
+            un graphique épuré par défaut — sans jamais masquer de données.
+          </Text>
+        </Group>
+      </Section>
+
       <Section title="Données">
         <Group>
           <Setting
@@ -179,6 +206,8 @@ const styles = StyleSheet.create({
   settingCopy: { flex: 1 },
   settingLabel: { ...type.body },
   settingDetail: { ...type.caption, marginTop: 3 },
+  levelRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingTop: 12, paddingBottom: 4 },
+  levelHint: { ...type.caption, paddingBottom: 12, paddingTop: 6 },
   disclaimer: {
     ...type.caption, textAlign: "center", paddingHorizontal: 8,
     borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg, backgroundColor: colors.surface, paddingVertical: 14,

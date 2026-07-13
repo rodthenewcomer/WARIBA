@@ -4,7 +4,7 @@ import { computePositions, dividendIncome, valuePortfolio } from "@afriterminal/
 import { fcfa, pct } from "@afriterminal/core/format";
 import { ActionButton, ChangePill, EmptyState, Metric, Page, Row, Section } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
-import { usePortfolioStore } from "../../src/stores";
+import { usePortfolioStore, useSettingsStore } from "../../src/stores";
 import { AllocationDonut } from "../../src/components/AllocationDonut";
 import { parseAmount, parseDateInput, parseFees, parseQuantity, todayIso } from "../../src/lib/forms";
 import * as Haptics from "expo-haptics";
@@ -13,6 +13,7 @@ import { colors, radius, tabular, type } from "../../src/theme";
 export default function PortfolioScreen() {
   const market = useMarketData();
   const transactions = usePortfolioStore((state) => state.transactions);
+  const beginner = useSettingsStore((state) => state.experienceLevel === "debutant");
   const add = usePortfolioStore((state) => state.add);
   const removeTransaction = usePortfolioStore((state) => state.remove);
   const [open, setOpen] = useState(false);
@@ -92,6 +93,12 @@ export default function PortfolioScreen() {
             <Text style={styles.heroFactValue}>{summary.positions.length}</Text>
           </View>
         </View>
+        {beginner ? (
+          <Text style={styles.beginnerHint}>
+            PRU = prix moyen payé par action, frais inclus. P&L latent = la différence
+            entre le dernier cours officiel et ce PRU, si vous vendiez aujourd'hui.
+          </Text>
+        ) : null}
       </View>
 
       <Section title="Positions" detail="Cours de la dernière clôture">
@@ -226,6 +233,7 @@ const styles = StyleSheet.create({
   heroFactLabel: { ...type.label, fontSize: 9.5 },
   heroFactValue: { color: colors.ink, fontSize: 13, fontWeight: "700", fontVariant: tabular },
   heroDivider: { width: 1, height: 26, backgroundColor: colors.line, marginHorizontal: 10 },
+  beginnerHint: { ...type.caption, lineHeight: 16, marginTop: 10, paddingTop: 10, borderTopColor: colors.line, borderTopWidth: 1 },
   position: { paddingVertical: 12, gap: 9, borderBottomColor: colors.line, borderBottomWidth: 1 },
   positionRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10 },
   positionCopy: { flex: 1 },

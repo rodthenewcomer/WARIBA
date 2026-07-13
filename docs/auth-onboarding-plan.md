@@ -1,6 +1,9 @@
 # AfriTerminal — plan Comptes, Onboarding & Écrans d'accueil (app + web)
 
-Statut : **plan approuvé pour exécution, rien d'implémenté**.
+Statut : **Phase A livrée le 2026-07-13** — signature d'ouverture animée
+(mobile), onboarding première ouverture avec mode débutant (mobile),
+bannière de bienvenue + visite guidée 4 étapes (web). Phases B→F (comptes,
+synchro) non commencées : elles shippent ensemble, jamais partiellement.
 Rédigé le 2026-07-13, à la suite de la revue 22 rôles.
 
 Ce document couvre quatre chantiers demandés ensemble parce qu'ils forment
@@ -190,7 +193,7 @@ et une invite contextuelle unique après la première action qui gagnerait
 
 | Phase | Contenu | Estimation |
 |---|---|---|
-| A | Splash animé mobile + hero web + onboarding première ouverture + mode débutant (aucun backend — livrable seul) | 1 semaine |
+| A | ✅ Livrée (2026-07-13) — splash animé mobile (Skia + Reanimated, reduced-motion), onboarding 3 écrans + niveau, mode débutant (lexique, graphique épuré, pédagogie PRU), signature SVG + visite guidée web | 1 semaine |
 | B | Projet Supabase : schéma, RLS, validation partagée `packages/core/validation.ts`, tests d'intégration | 3-4 jours |
 | C | Écrans auth mobile (`app/(auth)`) : inscription, OTP, connexion, mot de passe oublié, suppression de compte | 1 semaine |
 | D | Pages auth web + visite guidée web | 4-5 jours |

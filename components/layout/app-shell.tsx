@@ -25,6 +25,7 @@ import { cn } from "@afriterminal/core/utils";
 import { LATEST_TRADING_DATE } from "@/lib/real-data";
 import { dateFr } from "@afriterminal/core/format";
 import { GlobalSearch, GlobalSearchDialog, useSearchOpen } from "./global-search";
+import { WelcomeTour } from "./welcome-tour";
 import { MarketStatusBadge } from "./market-status-badge";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -68,6 +69,13 @@ const MOBILE_MORE = [
   { href: "/settings", label: "Réglages", icon: Settings },
 ] as const;
 
+/** Ancrages de la visite guidée première visite (welcome-tour.tsx). */
+const TOUR_BY_HREF: Record<string, string> = {
+  "/screener": "screener",
+  "/alerts": "alerts",
+  "/portfolio": "portfolio",
+};
+
 function Logo() {
   return (
     <Link href="/dashboard" className="flex items-center gap-2.5 px-1">
@@ -99,6 +107,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={href}
                 href={href}
+                data-tour={TOUR_BY_HREF[href]}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   active
@@ -130,11 +139,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="lg:hidden">
             <Logo />
           </div>
-          <div className="hidden md:block flex-1 max-w-xs">
+          <div className="hidden md:block flex-1 max-w-xs" data-tour="search">
             <GlobalSearch trigger="bar" />
           </div>
           <div className="flex-1 md:hidden" />
-          <div className="md:hidden">
+          <div className="md:hidden" data-tour="search">
             <GlobalSearch trigger="icon" />
           </div>
           <MarketStatusBadge />
@@ -160,7 +169,10 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Contenu */}
       <main className="px-4 pb-24 pt-5 sm:px-6 lg:pb-10 lg:pl-[264px] xl:pr-8">
-        <div className="mx-auto max-w-[1400px]">{children}</div>
+        <div className="mx-auto max-w-[1400px]">
+          <WelcomeTour />
+          {children}
+        </div>
       </main>
 
       {/* Bottom nav mobile */}
@@ -196,6 +208,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={href}
                 href={href}
+                data-tour={TOUR_BY_HREF[href]}
                 className={cn(
                   "flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium",
                   active ? "text-accent" : "text-ink-3"

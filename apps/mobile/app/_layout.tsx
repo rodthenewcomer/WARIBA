@@ -69,6 +69,7 @@ export default function RootLayout() {
         }}>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding" options={{ headerShown: false, animation: "fade" }} />
           <Stack.Screen name="stocks/[ticker]" options={{ title: "Fiche action" }} />
           <Stack.Screen name="indices/[code]" options={{ title: "Indice" }} />
           <Stack.Screen name="alerts" options={{ title: "Alertes" }} />

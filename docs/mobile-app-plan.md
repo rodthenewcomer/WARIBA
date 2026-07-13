@@ -253,6 +253,31 @@ suivants, tous implémentés et testés :
    (`onShouldStartLoadWithRequest`), en plus des restrictions existantes.
 9. **Dépendance morte retirée** — `expo-secure-store` (plugin + package).
 
+## Phase A comptes & onboarding — livrée le 2026-07-13
+
+Première brique du plan `auth-onboarding-plan.md`, sans backend :
+
+- **Signature d'ouverture** (`src/components/StartAnimation.tsx`) : le
+  monogramme « A » se trace en Skia, trois chandelles poussent en
+  Reanimated, wordmark et tagline, fondu vers l'app (~1,8 s). Sautée si
+  « réduire les animations » ; le chargement des données tourne pendant
+  la séquence ; cold start uniquement (route `index`).
+- **Onboarding première ouverture** (`app/onboarding.tsx`) : trois
+  écrans passables (produit, alertes honnêtes, confidentialité — avec
+  l'indice composite réel du jour), puis question de niveau. Versionné
+  (`ONBOARDING_VERSION`) pour pouvoir re-présenter un flux enrichi.
+- **Mode débutant** (`experienceLevel` persisté, modifiable dans
+  Réglages > Expérience) : lexique express et bandeau « Comprendre ces
+  chiffres » sur la fiche (glossaire `packages/core`), pédagogie PRU/P&L
+  dans le portefeuille, graphique épuré par défaut (ligne, aucun
+  indicateur) appliqué une seule fois au choix du niveau. Rien n'est
+  masqué.
+- **Web** : signature SVG animée (`brand-signature.tsx`, CSS pur,
+  prefers-reduced-motion) dans une bannière de bienvenue première
+  visite, et visite guidée en 4 étapes ancrée sur les vrais éléments
+  (`welcome-tour.tsx`, ancres `data-tour`, repli carte centrée quand
+  l'ancre n'est pas visible sur mobile).
+
 ## Validation appareil
 
 Depuis la racine du dépôt :
