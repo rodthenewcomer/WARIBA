@@ -1,3 +1,4 @@
+import { type ReactNode } from "react";
 import { Alert, Linking, StyleSheet, Switch, Text, View } from "react-native";
 import Constants from "expo-constants";
 import * as FileSystem from "expo-file-system/legacy";
@@ -7,6 +8,11 @@ import { Page, Row, Section } from "../src/components/ui";
 import { usePortfolioStore, usePriceAlertStore, useSettingsStore, useWatchlistStore } from "../src/stores";
 import { disableNotifications, enableNotifications } from "../src/services/alerts";
 import { colors, radius, type } from "../src/theme";
+
+/** Groupe de réglages façon iOS : lignes rassemblées dans une carte. */
+function Group({ children }: { children: ReactNode }) {
+  return <View style={styles.group}>{children}</View>;
+}
 
 function Setting({ label, detail, value, onChange }: { label: string; detail: string; value: boolean; onChange: (value: boolean) => void }) {
   return (
@@ -30,6 +36,7 @@ export default function SettingsScreen() {
   const notifications = useSettingsStore((state) => state.notifications);
   const dataSaver = useSettingsStore((state) => state.dataSaver);
   const setDataSaver = useSettingsStore((state) => state.setDataSaver);
+  const version = Constants.expoConfig?.version ?? "1.0.0";
 
   const exportBackup = async () => {
     const payload = {
@@ -53,33 +60,52 @@ export default function SettingsScreen() {
 
   return (
     <Page subtitle="Préférences locales — rien ne quitte cet appareil sans votre action">
+      <View style={styles.identity}>
+        <View style={styles.monogram}>
+          <Text style={styles.monogramText}>A</Text>
+        </View>
+        <View style={styles.identityCopy}>
+          <Text style={styles.identityName}>
+            Afri<Text style={styles.identityAccent}>Terminal</Text>
+          </Text>
+          <Text style={styles.identityVersion}>Version {version} · mode sombre permanent</Text>
+        </View>
+      </View>
+
       <Section title="Notifications">
-        <Setting
-          label="Alertes de prix locales"
-          detail="Seuils évalués à l'ouverture, au rafraîchissement et lors des fenêtres système autorisées"
-          value={notifications}
-          onChange={(value) => void (value ? enableNotifications() : disableNotifications())}
-        />
+        <Group>
+          <Setting
+            label="Alertes de prix locales"
+            detail="Seuils évalués à l'ouverture, au rafraîchissement et lors des fenêtres système autorisées"
+            value={notifications}
+            onChange={(value) => void (value ? enableNotifications() : disableNotifications())}
+          />
+        </Group>
       </Section>
 
       <Section title="Données">
-        <Setting
-          label="Économie de données"
-          detail="Réduit les rafraîchissements automatiques en arrière-plan"
-          value={dataSaver}
-          onChange={setDataSaver}
-        />
-        <Row icon="pulse-outline" title="État des données" detail="Fraîcheur et couverture de chaque source" onPress={() => router.push("/status")} />
+        <Group>
+          <Setting
+            label="Économie de données"
+            detail="Réduit les rafraîchissements automatiques en arrière-plan"
+            value={dataSaver}
+            onChange={setDataSaver}
+          />
+          <Row icon="pulse-outline" title="État des données" detail="Fraîcheur et couverture de chaque source" onPress={() => router.push("/status")} />
+        </Group>
       </Section>
 
       <Section title="Sauvegarde locale">
-        <Row icon="share-outline" title="Exporter une sauvegarde" detail="Watchlist, portefeuille et seuils au format JSON" onPress={() => void exportBackup()} />
-        <Row icon="trash-outline" title="Effacer le portefeuille" detail="Supprime toutes les transactions de cet appareil" onPress={confirmClear} />
+        <Group>
+          <Row icon="share-outline" title="Exporter une sauvegarde" detail="Watchlist, portefeuille et seuils au format JSON" onPress={() => void exportBackup()} />
+          <Row icon="trash-outline" title="Effacer le portefeuille" detail="Supprime toutes les transactions de cet appareil" onPress={confirmClear} />
+        </Group>
       </Section>
 
       <Section title="À propos">
-        <Row icon="phone-portrait-outline" title="Version" detail={`AfriTerminal Mobile ${Constants.expoConfig?.version ?? "1.0.0"} · mode sombre permanent`} />
-        <Row icon="globe-outline" title="Site web AfriTerminal" detail="Même données, même pipeline officiel BOC" onPress={() => void Linking.openURL("https://rodthenewcomer.github.io/AfriTerminal/")} />
+        <Group>
+          <Row icon="globe-outline" title="Site web AfriTerminal" detail="Mêmes données, même pipeline officiel BOC" onPress={() => void Linking.openURL("https://rodthenewcomer.github.io/AfriTerminal/")} />
+        </Group>
       </Section>
 
       <Text style={styles.disclaimer}>
@@ -91,7 +117,24 @@ export default function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  setting: { minHeight: 64, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
+  identity: {
+    flexDirection: "row", alignItems: "center", gap: 14, padding: 16,
+    backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.xl,
+  },
+  monogram: {
+    width: 52, height: 52, alignItems: "center", justifyContent: "center",
+    backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.35)", borderWidth: 1, borderRadius: 14,
+  },
+  monogramText: { color: colors.accent, fontSize: 24, fontWeight: "800" },
+  identityCopy: { flex: 1 },
+  identityName: { color: colors.ink, fontSize: 18, fontWeight: "800", letterSpacing: -0.3 },
+  identityAccent: { color: colors.accent },
+  identityVersion: { ...type.caption, marginTop: 3 },
+  group: {
+    paddingHorizontal: 14, paddingVertical: 2,
+    backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,
+  },
+  setting: { minHeight: 62, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
   settingCopy: { flex: 1 },
   settingLabel: { ...type.body },
   settingDetail: { ...type.caption, marginTop: 3 },

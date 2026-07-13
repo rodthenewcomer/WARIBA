@@ -18,3 +18,17 @@ export const SECTOR_ORDER = [
   "Banque", "Télécom", "Agro-industrie", "Industrie",
   "Distribution", "Services publics", "Autre",
 ] as const;
+
+/**
+ * Convention de nommage BRVM : le suffixe du ticker encode le pays
+ * (BOAB = Bénin, BOABF = Burkina, SNTS = Sénégal…) — même heuristique
+ * que lib/real-universe.ts côté web.
+ */
+const COUNTRY_BY_SUFFIX: Record<string, string> = {
+  B: "Bénin", C: "Côte d'Ivoire", M: "Mali", N: "Niger", S: "Sénégal", T: "Togo",
+};
+
+export function countryFromTicker(ticker: string): string | null {
+  if (ticker.endsWith("BF")) return "Burkina Faso";
+  return COUNTRY_BY_SUFFIX[ticker.slice(-1)] ?? null;
+}

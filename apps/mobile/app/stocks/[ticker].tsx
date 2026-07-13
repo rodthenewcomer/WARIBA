@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -12,7 +13,7 @@ import type { WebChartMarker } from "../../src/components/chart/WebChart";
 import { ChangePill, EmptyState, LoadingState, Metric, Page, Row, Section, SegmentedTabs } from "../../src/components/ui";
 import { useMarketData } from "../../src/providers/MarketDataProvider";
 import { useWatchlistStore } from "../../src/stores";
-import { sectorLabel } from "../../src/lib/sectors";
+import { countryFromTicker, sectorLabel } from "../../src/lib/sectors";
 import { colors, radius, tabular, type } from "../../src/theme";
 
 const STOCK_TABS = [
@@ -91,6 +92,8 @@ export default function StockScreen() {
 
   if (!quote) return market.loading ? <LoadingState /> : <EmptyState title="Valeur introuvable" detail={`Aucune cotation pour ${ticker}.`} />;
   const description = companyProfile(ticker);
+  const country = countryFromTicker(ticker);
+  const capitalisation = fundamental?.sharesOutstanding ? fundamental.sharesOutstanding * quote.lastClose : null;
   const week52Share = quote.week52High > quote.week52Low
     ? Math.min(100, Math.max(0, ((quote.lastClose - quote.week52Low) / (quote.week52High - quote.week52Low)) * 100))
     : 100;
@@ -106,20 +109,33 @@ export default function StockScreen() {
     <Page refreshing={market.refreshing} onRefresh={() => void refreshAll()}>
       <Stack.Screen options={{ title: ticker }} />
 
-      <View style={styles.hero}>
+      <Animated.View entering={FadeInDown.duration(280)} style={styles.hero}>
         <View style={styles.heroCopy}>
-          <Text numberOfLines={2} style={styles.name}>{quote.name} · {sectorLabel(quote.sectorCode)}</Text>
+          <Text numberOfLines={2} style={styles.name}>
+            {quote.name} · {sectorLabel(quote.sectorCode)}{country ? ` · ${country}` : ""}
+          </Text>
           <View style={styles.priceRow}>
             <Text style={styles.price}>{fcfa(quote.lastClose)}</Text>
             <ChangePill value={quote.dayChangePct} label={pct(quote.dayChangePct, { signed: true, digits: 2 })} />
           </View>
           <Text style={styles.asOf}>Clôture officielle du {dateFr(quote.asOfDate)}</Text>
+          <View style={styles.infoChips}>
+            {quote.per !== null ? (
+              <View style={styles.infoChip}><Text style={styles.infoChipLabel}>PER</Text><Text style={styles.infoChipValue}>{ratio(quote.per)}</Text></View>
+            ) : null}
+            {quote.netYieldPct !== null ? (
+              <View style={styles.infoChip}><Text style={styles.infoChipLabel}>Rdt net</Text><Text style={styles.infoChipValue}>{pct(quote.netYieldPct, { signed: false, digits: 1 })}</Text></View>
+            ) : null}
+            {capitalisation !== null ? (
+              <View style={styles.infoChip}><Text style={styles.infoChipLabel}>Capi</Text><Text style={styles.infoChipValue}>{compactFcfa(capitalisation)}</Text></View>
+            ) : null}
+          </View>
         </View>
-      </View>
+      </Animated.View>
 
       <SegmentedTabs tabs={STOCK_TABS} active={tab} onChange={setTab} />
 
-      {tab === "chart" ? <>
+      {tab === "chart" ? <Animated.View key="chart" entering={FadeIn.duration(200)} style={styles.tabContent}>
         {series.length ? (
           <AdvancedChart ticker={ticker} data={series} previousClose={quote.prevClose} week52High={quote.week52High} week52Low={quote.week52Low} events={events} />
         ) : <LoadingState label="Chargement de la série…" />}
@@ -163,9 +179,9 @@ export default function StockScreen() {
             <FactRow label="Record de clôture (depuis 2019)" value={`${fcfa(quote.allTimeHigh)} le ${dateFr(quote.allTimeHighDate)}`} />
           </View>
         </Section>
-      </> : null}
+      </Animated.View> : null}
 
-      {tab === "fundamentals" ? <>
+      {tab === "fundamentals" ? <Animated.View key="fundamentals" entering={FadeIn.duration(200)} style={styles.tabContent}>
         <Section
           title="Fondamentaux"
           detail={fundamental ? `Exercice ${fundamental.fiscalYear} · publié le ${dateFr(fundamental.publishedOn)}` : undefined}
@@ -212,9 +228,9 @@ export default function StockScreen() {
             ))
             : <EmptyState icon="cash-outline" title="Aucun versement" detail={`Aucun dividende enregistré pour ${ticker} depuis 2019.`} />}
         </Section>
-      </> : null}
+      </Animated.View> : null}
 
-      {tab === "risk" ? <>
+      {tab === "risk" ? <Animated.View key="risk" entering={FadeIn.duration(200)} style={styles.tabContent}>
         <Section title="Risque historique" detail="Calculé sur l'historique complet des clôtures">
           <View style={styles.metrics}>
             <Metric label="Volatilité annualisée" value={risk.volatility === null ? "—" : pct(risk.volatility, { signed: false, digits: 1 })} />
@@ -229,9 +245,9 @@ export default function StockScreen() {
             ? operations.map((item) => <Row key={item.url} icon="git-branch-outline" title={item.title} detail={`${item.type} · ${dateFr(item.date)}`} onPress={() => void Linking.openURL(item.url)} />)
             : <EmptyState icon="git-branch-outline" title="Aucune opération" detail="Aucune opération sur capital identifiée pour cette société." />}
         </Section>
-      </> : null}
+      </Animated.View> : null}
 
-      {tab === "news" ? <>
+      {tab === "news" ? <Animated.View key="news" entering={FadeIn.duration(200)} style={styles.tabContent}>
         <Section title="Actualités" detail={news.length ? `${news.length} articles liés` : undefined}>
           {news.length
             ? news.map((item) => <Row key={item.link} icon="newspaper-outline" title={item.title} detail={`${item.source} · ${item.publishedAt.slice(0, 10)}`} onPress={() => void Linking.openURL(item.link)} />)
@@ -242,7 +258,7 @@ export default function StockScreen() {
             ? documents.map((document) => <Row key={document.url} icon="document-text-outline" title={document.title} detail={`${document.type} · ${dateFr(document.date)}`} onPress={() => void Linking.openURL(document.url)} />)
             : <EmptyState icon="document-text-outline" title="Aucune publication" detail={`Aucun document officiel lié à ${ticker} pour le moment.`} />}
         </Section>
-      </> : null}
+      </Animated.View> : null}
       <View style={styles.footerSpacer} />
     </Page>
 
@@ -294,6 +310,15 @@ const styles = StyleSheet.create({
   footerSecondaryActive: { borderColor: "rgba(226,166,61,0.5)", backgroundColor: colors.accentSoft },
   footerSecondaryText: { color: colors.ink2, fontSize: 14, fontWeight: "700" },
   hero: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
+  tabContent: { gap: 26 },
+  infoChips: { flexDirection: "row", flexWrap: "wrap", gap: 7, marginTop: 9 },
+  infoChip: {
+    flexDirection: "row", alignItems: "center", gap: 5,
+    paddingHorizontal: 9, paddingVertical: 4.5, borderRadius: radius.full,
+    backgroundColor: colors.surface2, borderColor: colors.line, borderWidth: 1,
+  },
+  infoChipLabel: { ...type.label, fontSize: 9 },
+  infoChipValue: { color: colors.ink, fontSize: 11.5, fontWeight: "700", fontVariant: tabular },
   heroCopy: { flex: 1, gap: 6 },
   name: { ...type.sub },
   priceRow: { flexDirection: "row", alignItems: "center", gap: 10 },

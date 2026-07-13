@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, T
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 import { colors, radius, tabular, type } from "../theme";
 
 /**
@@ -137,7 +138,7 @@ export function SegmentedTabs<T extends string>({ tabs, active, onChange }: {
         {tabs.map((tab) => (
           <Pressable
             key={tab.id}
-            onPress={() => onChange(tab.id)}
+            onPress={() => { if (tab.id !== active) void Haptics.selectionAsync(); onChange(tab.id); }}
             style={[styles.segment, active === tab.id && styles.segmentActive]}
           >
             <Text style={[styles.segmentText, active === tab.id && styles.segmentTextActive]}>{tab.label}</Text>

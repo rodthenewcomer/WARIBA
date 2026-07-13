@@ -71,12 +71,12 @@ const BRIDGE = `
       horzLines: { color: "rgba(255,255,255,0.05)" },
     },
     crosshair: {
-      mode: LWC.CrosshairMode.Normal,
+      mode: LWC.CrosshairMode.Magnet,
       vertLine: { color: "rgba(255,255,255,0.10)", labelBackgroundColor: "#27272a" },
       horzLine: { color: "rgba(255,255,255,0.10)", labelBackgroundColor: "#27272a" },
     },
     rightPriceScale: { borderColor: "transparent" },
-    timeScale: { borderColor: "transparent", timeVisible: false, secondsVisible: false, rightOffset: 3 },
+    timeScale: { borderColor: "transparent", timeVisible: false, secondsVisible: false, rightOffset: 4, minBarSpacing: 1 },
     localization: { locale: "fr-FR", priceFormatter: fmtPrice },
     handleScroll: { pressedMouseMove: true, horzTouchDrag: true, vertTouchDrag: false },
   });
@@ -138,8 +138,9 @@ const BRIDGE = `
       } else {
         mainSeries = track(chart.addSeries(LWC.CandlestickSeries, {
           upColor: "#22c55e", downColor: "#ef4444",
-          borderUpColor: "#22c55e", borderDownColor: "#ef4444",
-          wickUpColor: "rgba(34,197,94,0.6)", wickDownColor: "rgba(239,68,68,0.6)",
+          borderVisible: false,
+          wickUpColor: "rgba(34,197,94,0.75)", wickDownColor: "rgba(239,68,68,0.75)",
+          priceLineColor: "rgba(226,166,61,0.55)",
         }));
         mainSeries.setData(bars);
       }
@@ -243,7 +244,14 @@ const BRIDGE = `
 
       var dataKey = payload.ticker + "|" + payload.chartType + "|" + bars.length + "|" +
         (bars.length ? bars[0].time + "|" + bars[bars.length - 1].time : "");
-      if (payload.fit || dataKey !== lastDataKey) chart.timeScale().fitContent();
+      if (payload.fit || dataKey !== lastDataKey) {
+        var candleLike = payload.chartType === "candlestick" || payload.chartType === "heikin-ashi" || payload.chartType === "bars";
+        if (candleLike && bars.length > 90) {
+          chart.timeScale().setVisibleLogicalRange({ from: bars.length - 80, to: bars.length + 4 });
+        } else {
+          chart.timeScale().fitContent();
+        }
+      }
       lastDataKey = dataKey;
       post({ type: "ready" });
     } catch (err) {
