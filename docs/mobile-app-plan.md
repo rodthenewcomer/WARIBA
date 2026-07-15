@@ -10,8 +10,9 @@ sur `https://wariba.app/data`.
 1. **Niveau de finition « 2026, outstanding »** — pas un wrapper qui a
    l'air d'un site web dans une coquille. Interactions natives
    (haptics, gestes, transitions), et la même identité visuelle que le
-   site (obsidienne `#06110d`, surfaces `#0a1812`/`#10241a`, signal
-   jade `#34d98f`, point or `#f4c96b`, vert/rouge marché et violet
+   site : mode sombre noir `#000000` et graphite `#09090b`/`#18181b`,
+   mode clair neutre `#f7f8fa`/`#ffffff`, signal jade `#20c982`, point or
+   `#d8a72e`, vert/rouge marché et violet
    `#8b5cf6` pour MACD/opérations).
 2. **Chart : moteur du site web via WebView** *(décision produit révisée
    le 2026-07-12)*. Le spike Skia natif (Phase 1) a été mené à bout puis
@@ -133,7 +134,7 @@ est le prix du rendu 100 % natif demandé.
   `scale` et `translateX`, et le zoom focal a été extrait et testé. Le pinch
   et le double-tap corrigés doivent encore être confirmés sur l'iPhone.
 - 🟡 **Phase 2 — implémentée et exportée.** Expo Router, stack + cinq tabs,
-  thème sombre, chargement réseau/cache, Accueil, Marché, Watchlist et
+  thèmes clair/sombre/système persistants, chargement réseau/cache, Accueil, Marché, Watchlist et
   Alertes. Pull-to-refresh, skeletons, animations d'entrée, flash prix et
   swipe-to-remove sont présents. Validation UX sur appareil en attente.
 - 🟡 **Phase 3 — implémentée et exportée.** Six rendus, onze sélections

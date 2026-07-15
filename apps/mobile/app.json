@@ -7,17 +7,17 @@
     "newArchEnabled": true,
     "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": false,
       "usesAppleSignIn": true,
-      "backgroundColor": "#06110D",
+      "backgroundColor": "#000000",
       "bundleIdentifier": "app.wariba.mobile",
       "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#06110D",
+        "backgroundColor": "#000000",
         "backgroundImage": "./assets/android-icon-background.png",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -29,7 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "backgroundColor": "#06110D",
+    "backgroundColor": "#000000",
     "plugins": [
       "expo-router",
       "expo-apple-authentication",
@@ -45,7 +45,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/splash-icon.png",
-          "backgroundColor": "#06110D",
+          "backgroundColor": "#000000",
           "imageWidth": 260,
           "resizeMode": "contain"
         }

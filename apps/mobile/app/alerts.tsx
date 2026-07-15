@@ -127,7 +127,7 @@ export default function AlertsScreen() {
           accessibilityLabel="Activer les notifications locales"
           value={notifications}
           onValueChange={(value) => void (value ? enableNotifications(session?.access_token) : disableNotifications(session?.access_token))}
-          trackColor={{ false: colors.surface2, true: "rgba(226,166,61,0.45)" }}
+          trackColor={{ false: colors.surface2, true: "rgba(32,201,130,0.45)" }}
           thumbColor={notifications ? colors.accent : colors.ink3}
         />
       </View>
@@ -154,7 +154,7 @@ export default function AlertsScreen() {
             Canaux : app{notifications && session ? ", push" : ""}{emailNotifications && session ? ", e-mail" : ""}. Modifiables dans Réglages.
           </Text>
           <Pressable disabled={!canSubmit} accessibilityRole="button" accessibilityLabel="Créer l'alerte de prix" accessibilityState={{ disabled: !canSubmit }} onPress={() => void submit()} style={({ pressed }) => [styles.submit, !canSubmit && styles.submitDisabled, pressed && { opacity: 0.75 }]}>
-            <Ionicons name="notifications-outline" size={16} color={colors.background} />
+            <Ionicons name="notifications-outline" size={16} color={colors.onAccent} />
             <Text style={styles.submitText}>Créer l'alerte</Text>
           </Pressable>
         </View>
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   submitDisabled: { opacity: 0.45 },
   formError: { color: colors.down, fontSize: 12, lineHeight: 16 },
   channelHint: { ...type.caption },
-  submitText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  submitText: { color: colors.onAccent, fontSize: 14, fontWeight: "800" },
   rule: { minHeight: 58, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
   ruleIcon: { width: 34, height: 34, alignItems: "center", justifyContent: "center", borderRadius: radius.md },
   ruleCopy: { flex: 1 },

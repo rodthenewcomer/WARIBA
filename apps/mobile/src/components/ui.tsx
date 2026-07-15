@@ -136,7 +136,7 @@ export function ActionButton({ label, icon, onPress, active = false }: { label: 
       accessibilityState={{ selected: active }}
       style={({ pressed }) => [styles.action, active && styles.actionActive, pressed && styles.pressed]}
     >
-      {icon ? <Ionicons name={icon} size={15} color={active ? colors.background : colors.ink2} /> : null}
+      {icon ? <Ionicons name={icon} size={15} color={active ? colors.onAccent : colors.ink2} /> : null}
       <Text style={[styles.actionText, active && styles.actionTextActive]}>{label}</Text>
     </Pressable>
   );
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   },
   actionActive: { backgroundColor: colors.accent, borderColor: colors.accent },
   actionText: { color: colors.ink2, fontSize: 12.5, fontWeight: "700" },
-  actionTextActive: { color: colors.background },
+  actionTextActive: { color: colors.onAccent },
   pressed: { opacity: 0.6 },
   loading: { flex: 1, minHeight: 320, justifyContent: "center", gap: 12, paddingHorizontal: 18, backgroundColor: colors.background },
   loadingHeader: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 6 },

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   heroDetail: { ...type.sub },
   authRow: { flexDirection: "row", gap: 9, marginTop: 4 },
   primary: { flex: 1, minHeight: 46, alignItems: "center", justifyContent: "center", borderRadius: radius.lg, backgroundColor: colors.accent },
-  primaryText: { color: colors.background, fontSize: 12.5, fontWeight: "900" },
+  primaryText: { color: colors.onAccent, fontSize: 12.5, fontWeight: "900" },
   secondary: { flex: 1, minHeight: 46, alignItems: "center", justifyContent: "center", borderRadius: radius.lg, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface },
   secondaryText: { color: colors.ink, fontSize: 12.5, fontWeight: "800" },
   pressed: { opacity: 0.72 },

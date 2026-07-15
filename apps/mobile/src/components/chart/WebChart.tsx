@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { WebView, type WebViewMessageEvent } from "react-native-webview";
 import * as FileSystem from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
@@ -51,13 +51,14 @@ const toTuples = (points: Point[]): [string, number][] => points.map((point) => 
  * silence au-delà d'une certaine taille sur iOS, ce qui gelait le chart
  * sur les périodes 1A/3A/5A/Tout.
  */
-function encodePayload(payload: WebChartPayload): string {
+function encodePayload(payload: WebChartPayload, theme: "dark" | "light"): string {
   const panes: Record<string, unknown> = {};
   if (payload.panes.rsi) panes.rsi = toTuples(payload.panes.rsi);
   if (payload.panes.macd) panes.macd = [toTuples(payload.panes.macd.macd), toTuples(payload.panes.macd.signal), toTuples(payload.panes.macd.histogram)];
   if (payload.panes.atr) panes.atr = toTuples(payload.panes.atr);
   if (payload.panes.stoch) panes.stoch = [toTuples(payload.panes.stoch.k), toTuples(payload.panes.stoch.d)];
   return JSON.stringify({
+    theme,
     ticker: payload.ticker,
     chartType: payload.chartType,
     bars: payload.bars.map((bar) => [String(bar.time), bar.open, bar.high, bar.low, bar.close, bar.volume]),
@@ -164,6 +165,7 @@ const BRIDGE = `
     if (compact.panes.atr) panes.atr = points(compact.panes.atr);
     if (compact.panes.stoch) panes.stoch = { k: points(compact.panes.stoch[0]), d: points(compact.panes.stoch[1]) };
     return {
+      theme: compact.theme,
       ticker: compact.ticker,
       chartType: compact.chartType,
       bars: compact.bars.map(function (b) {
@@ -198,6 +200,22 @@ const BRIDGE = `
 
   window.__render = function (payload) {
     try {
+      var dark = payload.theme !== "light";
+      var ink2 = dark ? "#d4d4d8" : "#475569";
+      var grid = dark ? "rgba(255,255,255,0.055)" : "rgba(15,23,42,0.07)";
+      var crosshair = dark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.14)";
+      var labelBackground = dark ? "#27272a" : "#334155";
+      document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      document.body.style.background = dark ? "#09090b" : "#ffffff";
+      if (legend) legend.style.color = ink2;
+      chart.applyOptions({
+        layout: { background: { type: LWC.ColorType.Solid, color: "transparent" }, textColor: ink2 },
+        grid: { vertLines: { color: grid }, horzLines: { color: grid } },
+        crosshair: {
+          vertLine: { color: crosshair, labelBackgroundColor: labelBackground },
+          horzLine: { color: crosshair, labelBackgroundColor: labelBackground },
+        },
+      });
       levelMode = !!payload.levelMode;
       tracked.forEach(function (series) { try { chart.removeSeries(series); } catch (e) {} });
       tracked = [];
@@ -339,7 +357,7 @@ const BRIDGE = `
       if (watermark) { try { watermark.detach(); } catch (e) {} }
       watermark = LWC.createTextWatermark(chart.panes()[0], {
         horzAlign: "center", vertAlign: "center",
-        lines: [{ text: payload.ticker, color: "rgba(255,255,255,0.045)", fontSize: 72, fontStyle: "bold" }],
+        lines: [{ text: payload.ticker, color: dark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.05)", fontSize: 72, fontStyle: "bold" }],
       });
 
       var dataKey = payload.ticker + "|" + payload.chartType + "|" + bars.length + "|" +
@@ -358,12 +376,13 @@ const BRIDGE = `
 })();
 `;
 
-function buildHtml(): string {
+function buildHtml(theme: "dark" | "light"): string {
+  const dark = theme === "dark";
   return [
     "<!doctype html><html><head>",
     '<meta charset="utf-8"/>',
     '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>',
-    "<style>html,body{margin:0;padding:0;background:#111113;overscroll-behavior:none}#c{position:absolute;inset:0}#legend{position:absolute;z-index:2;left:10px;right:10px;top:8px;overflow:hidden;text-overflow:ellipsis;color:#d4d4d8;font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none;white-space:nowrap}</style>",
+    `<style>html,body{margin:0;padding:0;background:${dark ? "#09090b" : "#ffffff"};overscroll-behavior:none}#c{position:absolute;inset:0}#legend{position:absolute;z-index:2;left:10px;right:10px;top:8px;overflow:hidden;text-overflow:ellipsis;color:${dark ? "#d4d4d8" : "#475569"};font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none;white-space:nowrap}</style>`,
     "</head><body><div id=\"legend\"></div><div id=\"c\"></div>",
     "<script>", LWC_RUNTIME, "</script>",
     "<script>", BRIDGE, "</script>",
@@ -381,6 +400,7 @@ export const WebChart = forwardRef<WebChartHandle, {
   height: number;
   onLevelTap?: (price: number) => void;
 }>(function WebChart({ payload, height, onLevelTap }, handleRef) {
+  const theme = (useColorScheme() ?? "dark") === "dark" ? "dark" : "light";
   const webRef = useRef<WebView>(null);
   const [bridgeError, setBridgeError] = useState<string | null>(null);
   const [engineReady, setEngineReady] = useState(false);
@@ -388,19 +408,19 @@ export const WebChart = forwardRef<WebChartHandle, {
     shoot: () => { webRef.current?.injectJavaScript("window.__shoot(); true;"); },
   }), []);
   const bootedRef = useRef(false);
-  const html = useMemo(buildHtml, []);
+  const html = useMemo(() => buildHtml(theme), [theme]);
 
   const send = useCallback((next: WebChartPayload) => {
     const web = webRef.current;
     if (!web) return;
-    const json = encodePayload(next);
+    const json = encodePayload(next, theme);
     const total = Math.max(1, Math.ceil(json.length / CHUNK_SIZE));
     const id = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
     for (let index = 0; index < total; index++) {
       const chunk = json.slice(index * CHUNK_SIZE, (index + 1) * CHUNK_SIZE);
       web.injectJavaScript(`window.__rx(${JSON.stringify(id)}, ${index}, ${total}, ${JSON.stringify(chunk)}); true;`);
     }
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     if (bootedRef.current) send(payload);
@@ -477,6 +497,6 @@ const styles = StyleSheet.create({
   error: {
     position: "absolute", left: 10, right: 10, bottom: 10,
     color: colors.warn, fontSize: 11, lineHeight: 15,
-    backgroundColor: "rgba(9,9,11,0.9)", borderRadius: radius.sm, padding: 8,
+    backgroundColor: colors.elevated, borderRadius: radius.sm, padding: 8,
   },
 });

@@ -107,7 +107,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Logo />
             <nav className="flex items-center gap-1.5 text-xs font-semibold sm:gap-2">
               <Link href="/pricing" className="hidden rounded-lg px-3 py-2 text-ink-2 hover:bg-surface-2 hover:text-ink sm:inline-flex">Tarifs</Link>
-              <Link href="/connexion" className="rounded-lg border border-line px-3 py-2 text-ink hover:border-accent/45">Connexion</Link>
+              <ThemeToggle />
+              <Link href="/connexion" className="hidden rounded-lg border border-line px-3 py-2 text-ink hover:border-accent/45 sm:inline-flex">Connexion</Link>
               <Link href="/inscription" className="rounded-lg bg-accent px-3 py-2 text-background shadow-lg shadow-accent/15 hover:brightness-110">Créer un compte</Link>
             </nav>
           </div>
@@ -186,7 +187,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Bell className="h-4 w-4" />
             <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-down" />
           </Link>
-          <div className="hidden md:block"><ThemeToggle /></div>
+          <ThemeToggle />
           <AccountControl />
         </div>
       </header>

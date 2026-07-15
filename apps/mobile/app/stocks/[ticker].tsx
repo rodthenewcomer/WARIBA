@@ -377,7 +377,7 @@ export default function StockScreen() {
         onPress={() => router.push(`/alerts?ticker=${ticker}`)}
         style={({ pressed }) => [styles.footerPrimary, pressed && { opacity: 0.75 }]}
       >
-        <Ionicons name="notifications-outline" size={16} color={colors.background} />
+        <Ionicons name="notifications-outline" size={16} color={colors.onAccent} />
         <Text style={styles.footerPrimaryText}>Créer une alerte</Text>
       </Pressable>
       <Pressable
@@ -415,12 +415,12 @@ const styles = StyleSheet.create({
     flex: 1, minHeight: 46, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 7,
     backgroundColor: colors.accent, borderRadius: radius.lg,
   },
-  footerPrimaryText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  footerPrimaryText: { color: colors.onAccent, fontSize: 14, fontWeight: "800" },
   footerSecondary: {
     flex: 1, minHeight: 46, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 7,
     backgroundColor: colors.surface2, borderColor: colors.lineStrong, borderWidth: 1, borderRadius: radius.lg,
   },
-  footerSecondaryActive: { borderColor: "rgba(226,166,61,0.5)", backgroundColor: colors.accentSoft },
+  footerSecondaryActive: { borderColor: "rgba(32,201,130,0.5)", backgroundColor: colors.accentSoft },
   footerSecondaryText: { color: colors.ink2, fontSize: 14, fontWeight: "700" },
   hero: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
   tabContent: { gap: 26 },
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
   yearBlock: { marginTop: 12, marginBottom: 12 },
   latestPublication: {
     marginBottom: 12, paddingHorizontal: 12, borderRadius: radius.lg,
-    backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.35)", borderWidth: 1,
+    backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.35)", borderWidth: 1,
   },
   infoChips: { flexDirection: "row", flexWrap: "wrap", gap: 7, marginTop: 9 },
   infoChip: {
@@ -469,7 +469,7 @@ const styles = StyleSheet.create({
   disclaimer: { ...type.caption, marginTop: 10 },
   beginnerBanner: {
     flexDirection: "row", alignItems: "center", gap: 10, padding: 13,
-    backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.35)", borderWidth: 1, borderRadius: radius.lg,
+    backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.35)", borderWidth: 1, borderRadius: radius.lg,
   },
   beginnerBannerText: { flex: 1, ...type.caption, color: colors.ink2, lineHeight: 16 },
   lexiqueRow: { paddingVertical: 11, gap: 4, borderBottomColor: colors.line, borderBottomWidth: 1 },

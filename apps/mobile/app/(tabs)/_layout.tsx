@@ -19,9 +19,9 @@ export default function TabLayout() {
     <Tabs screenOptions={({ route }) => ({
       headerShown: false,
       // Pas de hauteur fixe : la barre garde l'inset « home indicator » géré nativement.
-      tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.line, paddingTop: 6 },
+      tabBarStyle: { backgroundColor: colors.surface as string, borderTopColor: colors.line as string, paddingTop: 6 },
       tabBarActiveTintColor: colors.accent,
-      tabBarInactiveTintColor: colors.ink3,
+      tabBarInactiveTintColor: colors.ink3 as string,
       tabBarLabelStyle: { fontSize: 10.5, fontWeight: "600", letterSpacing: 0.1 },
       tabBarIcon: ({ color, focused }) => {
         const pair = ICONS[route.name] ?? ICONS.more;

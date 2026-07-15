@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import type { ChartType, IndicatorId } from "@wariba/core/types";
 import type { PortfolioTransaction } from "@wariba/core/portfolio";
 import { legacyStorageKey } from "@wariba/core/legacy";
+import type { ColorMode } from "../theme";
 
 const migratedAsyncStorage = {
   async getItem(name: string) {
@@ -184,6 +185,7 @@ export type ExperienceLevel = "debutant" | "intermediaire" | "avance";
 export const ONBOARDING_VERSION = 1;
 
 interface SettingsState {
+  colorMode: ColorMode;
   notifications: boolean;
   serverPushRegistered: boolean;
   emailNotifications: boolean;
@@ -191,6 +193,7 @@ interface SettingsState {
   dataSaver: boolean;
   experienceLevel: ExperienceLevel | null;
   onboardingVersion: number;
+  setColorMode: (value: ColorMode) => void;
   setNotifications: (value: boolean) => void;
   setServerPushRegistered: (value: boolean) => void;
   setEmailNotifications: (value: boolean) => void;
@@ -201,6 +204,7 @@ interface SettingsState {
 }
 export const useSettingsStore = create<SettingsState>()(persist(
   (set) => ({
+    colorMode: "system",
     notifications: false,
     serverPushRegistered: false,
     emailNotifications: false,
@@ -208,6 +212,7 @@ export const useSettingsStore = create<SettingsState>()(persist(
     dataSaver: false,
     experienceLevel: null,
     onboardingVersion: 0,
+    setColorMode: (colorMode) => set({ colorMode }),
     setNotifications: (notifications) => set({ notifications }),
     setServerPushRegistered: (serverPushRegistered) => set({ serverPushRegistered }),
     setEmailNotifications: (emailNotifications) => set({ emailNotifications }),

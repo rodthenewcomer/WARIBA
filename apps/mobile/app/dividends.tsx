@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9, paddingVertical: 4, borderRadius: radius.full,
     backgroundColor: colors.surface2, borderColor: colors.line, borderWidth: 1,
   },
-  badgeGold: { backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.4)" },
+  badgeGold: { backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.4)" },
   badgeText: { color: colors.ink2, fontSize: 10.5, fontWeight: "700", letterSpacing: 0.3 },
   badgeTextGold: { color: colors.gold },
   moreRow: { alignSelf: "center", marginTop: 12 },

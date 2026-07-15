@@ -199,7 +199,7 @@ export default function SettingsPage() {
       <Card>
         <CardHeader title="Affichage" />
         <CardBody className="space-y-3">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <span className="text-sm font-medium text-ink">Thème</span>
             {mounted ? (
               <div className="flex items-center gap-0.5 rounded-lg border border-line bg-surface-2/60 p-0.5" role="radiogroup" aria-label="Thème">
@@ -216,7 +216,7 @@ export default function SettingsPage() {
                     aria-checked={(theme ?? "dark") === value}
                     onClick={() => setTheme(value)}
                     className={cn(
-                      "inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium cursor-pointer transition-colors",
+                      "inline-flex h-11 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium cursor-pointer transition-colors sm:h-8",
                       (theme ?? "dark") === value
                         ? "bg-surface text-ink shadow-sm border border-line"
                         : "text-ink-3 hover:text-ink"
@@ -272,6 +272,7 @@ export default function SettingsPage() {
               ["F", "Plein écran"],
               ["L", "Échelle logarithmique"],
               ["V", "Afficher/masquer le volume"],
+              ["⇧ D", "Basculer clair / sombre"],
               ["Double-clic sur le graphique", "Recadrer sur l'historique visible"],
               ["⌘K / Ctrl K", "Ouvrir la recherche"],
             ] as const

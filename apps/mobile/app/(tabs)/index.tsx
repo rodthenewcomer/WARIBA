@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   accountActions: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12 },
   accountLink: { minHeight: 38, color: colors.ink, fontSize: 12, fontWeight: "800", textAlignVertical: "center" },
   accountPrimary: { minHeight: 38, alignItems: "center", justifyContent: "center", paddingHorizontal: 14, borderRadius: radius.md, backgroundColor: colors.accent },
-  accountPrimaryText: { color: colors.background, fontSize: 11.5, fontWeight: "900" },
+  accountPrimaryText: { color: colors.onAccent, fontSize: 11.5, fontWeight: "900" },
   hero: {
     padding: 16, gap: 10,
     backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.xl,

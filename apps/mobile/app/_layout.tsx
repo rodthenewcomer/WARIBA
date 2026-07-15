@@ -1,13 +1,13 @@
 import "react-native-gesture-handler";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Appearance, Pressable, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { Stack, useRouter, type ErrorBoundaryProps } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MarketDataProvider } from "../src/providers/MarketDataProvider";
-import { rehydrateStores } from "../src/stores";
+import { rehydrateStores, useSettingsStore } from "../src/stores";
 import { colors } from "../src/theme";
 import "../src/services/alerts";
 import { MobileAuthProvider } from "../src/providers/AuthProvider";
@@ -35,12 +35,14 @@ const errorStyles = StyleSheet.create({
   title: { color: colors.ink, fontSize: 17, fontWeight: "800", textAlign: "center" },
   detail: { color: colors.ink3, fontSize: 12, lineHeight: 17, textAlign: "center" },
   button: { minHeight: 44, paddingHorizontal: 22, alignItems: "center", justifyContent: "center", borderRadius: 12, backgroundColor: colors.accent, marginTop: 6 },
-  buttonText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  buttonText: { color: colors.onAccent, fontSize: 14, fontWeight: "800" },
   hint: { color: colors.ink3, fontSize: 11, lineHeight: 15, textAlign: "center", marginTop: 8, maxWidth: 280 },
 });
 
 export default function RootLayout() {
   const router = useRouter();
+  const colorMode = useSettingsStore((state) => state.colorMode);
+  const systemScheme = useColorScheme();
   const lastNotificationId = useRef<string | null>(null);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -49,6 +51,9 @@ export default function RootLayout() {
       void SplashScreen.hideAsync();
     });
   }, []);
+  useEffect(() => {
+    Appearance.setColorScheme(colorMode === "system" ? null : colorMode);
+  }, [colorMode]);
   useEffect(() => {
     const openNotification = (response: Notifications.NotificationResponse | null) => {
       if (!response || lastNotificationId.current === response.notification.request.identifier) return;
@@ -74,14 +79,14 @@ export default function RootLayout() {
       <MobileAuthProvider>
         <AppRuntime />
         <MarketDataProvider>
-          <StatusBar style="light" />
+          <StatusBar style={(systemScheme ?? "dark") === "dark" ? "light" : "dark"} />
           <Stack screenOptions={{
-          headerStyle: { backgroundColor: colors.background },
-          headerTintColor: colors.ink,
+          headerStyle: { backgroundColor: colors.background as string },
+          headerTintColor: colors.ink as string,
           headerTitleStyle: { fontSize: 15, fontWeight: "700" },
           headerShadowVisible: false,
           headerBackButtonDisplayMode: "minimal",
-          contentStyle: { backgroundColor: colors.background },
+          contentStyle: { backgroundColor: colors.background as string },
           animation: "slide_from_right",
         }}>
           <Stack.Screen name="index" options={{ headerShown: false }} />

@@ -3,14 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* WARIBA 2026 : porcelaine, encre végétale, signal jade. */
-  --background: #f3f7f5;
+  /* WARIBA 2026 : neutres francs, sans dominante verte. */
+  color-scheme: light;
+  --background: #f7f8fa;
   --surface: #ffffff;
-  --surface-2: #eaf2ee;
-  --line: rgba(6, 54, 37, 0.11);
-  --ink: #071a12;
-  --ink-2: #3c5c4f;
-  --ink-3: #627d71;
+  --surface-2: #eef1f4;
+  --line: rgba(15, 23, 42, 0.12);
+  --ink: #09090b;
+  --ink-2: #3f3f46;
+  --ink-3: #71717a;
   --accent: #08734c;
   --gold: #9b6b09;
   --warn: #c2410c;
@@ -19,13 +20,14 @@
 }
 
 .dark {
-  --background: #06110d;
-  --surface: #0a1812;
-  --surface-2: #10241a;
-  --line: rgba(190, 255, 219, 0.09);
-  --ink: #f3faf6;
-  --ink-2: #a5baaf;
-  --ink-3: #718b7e;
+  color-scheme: dark;
+  --background: #000000;
+  --surface: #09090b;
+  --surface-2: #18181b;
+  --line: rgba(255, 255, 255, 0.11);
+  --ink: #fafafa;
+  --ink-2: #d4d4d8;
+  --ink-3: #a1a1aa;
   --accent: #34d98f;
   --gold: #f4c96b;
   --warn: #fb923c;
@@ -63,6 +65,11 @@ body {
   background-color: var(--background);
   color: var(--ink);
   font-feature-settings: "cv02", "cv03";
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 32%, transparent);
+  color: var(--ink);
 }
 
 .num {

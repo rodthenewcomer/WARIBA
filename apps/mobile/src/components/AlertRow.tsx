@@ -8,7 +8,7 @@ const SEVERITY: Record<AlertItem["severity"], { color: string; soft: string; ico
   positive: { color: colors.up, soft: colors.upSoft, icon: "trending-up" },
   critical: { color: colors.down, soft: colors.downSoft, icon: "trending-down" },
   warning: { color: colors.warn, soft: "rgba(251,146,60,0.14)", icon: "alert-circle-outline" },
-  info: { color: colors.ink2, soft: colors.surface2, icon: "information-circle-outline" },
+  info: { color: colors.ink2 as string, soft: colors.surface2 as string, icon: "information-circle-outline" },
 };
 
 export function AlertRow({ alert, onPress }: { alert: AlertItem; onPress?: () => void }) {

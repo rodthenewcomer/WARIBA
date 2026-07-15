@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   eyebrow: { ...type.label, color: colors.accent }, title: { ...type.title, fontSize: 22 }, caption: { ...type.caption },
   notice: { ...type.sub, padding: 16, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line },
   primary: { minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: radius.md, backgroundColor: colors.accent, marginTop: 8 },
-  primaryText: { color: colors.background, fontWeight: "800" },
+  primaryText: { color: colors.onAccent, fontWeight: "800" },
   secondary: { minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: radius.md, borderWidth: 1, borderColor: colors.lineStrong },
   secondaryText: { color: colors.ink, fontWeight: "700" },
   group: { paddingHorizontal: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, borderRadius: radius.lg },

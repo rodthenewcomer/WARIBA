@@ -93,8 +93,8 @@ Objectif : 1,8 s de signature visuelle, jamais une attente ajoutée.
 
 **Séquence** (Reanimated 4, thread UI, après le splash natif statique) :
 
-1. **0 → 450 ms** — le W-signal jade se trace au centre sur fond
-   obsidienne `#06110d` avec Skia.
+1. **0 → 450 ms** — le W-signal jade se trace au centre sur fond noir
+   neutre `#000000` avec Skia.
 2. **420 → 780 ms** — le point-origine or apparaît au sommet du signal,
    avec un overshoot très court.
 3. **700 → 1200 ms** — le wordmark espacé « WARIBA » glisse en fondu ;
@@ -147,8 +147,9 @@ visite : bannière discrète « Nouveau sur la BRVM ? Visite guidée de
 
 ## 5. Création de compte & connexion — spécification visuelle
 
-Même langage des deux côtés : fond obsidienne `#06110d`, surfaces végétales
-`#0a1812` / `#10241a`, signal jade `#34d98f`, point or `#f4c96b`,
+Même langage des deux côtés : fond sombre noir `#000000`, surfaces graphite
+`#09090b` / `#18181b`, thème clair neutre `#f7f8fa` / `#ffffff`, signal jade
+`#20c982`, point or `#d8a72e`,
 vert/rouge marché et `tabular-nums` partout où un chiffre
 apparaît. L'écran d'auth doit ressembler à WARIBA, pas à un template.
 

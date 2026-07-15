@@ -194,7 +194,7 @@ export default function OnboardingScreen() {
 
           <View style={styles.authActions}>
             <Pressable accessibilityRole="button" onPress={() => finish("signup")} style={({ pressed }) => [styles.primary, pressed && styles.pressed]}>
-              <Text style={styles.primaryText}>Créer mon compte</Text><Ionicons name="arrow-forward" size={17} color={colors.background} />
+              <Text style={styles.primaryText}>Créer mon compte</Text><Ionicons name="arrow-forward" size={17} color={colors.onAccent} />
             </Pressable>
             <Pressable accessibilityRole="button" onPress={() => finish("login")} style={({ pressed }) => [styles.secondary, pressed && styles.pressed]}>
               <Text style={styles.secondaryText}>J&apos;ai déjà un compte · Se connecter</Text>
@@ -210,7 +210,7 @@ export default function OnboardingScreen() {
         </View>
         {page < pages - 1 ? (
           <Pressable accessibilityRole="button" accessibilityLabel="Écran suivant" onPress={next} style={({ pressed }) => [styles.next, pressed && styles.pressed]}>
-            <Text style={styles.nextText}>Continuer</Text><Ionicons name="arrow-forward" size={16} color={colors.background} />
+            <Text style={styles.nextText}>Continuer</Text><Ionicons name="arrow-forward" size={16} color={colors.onAccent} />
           </Pressable>
         ) : <Text style={styles.finalHint}>Compte optionnel</Text>}
       </View>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   pager: { flex: 1 },
   slide: { flex: 1, justifyContent: "center", paddingHorizontal: 24, gap: 28 },
   finalSlide: { gap: 18 },
-  visual: { minHeight: 272, padding: 18, borderRadius: 28, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: "rgba(10,24,18,0.92)" },
+  visual: { minHeight: 272, padding: 18, borderRadius: 28, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface },
   visualTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
   step: { color: colors.gold, fontSize: 11, fontWeight: "900", letterSpacing: 2 },
   iconRing: { width: 42, height: 42, alignItems: "center", justifyContent: "center", borderRadius: 21, backgroundColor: colors.accentSoft, borderWidth: 1, borderColor: "rgba(52,217,143,0.25)" },
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   levelDetail: { color: colors.ink3, fontSize: 11.5 },
   authActions: { gap: 9, marginTop: 2 },
   primary: { minHeight: 50, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 9, borderRadius: radius.lg, backgroundColor: colors.accent },
-  primaryText: { color: colors.background, fontSize: 14, fontWeight: "900" },
+  primaryText: { color: colors.onAccent, fontSize: 14, fontWeight: "900" },
   secondary: { minHeight: 48, alignItems: "center", justifyContent: "center", borderRadius: radius.lg, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface },
   secondaryText: { color: colors.ink, fontSize: 13, fontWeight: "800" },
   guest: { minHeight: 38, color: colors.ink2, fontSize: 12, fontWeight: "700", textAlign: "center", textAlignVertical: "center" },
@@ -278,6 +278,6 @@ const styles = StyleSheet.create({
   dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: colors.surface2 },
   dotActive: { width: 24, backgroundColor: colors.accent },
   next: { minHeight: 46, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, paddingHorizontal: 20, backgroundColor: colors.accent, borderRadius: radius.full },
-  nextText: { color: colors.background, fontSize: 13.5, fontWeight: "900" },
+  nextText: { color: colors.onAccent, fontSize: 13.5, fontWeight: "900" },
   finalHint: { ...type.caption, fontWeight: "600" },
 });

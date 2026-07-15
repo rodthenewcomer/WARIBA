@@ -279,5 +279,5 @@ const styles = StyleSheet.create({
   formError: { color: colors.down, fontSize: 12, lineHeight: 16 },
   submit: { height: 48, alignItems: "center", justifyContent: "center", borderRadius: radius.lg, backgroundColor: colors.accent },
   submitDisabled: { opacity: 0.45 },
-  submitText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  submitText: { color: colors.onAccent, fontSize: 14, fontWeight: "800" },
 });

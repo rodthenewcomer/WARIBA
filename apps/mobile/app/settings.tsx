@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Alert, Linking, StyleSheet, Switch, Text, View } from "react-native";
+import { Alert, Linking, Pressable, StyleSheet, Switch, Text, View, useColorScheme } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system/legacy";
@@ -9,7 +10,7 @@ import { ActionButton, Page, Row, Section } from "../src/components/ui";
 import { usePortfolioStore, usePriceAlertStore, useSettingsStore, useWatchlistStore, type ExperienceLevel } from "../src/stores";
 import { disableNotifications, enableNotifications } from "../src/services/alerts";
 import { parseBackupPayload } from "../src/lib/forms";
-import { colors, radius, type } from "../src/theme";
+import { colors, radius, type, type ColorMode } from "../src/theme";
 import { useMobileAuth } from "../src/providers/AuthProvider";
 
 /** Groupe de réglages façon iOS : lignes rassemblées dans une carte. */
@@ -29,7 +30,7 @@ function Setting({ label, detail, value, onChange, disabled = false }: { label: 
         value={value}
         onValueChange={onChange}
         disabled={disabled}
-        trackColor={{ false: colors.surface2, true: "rgba(226,166,61,0.45)" }}
+        trackColor={{ false: colors.surface2, true: "rgba(32,201,130,0.45)" }}
         thumbColor={value ? colors.accent : colors.ink3}
       />
     </View>
@@ -40,6 +41,12 @@ const LEVELS: { id: ExperienceLevel; label: string }[] = [
   { id: "debutant", label: "Débutant" },
   { id: "intermediaire", label: "Intermédiaire" },
   { id: "avance", label: "Avancé" },
+];
+
+const THEME_OPTIONS: { id: ColorMode; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
+  { id: "dark", label: "Sombre", icon: "moon-outline" },
+  { id: "light", label: "Clair", icon: "sunny-outline" },
+  { id: "system", label: "Système", icon: "phone-portrait-outline" },
 ];
 
 const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? process.env.EXPO_PUBLIC_API_URL ?? "https://wariba.app";
@@ -58,7 +65,10 @@ async function openTrustedUrl(path: string) {
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const activeScheme = useColorScheme() ?? "dark";
   const { session } = useMobileAuth();
+  const colorMode = useSettingsStore((state) => state.colorMode);
+  const setColorMode = useSettingsStore((state) => state.setColorMode);
   const notifications = useSettingsStore((state) => state.notifications);
   const emailNotifications = useSettingsStore((state) => state.emailNotifications);
   const setEmailNotifications = useSettingsStore((state) => state.setEmailNotifications);
@@ -176,9 +186,39 @@ export default function SettingsScreen() {
         </View>
         <View style={styles.identityCopy}>
           <Text style={styles.identityName}>WARIBA</Text>
-          <Text style={styles.identityVersion}>Version {version} · mode sombre permanent</Text>
+          <Text style={styles.identityVersion}>Version {version} · thème {activeScheme === "dark" ? "sombre" : "clair"}</Text>
         </View>
       </View>
+
+      <Section title="Apparence" detail="Clair, noir ou selon l'appareil">
+        <Group>
+          <View accessibilityRole="radiogroup" style={styles.themeSelector}>
+            {THEME_OPTIONS.map((option) => {
+              const selected = colorMode === option.id;
+              return (
+                <Pressable
+                  key={option.id}
+                  accessibilityRole="radio"
+                  accessibilityLabel={`Thème ${option.label}`}
+                  accessibilityState={{ selected }}
+                  onPress={() => setColorMode(option.id)}
+                  style={({ pressed }) => [
+                    styles.themeOption,
+                    selected && styles.themeOptionSelected,
+                    pressed && styles.themeOptionPressed,
+                  ]}
+                >
+                  <Ionicons name={option.icon} size={17} color={selected ? colors.onAccent : colors.ink2} />
+                  <Text style={[styles.themeOptionText, selected && styles.themeOptionTextSelected]}>{option.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={styles.themeHint}>
+            Le mode sombre utilise un noir neutre. Le mode système suit immédiatement iOS ou Android.
+          </Text>
+        </Group>
+      </Section>
 
       <Section title="Compte">
         <Group>
@@ -297,7 +337,7 @@ const styles = StyleSheet.create({
   },
   monogram: {
     width: 52, height: 52, alignItems: "center", justifyContent: "center",
-    backgroundColor: colors.accentSoft, borderColor: "rgba(226,166,61,0.35)", borderWidth: 1, borderRadius: 14,
+    backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.35)", borderWidth: 1, borderRadius: 14,
   },
   monogramText: { color: colors.accent, fontSize: 24, fontWeight: "800" },
   identityCopy: { flex: 1 },
@@ -308,6 +348,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14, paddingVertical: 2,
     backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,
   },
+  themeSelector: { flexDirection: "row", gap: 6, paddingTop: 12 },
+  themeOption: {
+    flex: 1, minHeight: 48, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6,
+    borderRadius: radius.md, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface2,
+  },
+  themeOptionSelected: { borderColor: colors.accent, backgroundColor: colors.accent },
+  themeOptionPressed: { opacity: 0.72 },
+  themeOptionText: { color: colors.ink2, fontSize: 11.5, fontWeight: "700" },
+  themeOptionTextSelected: { color: colors.onAccent },
+  themeHint: { ...type.caption, paddingTop: 8, paddingBottom: 12 },
   setting: { minHeight: 62, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 10 },
   settingCopy: { flex: 1 },
   settingLabel: { ...type.body },

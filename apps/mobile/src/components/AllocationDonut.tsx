@@ -10,7 +10,7 @@ export interface DonutSlice {
 }
 
 /** Palette catégorielle du donut — accent d'abord, teintes distinctes ensuite. */
-const SLICE_COLORS = [colors.accent, colors.up, colors.violet, "#38bdf8", colors.warn, "#ec4899", colors.ink3];
+const SLICE_COLORS = [colors.accent, colors.up, colors.violet, "#38bdf8", colors.warn, "#ec4899", "#71717A"];
 
 /**
  * Donut d'allocation en Skia pur (arcs statiques, aucun geste) : chaque

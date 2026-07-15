@@ -163,7 +163,7 @@ export function AuthScreen({ mode }: { mode: Mode }) {
           <Field label="E-mail" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" autoComplete="email" editable={mode !== "verify"} />
           {mode === "verify" ? <Field label="Code à 6 chiffres" value={code} onChangeText={(value) => setCode(value.replace(/\D/g, "").slice(0, 6))} keyboardType="number-pad" autoComplete="one-time-code" maxLength={6} /> : <Field label="Mot de passe" value={password} onChangeText={setPassword} secureTextEntry autoComplete={mode === "signup" ? "new-password" : "current-password"} />}
           {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
-          <Pressable accessibilityRole="button" accessibilityLabel={title} disabled={pending || !configured} onPress={() => void submit()} style={({ pressed }) => [styles.primary, (pending || !configured) && styles.disabled, pressed && styles.pressed]}>{pending ? <ActivityIndicator color={colors.background} /> : <Text style={styles.primaryText}>{mode === "verify" ? "Vérifier le code" : mode === "signup" ? "Créer mon espace" : "Se connecter"}</Text>}</Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={title} disabled={pending || !configured} onPress={() => void submit()} style={({ pressed }) => [styles.primary, (pending || !configured) && styles.disabled, pressed && styles.pressed]}>{pending ? <ActivityIndicator color={colors.onAccent} /> : <Text style={styles.primaryText}>{mode === "verify" ? "Vérifier le code" : mode === "signup" ? "Créer mon espace" : "Se connecter"}</Text>}</Pressable>
           </View>
         </View>
         <Pressable accessibilityRole="link" onPress={() => router.replace(mode === "signup" ? "/(auth)/sign-in" : "/(auth)/sign-up")}><Text style={styles.link}>{mode === "signup" ? "Déjà un compte ? Se connecter" : "Nouveau ? Créer un espace"}</Text></Pressable>
@@ -194,14 +194,14 @@ const styles = StyleSheet.create({
   socialButton: { minHeight: 46, alignItems: "center", justifyContent: "center", borderRadius: 10, backgroundColor: colors.surface2, borderWidth: 1, borderColor: colors.lineStrong },
   socialText: { color: colors.ink, fontSize: 14, fontWeight: "700" },
   separator: { ...type.caption, textAlign: "center", marginVertical: 4 },
-  formCard: { marginTop: 18, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: "rgba(10,24,18,0.94)" },
+  formCard: { marginTop: 18, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
   form: { gap: 14 },
   field: { gap: 6 },
   label: { color: colors.ink2, fontSize: 12, fontWeight: "700" },
   input: { minHeight: 50, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface2, color: colors.ink, paddingHorizontal: 14, fontSize: 15 },
   error: { ...type.caption, color: colors.down },
   primary: { minHeight: 50, alignItems: "center", justifyContent: "center", borderRadius: radius.lg, backgroundColor: colors.accent },
-  primaryText: { color: colors.background, fontSize: 14, fontWeight: "800" },
+  primaryText: { color: colors.onAccent, fontSize: 14, fontWeight: "800" },
   disabled: { opacity: 0.45 }, pressed: { opacity: 0.7 },
   link: { color: colors.accent, textAlign: "center", fontSize: 13, fontWeight: "700", marginTop: 20, minHeight: 44, textAlignVertical: "center" },
   guest: { color: colors.ink2, textAlign: "center", fontSize: 13, fontWeight: "700", minHeight: 44, textAlignVertical: "center" },
