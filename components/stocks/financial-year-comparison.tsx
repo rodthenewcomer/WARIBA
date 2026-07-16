@@ -1,0 +1,91 @@
+import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
+import { millions, pct } from "@wariba/core/format";
+import { cn } from "@wariba/core/utils";
+import type { RealFundamentals } from "@/lib/real-fundamentals";
+
+interface MetricPair {
+  id: string;
+  label: string;
+  current: number;
+  previous: number;
+}
+
+function comparisonPairs(fundamental: RealFundamentals): MetricPair[] {
+  const candidates: { id: string; label: string; current: number | null; previous: number | null }[] = [
+    { id: "revenue", label: fundamental.revenueLabel, current: fundamental.revenueM, previous: fundamental.revenuePrevM },
+    { id: "net", label: "Résultat net", current: fundamental.netIncomeM, previous: fundamental.netIncomePrevM },
+    { id: "ordinary", label: "Résultat ordinaire", current: fundamental.ordinaryIncomeM, previous: fundamental.ordinaryIncomePrevM },
+    { id: "equity", label: "Capitaux propres", current: fundamental.equityM, previous: fundamental.equityPrevM },
+    { id: "deposits", label: "Dépôts clientèle", current: fundamental.depositsM, previous: fundamental.depositsPrevM },
+    { id: "loans", label: "Crédits clientèle", current: fundamental.loansM, previous: fundamental.loansPrevM },
+  ];
+  return candidates.filter(
+    (pair): pair is MetricPair => pair.current !== null && pair.previous !== null && pair.previous !== 0,
+  );
+}
+
+function ComparisonCard({ pair, year }: { pair: MetricPair; year: number }) {
+  const growth = ((pair.current - pair.previous) / Math.abs(pair.previous)) * 100;
+  const max = Math.max(Math.abs(pair.current), Math.abs(pair.previous), 1);
+  const previousWidth = Math.max(5, (Math.abs(pair.previous) / max) * 100);
+  const currentWidth = Math.max(5, (Math.abs(pair.current) / max) * 100);
+  const Icon = growth > 0 ? ArrowUpRight : growth < 0 ? ArrowDownRight : Minus;
+
+  return (
+    <article
+      className="rounded-xl border border-line bg-surface/70 p-4"
+      role="img"
+      aria-label={`${pair.label} : ${millions(pair.previous)} en ${year - 1}, ${millions(pair.current)} en ${year}, évolution ${pct(growth, { digits: 1 })}`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h3 className="text-xs font-bold text-ink">{pair.label}</h3>
+          <p className="mt-0.5 text-[10px] text-ink-3">Exercices publiés, millions FCFA</p>
+        </div>
+        <span className={cn(
+          "num inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-extrabold",
+          growth > 0 ? "bg-up/10 text-up" : growth < 0 ? "bg-down/10 text-down" : "bg-surface-2 text-ink-3",
+        )}>
+          <Icon className="h-3 w-3" /> {pct(growth, { digits: 1 })}
+        </span>
+      </div>
+
+      <div className="mt-4 space-y-3">
+        <div className="grid grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-2">
+          <span className="num text-[10px] font-semibold text-ink-3">{year - 1}</span>
+          <span className="h-2 overflow-hidden rounded-full bg-surface-2">
+            <span className="block h-full rounded-full bg-ink-3/35" style={{ width: `${previousWidth}%` }} />
+          </span>
+          <span className="num min-w-24 text-right text-[11px] font-semibold text-ink-2">{millions(pair.previous)}</span>
+        </div>
+        <div className="grid grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-2">
+          <span className="num text-[10px] font-bold text-accent">{year}</span>
+          <span className="h-2 overflow-hidden rounded-full bg-surface-2">
+            <span className={cn("block h-full rounded-full", pair.current < 0 ? "bg-down" : "bg-accent")} style={{ width: `${currentWidth}%` }} />
+          </span>
+          <span className={cn("num min-w-24 text-right text-[11px] font-bold", pair.current < 0 ? "text-down" : "text-ink")}>{millions(pair.current)}</span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function FinancialYearComparison({ fundamental }: { fundamental: RealFundamentals }) {
+  const pairs = comparisonPairs(fundamental);
+  if (!pairs.length) return null;
+
+  return (
+    <section className="mt-4 rounded-2xl border border-line bg-surface-2/30 p-4 sm:p-5" aria-labelledby="year-comparison-title">
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <h2 id="year-comparison-title" className="text-sm font-bold text-ink">Comparaison {fundamental.fiscalYear - 1} / {fundamental.fiscalYear}</h2>
+          <p className="mt-1 text-xs text-ink-3">Longueur des barres relative aux deux exercices · variation calculée sur la valeur publiée N-1.</p>
+        </div>
+        <span className="rounded-full border border-line bg-surface px-2.5 py-1 text-[10px] font-semibold text-ink-3">N-1 vs N</span>
+      </div>
+      <div className="grid gap-3 md:grid-cols-2">
+        {pairs.map((pair) => <ComparisonCard key={pair.id} pair={pair} year={fundamental.fiscalYear} />)}
+      </div>
+    </section>
+  );
+}

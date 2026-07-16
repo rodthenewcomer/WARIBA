@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { cn } from "@wariba/core/utils";
 import { Bell, FileText, Sparkles } from "lucide-react";
@@ -27,6 +27,7 @@ import { AIInsightCard } from "./ai-insight-card";
 import { PriceChange, ScoreBadge, SignalBadges } from "./badges";
 import { DividendPanel } from "./dividend-panel";
 import { MetricCard } from "./metric-card";
+import { FinancialYearComparison } from "./financial-year-comparison";
 import { SectorComparison } from "./sector-comparison";
 import { DividendHistory } from "./dividend-history";
 import { RiskStats } from "./risk-stats";
@@ -35,7 +36,6 @@ import { Landmark } from "lucide-react";
 import { WatchlistButton } from "./watchlist-button";
 import { PriceAlertDialog } from "./price-alert-dialog";
 import { usePriceAlerts } from "@/hooks/use-price-alerts";
-import { useState } from "react";
 
 const STOCK_TABS = [
   { id: "graphique", label: "Graphique" },
@@ -330,6 +330,9 @@ export function StockView({ ticker }: { ticker: string }) {
                 </Badge>
               </a>
             ) : null}
+            <p className="mb-2 text-[11px] text-ink-3">
+              Survolez ou touchez <span className="font-semibold text-accent">ⓘ</span> pour comprendre chaque métrique et sa formule.
+            </p>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
               <MetricCard label="PER" term="per" value={real.per ? ratio(real.per) : "—"} />
               <MetricCard
@@ -355,6 +358,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   />
                   <MetricCard
                     label={`BPA ${realFund.fiscalYear}`}
+                    term="bpa"
                     value={fcfa((realFund.netIncomeM * 1e6) / realFund.sharesOutstanding)}
                     hint="Bénéfice net par action"
                   />
@@ -382,6 +386,7 @@ export function StockView({ ticker }: { ticker: string }) {
                 <>
                   <MetricCard
                     label={`${realFund.revenueLabel} ${realFund.fiscalYear}`}
+                    term={realFund.revenueLabel === "PNB" ? "pnb" : "chiffre-affaires"}
                     value={millions(realFund.revenueM)}
                     hint={(() => {
                       const g = growthPct(realFund.revenueM, realFund.revenuePrevM);
@@ -390,6 +395,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   />
                   <MetricCard
                     label={`Résultat net ${realFund.fiscalYear}`}
+                    term="resultat-net"
                     value={millions(realFund.netIncomeM)}
                     hint={(() => {
                       const g = growthPct(realFund.netIncomeM, realFund.netIncomePrevM);
@@ -428,6 +434,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   {realFund.depositsM !== null ? (
                     <MetricCard
                       label="Dépôts clientèle"
+                      term="depots-clientele"
                       value={millions(realFund.depositsM)}
                       hint={(() => {
                         const g = growthPct(realFund.depositsM, realFund.depositsPrevM);
@@ -438,6 +445,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   {realFund.loansM !== null ? (
                     <MetricCard
                       label="Crédits clientèle"
+                      term="credits-clientele"
                       value={millions(realFund.loansM)}
                       hint={
                         realFund.depositsM
@@ -449,6 +457,7 @@ export function StockView({ ticker }: { ticker: string }) {
                   {realFund.proposedGrossDividend !== null ? (
                     <MetricCard
                       label="Dividende brut proposé"
+                      term="dividende-propose"
                       value={fcfa(realFund.proposedGrossDividend)}
                       hint={`Au titre de ${realFund.fiscalYear}, soumis à l'AG`}
                     />
@@ -457,6 +466,8 @@ export function StockView({ ticker }: { ticker: string }) {
               ) : null}
             </div>
             {realFund ? (
+              <>
+              <FinancialYearComparison fundamental={realFund} />
               <p className="mt-2.5 text-[11px] text-ink-3">
                 États financiers exercice {realFund.fiscalYear} publiés le{" "}
                 {dateFr(realFund.publishedOn)} —{" "}
@@ -477,6 +488,7 @@ export function StockView({ ticker }: { ticker: string }) {
                     ? " ROE calculé sur les capitaux propres vérifiés au document ; capitalisation, BPA et P/B attendent un nombre d'actions confirmé par deux sources concordantes."
                     : " Capitalisation, BPA, P/B et ROE restent indisponibles : nombre d'actions non confirmé par deux sources et capitaux propres absents ou non lisibles dans la publication liée."}
               </p>
+              </>
             ) : (
               <p className="mt-2.5 text-[11px] text-ink-3">
                 Capitalisation, P/B, ROE, résultat net et payout ne sont pas
@@ -490,6 +502,7 @@ export function StockView({ ticker }: { ticker: string }) {
             <MetricCard label="Capitalisation" term="capitalisation" value={compactFcfa(stock.marketCap)} />
             <MetricCard
               label="PER"
+              term="per"
               value={stock.per > 0 ? ratio(stock.per) : "—"}
               hint={sectorStats ? `Secteur : ${ratio(sectorStats.avgPer)}` : undefined}
             />
@@ -497,6 +510,7 @@ export function StockView({ ticker }: { ticker: string }) {
             <MetricCard label="ROE" term="roe" value={pct(f.roe, { signed: false, digits: 1 })} />
             <MetricCard
               label="Rendement net"
+              term="rendement-net"
               value={pct(stock.yieldNet, { signed: false, digits: 2 })}
               tone={stock.yieldNet >= 6 ? "up" : undefined}
             />
@@ -508,23 +522,27 @@ export function StockView({ ticker }: { ticker: string }) {
             />
             <MetricCard
               label={`${f.revenueLabel} ${f.revenueLabel === "PNB" ? "" : "annuel"}`}
+              term={f.revenueLabel === "PNB" ? "pnb" : "chiffre-affaires"}
               value={millions(f.revenue)}
               hint={`${pct(stock.revenueGrowth, { digits: 1 })} vs N-1`}
             />
             <MetricCard
               label="Résultat net"
+              term="resultat-net"
               value={millions(f.netIncome)}
               hint={`${pct(stock.netIncomeGrowth, { digits: 1 })} vs N-1`}
               tone={f.ordinaryIncome < 0 ? "warn" : undefined}
             />
             <MetricCard
               label="Résultat ordinaire"
+              term="resultat-ordinaire"
               value={millions(f.ordinaryIncome)}
               tone={f.ordinaryIncome < 0 ? "down" : undefined}
               hint={f.ordinaryIncome < 0 ? "Cœur d'activité déficitaire" : undefined}
             />
             <MetricCard
               label="Vol. moyen 30 j"
+              term="vol-moyen"
               value={compactVolume(stock.avgVolume30d)}
               hint={`Aujourd'hui : ${stock.volumeRatio.toFixed(1)}×`}
             />

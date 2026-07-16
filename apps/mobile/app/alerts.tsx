@@ -11,7 +11,6 @@ import { disableNotifications, enableNotifications, evaluatePriceAlerts } from "
 import { parseAmount } from "../src/lib/forms";
 import { colors, radius, tabular, type } from "../src/theme";
 import { useMobileAuth } from "../src/providers/AuthProvider";
-import { uploadMobileData } from "../src/services/cloud-sync";
 import { trackMobileEvent } from "../src/services/analytics";
 import { openTrustedExternalUrl } from "../src/lib/external-links";
 import { prioritizeCriticalAlerts } from "@wariba/core/alerts";
@@ -60,7 +59,7 @@ function RuleRow({ rule, onRemove, onRearm }: { rule: PriceAlertRule; onRemove: 
 
 export default function AlertsScreen() {
   const router = useRouter();
-  const { session } = useMobileAuth();
+  const { session, syncNow } = useMobileAuth();
   const market = useMarketData();
   const params = useLocalSearchParams<{ ticker?: string }>();
   const rules = usePriceAlertStore((state) => state.rules);
@@ -86,10 +85,6 @@ export default function AlertsScreen() {
     () => prioritizeCriticalAlerts(market.alerts),
     [market.alerts]
   );
-
-  const syncNow = async () => {
-    if (session?.access_token) await uploadMobileData(session.access_token);
-  };
 
   const submit = async () => {
     if (!quote || parsedTarget === null) {

@@ -25,6 +25,7 @@ export default function MoreScreen() {
         </View>
       ) : null}
       <Section title="Suivi">
+        <Row icon="wallet-outline" title="Portefeuille" detail="Positions, performance et revenu estimé" onPress={() => router.push("/portfolio")} />
         <Row icon="funnel-outline" title="Screener" detail="Filtres, tris et recherches enregistrées" onPress={() => router.push("/screener")} />
         <Row icon="notifications-outline" title="Alertes" detail="Alertes factuelles et seuils de prix locaux" onPress={() => router.push("/alerts")} />
         <Row icon="cash-outline" title="Dividendes" detail="Saisonnalité et journal des versements nets" onPress={() => router.push("/dividends")} />
@@ -34,7 +35,6 @@ export default function MoreScreen() {
         <Row icon="rocket-outline" title="IPO & opérations" detail="Avis réels et pédagogie clairement séparés" onPress={() => router.push("/ipo")} />
       </Section>
       <Section title="Information">
-        <Row icon="newspaper-outline" title="Actualités" detail="Articles sourcés liés aux valeurs de la cote" onPress={() => router.push("/news")} />
         <Row icon="document-text-outline" title="Documents" detail="Publications officielles BRVM" onPress={() => router.push("/documents")} />
       </Section>
       <Section title="Application">

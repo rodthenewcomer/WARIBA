@@ -22,6 +22,10 @@ WARIBA is the only product name on customer-facing surfaces, metadata and
 documentation. Persisted namespaces are now WARIBA-native; compatibility
 with older local exports is handled without exposing the former brand.
 
+- Actualités is a first-level destination on every navigation, with a lead story, search, listed-company/regional filters, original-source links and ticker deep links.
+- Dividends now separates verified last-paid net yields, historical seasonality and the factual payment journal on web, iOS and Android.
+- Every stock fundamental now exposes its definition/formula, and all verified N/N-1 fields are presented in a visual comparison block rather than only as small percentage text.
+
 - Visual thesis: obsidian market intelligence with a luminous jade W-signal
   and a restrained gold origin point.
 - Web: new favicon/PWA/Apple assets, metadata, manifest, wordmark and explicit
@@ -44,7 +48,7 @@ The previous discoverability failure is fixed:
    top of the Plus screen.
 4. Dedicated web and native sign-in/sign-up/OTP routes call Supabase Auth;
    guest market access remains available.
-5. Signed-in users can explicitly upload/download local data, manage billing
+5. Signed-in users get automatic, non-destructive cross-device reconciliation with a manual retry, manage billing
    and delete the account.
 
 ## 22-role current readout

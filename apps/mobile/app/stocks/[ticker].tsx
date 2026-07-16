@@ -281,37 +281,40 @@ export default function StockScreen() {
               />
             </View>
           ) : null}
+          <Text style={styles.metricHelp}>Touchez une carte marquée ⓘ pour afficher sa définition et sa formule.</Text>
           <View style={styles.metrics}>
-            <Metric label="PER" value={quote.per !== null ? ratio(quote.per) : "—"} />
-            <Metric label="Rendement net" value={quote.netYieldPct !== null ? pct(quote.netYieldPct, { signed: false, digits: 2 }) : "—"} tone={quote.netYieldPct !== null && quote.netYieldPct >= 6 ? "up" : "default"} />
-            <Metric label="Vol. moyen 30 j" value={compactVolume(quote.avgVolume30d)} />
-            <Metric label="Dernier dividende net" value={quote.lastDividendNet !== null ? fcfa(quote.lastDividendNet) : "—"} detail={quote.lastDividendDate ? `Payé le ${dateFr(quote.lastDividendDate)}` : undefined} />
+            <Metric label="PER" value={quote.per !== null ? ratio(quote.per) : "—"} explanation={GLOSSARY.per.def} />
+            <Metric label="Rendement net" value={quote.netYieldPct !== null ? pct(quote.netYieldPct, { signed: false, digits: 2 }) : "—"} tone={quote.netYieldPct !== null && quote.netYieldPct >= 6 ? "up" : "default"} explanation={GLOSSARY["rendement-net"].def} />
+            <Metric label="Vol. moyen 30 j" value={compactVolume(quote.avgVolume30d)} explanation={GLOSSARY["vol-moyen"].def} />
+            <Metric label="Dernier dividende net" value={quote.lastDividendNet !== null ? fcfa(quote.lastDividendNet) : "—"} detail={quote.lastDividendDate ? `Payé le ${dateFr(quote.lastDividendDate)}` : undefined} explanation={GLOSSARY["dividende-net"].def} />
             {fundamental?.sharesOutstanding ? <>
-              <Metric label="Capitalisation" value={compactFcfa(fundamental.sharesOutstanding * quote.lastClose)} detail={`${(fundamental.sharesOutstanding / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} M d'actions`} />
-              {bpa !== null ? <Metric label={`BPA ${fundamental.fiscalYear}`} value={fcfa(bpa)} detail="Bénéfice net par action" /> : null}
-              {fundamental.equityM ? <Metric label="P/B" value={ratio(quote.lastClose / ((fundamental.equityM * 1e6) / fundamental.sharesOutstanding))} /> : null}
+              <Metric label="Capitalisation" value={compactFcfa(fundamental.sharesOutstanding * quote.lastClose)} detail={`${(fundamental.sharesOutstanding / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} M d'actions`} explanation={GLOSSARY.capitalisation.def} />
+              {bpa !== null ? <Metric label={`BPA ${fundamental.fiscalYear}`} value={fcfa(bpa)} detail="Bénéfice net par action" explanation={GLOSSARY.bpa.def} /> : null}
+              {fundamental.equityM ? <Metric label="P/B" value={ratio(quote.lastClose / ((fundamental.equityM * 1e6) / fundamental.sharesOutstanding))} explanation={GLOSSARY.pb.def} /> : null}
             </> : null}
-            {fundamental?.equityM ? <Metric label={`ROE ${fundamental.fiscalYear}`} value={pct((fundamental.netIncomeM / fundamental.equityM) * 100, { signed: false, digits: 1 })} /> : null}
+            {fundamental?.equityM ? <Metric label={`ROE ${fundamental.fiscalYear}`} value={pct((fundamental.netIncomeM / fundamental.equityM) * 100, { signed: false, digits: 1 })} explanation={GLOSSARY.roe.def} /> : null}
             {fundamental ? <>
               <Metric label={`${fundamental.revenueLabel} ${fundamental.fiscalYear}`} value={millions(fundamental.revenueM)} detail={(() => {
                 const growth = growthPct(fundamental.revenueM, fundamental.revenuePrevM);
                 return growth !== null ? `${pct(growth, { digits: 1 })} vs ${fundamental.fiscalYear - 1}` : undefined;
-              })()} />
+              })()} explanation={GLOSSARY[fundamental.revenueLabel === "PNB" ? "pnb" : "chiffre-affaires"].def} />
               <Metric label={`Résultat net ${fundamental.fiscalYear}`} value={millions(fundamental.netIncomeM)} tone={fundamental.netIncomeM >= 0 ? "up" : "down"} detail={(() => {
                 const growth = growthPct(fundamental.netIncomeM, fundamental.netIncomePrevM);
                 return growth !== null ? `${pct(growth, { digits: 1 })} vs ${fundamental.fiscalYear - 1}` : undefined;
-              })()} />
-              <Metric label="Marge nette" value={pct((fundamental.netIncomeM / fundamental.revenueM) * 100, { signed: false, digits: 1 })} />
-              {fundamental.ordinaryIncomeM !== null ? <Metric label="Résultat ordinaire" value={millions(fundamental.ordinaryIncomeM)} tone={fundamental.ordinaryIncomeM < 0 ? "down" : "default"} /> : null}
-              {fundamental.cirPct !== null ? <Metric label="Coefficient d'exploitation" value={pct(fundamental.cirPct, { signed: false, digits: 1 })} detail={fundamental.cirPrevPct !== null ? `${pct(fundamental.cirPrevPct, { signed: false, digits: 1 })} en ${fundamental.fiscalYear - 1}` : undefined} /> : null}
-              {fundamental.costOfRiskM !== null ? <Metric label="Coût du risque" value={millions(fundamental.costOfRiskM)} detail={fundamental.costOfRiskM < 0 ? "Négatif = reprise nette" : undefined} /> : null}
-              {fundamental.depositsM !== null ? <Metric label="Dépôts clientèle" value={millions(fundamental.depositsM)} detail="L'argent que les clients confient" /> : null}
-              {fundamental.loansM !== null ? <Metric label="Crédits clientèle" value={millions(fundamental.loansM)} detail={fundamental.depositsM ? `${pct((fundamental.loansM / fundamental.depositsM) * 100, { signed: false, digits: 0 })} des dépôts prêtés` : undefined} /> : null}
-              {fundamental.proposedGrossDividend !== null ? <Metric label="Dividende brut proposé" value={fcfa(fundamental.proposedGrossDividend)} tone="accent" detail={`Au titre de ${fundamental.fiscalYear}, soumis à l'AG`} /> : null}
+              })()} explanation={GLOSSARY["resultat-net"].def} />
+              <Metric label="Marge nette" value={pct((fundamental.netIncomeM / fundamental.revenueM) * 100, { signed: false, digits: 1 })} explanation={GLOSSARY["marge-nette"].def} />
+              {fundamental.ordinaryIncomeM !== null ? <Metric label="Résultat ordinaire" value={millions(fundamental.ordinaryIncomeM)} tone={fundamental.ordinaryIncomeM < 0 ? "down" : "default"} explanation={GLOSSARY["resultat-ordinaire"].def} /> : null}
+              {fundamental.cirPct !== null ? <Metric label="Coefficient d'exploitation" value={pct(fundamental.cirPct, { signed: false, digits: 1 })} detail={fundamental.cirPrevPct !== null ? `${pct(fundamental.cirPrevPct, { signed: false, digits: 1 })} en ${fundamental.fiscalYear - 1}` : undefined} explanation={GLOSSARY.cir.def} /> : null}
+              {fundamental.costOfRiskM !== null ? <Metric label="Coût du risque" value={millions(fundamental.costOfRiskM)} detail={fundamental.costOfRiskM < 0 ? "Négatif = reprise nette" : undefined} explanation={GLOSSARY["cout-du-risque"].def} /> : null}
+              {fundamental.depositsM !== null ? <Metric label="Dépôts clientèle" value={millions(fundamental.depositsM)} detail="L'argent que les clients confient" explanation={GLOSSARY["depots-clientele"].def} /> : null}
+              {fundamental.loansM !== null ? <Metric label="Crédits clientèle" value={millions(fundamental.loansM)} detail={fundamental.depositsM ? `${pct((fundamental.loansM / fundamental.depositsM) * 100, { signed: false, digits: 0 })} des dépôts prêtés` : undefined} explanation={GLOSSARY["credits-clientele"].def} /> : null}
+              {fundamental.proposedGrossDividend !== null ? <Metric label="Dividende brut proposé" value={fcfa(fundamental.proposedGrossDividend)} tone="accent" detail={`Au titre de ${fundamental.fiscalYear}, soumis à l'AG`} explanation={GLOSSARY["dividende-propose"].def} /> : null}
             </> : null}
           </View>
           {fundamental ? <>
             <View style={styles.yearBlock}>
+              <Text style={styles.yearComparisonTitle}>Comparaison {fundamental.fiscalYear - 1} / {fundamental.fiscalYear}</Text>
+              <Text style={styles.yearComparisonDetail}>Sélectionnez une métrique pour comparer les montants publiés et leur variation.</Text>
               <YearComparison fundamental={fundamental} />
             </View>
             <Row icon="open-outline" title="Document source BRVM" detail="États financiers officiels dont sont issus ces chiffres" onPress={() => void openTrustedExternalUrl(fundamental.source)} />
@@ -430,6 +433,8 @@ const styles = StyleSheet.create({
   heroStatLabel: { ...type.label, fontSize: 9 },
   heroStatValue: { color: colors.ink2, fontSize: 11, fontWeight: "600", fontVariant: tabular },
   yearBlock: { marginTop: 12, marginBottom: 12 },
+  yearComparisonTitle: { ...type.title, fontSize: 14, marginBottom: 3 },
+  yearComparisonDetail: { ...type.caption, marginBottom: 10 },
   latestPublication: {
     marginBottom: 12, paddingHorizontal: 12, borderRadius: radius.lg,
     backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.35)", borderWidth: 1,
@@ -448,6 +453,7 @@ const styles = StyleSheet.create({
   price: { color: colors.ink, fontSize: 30, fontWeight: "800", letterSpacing: -0.6, fontVariant: tabular },
   asOf: { ...type.caption },
   metrics: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  metricHelp: { ...type.caption, color: colors.ink2, marginBottom: 8 },
   factCard: {
     padding: 14, gap: 10, marginBottom: 10,
     backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,

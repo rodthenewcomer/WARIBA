@@ -29,6 +29,10 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     label: "Capitalisation",
     def: "Cours × nombre d'actions en circulation : la valeur boursière totale de la société.",
   },
+  bpa: {
+    label: "BPA",
+    def: "Bénéfice par action : résultat net de l'exercice divisé par le nombre d'actions en circulation. Il indique la part du bénéfice comptable générée pour une action, pas le dividende versé.",
+  },
   pb: {
     label: "P/B",
     def: "Price-to-Book : le cours rapporté aux capitaux propres par action. Sous 1, la bourse valorise la société sous ses fonds propres comptables.",
@@ -40,6 +44,14 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   "marge-nette": {
     label: "Marge nette",
     def: "Résultat net divisé par le chiffre d'affaires : ce qui reste en bénéfice sur 100 FCFA de ventes.",
+  },
+  "chiffre-affaires": {
+    label: "Chiffre d'affaires",
+    def: "Total des ventes réalisées pendant l'exercice, avant les charges. La variation vs N-1 montre la croissance ou le recul de l'activité, sans dire à elle seule si elle est rentable.",
+  },
+  "resultat-net": {
+    label: "Résultat net",
+    def: "Bénéfice ou perte restant après charges d'exploitation, résultat financier, éléments exceptionnels et impôts. Positif ne signifie pas automatiquement qu'il sera distribué en dividende.",
   },
   "resultat-ordinaire": {
     label: "Résultat ordinaire",
@@ -56,6 +68,18 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   "cout-du-risque": {
     label: "Coût du risque",
     def: "Provisions nettes passées sur les crédits douteux. Une valeur négative = les reprises dépassent les dotations (bonne nouvelle).",
+  },
+  "depots-clientele": {
+    label: "Dépôts clientèle",
+    def: "Argent confié à la banque par ses clients. C'est une ressource majeure pour financer les crédits, mais aussi une dette de la banque envers ses déposants.",
+  },
+  "credits-clientele": {
+    label: "Crédits clientèle",
+    def: "Montant des prêts accordés aux clients. Leur progression peut soutenir les revenus, mais doit être lue avec le coût du risque et la qualité du portefeuille.",
+  },
+  "dividende-propose": {
+    label: "Dividende brut proposé",
+    def: "Montant par action proposé par le conseil au titre de l'exercice. Il reste soumis au vote de l'assemblée générale et diffère du montant net après impôt réellement versé.",
   },
   "vol-moyen": {
     label: "Volume moyen 30 j",

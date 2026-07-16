@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { dateFr, fcfa } from "@wariba/core/format";
-import { ActionButton, EmptyState, Page, Row, Section } from "../src/components/ui";
+import { ActionButton, EmptyState, Metric, Page, Row, Section } from "../src/components/ui";
 import { useMarketData } from "../src/providers/MarketDataProvider";
 import { allDividendEvents, dividendsByMonth, isRecurring } from "../src/lib/dividend-calendar";
 import { colors, radius, tabular, type } from "../src/theme";
@@ -18,9 +18,25 @@ export default function DividendsScreen() {
   const [journalLimit, setJournalLimit] = useState(40);
   const byMonth = useMemo(() => dividendsByMonth(market.dividends), [market.dividends]);
   const events = useMemo(() => allDividendEvents(market.dividends), [market.dividends]);
+  const yieldLeaders = useMemo(() => Object.values(market.quotes)
+    .filter((quote) => (
+      quote.netYieldPct != null
+      && quote.netYieldPct > 0
+      && quote.netYieldPct <= 25
+      && quote.lastDividendNet != null
+      && quote.lastDividendDate != null
+    ))
+    .sort((a, b) => (b.netYieldPct ?? 0) - (a.netYieldPct ?? 0))
+    .slice(0, 6), [market.quotes]);
 
   const currentMonth = new Date().getMonth() + 1;
   const upNext = Array.from({ length: 3 }, (_, index) => ((currentMonth - 1 + index) % 12) + 1);
+  const dividendCompanies = new Set(events.map((event) => event.ticker)).size;
+  const recurringCompanies = new Set(
+    Object.values(byMonth).flat().filter(isRecurring).map((entry) => entry.ticker),
+  ).size;
+  const currentMonthRecurring = byMonth[currentMonth].filter(isRecurring).length;
+  const latestPayment = events[0];
 
   if (!events.length) {
     return (
@@ -32,12 +48,46 @@ export default function DividendsScreen() {
 
   return (
     <Page subtitle="Saisonnalité réelle : les mois où chaque société a versé par le passé. Récurrence ≠ garantie — chaque montant vient du dernier versement réel, pas d'une prévision.">
-      <Section title="Les 3 prochains mois" detail="Sociétés récurrentes (≥ 2 années)">
+      <Section title="Repères vérifiés" detail="Historique BRVM">
+        <View style={styles.metrics}>
+          <Metric label="Sociétés payeuses" value={String(dividendCompanies)} detail="au moins 1 versement" />
+          <Metric label="Récurrentes" value={String(recurringCompanies)} detail="même mois ≥ 2 ans" />
+          <Metric label={`Historique ${MONTH_NAMES[currentMonth - 1]}`} value={String(currentMonthRecurring)} detail="sociétés récurrentes" />
+          <Metric
+            label="Dernier paiement"
+            value={latestPayment ? latestPayment.ticker : "—"}
+            detail={latestPayment ? `${dateFr(latestPayment.date)} · ${fcfa(latestPayment.net)}` : "aucun paiement"}
+            tone="accent"
+          />
+        </View>
+      </Section>
+
+      {yieldLeaders.length ? (
+        <Section title="Rendements nets observés" detail="Dernier payé ÷ dernier cours">
+          <View style={styles.yieldIntro}>
+            <Text style={styles.yieldIntroText}>Ce classement varie avec le cours. Les ratios atypiques supérieurs à 25 % restent sur leur fiche mais sont exclus ici pour contrôle d'une éventuelle opération exceptionnelle.</Text>
+          </View>
+          {yieldLeaders.map((quote, index) => (
+            <Row
+              key={quote.ticker}
+              icon="trending-up-outline"
+              title={`${String(index + 1).padStart(2, "0")}  ${quote.ticker} · ${quote.name}`}
+              detail={`${fcfa(quote.lastDividendNet ?? 0)} net · payé le ${dateFr(quote.lastDividendDate ?? "")}`}
+              value={`${(quote.netYieldPct ?? 0).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`}
+              valueDetail="observé"
+              onPress={() => router.push(`/stocks/${quote.ticker}`)}
+            />
+          ))}
+        </Section>
+      ) : null}
+
+      <Section title="Fenêtre saisonnière" detail="3 mois · historique récurrent">
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.monthCards}>
           {upNext.map((month) => {
             const entries = byMonth[month].filter(isRecurring);
             return (
-              <View key={month} style={styles.monthCard}>
+              <View key={month} style={[styles.monthCard, month === currentMonth && styles.currentMonthCard]}>
+                {month === currentMonth ? <Text style={styles.currentLabel}>MOIS COURANT</Text> : null}
                 <Text style={styles.monthTitle}>{MONTH_NAMES[month - 1]}</Text>
                 <Text style={styles.monthDetail}>
                   {entries.length ? `${entries.length} société${entries.length > 1 ? "s" : ""} récurrente${entries.length > 1 ? "s" : ""}` : "Aucun historique récurrent"}
@@ -109,11 +159,16 @@ export default function DividendsScreen() {
 }
 
 const styles = StyleSheet.create({
+  metrics: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  yieldIntro: { marginBottom: 4, padding: 11, borderRadius: radius.lg, backgroundColor: colors.accentSoft },
+  yieldIntroText: { ...type.caption, color: colors.ink2, lineHeight: 17 },
   monthCards: { gap: 12 },
   monthCard: {
     width: 216, padding: 14, gap: 7,
     backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.xl,
   },
+  currentMonthCard: { borderColor: "rgba(32,201,130,0.45)" },
+  currentLabel: { ...type.label, color: colors.accent },
   monthTitle: { ...type.title, fontSize: 15 },
   monthDetail: { ...type.caption },
   monthRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8, paddingVertical: 3 },

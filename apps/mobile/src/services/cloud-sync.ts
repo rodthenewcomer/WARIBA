@@ -1,5 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { CloudSyncPayload } from "@wariba/core/sync";
+import { EMPTY_CLOUD_SYNC, isTicker } from "@wariba/core/sync";
 import { cloudSyncSchema } from "@wariba/core/sync-schema";
+import { cloudSyncPayloadEqual, reconcileCloudSync } from "@wariba/core/sync-reconcile";
+import type { ChartType, IndicatorId } from "@wariba/core/types";
 import {
   useChartLevelStore,
   useChartStore,
@@ -9,6 +13,21 @@ import {
   useSettingsStore,
   useWatchlistStore,
 } from "../stores";
+
+const LEDGER_PREFIX = "wariba-cloud-sync-ledger-v1";
+const OWNER_KEY = "wariba-cloud-sync-owner-v1";
+let applyingCloudPayload = false;
+const CHART_TYPES = new Set<ChartType>(["candlestick", "line", "area", "baseline", "bars", "heikin-ashi"]);
+const INDICATORS = new Set<IndicatorId>(["sma20", "sma50", "sma100", "sma200", "ema20", "vwap", "bollinger", "rsi", "macd", "atr", "stoch"]);
+const MOBILE_SCOPE = {
+  watchlistIds: ["default"],
+  manageWatchlistActive: false,
+  preferenceKeys: ["chart", "chart_levels", "settings"] as ("chart" | "chart_levels" | "settings")[],
+  preferencePatchKeys: {
+    chart: ["type", "indicators", "logarithmic", "percentMode"],
+    settings: ["notifications", "dataSaver", "experienceLevel"],
+  },
+};
 
 function apiUrl(): string {
   const value = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, "");
@@ -64,43 +83,149 @@ async function requestCloud(token: string, init?: RequestInit): Promise<CloudSyn
     ...init,
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, ...init?.headers },
   });
-  const body = await response.json();
-  if (!response.ok) throw new Error(body.error ?? "Synchronisation impossible");
+  const body = await response.json().catch(() => null) as { error?: string } | null;
+  if (!response.ok) throw new Error(body?.error ?? "Synchronisation impossible");
   const parsed = cloudSyncSchema.safeParse(body);
   if (!parsed.success) throw new Error("Réponse de synchronisation invalide");
   return parsed.data as CloudSyncPayload;
 }
 
-export async function uploadMobileData(token: string): Promise<void> {
-  await requestCloud(token, { method: "PUT", headers: { "X-Sync-Mode": "replace" }, body: JSON.stringify(buildMobileCloudPayload()) });
+function ledgerKey(userId: string): string {
+  return `${LEDGER_PREFIX}:${userId}`;
 }
 
-export async function downloadMobileData(token: string): Promise<void> {
-  const payload = await requestCloud(token);
-  const active = payload.watchlists.find((item) => item.isActive && !item.deletedAt)
-    ?? payload.watchlists.find((item) => !item.deletedAt);
-  useWatchlistStore.getState().replaceAll(active?.tickers ?? []);
-  usePortfolioStore.getState().replaceAll(payload.transactions.filter((item) => !item.deletedAt));
-  usePriceAlertStore.getState().replaceAll(payload.alerts.filter((item) => !item.deletedAt).map((item) => ({
-    id: item.id,
-    ticker: item.ticker,
-    direction: item.direction,
-    target: item.target,
-    enabled: item.enabled,
-    ...(item.triggeredAt ? { triggeredAt: item.triggeredAt } : {}),
-    channels: item.channels,
-  })));
-  useScreenerStore.setState({ saved: payload.savedFilters.filter((item) => !item.deletedAt).map((item) => ({
-    id: item.id,
-    label: item.name,
-    query: item.filters.query ?? "",
-    sector: item.filters.sector ?? "Tous",
-    sort: item.filters.sort === "rendement" || item.filters.sort === "per" || item.filters.sort === "liquidite" ? item.filters.sort : "variation",
-  })) });
-  for (const preference of payload.preferences) {
-    if (!preference.value || typeof preference.value !== "object" || Array.isArray(preference.value)) continue;
-    if (preference.key === "chart") useChartStore.setState(preference.value);
-    if (preference.key === "chart_levels") useChartLevelStore.setState({ byTicker: preference.value as Record<string, number[]> });
-    if (preference.key === "settings") useSettingsStore.setState(preference.value);
+async function readLedger(userId: string): Promise<CloudSyncPayload | null> {
+  try {
+    const raw = await AsyncStorage.getItem(ledgerKey(userId));
+    if (!raw) return null;
+    const parsed = cloudSyncSchema.safeParse(JSON.parse(raw));
+    return parsed.success ? parsed.data as CloudSyncPayload : null;
+  } catch {
+    return null;
   }
+}
+
+function validLevels(value: unknown): Record<string, number[]> {
+  if (!value || Array.isArray(value) || typeof value !== "object") return {};
+  return Object.fromEntries(Object.entries(value as Record<string, unknown>)
+    .filter(([ticker, levels]) => isTicker(ticker) && Array.isArray(levels))
+    .map(([ticker, levels]) => [ticker, (levels as unknown[])
+      .filter((level): level is number => typeof level === "number" && Number.isFinite(level) && level > 0)
+      .slice(0, 100)]));
+}
+
+export function applyMobileCloudPayload(payload: CloudSyncPayload): void {
+  applyingCloudPayload = true;
+  try {
+    const defaultList = payload.watchlists.find((item) => item.id === "default" && !item.deletedAt)
+      ?? payload.watchlists.find((item) => item.isActive && !item.deletedAt)
+      ?? payload.watchlists.find((item) => !item.deletedAt);
+    useWatchlistStore.getState().replaceAll(defaultList?.tickers ?? []);
+    usePortfolioStore.getState().replaceAll(payload.transactions.filter((item) => !item.deletedAt));
+    usePriceAlertStore.getState().replaceAll(payload.alerts.filter((item) => !item.deletedAt).map((item) => ({
+      id: item.id,
+      ticker: item.ticker,
+      direction: item.direction,
+      target: item.target,
+      enabled: item.enabled,
+      ...(item.triggeredAt ? { triggeredAt: item.triggeredAt } : {}),
+      channels: item.channels,
+    })));
+    useScreenerStore.setState({ saved: payload.savedFilters.filter((item) => !item.deletedAt).map((item) => ({
+      id: item.id,
+      label: item.name,
+      query: item.filters.query ?? "",
+      sector: item.filters.sector ?? "Tous",
+      sort: item.filters.sort === "rendement" || item.filters.sort === "per" || item.filters.sort === "liquidite" ? item.filters.sort : "variation",
+    })) });
+
+    for (const preference of payload.preferences) {
+      if (!preference.value || typeof preference.value !== "object" || Array.isArray(preference.value)) continue;
+      const value = preference.value as Record<string, unknown>;
+      if (preference.key === "chart") {
+        const patch: Partial<ReturnType<typeof useChartStore.getState>> = {};
+        if (typeof value.type === "string" && CHART_TYPES.has(value.type as ChartType)) patch.type = value.type as ChartType;
+        if (Array.isArray(value.indicators)) patch.indicators = value.indicators.filter((item): item is IndicatorId => typeof item === "string" && INDICATORS.has(item as IndicatorId));
+        if (typeof value.logarithmic === "boolean") patch.logarithmic = value.logarithmic;
+        if (typeof value.percentMode === "boolean") patch.percentMode = value.percentMode;
+        useChartStore.setState(patch);
+      } else if (preference.key === "chart_levels") {
+        useChartLevelStore.setState({ byTicker: validLevels(value) });
+      } else if (preference.key === "settings") {
+        const patch: Partial<ReturnType<typeof useSettingsStore.getState>> = {};
+        if (typeof value.notifications === "boolean") patch.notifications = value.notifications;
+        if (typeof value.dataSaver === "boolean") patch.dataSaver = value.dataSaver;
+        if (value.experienceLevel === null || value.experienceLevel === "debutant" || value.experienceLevel === "intermediaire" || value.experienceLevel === "avance") {
+          patch.experienceLevel = value.experienceLevel;
+        }
+        useSettingsStore.setState(patch);
+      }
+    }
+  } finally {
+    applyingCloudPayload = false;
+  }
+}
+
+export function subscribeMobileCloudChanges(onChange: () => void): () => void {
+  const stores = [
+    useWatchlistStore,
+    usePortfolioStore,
+    usePriceAlertStore,
+    useChartStore,
+    useChartLevelStore,
+    useScreenerStore,
+    useSettingsStore,
+  ];
+  const unsubscribers = stores.map((store) => store.subscribe(() => {
+    if (!applyingCloudPayload) onChange();
+  }));
+  return () => unsubscribers.forEach((unsubscribe) => unsubscribe());
+}
+
+export async function syncMobileData(token: string, userId: string): Promise<CloudSyncPayload> {
+  const [remote, previous, localOwner] = await Promise.all([
+    requestCloud(token),
+    readLedger(userId),
+    AsyncStorage.getItem(OWNER_KEY),
+  ]);
+  if (localOwner && localOwner !== userId) {
+    applyMobileCloudPayload(remote);
+    await AsyncStorage.multiSet([
+      [ledgerKey(userId), JSON.stringify(remote)],
+      [OWNER_KEY, userId],
+    ]);
+    return remote;
+  }
+  const baseline = previous ?? EMPTY_CLOUD_SYNC;
+  const reconciled = reconcileCloudSync(buildMobileCloudPayload(), remote, {
+    now: new Date().toISOString(),
+    previous: baseline,
+    scope: MOBILE_SCOPE,
+  });
+  const canonical = cloudSyncPayloadEqual(reconciled, remote)
+    ? remote
+    : await requestCloud(token, { method: "PUT", body: JSON.stringify(reconciled) });
+  // Preserve an edit made while the network request was in flight. It remains
+  // pending locally and the provider's queued pass sends it immediately after.
+  const localProjection = reconcileCloudSync(buildMobileCloudPayload(), canonical, {
+    now: new Date().toISOString(),
+    previous: baseline,
+    scope: MOBILE_SCOPE,
+  });
+  applyMobileCloudPayload(localProjection);
+  await AsyncStorage.multiSet([
+    [ledgerKey(userId), JSON.stringify(canonical)],
+    [OWNER_KEY, userId],
+  ]);
+  return canonical;
+}
+
+/** Compatibility wrapper: uploads now reconcile both sides without replacement. */
+export async function uploadMobileData(token: string, userId: string): Promise<void> {
+  await syncMobileData(token, userId);
+}
+
+/** Compatibility wrapper: downloads now retain unsynced local changes. */
+export async function downloadMobileData(token: string, userId: string): Promise<void> {
+  await syncMobileData(token, userId);
 }

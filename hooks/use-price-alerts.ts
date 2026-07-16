@@ -12,11 +12,14 @@ export interface PriceAlert {
   /** Seuil en FCFA */
   threshold: number;
   createdAt: string;
+  enabled: boolean;
+  triggeredAt?: string;
   channels?: ("in_app" | "push" | "email")[];
 }
 
 /** Une alerte est déclenchée quand le dernier cours officiel franchit le seuil. */
 export function isTriggered(alert: PriceAlert, lastClose: number): boolean {
+  if (!alert.enabled) return false;
   return alert.direction === "above"
     ? lastClose >= alert.threshold
     : lastClose <= alert.threshold;
@@ -24,7 +27,7 @@ export function isTriggered(alert: PriceAlert, lastClose: number): boolean {
 
 interface PriceAlertsState {
   alerts: PriceAlert[];
-  add: (a: Omit<PriceAlert, "id" | "createdAt">) => void;
+  add: (a: Omit<PriceAlert, "id" | "createdAt" | "enabled"> & { enabled?: boolean }) => void;
   remove: (id: string) => void;
   clear: () => void;
 }
@@ -39,6 +42,7 @@ export const usePriceAlerts = create<PriceAlertsState>()(
             ...state.alerts,
             {
               ...a,
+              enabled: a.enabled ?? true,
               id: `pa-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
               createdAt: new Date().toISOString().slice(0, 10),
             },

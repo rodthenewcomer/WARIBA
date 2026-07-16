@@ -7,34 +7,47 @@ import { consumeRateLimit } from "@/lib/server/request-security";
 
 export const dynamic = "force-dynamic";
 const MAX_SYNC_BYTES = 2_000_000;
+const PAGE_SIZE = 1_000;
 
 function assertNoError(error: { message: string } | null): void {
   if (error) throw new Error(error.message);
 }
 
+async function readAll<T>(
+  loadPage: (from: number, to: number) => Promise<{ data: T[] | null; error: { message: string } | null }>,
+): Promise<T[]> {
+  const rows: T[] = [];
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await loadPage(from, from + PAGE_SIZE - 1);
+    assertNoError(error);
+    const page = data ?? [];
+    rows.push(...page);
+    if (page.length < PAGE_SIZE) return rows;
+  }
+}
+
 async function readCloudState(client: SupabaseClient, userId: string): Promise<CloudSyncPayload> {
   const [watchlists, items, transactions, alerts, savedFilters, preferences] = await Promise.all([
-    client.from("watchlists").select("id,name,is_active,updated_at,deleted_at").eq("user_id", userId),
-    client.from("watchlist_items").select("watchlist_id,ticker,deleted_at").eq("user_id", userId),
-    client.from("portfolio_transactions").select("id,ticker,side,trade_date,quantity,price,fees,updated_at,deleted_at").eq("user_id", userId),
-    client.from("price_alerts").select("id,ticker,direction,target,enabled,triggered_at,channels,updated_at,deleted_at").eq("user_id", userId),
-    client.from("saved_filters").select("id,name,filters,updated_at,deleted_at").eq("user_id", userId),
-    client.from("user_preferences").select("key,value,updated_at").eq("user_id", userId),
+    readAll(async (from, to) => client.from("watchlists").select("id,name,is_active,updated_at,deleted_at").eq("user_id", userId).order("id").range(from, to)),
+    readAll(async (from, to) => client.from("watchlist_items").select("watchlist_id,ticker,deleted_at").eq("user_id", userId).order("watchlist_id").order("ticker").range(from, to)),
+    readAll(async (from, to) => client.from("portfolio_transactions").select("id,ticker,side,trade_date,quantity,price,fees,updated_at,deleted_at").eq("user_id", userId).order("id").range(from, to)),
+    readAll(async (from, to) => client.from("price_alerts").select("id,ticker,direction,target,enabled,triggered_at,channels,updated_at,deleted_at").eq("user_id", userId).order("id").range(from, to)),
+    readAll(async (from, to) => client.from("saved_filters").select("id,name,filters,updated_at,deleted_at").eq("user_id", userId).order("id").range(from, to)),
+    readAll(async (from, to) => client.from("user_preferences").select("key,value,updated_at").eq("user_id", userId).order("key").range(from, to)),
   ]);
-  [watchlists, items, transactions, alerts, savedFilters, preferences].forEach(({ error }) => assertNoError(error));
 
   return {
-    watchlists: (watchlists.data ?? []).map((list) => ({
+    watchlists: watchlists.map((list) => ({
       id: list.id,
       name: list.name,
       isActive: list.is_active,
-      tickers: (items.data ?? [])
+      tickers: items
         .filter((item) => item.watchlist_id === list.id && !item.deleted_at)
         .map((item) => item.ticker),
       updatedAt: list.updated_at,
       ...(list.deleted_at ? { deletedAt: list.deleted_at } : {}),
     })),
-    transactions: (transactions.data ?? []).map((item) => ({
+    transactions: transactions.map((item) => ({
       id: item.id,
       ticker: item.ticker,
       side: item.side,
@@ -45,7 +58,7 @@ async function readCloudState(client: SupabaseClient, userId: string): Promise<C
       updatedAt: item.updated_at,
       ...(item.deleted_at ? { deletedAt: item.deleted_at } : {}),
     })),
-    alerts: (alerts.data ?? []).map((item) => ({
+    alerts: alerts.map((item) => ({
       id: item.id,
       ticker: item.ticker,
       direction: item.direction,
@@ -56,14 +69,14 @@ async function readCloudState(client: SupabaseClient, userId: string): Promise<C
       ...(item.triggered_at ? { triggeredAt: item.triggered_at } : {}),
       ...(item.deleted_at ? { deletedAt: item.deleted_at } : {}),
     })),
-    savedFilters: (savedFilters.data ?? []).map((item) => ({
+    savedFilters: savedFilters.map((item) => ({
       id: item.id,
       name: item.name,
       filters: item.filters,
       updatedAt: item.updated_at,
       ...(item.deleted_at ? { deletedAt: item.deleted_at } : {}),
     })),
-    preferences: (preferences.data ?? []).map((item) => ({
+    preferences: preferences.map((item) => ({
       key: item.key,
       value: item.value,
       updatedAt: item.updated_at,
@@ -96,40 +109,6 @@ async function enforcePlanLimits(client: SupabaseClient, userId: string, payload
   return null;
 }
 
-async function tombstoneMissing(
-  client: SupabaseClient,
-  table: "watchlists" | "portfolio_transactions" | "price_alerts" | "saved_filters",
-  userId: string,
-  incomingIds: Set<string>,
-  knownIds?: string[]
-) {
-  const currentIds = knownIds ?? [];
-  if (!knownIds) {
-    for (let from = 0; ; from += 1_000) {
-      const { data, error } = await client
-        .from(table)
-        .select("id")
-        .eq("user_id", userId)
-        .is("deleted_at", null)
-        .range(from, from + 999);
-      assertNoError(error);
-      const page = (data ?? []).map((item) => item.id as string);
-      currentIds.push(...page);
-      if (page.length < 1_000) break;
-    }
-  }
-  const missing = currentIds.filter((id) => !incomingIds.has(id));
-  const deletedAt = new Date().toISOString();
-  for (let index = 0; index < missing.length; index += 100) {
-    const { error } = await client
-      .from(table)
-      .update({ deleted_at: deletedAt, updated_at: deletedAt })
-      .eq("user_id", userId)
-      .in("id", missing.slice(index, index + 100));
-    assertNoError(error);
-  }
-}
-
 export async function GET(request: Request) {
   try {
     const { client, user } = await requireApiUser(request);
@@ -149,6 +128,12 @@ export async function PUT(request: Request) {
     const { client, user } = await requireApiUser(request);
     if (!await consumeRateLimit("sync-write", user.id, 12, 60)) {
       return NextResponse.json({ error: "Trop de synchronisations" }, { status: 429, headers: { "Retry-After": "60" } });
+    }
+    if (request.headers.get("x-sync-mode") === "replace") {
+      return NextResponse.json(
+        { error: "Cette ancienne synchronisation destructive est désactivée. Mettez WARIBA à jour puis réessayez." },
+        { status: 409 },
+      );
     }
     const declaredLength = Number(request.headers.get("content-length") ?? 0);
     if (Number.isFinite(declaredLength) && declaredLength > MAX_SYNC_BYTES) {
@@ -175,20 +160,11 @@ export async function PUT(request: Request) {
     const limitResponse = await enforcePlanLimits(client, user.id, payload);
     if (limitResponse) return limitResponse;
 
-    const { data: currentLists, error: listReadError } = await client
-      .from("watchlists")
-      .select("id,updated_at")
-      .eq("user_id", user.id);
-    assertNoError(listReadError);
-    if (request.headers.get("x-sync-mode") === "replace") {
-      await Promise.all([
-        tombstoneMissing(client, "watchlists", user.id, new Set(payload.watchlists.map((item) => item.id)), (currentLists ?? []).map((item) => item.id)),
-        tombstoneMissing(client, "portfolio_transactions", user.id, new Set(payload.transactions.map((item) => item.id))),
-        tombstoneMissing(client, "price_alerts", user.id, new Set(payload.alerts.map((item) => item.id))),
-        tombstoneMissing(client, "saved_filters", user.id, new Set(payload.savedFilters.map((item) => item.id))),
-      ]);
-    }
-    const currentById = new Map((currentLists ?? []).map((item) => [item.id, item.updated_at]));
+    const [currentLists, currentItems] = await Promise.all([
+      readAll(async (from, to) => client.from("watchlists").select("id,updated_at").eq("user_id", user.id).order("id").range(from, to)),
+      readAll(async (from, to) => client.from("watchlist_items").select("watchlist_id,ticker,updated_at,deleted_at").eq("user_id", user.id).order("watchlist_id").order("ticker").range(from, to)),
+    ]);
+    const currentById = new Map(currentLists.map((item) => [item.id, item.updated_at]));
     const acceptedLists = payload.watchlists.filter((item) => {
       const current = currentById.get(item.id);
       return !current || Date.parse(item.updatedAt) >= Date.parse(current);
@@ -209,22 +185,31 @@ export async function PUT(request: Request) {
       assertNoError(error);
 
       for (const list of acceptedLists) {
-        const { error: deleteError } = await client
-          .from("watchlist_items")
-          .delete()
-          .eq("user_id", user.id)
-          .eq("watchlist_id", list.id);
-        assertNoError(deleteError);
         if (!list.deletedAt && list.tickers.length) {
-          const { error: insertError } = await client.from("watchlist_items").insert(
+          const { error: insertError } = await client.from("watchlist_items").upsert(
             list.tickers.map((ticker) => ({
               user_id: user.id,
               watchlist_id: list.id,
               ticker,
               updated_at: list.updatedAt,
-            }))
+              deleted_at: null,
+            })),
+            { onConflict: "user_id,watchlist_id,ticker" },
           );
           assertNoError(insertError);
+        }
+        const desired = new Set(list.deletedAt ? [] : list.tickers);
+        const missing = currentItems
+          .filter((item) => item.watchlist_id === list.id && !item.deleted_at && !desired.has(item.ticker))
+          .map((item) => item.ticker);
+        if (missing.length) {
+          const { error: tombstoneError } = await client
+            .from("watchlist_items")
+            .update({ deleted_at: list.updatedAt, updated_at: list.updatedAt })
+            .eq("user_id", user.id)
+            .eq("watchlist_id", list.id)
+            .in("ticker", missing);
+          assertNoError(tombstoneError);
         }
       }
     }

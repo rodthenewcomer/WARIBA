@@ -63,14 +63,19 @@ price_alerts, saved_filters, user_preferences, device_push_tokens,
 subscriptions, entitlements, billing_webhook_events
 ```
 
-- **Stratégie de synchro : last-write-wins par enregistrement**
-  (`updated_at` client, horloge serveur en arbitre). Les stores Zustand
-  actuels restent la source locale ; un module `packages/core/sync.ts`
-  (pur, testé) calcule le diff push/pull. Pas de temps réel au début :
-  synchro à l'ouverture, au retour au premier plan et après chaque écriture.
-- **Migration au premier login** : écran « Retrouver vos données » qui
-  propose d'envoyer les données locales vers le compte (opt-in explicite,
-  jamais automatique — principe 2).
+- **Stratégie de synchro : réconciliation à trois voies par enregistrement.**
+  Les stores restent la source locale et un ledger conserve le dernier état
+  canonique. `packages/core/sync-reconcile.ts` fusionne ajouts, suppressions et
+  changements concurrents ; la synchro part à la connexion, au retour au
+  premier plan et après chaque écriture (debounce + limite de fréquence).
+  Les préférences partagées web/mobile sont fusionnées par champ et l'ancien
+  mode serveur `replace` est rejeté pour éviter les pertes silencieuses. Les
+  ledgers sont séparés par identifiant utilisateur ; un changement de compte
+  restaure d'abord son cloud au lieu de transférer les données du compte précédent.
+- **Migration au premier login** : la première réconciliation préfère les
+  enregistrements cloud lorsqu'un même identifiant existe déjà, puis ajoute
+  les données locales uniques. Le compte reste optionnel ; l'automatisation
+  ne démarre qu'après authentification.
 - **Suppression de compte dans l'app** (obligatoire App Store 5.1.1(v)) :
   Réglages > Compte > Supprimer — purge serveur + retour au mode local.
 
@@ -192,7 +197,7 @@ mobile ; écran Plus ; Réglages > Compte. L'invite reste refusable.
 | B | ✅ Migration Supabase, contraintes, RLS, entitlements et validation partagée | Implémentée ; application staging en attente |
 | C | ✅ Auth mobile : email/mot de passe, OTP, Apple, Google, compte/suppression | Implémentée ; credentials/build signé en attente |
 | D | ✅ Auth web : connexion, inscription, callback et espace compte | Runtime production actif sur wariba.app ; callback OAuth à prouver |
-| E | ✅ Synchro opt-in watchlists/portefeuille/alertes/filtres/préférences + LWW | Implémentée ; test multi-appareils en attente |
+| E | ✅ Synchro automatique watchlists/portefeuille/alertes/filtres/préférences + réconciliation à trois voies | Tests de fusion implémentés ; preuve sur appareils signés en attente |
 | F | ✅ Confidentialité, conditions, support, pricing et gates | Implémentée ; URLs hébergées en attente |
 
 **Ordre imposé** : A peut shipper seule (elle améliore l'app sans compte).

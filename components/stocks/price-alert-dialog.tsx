@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/components/auth/auth-provider";
-import { uploadWebData } from "@/lib/web-cloud-sync";
+import { useCloudSync } from "@/components/auth/cloud-sync-provider";
 import { trackProductEvent } from "@/lib/analytics";
 
 export function PriceAlertDialog({
@@ -33,6 +33,7 @@ export function PriceAlertDialog({
   const add = usePriceAlerts((s) => s.add);
   const remove = usePriceAlerts((s) => s.remove);
   const { session } = useAuth();
+  const { syncNow } = useCloudSync();
 
   const [direction, setDirection] = useState<"above" | "below">("above");
   const [threshold, setThreshold] = useState("");
@@ -51,7 +52,7 @@ export function PriceAlertDialog({
     add({ ticker, direction, threshold: v, channels });
     if (session?.access_token) {
       try {
-        await uploadWebData(session.access_token);
+        await syncNow();
       } catch {
         setError("Alerte créée localement, mais sa synchronisation a échoué. Relancez-la depuis Compte.");
         setSaving(false);

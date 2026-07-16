@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarClock } from "lucide-react";
+import { Building2, CalendarClock, CircleDollarSign, History, TrendingUp } from "lucide-react";
 import { getSnapshots } from "@/lib/data";
 import { allDividendEvents, dividendsByMonth, isRecurring } from "@/lib/dividend-calendar";
 import { fcfa, dateFr } from "@wariba/core/format";
@@ -31,19 +31,38 @@ export default function DividendCalendarPage() {
   const nameOf = new Map(snapshots.map((s) => [s.ticker, s.name]));
   const byMonth = dividendsByMonth(tickers);
   const events = allDividendEvents(tickers);
+  const dividendCompanies = new Set(events.map((event) => event.ticker)).size;
+  const recurringCompanies = new Set(
+    Object.values(byMonth).flat().filter(isRecurring).map((entry) => entry.ticker),
+  ).size;
+  const yieldLeaders = snapshots
+    .filter((snapshot) => (
+      snapshot.real?.netYieldPct != null
+      && snapshot.real.netYieldPct > 0
+      && snapshot.real.netYieldPct <= 25
+      && snapshot.real.lastDividendNet != null
+      && snapshot.real.lastDividendDate != null
+    ))
+    .sort((a, b) => (b.real?.netYieldPct ?? 0) - (a.real?.netYieldPct ?? 0))
+    .slice(0, 8);
 
   const now = new Date();
   const currentMonth = now.getMonth() + 1;
   const orderedMonths = Array.from({ length: 12 }, (_, i) => ((currentMonth - 1 + i) % 12) + 1);
   const upNext = orderedMonths.slice(0, 3);
+  const currentMonthRecurring = byMonth[currentMonth].filter(isRecurring).length;
+  const latestPayment = events[0];
 
   return (
-    <div className="stagger max-w-4xl space-y-4">
-      <div>
-        <h1 className="inline-flex items-center gap-2 text-xl font-bold tracking-tight text-ink">
-          <CalendarClock className="h-5 w-5 text-accent" /> Calendrier des dividendes
+    <div className="stagger max-w-6xl space-y-5">
+      <header className="border-b border-line pb-5">
+        <div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+          <CircleDollarSign className="h-3.5 w-3.5" /> Données officielles BRVM
+        </div>
+        <h1 className="inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+          <CalendarClock className="h-6 w-6 text-accent" /> Dividendes
         </h1>
-        <p className="mt-1 text-sm text-ink-3">
+        <p className="mt-2 max-w-4xl text-sm leading-relaxed text-ink-3">
           La BRVM ne publie pas de date d&apos;ex-dividende à l&apos;avance dans
           un format exploitable : ceci n&apos;est donc pas un calendrier
           d&apos;annonces mais une{" "}
@@ -53,9 +72,74 @@ export default function DividendCalendarPage() {
           — chaque montant vient du dernier versement réel, pas d&apos;une
           prévision.
         </p>
-      </div>
+        <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-4">
+          <div className="bg-surface p-4">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-ink-3"><Building2 className="h-3.5 w-3.5" /> Sociétés payeuses</div>
+            <p className="num mt-2 text-xl font-extrabold text-ink">{dividendCompanies}</p>
+            <p className="mt-1 text-[10px] text-ink-3">au moins un versement enregistré</p>
+          </div>
+          <div className="bg-surface p-4">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-ink-3"><History className="h-3.5 w-3.5" /> Récurrentes</div>
+            <p className="num mt-2 text-xl font-extrabold text-ink">{recurringCompanies}</p>
+            <p className="mt-1 text-[10px] text-ink-3">même mois observé au moins 2 ans</p>
+          </div>
+          <div className="bg-surface p-4">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-ink-3"><CalendarClock className="h-3.5 w-3.5" /> Ce mois historique</div>
+            <p className="num mt-2 text-xl font-extrabold text-ink">{currentMonthRecurring}</p>
+            <p className="mt-1 text-[10px] text-ink-3">société{currentMonthRecurring > 1 ? "s" : ""} récurrente{currentMonthRecurring > 1 ? "s" : ""} en {MONTH_NAMES[currentMonth - 1].toLocaleLowerCase("fr")}</p>
+          </div>
+          <div className="bg-surface p-4">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-ink-3"><CircleDollarSign className="h-3.5 w-3.5" /> Dernier paiement</div>
+            <p className="num mt-2 text-lg font-extrabold text-ink">{latestPayment ? dateFr(latestPayment.date) : "—"}</p>
+            <p className="mt-1 text-[10px] text-ink-3">{latestPayment ? `${latestPayment.ticker} · ${fcfa(latestPayment.net)} net/action` : "aucun paiement"}</p>
+          </div>
+        </div>
+      </header>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <Card className="overflow-hidden border-accent/25">
+        <CardHeader
+          title="Rendements nets observés"
+          subtitle="Dernier dividende net payé ÷ dernier cours disponible. Ce classement n'est ni une prévision ni une recommandation."
+          action={<TrendingUp className="h-4 w-4 text-accent" />}
+        />
+        <CardBody className="p-0">
+          <div className="grid divide-y divide-line lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+            {[yieldLeaders.slice(0, 4), yieldLeaders.slice(4, 8)].map((column, columnIndex) => (
+              <div key={columnIndex} className="divide-y divide-line">
+                {column.map((snapshot, index) => (
+                  <Link
+                    key={snapshot.ticker}
+                    href={`/stocks/${snapshot.ticker}`}
+                    className="grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-2 px-4 py-3 transition-colors hover:bg-surface-2/60 sm:px-5"
+                  >
+                    <span className="num text-[10px] font-bold text-ink-3">{String(columnIndex * 4 + index + 1).padStart(2, "0")}</span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-xs font-bold text-ink">{snapshot.ticker} <span className="font-normal text-ink-3">· {snapshot.name}</span></span>
+                      <span className="mt-0.5 block text-[10px] text-ink-3">{fcfa(snapshot.real?.lastDividendNet ?? 0)} net · payé le {dateFr(snapshot.real?.lastDividendDate ?? "")}</span>
+                    </span>
+                    <span className="num rounded-lg bg-accent/10 px-2.5 py-1.5 text-sm font-extrabold text-accent">
+                      {(snapshot.real?.netYieldPct ?? 0).toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+          <p className="border-t border-line px-4 py-2.5 text-[10px] leading-4 text-ink-3 sm:px-5">
+            Le rendement varie avec le cours. Les montants, dates et cours de référence proviennent des dernières données intégrées ; les ratios atypiques supérieurs à 25 % sont exclus du classement et restent visibles sur leur fiche pour contrôle d&apos;une éventuelle opération exceptionnelle.
+          </p>
+        </CardBody>
+      </Card>
+
+      <section aria-labelledby="dividend-season-title">
+        <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <h2 id="dividend-season-title" className="text-base font-bold text-ink">Fenêtre saisonnière</h2>
+            <p className="mt-0.5 text-xs text-ink-3">Les 3 mois à partir du mois courant · sociétés récurrentes uniquement.</p>
+          </div>
+          <Badge tone="neutral">Historique, pas prévision</Badge>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
         {upNext.map((m) => {
           const entries = byMonth[m].filter(isRecurring);
           return (
@@ -94,7 +178,8 @@ export default function DividendCalendarPage() {
             </Card>
           );
         })}
-      </div>
+        </div>
+      </section>
 
       <Card>
         <CardHeader

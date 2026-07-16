@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { CircleHelp } from "lucide-react";
 import { GLOSSARY } from "@wariba/core/glossary";
 import { TooltipBubble } from "@/components/ui/tooltip-bubble";
 import { useTapTooltip } from "@/hooks/use-tap-tooltip";
@@ -21,9 +22,10 @@ export function Term({ id, children }: { id: string; children: ReactNode }) {
         type="button"
         {...bind}
         aria-label={`Définition : ${entry.label}`}
-        className="cursor-help underline decoration-ink-3/60 decoration-dotted underline-offset-2 uppercase"
+        className="inline-flex cursor-help items-center gap-1 underline decoration-ink-3/60 decoration-dotted underline-offset-2 uppercase"
       >
         {children}
+        <CircleHelp aria-hidden="true" className="h-3 w-3 shrink-0 text-accent" />
       </button>
       <TooltipBubble pos={pos} label={entry.label} text={entry.def} />
     </>

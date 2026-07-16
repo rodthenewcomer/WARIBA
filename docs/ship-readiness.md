@@ -7,12 +7,14 @@ This is the release matrix for the Next.js web/API surface and the Expo iOS/Andr
 ## Product truth
 
 - Public and real: sourced BRVM prices, indices, dividends, official documents, operations, news, factual alerts, verified fundamentals, risk statistics and local research tools.
-- Private and implemented in code: Supabase email/password, OTP, Apple/Google OAuth, account deletion, RLS-isolated watchlists, portfolios, alerts, saved filters and preferences, plus explicit upload/download sync.
+- Private and implemented in code: Supabase email/password, OTP, Apple/Google OAuth, account deletion, RLS-isolated watchlists, portfolios, alerts, saved filters and preferences, plus automatic non-destructive web/iOS/Android reconciliation with offline retention and a manual retry.
 - Monetization implemented in code: multi-provider Free/Pro entitlements, Stripe Checkout/customer portal on web, RevenueCat App Store/Play offerings, purchase, restore and subscription management on mobile, server-side subscriber verification, and authenticated/idempotent webhooks.
 - Notifications implemented in code: consented profile preferences, Expo device registration, atomic server evaluation of synced price alerts, idempotent push/email outbox, Expo receipt handling, Resend signed webhooks, bounded retries and two protected Vercel cron routes.
 - Analytics implemented in code: explicit web/mobile consent, first-party pseudonymous events, HMAC identifiers, no raw IP storage, 90-day cleanup and protected aggregate operations metrics.
 - Active infrastructure: the production Supabase schema/RLS and the Vercel Next.js runtime on `wariba.app`.
 - Data delivery: 48/48 stock snapshots, fundamentals and publication pages are covered; documents/news/live quotes are checked every five minutes; new annual PDFs are parsed automatically with N-1 reconciliation and fail-closed OCR; Vercel publishes `/data`, and foreground web/mobile clients check for a new version every minute.
+- Information surfaces: Actualités is a first-level destination on desktop, responsive web, iOS and Android, with search, listed-company/regional filters, source attribution and ticker deep links. Dividends separates last-paid net yield, historical seasonality and the factual payment journal; no recurring month is presented as a forecast.
+- Stock fundamentals: every available metric on every stock sheet carries a discoverable definition/formula on web and an expandable explanation on iOS/Android. Verified N/N-1 revenue, net income, ordinary income, equity, deposits and loans are rendered as visual comparisons when both years exist.
 - Not active until external configuration exists: verified Supabase Auth redirects, Stripe product/webhook, RevenueCat project/webhook, Apple/Google OAuth credentials, App Store/Play products and signed EAS builds.
 - Not delivered: broker/order routing, execution-grade real-time prices, SMS alerts, AI investment advice or official BRVM affiliation.
 
@@ -21,7 +23,7 @@ This is the release matrix for the Next.js web/API surface and the Expo iOS/Andr
 1. `npm ci`, `npm run lint`, `npm run typecheck`, Vitest, Python suites, Next build, Expo Doctor, Expo dependency check, iOS export, Android export and high+ production audit pass.
 2. Production migrations are applied and a rollback-only two-user SQL role test proved profile/entitlement bootstrap, row isolation and cross-user write rejection. After active API keys are installed, repeat the proof through the public API and validate account deletion/cascade behavior before enabling accounts publicly.
 3. Test email verification, OTP, password, Google and Apple flows on the production callback URLs. Apple login must be exercised in a signed native build.
-4. Prove upload/download on web, iPhone and Android with the same account, including conflict timestamps, limits and malformed/oversized payload rejection.
+4. Prove automatic two-way reconciliation on web, iPhone and Android with the same account, including concurrent additions/deletions, conflict timestamps, offline recovery, limits and malformed/oversized payload rejection. The shared merge regression suite passes; the signed-device proof remains external.
 5. Test Stripe Checkout, portal, renewal, cancellation, duplicate webhook and out-of-order webhook delivery in test mode.
 6. Keep Stripe purchase CTAs out of native apps. Test App Store/Google Play purchase, cancellation, restore, cross-platform login, server refresh and RevenueCat webhook replay against the same entitlement records.
 7. Publish working privacy, terms and support URLs; complete Apple privacy, Google Data safety and Financial features declarations.
@@ -36,7 +38,7 @@ This is the release matrix for the Next.js web/API surface and the Expo iOS/Andr
 | Surface | Code status | Production status |
 | --- | --- | --- |
 | Public web terminal | Implemented | Live on `wariba.app` / `www.wariba.app` |
-| Web accounts and sync | Implemented; production schema/RLS and both API keys installed | Create/sign-in/me/delete/cascade passed in production; OTP, verification e-mail and OAuth callback proof remain |
+| Web accounts and sync | Automatic, debounced, non-destructive reconciliation implemented; legacy destructive `replace` uploads are rejected | Production schema/RLS and both API keys installed; create/sign-in/me/delete/cascade passed; cross-device signed-app proof, OTP, verification e-mail and OAuth callbacks remain |
 | Stripe web billing | Implemented | Blocked by Stripe product, keys and webhook |
 | iOS app | Implemented, first release iPhone-only | Blocked by signed build, device QA and store metadata |
 | Android app | Implemented with predictive back/adaptive orientation | Blocked by signed build, device QA and Play declarations |

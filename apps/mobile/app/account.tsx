@@ -3,7 +3,6 @@ import { ActivityIndicator, Alert, Pressable, StyleSheet, Text, View } from "rea
 import { useRouter } from "expo-router";
 import { Page, Row, Section } from "../src/components/ui";
 import { useMobileAuth } from "../src/providers/AuthProvider";
-import { downloadMobileData, uploadMobileData } from "../src/services/cloud-sync";
 import {
   isNativeBillingConfigured,
   loadNativePackages,
@@ -21,7 +20,7 @@ interface AccountData {
 
 export default function AccountScreen() {
   const router = useRouter();
-  const { configured, loading, user, session, signOut } = useMobileAuth();
+  const { configured, loading, user, session, signOut, syncStatus, lastSyncedAt, syncError, syncNow } = useMobileAuth();
   const [account, setAccount] = useState<AccountData | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [packages, setPackages] = useState<NativeBillingPackage[]>([]);
@@ -88,13 +87,12 @@ export default function AccountScreen() {
     }
   };
 
-  const sync = async (direction: "upload" | "download") => {
+  const sync = async () => {
     if (!session?.access_token) return;
-    setBusy(direction);
+    setBusy("sync");
     try {
-      if (direction === "upload") await uploadMobileData(session.access_token);
-      else await downloadMobileData(session.access_token);
-      Alert.alert("Synchronisation terminée", direction === "upload" ? "Les données de cet appareil sont dans votre espace privé." : "Les données de votre espace ont été restaurées sur cet appareil.");
+      await syncNow();
+      Alert.alert("Synchronisation terminée", "Les changements de vos appareils ont été réconciliés sans remplacement destructif.");
     } catch (caught) {
       Alert.alert("Synchronisation impossible", caught instanceof Error ? caught.message : "Réessayez plus tard.");
     } finally {
@@ -134,12 +132,13 @@ export default function AccountScreen() {
           <Row icon="log-out-outline" title="Se déconnecter" onPress={() => void signOut().then(() => router.replace("/(tabs)"))} />
         </View>
       </Section>
-      <Section title="Synchronisation" detail="Déclenchée par vous">
+      <Section title="Synchronisation" detail="Automatique · web, iOS et Android">
         <View style={styles.group}>
-          <Row icon="cloud-upload-outline" title="Envoyer cet appareil" detail="Watchlist, portefeuille, alertes, filtres et préférences" onPress={() => void sync("upload")} />
-          <Row icon="cloud-download-outline" title="Restaurer mon espace ici" detail="Remplace les données locales par votre espace privé" onPress={() => void sync("download")} />
+          <Row icon="sync-outline" title="Synchroniser maintenant" detail="Fusionne watchlist, portefeuille, alertes, filtres et préférences" onPress={() => void sync()} />
+          <Row icon={syncStatus === "error" ? "cloud-offline-outline" : "cloud-done-outline"} title={syncStatus === "syncing" ? "Synchronisation en cours…" : syncStatus === "error" ? "Synchronisation à reprendre" : "Synchronisation active"} detail={lastSyncedAt ? `Dernière réussite à ${new Date(lastSyncedAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}` : syncError ?? "Les changements hors ligne restent sur cet appareil"} />
         </View>
-        {busy === "upload" || busy === "download" ? <ActivityIndicator style={styles.activity} color={colors.accent} /> : null}
+        {busy === "sync" || syncStatus === "syncing" ? <ActivityIndicator style={styles.activity} color={colors.accent} /> : null}
+        {syncError ? <Text accessibilityRole="alert" style={styles.billingError}>{syncError}</Text> : null}
       </Section>
       <Section title="Forfait">
         <View style={styles.plan}><View><Text style={styles.planName}>{account?.subscription.plan === "pro" ? "Pro" : "Essentiel"}</Text><Text style={styles.caption}>Statut : {account?.subscription.status ?? "chargement"}</Text></View><Text style={styles.planBadge}>{account?.subscription.plan === "pro" ? "Actif" : "Gratuit"}</Text></View>

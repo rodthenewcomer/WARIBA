@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { cancelAnimation, FadeInDown, useAnimatedStyle, useReducedMotion, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
@@ -63,10 +63,14 @@ export function Section({ title, detail, children }: { title: string; detail?: s
 }
 
 /** Tuile de métrique — carte pleine, valeur qui se réduit plutôt que déborder. */
-export function Metric({ label, value, tone = "default", detail }: { label: string; value: string; tone?: "default" | "up" | "down" | "accent"; detail?: string }) {
-  return (
-    <View style={styles.metric}>
-      <Text numberOfLines={1} style={styles.metricLabel}>{label}</Text>
+export function Metric({ label, value, tone = "default", detail, explanation }: { label: string; value: string; tone?: "default" | "up" | "down" | "accent"; detail?: string; explanation?: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const content = (
+    <>
+      <View style={styles.metricLabelRow}>
+        <Text numberOfLines={1} style={styles.metricLabel}>{label}</Text>
+        {explanation ? <Ionicons name="help-circle-outline" size={14} color={colors.accent} /> : null}
+      </View>
       <Text
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -76,7 +80,20 @@ export function Metric({ label, value, tone = "default", detail }: { label: stri
         {value}
       </Text>
       {detail ? <Text numberOfLines={1} style={styles.metricDetail}>{detail}</Text> : null}
-    </View>
+      {expanded && explanation ? <Text style={styles.metricExplanation}>{explanation}</Text> : null}
+    </>
+  );
+  if (!explanation) return <View style={styles.metric}>{content}</View>;
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${label}. ${value}. Afficher l'explication.`}
+      accessibilityState={{ expanded }}
+      onPress={() => setExpanded((value) => !value)}
+      style={({ pressed }) => [styles.metric, expanded && styles.metricExpanded, pressed && styles.pressed]}
+    >
+      {content}
+    </Pressable>
   );
 }
 
@@ -213,9 +230,12 @@ const styles = StyleSheet.create({
     flexGrow: 1, flexBasis: "44%", paddingVertical: 13, paddingHorizontal: 14,
     backgroundColor: colors.surface, borderColor: colors.line, borderWidth: 1, borderRadius: radius.lg,
   },
-  metricLabel: { ...type.label },
+  metricExpanded: { flexBasis: "100%", borderColor: "rgba(32,201,130,0.4)" },
+  metricLabelRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 5 },
+  metricLabel: { ...type.label, flexShrink: 1 },
   metricValue: { color: colors.ink, fontSize: 21, fontWeight: "800", letterSpacing: -0.4, marginTop: 7, fontVariant: tabular },
   metricDetail: { ...type.caption, marginTop: 3 },
+  metricExplanation: { ...type.caption, color: colors.ink2, marginTop: 10, paddingTop: 9, borderTopWidth: 1, borderTopColor: colors.line, lineHeight: 17 },
   pill: { paddingHorizontal: 8, paddingVertical: 3.5, borderRadius: radius.full },
   pillText: { fontSize: 12, fontWeight: "700", fontVariant: tabular },
   row: { minHeight: 60, flexDirection: "row", alignItems: "center", gap: 12, borderBottomColor: colors.line, borderBottomWidth: 1, paddingVertical: 11 },

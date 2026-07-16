@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { AppShell } from "@/components/layout/app-shell";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { CloudSyncProvider } from "@/components/auth/cloud-sync-provider";
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider";
 import { GOOGLE_SITE_VERIFICATION, SITE_ORIGIN } from "@/lib/site";
 import { DataAutoRefresh } from "@/components/data-auto-refresh";
@@ -66,10 +67,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <AnalyticsProvider>
-              <DataAutoRefresh />
-              <AppShell>{children}</AppShell>
-            </AnalyticsProvider>
+            <CloudSyncProvider>
+              <AnalyticsProvider>
+                <DataAutoRefresh />
+                <AppShell>{children}</AppShell>
+              </AnalyticsProvider>
+            </CloudSyncProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

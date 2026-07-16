@@ -5,12 +5,12 @@ import { colors } from "../../src/theme";
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 
-/** Dock : Accueil · Recherche · Watchlist · Portefeuille · Plus. */
+/** Dock : Accueil · Recherche · Watchlist · Actualités · Plus. */
 const ICONS: Record<string, [IconName, IconName]> = {
   index: ["view-dashboard-outline", "view-dashboard"],
   search: ["magnify", "magnify"],
   watchlist: ["star-outline", "star"],
-  portfolio: ["wallet-outline", "wallet"],
+  news: ["newspaper-variant-outline", "newspaper-variant"],
   more: ["dots-horizontal", "dots-horizontal"],
 };
 
@@ -31,8 +31,9 @@ export default function TabLayout() {
       <Tabs.Screen name="index" options={{ title: "Accueil" }} />
       <Tabs.Screen name="search" options={{ title: "Recherche" }} />
       <Tabs.Screen name="watchlist" options={{ title: "Watchlist" }} />
-      <Tabs.Screen name="portfolio" options={{ title: "Portefeuille" }} />
+      <Tabs.Screen name="news" options={{ title: "Actualités" }} />
       <Tabs.Screen name="more" options={{ title: "Plus" }} />
+      <Tabs.Screen name="portfolio" options={{ href: null }} />
     </Tabs>
   );
 }

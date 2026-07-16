@@ -34,6 +34,7 @@ const NAV = [
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
   { href: "/charts", label: "Graphiques", icon: CandlestickChart },
+  { href: "/news", label: "Actualités", icon: Newspaper },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
@@ -49,7 +50,7 @@ const NAV = [
 const MOBILE_NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/watchlist", label: "Watchlist", icon: Eye },
-  { href: "/alerts", label: "Alertes", icon: Bell },
+  { href: "/news", label: "Actualités", icon: Newspaper },
 ] as const;
 
 /** Toutes les sections restantes, accessibles depuis le bouton « + » de
@@ -57,6 +58,7 @@ const MOBILE_NAV = [
  * Documents, Actualités, Statut et Réglages étaient introuvables au
  * doigt (le 5e onglet menait directement aux Réglages). */
 const MOBILE_MORE = [
+  { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
@@ -64,7 +66,6 @@ const MOBILE_MORE = [
   { href: "/dividendes", label: "Dividendes", icon: CalendarClock },
   { href: "/ipo", label: "IPO & Opérations", icon: Rocket },
   { href: "/documents", label: "Documents", icon: FileText },
-  { href: "/news", label: "Actualités", icon: Newspaper },
   { href: "/status", label: "Statut des données", icon: ShieldCheck },
   { href: "/settings", label: "Réglages", icon: Settings },
 ] as const;
