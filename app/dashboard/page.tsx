@@ -35,7 +35,10 @@ import {
   rankWeeklyMovers,
 } from "@/lib/dashboard-metrics";
 
-export const metadata: Metadata = { title: "Dashboard" };
+export const metadata: Metadata = {
+  title: "WARIBA — Terminal BRVM, graphiques et analyse des actions africaines",
+  description: "Cours BRVM, graphiques avancés, actualités, fondamentaux vérifiés et analyse factuelle des 48 actions cotées.",
+};
 
 function MoverRow({
   ticker,

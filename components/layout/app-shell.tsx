@@ -13,6 +13,7 @@ import {
   Briefcase,
   CalendarClock,
   CandlestickChart,
+  Crown,
   Newspaper,
   Plus,
   Search as SearchIcon,
@@ -33,6 +34,7 @@ const NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
+  { href: "/pro", label: "WARIBA Pro", icon: Crown },
   { href: "/charts", label: "Graphiques", icon: CandlestickChart },
   { href: "/news", label: "Actualités", icon: Newspaper },
   { href: "/documents", label: "Documents", icon: FileText },
@@ -58,6 +60,7 @@ const MOBILE_NAV = [
  * Documents, Actualités, Statut et Réglages étaient introuvables au
  * doigt (le 5e onglet menait directement aux Réglages). */
 const MOBILE_MORE = [
+  { href: "/pro", label: "WARIBA Pro", icon: Crown },
   { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },

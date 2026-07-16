@@ -1,7 +1,7 @@
 # WARIBA senior audit — web, iOS and Android
 
 Baseline audit: 2026-07-14  
-Implementation update: 2026-07-15  
+Implementation update: 2026-07-16
 Scope: product, code, data, auth, API, billing, native UX, security,
 operations, release and commercial readiness.
 
@@ -13,8 +13,9 @@ operations, release and commercial readiness.
 | Web account | **Implemented; callback QA pending** | Visible login/register entry points, Supabase password flow, OTP, OAuth callback, RLS sync, account deletion |
 | Shared Expo app | **Release-candidate code** | Native iOS/Android routes, local-first data, auth, sync, billing adapter, notifications, analytics and exports |
 | iOS store release | **External no-go** | Signed EAS build, physical-device QA, Apple/OAuth/store setup and declarations remain |
-| Android store release | **External no-go** | Signed EAS build, physical-device QA, Play/RevenueCat products and declarations remain |
-| Monetization | **Code complete; providers pending** | Stripe web and RevenueCat native layers exist; provider products, keys and sandbox proof remain |
+| Android store release | **External no-go** | Signed EAS build, physical-device QA, Play organization/app setup and declarations remain; RevenueCat is post-launch |
+| WARIBA Pro | **Open pre-launch** | Laboratory 48 is implemented on responsive web and native with no paywall, account or entitlement gate |
+| Monetization | **Deferred by product decision** | Stripe/RevenueCat layers remain in code; provider activation comes after the free launch |
 
 ## Product identity delivered
 
@@ -25,6 +26,7 @@ with older local exports is handled without exposing the former brand.
 - Actualités is a first-level destination on every navigation, with a lead story, search, listed-company/regional filters, original-source links and ticker deep links.
 - Dividends now separates verified last-paid net yields, historical seasonality and the factual payment journal on web, iOS and Android.
 - Every stock fundamental now exposes its definition/formula, and all verified N/N-1 fields are presented in a visual comparison block rather than only as small percentage text.
+- WARIBA Pro exposes the 48-stock factual universe with search, factor sorting, three-stock web comparison, two-stock native comparison, CSV export, publication date, confidence, coverage and score reasons. The spreadsheet's prescriptive buy/avoid labels were not imported.
 
 - Visual thesis: obsidian market intelligence with a luminous jade W-signal
   and a restrained gold origin point.
@@ -56,7 +58,7 @@ The previous discoverability failure is fixed:
 | Role | Current state / next gate |
 | --- | --- |
 | Founder / CEO | Clear WARIBA identity and `wariba.app`; store release still needs owner accounts |
-| Product Manager | Guest-first funnel and account value proposition implemented |
+| Product Manager | Guest-first funnel and open Pro pre-launch decision implemented |
 | Technical PM | Web/API/mobile boundaries, env matrix and release gates documented |
 | Full-Stack Engineer | Next.js, Expo and shared core integrated |
 | Senior Backend Engineer | Supabase schema, RLS, sync API, deletion and operations routes implemented |
@@ -73,7 +75,7 @@ The previous discoverability failure is fixed:
 | Content / Social | Product language is consistent; launch kit is separate work |
 | Paid Ads | Hold until activation measurement and native releases |
 | BD / Sales | B2B/team entitlement foundation exists; commercial collateral remains |
-| Revenue / Pricing | Free/Pro model and provider adapters exist; products/prices need activation |
+| Revenue / Pricing | Pro remains free and ungated for launch; products/prices intentionally deferred |
 | Customer Success | Support, privacy, terms and account deletion routes exist |
 | Operations / PM | `docs/ship-readiness.md` is the source of truth |
 | Legal Advisor | Financial-services boundaries and distribution rights need counsel sign-off |
@@ -92,11 +94,10 @@ The previous discoverability failure is fixed:
 
 1. Confirm Supabase production site URL and all web/mobile redirect URLs.
 2. Prove OTP, e-mail verification, Apple and Google on production callbacks.
-3. Configure Stripe product/webhook and complete test-mode lifecycle.
-4. Configure RevenueCat, App Store and Play products; test purchase/restore.
-5. Produce signed EAS preview builds and validate on physical iPhone/Android.
-6. Complete Apple privacy, Google Data safety, financial-feature and legal
+3. Produce signed EAS preview builds and validate on physical iPhone/Android.
+4. Complete Apple privacy, Google Data safety, financial-feature and legal
    declarations.
-7. Prove push/e-mail delivery, analytics consent/revocation and retention.
+5. Prove push/e-mail delivery, analytics consent/revocation and retention.
+6. After launch only: configure and validate Stripe/RevenueCat before introducing any paywall.
 
 Current status details live in [ship-readiness.md](ship-readiness.md).

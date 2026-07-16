@@ -1,4 +1,4 @@
-# Déploiement web, API et facturation
+# Déploiement web, API et monétisation différée
 
 WARIBA n'est plus un export statique : les callbacks Supabase, l'API de synchronisation, la suppression de compte, les notifications, l'analytics consentie et les webhooks exigent un runtime Node.js. Vercel sert aussi les JSON publics sous `https://wariba.app/data` ; le web et les apps mobiles partagent donc la même origine canonique.
 
@@ -36,6 +36,10 @@ Les clés legacy anon et `service_role` valides sont installées sur Vercel, res
 
 ## Stripe web
 
+**Décision du 16 juillet 2026 : aucun checkout n'est affiché pendant le
+prélancement.** WARIBA Pro reste ouvert. Les étapes ci-dessous sont conservées
+pour une activation décidée et testée après la sortie gratuite.
+
 Créer le produit Pro et son prix mensuel, renseigner `STRIPE_PRICE_PRO_MONTHLY`, puis écouter au minimum :
 
 - `checkout.session.completed`
@@ -59,9 +63,9 @@ La procédure complète, dans l’ordre exact des comptes et validations pour la
 Côte d’Ivoire, est disponible dans
 [Lancement natif WARIBA — Côte d’Ivoire](./native-release-cote-ivoire.md).
 
-Les builds natifs utilisent `EXPO_PUBLIC_API_URL` pour l'API Node et les variables Supabase publiques. Apple et Google imposent leurs achats intégrés pour les fonctions numériques vendues dans les apps : aucun lien Stripe n'est affiché dans les builds natifs.
+Les builds natifs utilisent `EXPO_PUBLIC_API_URL` pour l'API Node et les variables Supabase publiques. La première version peut être publiée gratuitement sans produit intégré : WARIBA Pro n'est pas gated. Si des fonctions numériques deviennent payantes après le lancement, Apple et Google imposent leurs achats intégrés et aucun lien Stripe ne devra apparaître dans les builds natifs.
 
-Créer les produits Pro dans App Store Connect et Play Console, les relier à l'entitlement RevenueCat `pro`, publier une offering courante, puis configurer les clés publiques Apple/Google dans le build. Le SDK charge les offres, achète, restaure et ouvre la gestion d'abonnement. Le serveur revalide le subscriber auprès de RevenueCat avant d'écrire les droits et le webhook utilise `REVENUECAT_WEBHOOK_AUTH` comme valeur exacte de l'en-tête `Authorization`.
+Après le lancement gratuit uniquement, créer les produits Pro dans App Store Connect et Play Console, les relier à l'entitlement RevenueCat `pro`, publier une offering courante, puis configurer les clés publiques Apple/Google dans le build. Le SDK charge les offres, achète, restaure et ouvre la gestion d'abonnement. Le serveur revalide le subscriber auprès de RevenueCat avant d'écrire les droits et le webhook utilise `REVENUECAT_WEBHOOK_AUTH` comme valeur exacte de l'en-tête `Authorization`.
 
 ## Vérification avant production
 

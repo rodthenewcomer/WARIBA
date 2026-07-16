@@ -1,24 +1,25 @@
 # WARIBA ship readiness
 
-Last reviewed: 2026-07-15
+Last reviewed: 2026-07-16
 
 This is the release matrix for the Next.js web/API surface and the Expo iOS/Android app. WARIBA remains local-first and usable without an account; cloud sync and billing are optional capabilities.
 
-The remaining account, store, EAS and RevenueCat configuration is documented
+The remaining account, store and EAS configuration is documented
 step by step in [Lancement natif WARIBA — Côte d’Ivoire](./native-release-cote-ivoire.md).
 
 ## Product truth
 
 - Public and real: sourced BRVM prices, indices, dividends, official documents, operations, news, factual alerts, verified fundamentals, risk statistics and local research tools.
+- WARIBA Pro is open during pre-launch: the web and native Laboratory 48 exposes the full factual ranking, filters, two/three-stock comparison, score reasons, fiscal-year freshness, confidence, coverage and CSV export without an account, entitlement check or paywall.
 - Private and implemented in code: Supabase email/password, OTP, Apple/Google OAuth, account deletion, RLS-isolated watchlists, portfolios, alerts, saved filters and preferences, plus automatic non-destructive web/iOS/Android reconciliation with offline retention and a manual retry.
-- Monetization implemented in code: multi-provider Free/Pro entitlements, Stripe Checkout/customer portal on web, RevenueCat App Store/Play offerings, purchase, restore and subscription management on mobile, server-side subscriber verification, and authenticated/idempotent webhooks.
+- Monetization is deliberately deferred: multi-provider entitlements, Stripe and RevenueCat adapters remain implemented, but no checkout or native purchase is required for the free launch and no Pro research surface is gated.
 - Notifications implemented in code: consented profile preferences, Expo device registration, atomic server evaluation of synced price alerts, idempotent push/email outbox, Expo receipt handling, Resend signed webhooks, bounded retries and two protected Vercel cron routes.
 - Analytics implemented in code: explicit web/mobile consent, first-party pseudonymous events, HMAC identifiers, no raw IP storage, 90-day cleanup and protected aggregate operations metrics.
 - Active infrastructure: the production Supabase schema/RLS and the Vercel Next.js runtime on `wariba.app`.
 - Data delivery: 48/48 stock snapshots, fundamentals and publication pages are covered; documents/news/live quotes are checked every five minutes; new annual PDFs are parsed automatically with N-1 reconciliation and fail-closed OCR; Vercel publishes `/data`, and foreground web/mobile clients check for a new version every minute.
 - Information surfaces: Actualités is a first-level destination on desktop, responsive web, iOS and Android, with search, listed-company/regional filters, source attribution and ticker deep links. Dividends separates last-paid net yield, historical seasonality and the factual payment journal; no recurring month is presented as a forecast.
 - Stock fundamentals: every available metric on every stock sheet carries a discoverable definition/formula on web and an expandable explanation on iOS/Android. Verified N/N-1 revenue, net income, ordinary income, equity, deposits and loans are rendered as visual comparisons when both years exist.
-- Not active until external configuration exists: verified Supabase Auth redirects, Stripe product/webhook, RevenueCat project/webhook, Apple/Google OAuth credentials, App Store/Play products and signed EAS builds.
+- Not active until external configuration exists: verified Supabase Auth redirects, Apple/Google OAuth credentials and signed EAS builds. Stripe/RevenueCat products and sandbox proof are post-launch monetization work, not a launch gate.
 - Not delivered: broker/order routing, execution-grade real-time prices, SMS alerts, AI investment advice or official BRVM affiliation.
 
 ## Release gates
@@ -27,8 +28,8 @@ step by step in [Lancement natif WARIBA — Côte d’Ivoire](./native-release-c
 2. Production migrations are applied and a rollback-only two-user SQL role test proved profile/entitlement bootstrap, row isolation and cross-user write rejection. After active API keys are installed, repeat the proof through the public API and validate account deletion/cascade behavior before enabling accounts publicly.
 3. Test email verification, OTP, password, Google and Apple flows on the production callback URLs. Apple login must be exercised in a signed native build.
 4. Prove automatic two-way reconciliation on web, iPhone and Android with the same account, including concurrent additions/deletions, conflict timestamps, offline recovery, limits and malformed/oversized payload rejection. The shared merge regression suite passes; the signed-device proof remains external.
-5. Test Stripe Checkout, portal, renewal, cancellation, duplicate webhook and out-of-order webhook delivery in test mode.
-6. Keep Stripe purchase CTAs out of native apps. Test App Store/Google Play purchase, cancellation, restore, cross-platform login, server refresh and RevenueCat webhook replay against the same entitlement records.
+5. Keep WARIBA Pro open and ensure no web/native route requires a paid entitlement during the free launch.
+6. After launch only: test Stripe and App Store/Google Play purchase, cancellation, restore and webhook replay before enabling any price or checkout CTA.
 7. Publish working privacy, terms and support URLs; complete Apple privacy, Google Data safety and Financial features declarations.
 8. Confirm BRVM/news/document redistribution and AMF-UMOA advisory boundaries before charging or paid acquisition.
 9. Validate VoiceOver/TalkBack, Reduce Motion, Dynamic Type/font scale, notification taps and chart gestures on physical iPhone and Android devices.
@@ -41,11 +42,12 @@ step by step in [Lancement natif WARIBA — Côte d’Ivoire](./native-release-c
 | Surface | Code status | Production status |
 | --- | --- | --- |
 | Public web terminal | Implemented | Live on `wariba.app` / `www.wariba.app` |
+| WARIBA Pro — Laboratory 48 | Implemented on responsive web and Expo; all 48 analyses, comparisons and exports are factual | Open without paywall during pre-launch |
 | Web accounts and sync | Automatic, debounced, non-destructive reconciliation implemented; legacy destructive `replace` uploads are rejected | Production schema/RLS and both API keys installed; create/sign-in/me/delete/cascade passed; cross-device signed-app proof, OTP, verification e-mail and OAuth callbacks remain |
-| Stripe web billing | Implemented | Blocked by Stripe product, keys and webhook |
+| Stripe web billing | Adapter implemented | Deferred; no checkout CTA during free launch |
 | iOS app | Implemented, first release iPhone-only | Blocked by signed build, device QA and store metadata |
 | Android app | Implemented with predictive back/adaptive orientation | Blocked by signed build, device QA and Play declarations |
-| Native subscriptions | RevenueCat purchase/restore/manage + server verification implemented | Blocked by RevenueCat/App Store/Play configuration and sandbox validation |
+| Native subscriptions | RevenueCat purchase/restore/manage + server verification implemented | Deferred; not required for initial free store release |
 | Server notifications | Expo/Resend outbox, receipts, webhook, cron and native registration implemented; local fallback retained | Blocked by provider keys, sending domain, EAS project and staging delivery proof |
 | Product analytics | Consent-gated first-party web/mobile collection and protected metrics implemented | Supabase server key and Vercel hashing secrets configured; legal review and retention proof remain |
 | Public market data | 48-stock BOC universe, 48 fundamentals, 48 publication pages, factual home rankings and freshness watchdog | Live on `wariba.app/data`; quotes remain BRVM-delayed by 15 minutes and official volumes arrive after close |
@@ -54,7 +56,7 @@ step by step in [Lancement natif WARIBA — Côte d’Ivoire](./native-release-c
 
 - Supabase migrations `20260714113215` and `20260715115433` are applied remotely; all 15 application tables report RLS enabled and 32 ownership policies are present.
 - Valid anon and `service_role` JWTs are active in production. Readiness, authenticated account read, guarded account deletion and database cascade cleanup passed against `wariba.app`; Auth site/redirect configuration still requires Dashboard verification for e-mail, OTP and OAuth callbacks.
-- Vercel/runtime is active. Stripe, RevenueCat, EAS, Apple Developer, App Store Connect and Play Console credentials are not present.
+- Vercel/runtime is active. EAS, Apple Developer, App Store Connect and Play Console credentials are not present. Stripe/RevenueCat credentials remain intentionally absent while access is open.
 - Le système d'icônes WARIBA (web, iOS 1024, Android adaptatif/monochrome),
   le splash natif et l'ouverture animée sont livrés. Physical iOS/Android
   home-screen testing and an optional iOS 26 Icon Composer variant remain.

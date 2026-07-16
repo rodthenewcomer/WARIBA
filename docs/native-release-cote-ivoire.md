@@ -1,47 +1,46 @@
 # Lancement natif WARIBA — Côte d’Ivoire
 
-Dernière vérification : 15 juillet 2026
+Dernière vérification : 16 juillet 2026
 
 Ce document est la procédure de référence pour publier WARIBA sur iPhone et
-Android et activer les abonnements natifs. Il ne faut pas commencer par Expo ou
-RevenueCat : Apple, Google et les paiements doivent d’abord pouvoir vérifier la
-même société légale.
+Android en Côte d'Ivoire. La première version est gratuite : WARIBA Pro reste
+entièrement ouvert, sans compte, entitlement ou paywall. Stripe, les produits
+stores et RevenueCat sont conservés comme phase de monétisation après le
+lancement ; ils ne bloquent plus la première soumission.
 
 ## État réel du projet
 
-| Élément | État au 15 juillet 2026 | Preuve de fin |
+| Élément | État au 16 juillet 2026 | Preuve de fin |
 | --- | --- | --- |
 | Code iOS/Android | Prêt, Expo SDK 54 | Exports iOS/Android et tests locaux passent |
 | Identifiants natifs | Figés | Scheme `wariba://`, bundle/package `app.wariba.mobile` |
 | Compte Expo/EAS | Non connecté sur ce poste | `eas whoami` retourne le compte de l’organisation et `eas project:info` retourne le projet WARIBA |
-| Apple Developer/App Store Connect | Accès non fourni | Organisation active, app créée, accords/taxe/banque actifs |
-| Google Play Console | Accès non fourni | Organisation vérifiée, app créée, profil de paiement validé |
-| RevenueCat | Code intégré, projet externe absent | Deux apps connectées, entitlement `pro`, offering courante et webhook validés |
+| Apple Developer/App Store Connect | Accès non fourni | Lancement gratuit : organisation active, app créée et fiche complète ; accords/taxe/banque après lancement |
+| Google Play Console | Accès non fourni | Lancement gratuit : organisation vérifiée, app créée et déclarations complètes ; paiements après lancement |
+| RevenueCat | Code intégré, activation différée | Après lancement : deux apps connectées, entitlement `pro`, offering courante et webhook validés |
 | Builds signés | À produire | Build EAS preview sur appareils physiques puis builds production `.ipa`/`.aab` |
-| Publication | Bloquée par les comptes et validations ci-dessus | TestFlight et Play Internal Testing validés, puis review stores acceptée |
+| Publication gratuite | Bloquée par comptes propriétaires, builds signés et QA physique | TestFlight et Play Internal Testing validés, puis review stores acceptée |
 
 Le site et l’API restent sur **Vercel** à `https://wariba.app`. EAS sert à
 compiler et signer les apps ; App Store Connect et Play Console les distribuent ;
 RevenueCat unifie leurs abonnements. Aucun de ces services ne remplace Vercel.
 
-## Ordre obligatoire
+## Ordre obligatoire — lancement gratuit
 
 1. Constituer le dossier légal unique et demander/vérifier le D‑U‑N‑S.
 2. Ouvrir Apple Developer **Organization** et Google Play **Organization**.
 3. Créer une organisation Expo appartenant à WARIBA, puis lier le projet EAS.
 4. Créer l’app dans App Store Connect et Play Console avec
    `app.wariba.mobile`.
-5. Accepter les accords payants et valider taxe/banque dans les deux stores.
-6. Créer les abonnements dans Apple et Google.
-7. Connecter les deux stores à RevenueCat, créer `pro` et l’offering.
-8. Installer les variables EAS et les secrets Vercel.
-9. Produire les builds signés et tester achats/restauration/annulation.
-10. Remplir confidentialité, Data safety, finance et notes de review, puis
+5. Installer les variables EAS nécessaires au build gratuit.
+6. Produire les builds signés et tester sur appareils physiques.
+7. Remplir confidentialité, Data safety, finance et notes de review, puis
     soumettre.
 
-Ne pas inverser les étapes 4 à 7 : RevenueCat importe des produits qui doivent
-déjà exister dans les stores, et Google exige au moins un `.aab` signé chargé
-avant que certains tests d’achat soient disponibles.
+Après la sortie gratuite seulement : accepter les accords payants, valider
+taxe/banque, créer les produits Apple/Google, puis connecter RevenueCat et
+tester les achats. RevenueCat importe des produits qui doivent déjà exister
+dans les stores et Google exige un `.aab` signé avant certains tests d'achat.
 
 ## 1. Dossier légal unique Côte d’Ivoire
 
@@ -93,7 +92,10 @@ Un D‑U‑N‑S nouvellement créé ou corrigé peut demander jusqu’à deux j
 ouvrés avant d’être reconnu par Apple. Ne pas recréer une seconde entité pour
 contourner ce délai.
 
-### App Store Connect et paiements
+### App Store Connect et paiements — après lancement uniquement
+
+Cette sous-section ne bloque pas la publication gratuite. Elle devient
+obligatoire avant d'activer un achat intégré ou un paywall.
 
 Dans **Business** :
 
@@ -134,13 +136,16 @@ réglementaire applicable dans chacun.
    administrateur de secours.
 2. Dans Play Console, choisir **Organization**. Google recommande ce type de
    compte pour les produits financiers et exige alors un D‑U‑N‑S.
-3. Accepter les contrats, régler les **25 USD une seule fois**, puis lier un
-   profil Google Payments d’organisation.
+3. Accepter les contrats et régler les **25 USD une seule fois**. Lier le
+   profil Google Payments d’organisation lorsqu'il est demandé pour la
+   vérification ; sa configuration marchande et bancaire reste une étape de
+   monétisation après lancement.
 4. Entrer raison sociale, adresse, téléphone, site, D‑U‑N‑S et contacts sans
    aucune variation par rapport au dossier légal.
 5. Charger pour la Côte d’Ivoire : document d’enregistrement/RCCM/certificat
    fiscal accepté et pièce d’identité du représentant autorisé.
-6. Ajouter le compte bancaire depuis **Settings → Payments settings**. Il doit
+6. Après le lancement gratuit, avant toute vente, ajouter le compte bancaire
+   depuis **Settings → Payments settings**. Il doit
    être dans le même pays/région que le compte marchand et recevoir le mode de
    paiement proposé. Si le dashboard ne propose pas le compte ivoirien prévu,
    arrêter et contacter le support Google ; ne pas déclarer un autre pays.
@@ -227,6 +232,10 @@ La première soumission Android doit être chargée manuellement dans Play
 Console ; les suivantes peuvent passer par `eas submit`.
 
 ## 5. Catalogue d’abonnements stores
+
+> **Phase après lancement.** Ne crée aucun gate et n'est pas requise pour la
+> première version gratuite. Les identifiants restent documentés pour éviter
+> une future divergence entre le code, Apple, Google et RevenueCat.
 
 Le code ne dépend pas d’un product ID : il affiche les packages de l’offering
 RevenueCat courante. Les identifiants ci-dessous sont la convention recommandée
@@ -436,25 +445,30 @@ La langue principale est le français, la zone de lancement la Côte d’Ivoire 
 le contexte monétaire le FCFA. Les captures doivent utiliser des données
 réelles, actuelles et attribuées, sans promesse de gain ni faux « temps réel ».
 
-## 11. Critère final go/no-go
+## 11. Critère final go/no-go — lancement gratuit
 
 La release reste **NO-GO** tant qu’une seule case manque :
 
 - [ ] Raison sociale, RCCM/TIN, adresse et D‑U‑N‑S cohérents.
-- [ ] Apple Organization actif ; Paid Apps, taxe et banque validés.
-- [ ] Google Organization et Payments vérifiés pour la Côte d’Ivoire.
+- [ ] Apple Organization actif et application créée.
+- [ ] Google Organization vérifié pour la Côte d’Ivoire et application créée.
 - [ ] Expo Organization propriétaire ; `eas project:info` correct.
 - [ ] Apps Apple/Google créées avec `app.wariba.mobile`.
-- [ ] Produit mensuel actif dans les deux stores.
-- [ ] RevenueCat : apps, `pro`, offering Current, Apple key, Google credentials,
-      RTDN et webhook tous verts.
 - [ ] Variables EAS et secrets Vercel installés sans secret dans Git.
 - [ ] Preview physique iPhone/Android validée.
-- [ ] Achat, restauration, annulation, remboursement et cross-login validés.
 - [ ] Privacy/Data safety/Financial features/remplissage App Privacy cohérents.
 - [ ] Support, confidentialité, conditions et suppression de compte accessibles.
 - [ ] Notes de review, captures et compte reviewer prêts.
 - [ ] Validation juridique/droits de données obtenue avant monétisation.
+
+### Gate séparé — activation payante après lancement
+
+- [ ] Paid Apps/taxe/banque Apple et profil Google Payments validés.
+- [ ] Produit mensuel actif dans les deux stores.
+- [ ] RevenueCat : apps, `pro`, offering Current, Apple key, Google credentials,
+      RTDN et webhook tous verts.
+- [ ] Achat, restauration, annulation, remboursement et cross-login validés.
+- [ ] Aucun accès Pro n'est fermé avant le feu vert produit et juridique.
 
 ## Sources officielles
 

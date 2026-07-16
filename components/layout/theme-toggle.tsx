@@ -32,7 +32,7 @@ export function ThemeToggle() {
   }, [resolvedTheme]);
 
   if (!mounted) {
-    return <Button variant="ghost" size="icon" className="h-11 w-11 sm:h-9 sm:w-9" aria-label="Thème" />;
+    return <Button variant="ghost" size="icon" className="h-11 w-11 shrink-0 sm:h-9 sm:w-9" aria-label="Thème" />;
   }
   const dark = resolvedTheme === "dark";
   const label = dark ? "Passer en mode clair" : "Passer en mode sombre";
@@ -40,7 +40,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="group h-11 w-11 sm:h-9 sm:w-9"
+      className="group h-11 w-11 shrink-0 sm:h-9 sm:w-9"
       aria-label={label}
       aria-keyshortcuts="Shift+D"
       title={`${label} · Maj D`}

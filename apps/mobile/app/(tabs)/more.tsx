@@ -25,6 +25,7 @@ export default function MoreScreen() {
         </View>
       ) : null}
       <Section title="Suivi">
+        <Row icon="sparkles-outline" title="WARIBA Pro" detail="Laboratoire des 48 actions, scores et comparaison" onPress={() => router.push("/pro")} />
         <Row icon="wallet-outline" title="Portefeuille" detail="Positions, performance et revenu estimé" onPress={() => router.push("/portfolio")} />
         <Row icon="funnel-outline" title="Screener" detail="Filtres, tris et recherches enregistrées" onPress={() => router.push("/screener")} />
         <Row icon="notifications-outline" title="Alertes" detail="Alertes factuelles et seuils de prix locaux" onPress={() => router.push("/alerts")} />

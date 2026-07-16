@@ -6,17 +6,21 @@ dividendes, portefeuille, documents, alertes et synchronisation privée.
 
 - Web production : [wariba.app](https://wariba.app)
 - Application native : Expo SDK 54, prête pour les builds iOS/Android signés
-- Lancement stores Côte d’Ivoire : [comptes Apple/Google, EAS, RevenueCat et checklist](docs/native-release-cote-ivoire.md)
+- Lancement stores Côte d’Ivoire : [comptes Apple/Google, EAS et checklist](docs/native-release-cote-ivoire.md)
 - Compte : e-mail/mot de passe, Apple et Google via Supabase Auth
-- Monétisation : Stripe sur le web, RevenueCat pour App Store / Google Play
+- WARIBA Pro : Laboratoire 48 ouvert sans paywall pendant le prélancement
+- Monétisation : code Stripe/RevenueCat conservé, activation différée après le lancement
 - Données : pipeline BRVM officiel, aucune valeur inventée
+- Décision Pro et audit du classeur : [Laboratoire 48 et revue 22 rôles](docs/pro-research-workspace.md)
 
 Depuis le 2026-07-08, **toute l'app** tourne sur les données réelles
 BRVM : les **48 sociétés cotées** (cours, variations, volumes, PER,
 dividendes, historique depuis 2019) et les **3 indices officiels**
 (BRVM Composite, BRVM 30, BRVM Prestige, depuis 2023) alimentent le
 dashboard, le screener, la watchlist, le portefeuille, la recherche et
-  les fiches actions. Les fondamentaux d'états financiers (CA/PNB,
+  les fiches actions. Le Laboratoire 48 de WARIBA Pro classe et compare
+  les mêmes données sur web, web mobile, iOS et Android, avec score,
+  confiance, couverture, exercice et raisons visibles. Les fondamentaux d'états financiers (CA/PNB,
   résultat net, marges et agrégats bancaires) couvrent les **48 sociétés**
   à partir de PDF officiels vérifiés ; **47** ont des capitaux propres
   lisibles (SGBC ne publie pas le bilan complet dans son rapport 2025) et
@@ -92,8 +96,8 @@ iOS/Android et l'audit des dépendances de production.
 ```
 app/                pages (dashboard/accueil, map, screener, charts —
                     multi-graphiques, stocks/[ticker], portfolio,
-                    documents, watchlist, alerts, ipo, news, status,
-                    settings) + opengraph-image par ticker (build)
+                    documents, watchlist, alerts, ipo, news, pro, launch,
+                    status, settings) + opengraph-image par ticker (build)
 components/
   charts/           MainChart (bougies, ligne, aire, OHLC, Heikin Ashi,
                     volume, SMA/EMA/Bollinger, RSI, MACD, comparaison %,
@@ -175,8 +179,10 @@ que pour l'exercice qu'ils documentent : CFAO 2025 et SGBC restent sans ROE
 récent faute de bilan complet dans la publication annuelle correspondante.
 Capitalisation/BPA demandent un nombre d'actions doublement recoupé
 (12/48), P/B/ROE demandent en plus les capitaux propres. Partout ailleurs :
-masqué avec une explication, jamais rempli avec un chiffre inventé. Scores
-et analyse IA restent désactivés sur données réelles.
+masqué avec une explication, jamais rempli avec un chiffre inventé. Le moteur
+`WARIBA Factuel v1.0` calcule pour les 48 actions Qualité, Valorisation,
+Momentum et Risque, puis publie la couverture, le niveau de confiance,
+les raisons et le benchmark. Il ne produit aucun verdict d'achat/vente.
 
 **Mis à jour (2026-07-08)** : `lib/data.ts` centralise le remplacement
 prix/volume/PER/dividende réel pour toute l'app via `StockSnapshot.real`.
@@ -208,8 +214,10 @@ bulletin (secteur via code BOC, pays via suffixe du ticker), sans
 description longue inventée.
 
 La couche produit server-backed est maintenant présente : comptes Supabase,
-API de synchronisation privée, entitlements multi-provider, facturation Stripe web et achats App Store/Play via RevenueCat.
-L'activation production et les blockers externes sont suivis dans
+API de synchronisation privée, entitlements multi-provider et adaptateurs
+Stripe/RevenueCat. Aucun paywall n'est actif pendant le prélancement : la
+monétisation sera réévaluée après la sortie gratuite. L'activation production
+et les blockers externes sont suivis dans
 `docs/ship-readiness.md`.
 
 ## Avertissement

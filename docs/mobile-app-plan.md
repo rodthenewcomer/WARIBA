@@ -310,7 +310,9 @@ Ouvrir ensuite l'URL `exp://` dans Expo Go SDK 54 sur l'iPhone et vérifier :
 8. relever toute erreur rouge, disparition, désynchronisation ou saccade avec
    ticker, geste et capture/vidéo.
 
-Les achats intégrés RevenueCat exigent un development build ou un build signé,
-pas Expo Go. Avec les clés et produits sandbox configurés, vérifier aussi le
-chargement des offres, l'achat, la restauration, l'ouverture de la gestion
-d'abonnement et la mise à jour serveur de l'accès Pro sur iOS puis Android.
+Décision produit du 16 juillet 2026 : WARIBA Pro reste ouvert et sans paywall
+pendant le prélancement. Le Laboratoire 48 fonctionne donc sans clé RevenueCat,
+sans compte et sans entitlement. Après le lancement uniquement, les achats
+intégrés RevenueCat exigeront un development build ou un build signé, pas Expo
+Go ; il faudra alors vérifier chargement des offres, achat, restauration,
+gestion native et réconciliation serveur sur iOS puis Android.

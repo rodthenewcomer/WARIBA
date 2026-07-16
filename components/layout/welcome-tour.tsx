@@ -191,8 +191,8 @@ export function WelcomeTour() {
   if (!banner) return null;
 
   return (
-    <div className="fade-in mb-5 flex flex-wrap items-center gap-4 rounded-2xl border border-line bg-surface p-4 sm:flex-nowrap">
-      <BrandSignature className="h-12 w-[86px] shrink-0" />
+    <div className="fade-in mb-5 flex flex-col items-stretch gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-4 sm:flex-row sm:items-center sm:gap-4">
+      <BrandSignature className="h-9 w-16 shrink-0 self-start sm:h-12 sm:w-[86px] sm:self-auto" />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-ink">Nouveau sur la BRVM ?</p>
         <p className="mt-0.5 text-xs leading-relaxed text-ink-3">
@@ -200,11 +200,11 @@ export function WelcomeTour() {
           tout est calculé à partir des publications officielles.
         </p>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
-        <Button variant="accent" size="sm" onClick={() => setStep(0)}>
+      <div className="grid w-full shrink-0 grid-cols-2 items-center gap-2 sm:flex sm:w-auto">
+        <Button className="w-full" variant="accent" size="sm" onClick={() => setStep(0)}>
           Commencer la visite
         </Button>
-        <Button variant="ghost" size="sm" onClick={dismiss}>
+        <Button className="w-full" variant="ghost" size="sm" onClick={dismiss}>
           Plus tard
         </Button>
       </div>
