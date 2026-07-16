@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "STBC",
+  "title": "Rapport annuel — exercice 2025",
+  "type": "Résultats",
+  "date": "2026-07-15",
+  "url": "https://www.brvm.org/sites/default/files/20260715_-_rapport_annuel_-_exercice_2025_-_sitab_ci.pdf"
+ },
+ {
   "ticker": "CFAC",
   "title": "Rapport annuel — exercice 2025",
   "type": "Résultats",
@@ -4401,13 +4408,6 @@
   "type": "États financiers",
   "date": "2023-07-20",
   "url": "https://www.brvm.org/sites/default/files/20230720_-_etats_financiers_certifies_et_approuves_exercice_2022_-_onatel_bf.pdf"
- },
- {
-  "ticker": "STBC",
-  "title": "Etats financiers consolides — exercice 2022",
-  "type": "États financiers",
-  "date": "2023-07-13",
-  "url": "https://www.brvm.org/sites/default/files/20230713_-_etats_financiers_consolides_-_exercice_2022_-_sitab_ci.pdf"
  },
  {
   "ticker": "SMBC",

@@ -176,6 +176,18 @@
   "basis": "réel"
  },
  {
+  "id": "document-STBC-2026-07-15-e12dd16df8",
+  "type": "document",
+  "ticker": "STBC",
+  "title": "STBC : nouvelle publication financière",
+  "detail": "SITAB CI a publié « Rapport annuel — exercice 2025 » le 2026-07-15. Source officielle à consulter avant toute décision.",
+  "time": "2026-07-15T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260715_-_rapport_annuel_-_exercice_2025_-_sitab_ci.pdf"
+ },
+ {
   "id": "volume-ABJC-2026-07-14-d4d056ed80",
   "type": "volume",
   "ticker": "ABJC",
