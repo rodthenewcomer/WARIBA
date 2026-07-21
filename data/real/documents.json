@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "SHEC",
+  "title": "Rapport dactivites — 2eme trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-07-20",
+  "url": "https://www.brvm.org/sites/default/files/20260720_-_rapport_dactivites_-_2eme_trimestre_2026_-_vivo_energy_ci.pdf"
+ },
+ {
   "ticker": "STBC",
   "title": "Rapport annuel — exercice 2025",
   "type": "Résultats",
@@ -5346,13 +5353,6 @@
   "type": "Communiqué",
   "date": "2022-09-07",
   "url": "https://www.brvm.org/sites/default/files/20220907_-_rapport_dactivite_-_1er_semestre_2022_-_bicici.pdf"
- },
- {
-  "ticker": "SHEC",
-  "title": "Etats financiers exercice 2021",
-  "type": "États financiers",
-  "date": "2022-09-06",
-  "url": "https://www.brvm.org/sites/default/files/20220906_-_etats_financiers_exercice_2021_-_vivo_energy_ci.pdf"
  },
  {
   "ticker": "SAFC",
