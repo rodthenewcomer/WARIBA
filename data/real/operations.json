@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Calendrier de paiement de dividendes",
+      "date": "2026-07-21",
+      "pdf": "https://www.brvm.org/sites/default/files/20260720_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
+    },
+    {
       "title": "BRVM :  Transactions Sur Dossier",
       "date": "2026-07-16",
       "pdf": "https://www.brvm.org/sites/default/files/20260715_-_avis_ndeg209_brvmdg_-_transactions_sur_dossier.pdf"
@@ -144,11 +149,6 @@
       "title": "ETAT DU SENEGAL 6,40 % 2025-2028, ETAT DU SENEGAL 6,60 % 2025-2030, ETAT DU SENEGAL 6,75 % 2025-2032, ETAT DU SENEGAL 6,95 % 2025-2035 : Résultats de première cotation",
       "date": "2026-06-11",
       "pdf": "https://www.brvm.org/sites/default/files/20260610_-_avis_ndeg163_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_senegal_640_2025-2028_etat_du_senegal_660_2025-2030_etat_du_senegal675_2025-2032_et_etat_du_senegal_695_2025-2035_.pdf"
-    },
-    {
-      "title": "SAFCA CI  : Augmentation de capital - Clôture des souscriptions - actions nouvelles",
-      "date": "2026-06-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260610_-_avis_ndeg161_brvmdg_-_cloture_des_soucriptions_actions_nouvelles_safca_ci.pdf"
     }
   ],
   "operations": [
