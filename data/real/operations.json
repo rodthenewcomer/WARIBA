@@ -2,6 +2,21 @@
   "avis": [
     {
       "title": "Avis : Calendrier de paiement de dividendes",
+      "date": "2026-07-23",
+      "pdf": "https://www.brvm.org/sites/default/files/20260722_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
+    },
+    {
+      "title": "SUKUK ETAT DU TOGO 6,5 % 2016-2026 (SUKTG.S1) - RADIATION DE LA COTE",
+      "date": "2026-07-23",
+      "pdf": "https://www.brvm.org/sites/default/files/20260722_-_avis_ndeg216_brvmdg_-_radiation_-_sukuk_etat_du_togo_65_2016-2026_suktg.s1.pdf"
+    },
+    {
+      "title": "BRVM : Respect de diffusion d'information financière par les sociétés cotées à la BRVM (Etats financiers 2025 et 1er trimestre 2026)",
+      "date": "2026-07-23",
+      "pdf": "https://www.brvm.org/sites/default/files/20260722_-_avis_ndeg214_brvmdg_-_respect_de_diffusion_dinformation_financiere_par_les_societes_cotees_a_la_brvm_etats_financiers_2025_et_1er_trimestre_2026.pdf"
+    },
+    {
+      "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-07-21",
       "pdf": "https://www.brvm.org/sites/default/files/20260721_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     },
@@ -134,21 +149,6 @@
       "title": "TPCI 5,85% 2026-2033 - Résultats de première cotation",
       "date": "2026-06-12",
       "pdf": "https://www.brvm.org/sites/default/files/20260611_-_avis_ndeg168_brvmdg_-_resultats_de_premiere_cotation_-_tpci_585_2026-2033_tpci.o101_-_tpci_600_2026-2036_tpci.o102.pdf"
-    },
-    {
-      "title": "BRVM :  Transactions Sur Dossier",
-      "date": "2026-06-12",
-      "pdf": "https://www.brvm.org/sites/default/files/20260611_-_avis_ndeg165_brvmdg_-_transaction_sur_dossier.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-06-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260610_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Etat de Côte d'Ivoire : Offre Publique d'Echange",
-      "date": "2026-06-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260610_-_avis_ndeg164_brvmdg_-_offre_publique_dechange_-_etat_de_cote_divoire.pdf"
     }
   ],
   "operations": [
