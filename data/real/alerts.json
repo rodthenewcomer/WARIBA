@@ -44,6 +44,18 @@
   "basis": "réel"
  },
  {
+  "id": "document-SNTS-2026-07-24-c1a4d012b2",
+  "type": "document",
+  "ticker": "SNTS",
+  "title": "SNTS : nouvelle publication financière",
+  "detail": "SONATEL SN a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-24. Source officielle à consulter avant toute décision.",
+  "time": "2026-07-24T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260724_-_rapport_dactivites_-_1er_semestre_2026_-_sonatel_sn.pdf"
+ },
+ {
   "id": "prix-BICB-2026-07-23-7982a971c7",
   "type": "prix",
   "ticker": "BICB",
