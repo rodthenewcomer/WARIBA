@@ -59,6 +59,62 @@ def fmt_pct(v: float) -> str:
     return f"{v:+.2f}".replace(".", ",").replace("+", "+").rstrip("0").rstrip(",") + " %"
 
 
+def fmt_millions(value: float) -> str:
+    if abs(value) >= 1_000:
+        return (
+            f"{value / 1_000:,.1f}".replace(",", " ").replace(".", ",")
+            + " Md FCFA"
+        )
+    return f"{value:,.0f}".replace(",", " ") + " M FCFA"
+
+
+def change_pct(current: float, previous: float | None) -> float | None:
+    if previous in (None, 0):
+        return None
+    return (current - previous) / abs(previous) * 100
+
+
+def net_income_summary(current: float, previous: float | None) -> str:
+    if previous is None:
+        return f"résultat net {fmt_millions(current)}"
+    variation = change_pct(current, previous)
+    if current < 0 and previous < 0:
+        wording = "perte réduite" if current > previous else "perte aggravée"
+        return (
+            f"{wording} de {abs(variation):.1f} %, à {fmt_millions(abs(current))}"
+        ).replace(".", ",")
+    if current >= 0 > previous:
+        return f"retour au bénéfice, résultat net {fmt_millions(current)}"
+    if current < 0 <= previous:
+        return f"passage en perte, résultat net -{fmt_millions(abs(current))}"
+    return (
+        f"résultat net {fmt_millions(current)} "
+        f"({fmt_pct(variation) if variation is not None else 'variation N/D'})"
+    )
+
+
+def periodic_summary(record: dict | None) -> str | None:
+    if not record or record.get("status") != "integrated":
+        return None
+    revenue_change = change_pct(record["revenueM"], record.get("revenuePrevM"))
+    revenue = (
+        f"{record['periodLabel']} : {record['revenueLabel']} "
+        f"{fmt_millions(record['revenueM'])}"
+    )
+    if revenue_change is not None:
+        revenue += f" ({fmt_pct(revenue_change)} vs {record['comparisonLabel']})"
+    confidence = {
+        "high": "élevée",
+        "medium": "moyenne",
+        "low": "faible",
+    }.get(record.get("confidence"), "non déterminée")
+    return (
+        f"{revenue} ; "
+        f"{net_income_summary(record['netIncomeM'], record.get('netIncomePrevM'))}. "
+        f"Extraction automatique recoupée, confiance {confidence}."
+    )
+
+
 def alert(
     kind: str,
     ticker: str,
@@ -206,7 +262,12 @@ def fundamentals_alerts(fundamentals: dict, latest_date: str, names: dict[str, s
     return out
 
 
-def document_alerts(documents: list[dict], latest_date: str, names: dict[str, str]) -> list[dict]:
+def document_alerts(
+    documents: list[dict],
+    latest_date: str,
+    names: dict[str, str],
+    periodic_results: dict[str, dict] | None = None,
+) -> list[dict]:
     """Transforme une publication financière récente en signal visible.
 
     Le contenu du PDF n'est jamais interprété automatiquement ici : l'alerte
@@ -215,7 +276,13 @@ def document_alerts(documents: list[dict], latest_date: str, names: dict[str, st
     """
     from datetime import date
 
-    latest = date.fromisoformat(latest_date)
+    # Une publication peut sortir plusieurs jours après la dernière séance
+    # officielle disponible. L'ancienne logique la jugeait alors « future »
+    # (age négatif) et la supprimait précisément quand elle était capitale.
+    reference_date = max(
+        [latest_date, *(doc.get("date", "") for doc in documents)]
+    )
+    latest = date.fromisoformat(reference_date)
     out = []
     for doc in documents:
         if doc.get("type") not in DECISION_DOCUMENT_TYPES:
@@ -225,7 +292,15 @@ def document_alerts(documents: list[dict], latest_date: str, names: dict[str, st
         if age < 0 or age > DOCUMENTS_FRESH_DAYS:
             continue
         ticker = doc["ticker"]
-        summary = VERIFIED_DOCUMENT_SUMMARIES.get(doc["url"].rsplit("/", 1)[-1])
+        periodic_record = (periodic_results or {}).get(ticker)
+        extracted_summary = periodic_summary(
+            periodic_record
+            if periodic_record and periodic_record.get("source") == doc["url"]
+            else None
+        )
+        summary = extracted_summary or VERIFIED_DOCUMENT_SUMMARIES.get(
+            doc["url"].rsplit("/", 1)[-1]
+        )
         out.append(
             alert(
                 "document",
@@ -252,7 +327,12 @@ def document_alerts(documents: list[dict], latest_date: str, names: dict[str, st
     return out
 
 
-def build(series_dir: Path, fundamentals_path: Path, documents_path: Path | None = None) -> list[dict]:
+def build(
+    series_dir: Path,
+    fundamentals_path: Path,
+    documents_path: Path | None = None,
+    periodic_path: Path | None = None,
+) -> list[dict]:
     alerts: list[dict] = []
     latest_date = ""
     names: dict[str, str] = {}
@@ -286,7 +366,13 @@ def build(series_dir: Path, fundamentals_path: Path, documents_path: Path | None
         alerts.extend(fundamentals_alerts(fundamentals, latest_date, names))
     if documents_path and documents_path.exists() and latest_date:
         documents = json.loads(documents_path.read_text(encoding="utf-8"))
-        alerts.extend(document_alerts(documents, latest_date, names))
+        periodic_results = {}
+        if periodic_path and periodic_path.exists():
+            periodic_payload = json.loads(periodic_path.read_text(encoding="utf-8"))
+            periodic_results = periodic_payload.get("results", periodic_payload)
+        alerts.extend(
+            document_alerts(documents, latest_date, names, periodic_results)
+        )
 
     # En période de tendance, une valeur peut inscrire un nouvel extrême
     # 52 semaines plusieurs séances de suite : on ne garde que le plus
@@ -309,10 +395,18 @@ def main() -> None:
     parser.add_argument("--series-dir", default="data/boc/series")
     parser.add_argument("--fundamentals", default="data/real/fundamentals.json")
     parser.add_argument("--documents", default="data/real/documents.json")
+    parser.add_argument(
+        "--periodic-results", default="data/real/periodic-results.json"
+    )
     parser.add_argument("--out", default="data/real/alerts.json")
     args = parser.parse_args()
 
-    alerts = build(Path(args.series_dir), Path(args.fundamentals), Path(args.documents))
+    alerts = build(
+        Path(args.series_dir),
+        Path(args.fundamentals),
+        Path(args.documents),
+        Path(args.periodic_results),
+    )
     Path(args.out).write_text(
         json.dumps(alerts, ensure_ascii=False, indent=1), encoding="utf-8"
     )

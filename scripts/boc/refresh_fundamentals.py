@@ -21,6 +21,7 @@ import math
 import re
 import subprocess
 import tempfile
+import time
 import unicodedata
 import urllib.request
 from datetime import datetime, timezone
@@ -341,11 +342,12 @@ def extract_pdf_text(pdf_path: Path, workdir: Path) -> str:
     text_path = workdir / "document.txt"
     run(["pdftotext", "-layout", str(pdf_path), str(text_path)])
     text = text_path.read_text(encoding="utf-8", errors="replace")
-    core_labels = normalized(text)
-    if len(text.strip()) >= 300 and (
-        "resultat net" in core_labels
-        and ("chiffre d'affaires" in core_labels or "produit net bancaire" in core_labels)
-    ):
+    has_income_pair = bool(extract_pairs(text, LABELS["net_income"]))
+    has_revenue_pair = bool(
+        extract_pairs(text, LABELS["revenue"])
+        or extract_pairs(text, LABELS["pnb"])
+    )
+    if len(text.strip()) >= 300 and has_income_pair and has_revenue_pair:
         return text
 
     prefix = workdir / "page"
@@ -373,9 +375,18 @@ def extract_pdf_text(pdf_path: Path, workdir: Path) -> str:
 
 
 def download(url: str, destination: Path) -> None:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=90) as response:
-        destination.write_bytes(response.read())
+    last_error: Exception | None = None
+    for attempt in range(1, 4):
+        try:
+            request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(request, timeout=90) as response:
+                destination.write_bytes(response.read())
+            return
+        except Exception as error:
+            last_error = error
+            if attempt < 3:
+                time.sleep(2 ** (attempt - 1))
+    raise RuntimeError(f"PDF inaccessible après 3 tentatives: {last_error}") from last_error
 
 
 def build_record(

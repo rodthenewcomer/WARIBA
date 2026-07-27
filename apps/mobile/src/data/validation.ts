@@ -135,6 +135,45 @@ export const documentsSchema = z.array(z.object({
   url: z.string().url(),
 }));
 
+const periodicResultBase = {
+  ticker: z.string().regex(/^[A-Z0-9]{2,12}$/),
+  fiscalYear: z.number().int().min(1998).max(2200),
+  periodType: z.enum(["quarterly", "semiannual"]),
+  periodCode: z.string().min(2),
+  periodLabel: z.string().min(4),
+  comparisonLabel: z.string().min(4),
+  asOfDate: isoDate,
+  source: z.string().url(),
+  publishedOn: isoDate,
+  confidence: z.enum(["high", "medium", "low"]),
+  sourceType: z.string().min(1),
+};
+
+const periodicResultSchema = z.discriminatedUnion("status", [
+  z.object({
+    ...periodicResultBase,
+    status: z.literal("integrated"),
+  revenueLabel: z.enum(["CA", "PNB"]),
+  revenueM: finiteNumber,
+  revenuePrevM: finiteNumber,
+  netIncomeM: finiteNumber,
+  netIncomePrevM: finiteNumber,
+  ordinaryIncomeM: nullableNumber,
+  ordinaryIncomePrevM: nullableNumber,
+  unit: z.string().min(1),
+  }),
+  z.object({
+    ...periodicResultBase,
+    status: z.literal("review_required"),
+    detail: z.string().min(1),
+  }),
+]);
+
+export const periodicResultsSchema = z.object({
+  generatedAt: z.string().datetime({ offset: true }),
+  results: z.record(z.string(), periodicResultSchema),
+});
+
 const operationNoticeSchema = z.object({
   title: z.string().min(1),
   date: isoDate,

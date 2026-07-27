@@ -17,6 +17,7 @@ import {
 } from "@wariba/core/financial-language";
 import { newsDate, newsForTicker } from "@/lib/news";
 import { realDocsForTicker } from "@/lib/real-documents";
+import { getPeriodicResult } from "@/lib/periodic-results";
 import { DIVIDEND_MAP } from "@/lib/mock/dividends";
 import {
   compactFcfa,
@@ -83,6 +84,7 @@ export function StockView({ ticker }: { ticker: string }) {
   const stock = useMemo(() => getSnapshot(ticker), [ticker]);
   const real = useMemo(() => getRealQuote(ticker), [ticker]);
   const realFund = useMemo(() => getRealFundamentals(ticker), [ticker]);
+  const periodicResult = useMemo(() => getPeriodicResult(ticker), [ticker]);
   const realAnalysis = useMemo(() => getRealAnalysis(ticker), [ticker]);
   const news = useMemo(() => newsForTicker(ticker), [ticker]);
 
@@ -92,10 +94,23 @@ export function StockView({ ticker }: { ticker: string }) {
     (document) =>
       document.type === "Résultats" || document.type === "États financiers"
   );
+  const latestPeriodicResult =
+    periodicResult?.status === "integrated" &&
+    periodicResult.source === latestFinancialDoc?.url
+      ? periodicResult
+      : undefined;
+  const latestFinancialIntegrated =
+    realFund?.source === latestFinancialDoc?.url || !!latestPeriodicResult;
   const dividend = DIVIDEND_MAP.get(ticker);
   const sectorStats = getSectorStats().find((s) => s.sector === stock.sector);
   const realPerComparison = realAnalysis?.comparisons.find((item) => item.metric === "per");
   const f = stock.fundamentals;
+  const periodicNetTrend = latestPeriodicResult
+    ? describeNetIncomeTrend(
+        latestPeriodicResult.netIncomeM,
+        latestPeriodicResult.netIncomePrevM
+      )
+    : null;
 
   const lastPrice = real?.lastClose ?? stock.lastPrice;
   const dayChange = real?.dayChangePct ?? stock.dayChange;
@@ -457,14 +472,89 @@ export function StockView({ ticker }: { ticker: string }) {
                   </span>
                   <span className="mt-1 block text-[10px] text-ink-3">
                     {realFund?.source === latestFinancialDoc.url
-                      ? "Chiffres structurés ci-dessous issus de ce document vérifié."
-                      : "Document officiel disponible immédiatement. Les chiffres structurés ci-dessous peuvent encore refléter la publication annuelle vérifiée précédente."}
+                      ? "Chiffres annuels structurés ci-dessous issus de ce document vérifié."
+                      : latestPeriodicResult
+                        ? `${latestPeriodicResult.periodLabel} structuré automatiquement ci-dessous ; les ratios annuels restent séparés.`
+                        : "Publication détectée automatiquement. Les chiffres annuels ci-dessous restent ceux du dernier exercice vérifié pendant le contrôle de l'extraction."}
                   </span>
                 </span>
-                <Badge tone={realFund?.source === latestFinancialDoc.url ? "positive" : "warning"}>
-                  {realFund?.source === latestFinancialDoc.url ? "Intégrée" : "À lire"}
+                <Badge tone={latestFinancialIntegrated ? "positive" : "warning"}>
+                  {latestFinancialIntegrated ? "Chiffres intégrés" : "Détectée"}
                 </Badge>
               </a>
+            ) : null}
+            {latestPeriodicResult ? (
+              <div className="mb-3 rounded-xl border border-line bg-surface-1 p-3.5">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <p className="text-xs font-semibold text-ink">
+                      Résultats {latestPeriodicResult.periodLabel}
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-ink-3">
+                      Comparaison avec {latestPeriodicResult.comparisonLabel} · montants publiés en millions FCFA
+                    </p>
+                  </div>
+                  <Badge tone="positive">
+                    Confiance {latestPeriodicResult.confidence === "high" ? "élevée" : "moyenne"}
+                  </Badge>
+                </div>
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {[
+                    {
+                      label: latestPeriodicResult.revenueLabel,
+                      current: latestPeriodicResult.revenueM,
+                      previous: latestPeriodicResult.revenuePrevM,
+                      trend: growthPct(
+                        latestPeriodicResult.revenueM,
+                        latestPeriodicResult.revenuePrevM
+                      ),
+                      trendLabel: null,
+                      trendTone: null,
+                    },
+                    {
+                      label: "Résultat net",
+                      current: latestPeriodicResult.netIncomeM,
+                      previous: latestPeriodicResult.netIncomePrevM,
+                      trend: periodicNetTrend?.changePct ?? null,
+                      trendLabel: periodicNetTrend?.label ?? null,
+                      trendTone: periodicNetTrend?.tone ?? null,
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-lg border border-line bg-surface px-3 py-2.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[11px] font-medium text-ink-2">{item.label}</span>
+                        <span
+                          className={cn(
+                            "text-[11px] font-semibold",
+                            item.trendTone === "negative"
+                              ? "text-negative"
+                              : item.trendTone === "warning"
+                                ? "text-warning"
+                                : (item.trend ?? 0) >= 0
+                                  ? "text-positive"
+                                  : "text-negative"
+                          )}
+                        >
+                          {item.trendLabel ??
+                            (item.trend === null ? "N/D" : pct(item.trend, { digits: 1 }))}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm font-semibold tabular-nums text-ink">
+                        {millions(item.current)}
+                      </p>
+                      <p className="mt-0.5 text-[10px] tabular-nums text-ink-3">
+                        {latestPeriodicResult.comparisonLabel} : {millions(item.previous)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-2.5 text-[10px] leading-4 text-ink-3">
+                  Publication officielle du {dateFr(latestPeriodicResult.publishedOn)} · résultats intermédiaires non annualisés · ratios PER, ROE et rendement toujours calculés sur leur base annuelle ou BRVM explicitement indiquée.
+                </p>
+              </div>
             ) : null}
             <p className="mb-2 text-[11px] text-ink-3">
               Survolez ou touchez <span className="font-semibold text-accent">ⓘ</span> pour comprendre chaque métrique et sa formule.

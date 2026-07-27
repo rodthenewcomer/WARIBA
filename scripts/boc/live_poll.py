@@ -28,12 +28,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 HOME_URL = "https://www.brvm.org"
 USER_AGENT = "WARIBA-live-poll/1.0 (usage interne, projet non commercial)"
+FETCH_ATTEMPTS = 4
+FETCH_TIMEOUT_SECONDS = 30
+MIN_EXPECTED_QUOTES = 40
 
 ITEM_RE = re.compile(
     r'<span>([A-Z0-9]{3,6})</span>&nbsp;<span>([\d\s]+)</span>&nbsp;'
@@ -46,13 +50,35 @@ def fr_number(raw: str) -> float:
 
 
 def fetch_quotes() -> dict[str, float]:
-    req = Request(HOME_URL, headers={"User-Agent": USER_AGENT})
-    with urlopen(req, timeout=20) as resp:
-        html = resp.read().decode("utf-8", errors="replace")
-    quotes = {}
-    for ticker, price_raw, _var_raw in ITEM_RE.findall(html):
-        quotes[ticker] = fr_number(price_raw)
-    return quotes
+    last_error: Exception | None = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            req = Request(HOME_URL, headers={"User-Agent": USER_AGENT})
+            with urlopen(req, timeout=FETCH_TIMEOUT_SECONDS) as resp:
+                html = resp.read().decode("utf-8", errors="replace")
+            quotes = {
+                ticker: fr_number(price_raw)
+                for ticker, price_raw, _var_raw in ITEM_RE.findall(html)
+            }
+            if len(quotes) < MIN_EXPECTED_QUOTES:
+                raise RuntimeError(
+                    f"format BRVM inattendu: {len(quotes)} cotations détectées, "
+                    f"minimum attendu {MIN_EXPECTED_QUOTES}"
+                )
+            return quotes
+        except Exception as error:
+            last_error = error
+            if attempt == FETCH_ATTEMPTS:
+                break
+            delay = 2 ** (attempt - 1)
+            print(
+                f"Tentative BRVM {attempt}/{FETCH_ATTEMPTS} en échec "
+                f"({type(error).__name__}: {error}); nouvel essai dans {delay}s."
+            )
+            time.sleep(delay)
+    raise RuntimeError(
+        f"BRVM inaccessible après {FETCH_ATTEMPTS} tentatives: {last_error}"
+    ) from last_error
 
 
 def main() -> None:
@@ -77,10 +103,6 @@ def main() -> None:
         state = json.loads(out_path.read_text(encoding="utf-8"))
 
     quotes = fetch_quotes()
-    if not quotes:
-        print("Aucune cotation trouvée — page inaccessible ou format changé.")
-        return
-
     for ticker, price in quotes.items():
         if ticker not in state:
             state[ticker] = {

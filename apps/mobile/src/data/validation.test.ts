@@ -10,6 +10,7 @@ import {
   liveMarketSchema,
   newsSchema,
   operationsSchema,
+  periodicResultsSchema,
   quoteMapSchema,
   seriesSchema,
 } from "./validation";
@@ -28,6 +29,7 @@ describe("mobile public data boundary", () => {
     ["data/real/dividends.json", dividendsSchema],
     ["data/real/documents.json", documentsSchema],
     ["data/real/operations.json", operationsSchema],
+    ["data/real/periodic-results.json", periodicResultsSchema],
     ["data/news/news.json", newsSchema],
     ["data/real/series/SNTS.json", seriesSchema],
   ] as const)("validates %s before cache or rendering", (path, schema) => {

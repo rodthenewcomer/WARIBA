@@ -34,7 +34,7 @@ jobs:
     outputs:
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Sonder les cours (stdlib Python uniquement)
         run: python3 scripts/boc/live_poll.py --out-dir data/live --public-out data/real/live.json
       - name: Committer l'état intraday du jour

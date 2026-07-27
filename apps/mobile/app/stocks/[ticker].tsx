@@ -288,6 +288,22 @@ export default function StockScreen() {
     () => documents.find((item) => item.type === "Résultats" || item.type === "États financiers"),
     [documents]
   );
+  const latestPeriodicResult = market.periodicResults[ticker]?.status === "integrated"
+    && market.periodicResults[ticker]?.source === latestFinancialDocument?.url
+    ? market.periodicResults[ticker]
+    : undefined;
+  const periodicNetTrend = latestPeriodicResult
+    ? describeNetIncomeTrend(
+        latestPeriodicResult.netIncomeM,
+        latestPeriodicResult.netIncomePrevM
+      )
+    : null;
+  const periodicRevenueGrowth = latestPeriodicResult
+    ? growthPct(
+        latestPeriodicResult.revenueM,
+        latestPeriodicResult.revenuePrevM
+      )
+    : null;
   const operations = useMemo(() => documents.filter((item) => /capital|split|fusion/i.test(item.title)), [documents]);
   const news = useMemo(() => market.news.filter((item) => item.tickers.includes(ticker)).slice(0, 10), [market.news, ticker]);
   const realAnalysis = useMemo(
@@ -618,9 +634,41 @@ export default function StockScreen() {
               <Row
                 icon="document-text-outline"
                 title={`Dernière publication · ${latestFinancialDocument.title}`}
-                detail={`${dateFr(latestFinancialDocument.date)} · ${fundamental?.source === latestFinancialDocument.url ? "chiffres intégrés et recoupés avec N-1" : "document officiel disponible ; extraction automatique sous contrôle"}`}
+                detail={`${dateFr(latestFinancialDocument.date)} · ${
+                  fundamental?.source === latestFinancialDocument.url
+                    ? "chiffres annuels intégrés et recoupés avec N-1"
+                    : latestPeriodicResult
+                      ? `${latestPeriodicResult.periodLabel} intégré ; ratios annuels conservés séparément`
+                      : "publication détectée ; extraction automatique sous contrôle"
+                }`}
                 onPress={() => void openTrustedExternalUrl(latestFinancialDocument.url)}
               />
+            </View>
+          ) : null}
+          {latestPeriodicResult ? (
+            <View style={styles.periodicCard}>
+              <View style={styles.periodicHeader}>
+                <View>
+                  <Text style={styles.periodicTitle}>Résultats {latestPeriodicResult.periodLabel}</Text>
+                  <Text style={styles.periodicDetail}>
+                    Comparés avec {latestPeriodicResult.comparisonLabel} · confiance {latestPeriodicResult.confidence === "high" ? "élevée" : "moyenne"}
+                  </Text>
+                </View>
+                <Ionicons name="checkmark-circle" size={18} color={colors.accent} />
+              </View>
+              <FactRow
+                label={`${latestPeriodicResult.revenueLabel} ${latestPeriodicResult.periodLabel}`}
+                value={`${millions(latestPeriodicResult.revenueM)} · ${periodicRevenueGrowth === null ? "N/D" : pct(periodicRevenueGrowth, { digits: 1 })}`}
+                tone={periodicRevenueGrowth !== null && periodicRevenueGrowth < 0 ? "down" : "up"}
+              />
+              <FactRow
+                label={`Résultat net ${latestPeriodicResult.periodLabel}`}
+                value={`${millions(latestPeriodicResult.netIncomeM)} · ${periodicNetTrend?.label ?? "comparaison N/D"}`}
+                tone={periodicNetTrend?.tone === "negative" ? "down" : periodicNetTrend?.tone === "warning" ? "warn" : "up"}
+              />
+              <Text style={styles.periodicFootnote}>
+                Résultats intermédiaires non annualisés. PER, ROE et rendement gardent leur base annuelle ou BRVM indiquée.
+              </Text>
             </View>
           ) : null}
           <Text style={styles.metricHelp}>Touchez une carte marquée ⓘ pour afficher sa définition et sa formule.</Text>
@@ -837,6 +885,16 @@ const styles = StyleSheet.create({
     marginBottom: 12, paddingHorizontal: 12, borderRadius: radius.lg,
     backgroundColor: colors.accentSoft, borderColor: "rgba(32,201,130,0.35)", borderWidth: 1,
   },
+  periodicCard: {
+    marginBottom: 12, padding: 14, gap: 10, borderRadius: radius.lg,
+    backgroundColor: colors.surface, borderColor: colors.lineStrong, borderWidth: 1,
+  },
+  periodicHeader: {
+    flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 10,
+  },
+  periodicTitle: { ...type.title, fontSize: 14 },
+  periodicDetail: { ...type.caption, marginTop: 2 },
+  periodicFootnote: { ...type.caption, fontSize: 9.5, lineHeight: 14 },
   infoChips: { flexDirection: "row", flexWrap: "wrap", gap: 7, marginTop: 9 },
   infoChip: {
     flexDirection: "row", alignItems: "center", gap: 5,

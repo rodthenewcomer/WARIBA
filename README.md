@@ -165,6 +165,10 @@ artefacts JSON committés dans `data/real/`, `data/news/`, `data/live/` et
   exercice annuel, lit PDF texte ou scan OCR, détermine unité et colonnes
   par recoupement N-1, puis actualise automatiquement. Une ambiguïté bloque
   l'écrasement et apparaît dans `fundamentals-status.json`.
+- **`refresh_periodic_results.py`** — traite séparément les publications
+  trimestrielles et semestrielles : CA/PNB et résultat net N/N-1 sont
+  structurés dans `periodic-results.json` sans remplacer les ratios annuels.
+  Une extraction insuffisante reste détectée et sourcée, sans chiffre inventé.
 - **`build_alerts.py`** — alertes factuelles des 5 dernières séances.
 - **`fetch_documents.py`** / **`fetch_operations.py`** — publications
   officielles par société et avis/opérations sur capital (ESV) depuis
@@ -274,8 +278,11 @@ Six workflows GitHub Actions (`.github/workflows/`) :
   rattachement aux tickers, liens vers les articles originaux) et
   et pousse la nouvelle version ;
 - **documents.yml** — toutes les 5 min : publications officielles des
-  48 actions depuis les fiches brvm.org, alerte décisionnelle immédiate et
-  push de la nouvelle version ;
+  48 actions depuis les fiches brvm.org, tentatives réseau avec repli sur le
+  dernier état connu, OCR des nouveaux comptes annuels et résultats
+  intermédiaires, alerte décisionnelle immédiate et push de la nouvelle
+  version. Un exercice annuel en attente est retenté même si le PDF avait déjà
+  été détecté lors d'un passage précédent ;
 - **freshness.yml** — watchdog quotidien (07h00 UTC) : un bulletin en
   ligne mais absent de nos données met le workflow en rouge (e-mail) —
   la staleness silencieuse est interdite ;

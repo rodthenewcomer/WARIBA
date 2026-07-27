@@ -100,6 +100,50 @@ class VolumeTest(unittest.TestCase):
 
 
 class DocumentAlertTest(unittest.TestCase):
+    def test_publication_apres_derniere_cloture_nest_plus_supprimee(self) -> None:
+        alerts = document_alerts(
+            [{
+                "ticker": "SNTS",
+                "title": "Rapport d'activités 1er semestre 2026",
+                "type": "Résultats",
+                "date": "2026-07-24",
+                "url": "https://www.brvm.org/snts.pdf",
+            }],
+            "2026-07-15",
+            {"SNTS": "Sonatel SN"},
+        )
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(alerts[0]["severity"], "critical")
+
+    def test_resultats_intermediaires_structures_enrichissent_lalerte(self) -> None:
+        document = {
+            "ticker": "BICB",
+            "title": "Rapport d'activités 1er trimestre 2026",
+            "type": "Résultats",
+            "date": "2026-07-22",
+            "url": "https://www.brvm.org/biic.pdf",
+        }
+        periodic = {
+            "BICB": {
+                "source": document["url"],
+                "status": "integrated",
+                "periodLabel": "T1 2026",
+                "comparisonLabel": "T1 2025",
+                "revenueLabel": "PNB",
+                "revenueM": 14640,
+                "revenuePrevM": 10814,
+                "netIncomeM": 7957,
+                "netIncomePrevM": 5391,
+                "confidence": "high",
+            }
+        }
+        alerts = document_alerts(
+            [document], "2026-07-15", {"BICB": "BIIC Bénin"}, periodic
+        )
+        self.assertIn("PNB 14,6 Md FCFA", alerts[0]["detail"])
+        self.assertIn("résultat net 8,0 Md FCFA", alerts[0]["detail"])
+        self.assertIn("confiance élevée", alerts[0]["detail"])
+
     def test_publications_du_meme_jour_restent_distinctes_et_critiques(self) -> None:
         documents = [
             {

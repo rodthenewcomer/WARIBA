@@ -21,6 +21,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import re
+import time
 import urllib.request
 from pathlib import Path
 
@@ -29,6 +30,7 @@ BASE = "https://www.brvm.org"
 # Conserver assez d'historique pour ne pas perdre un rapport quand plusieurs
 # PDF (activité, états, IFRS, SYSCOHADA, attestation) paraissent le même jour.
 MAX_PER_COMPANY = 20
+FETCH_ATTEMPTS = 3
 
 # Ticker -> slug de la fiche société BRVM (vérifiés sur le listing
 # /fr/rapports-societes-cotees, 2026-07). Les slugs non-actions (FCTC,
@@ -115,9 +117,20 @@ def parse_page(html: str, ticker: str) -> list[dict]:
 
 
 def fetch(url: str) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode("utf-8", errors="replace")
+    last_error: Exception | None = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return resp.read().decode("utf-8", errors="replace")
+        except Exception as error:
+            last_error = error
+            if attempt == FETCH_ATTEMPTS:
+                break
+            time.sleep(2 ** (attempt - 1))
+    raise RuntimeError(
+        f"{url} inaccessible après {FETCH_ATTEMPTS} tentatives: {last_error}"
+    ) from last_error
 
 
 def main() -> None:
@@ -148,7 +161,10 @@ def main() -> None:
 
     def fetch_company(ticker: str, slug: str) -> tuple[str, list[dict]]:
         html = fetch(f"{BASE}/fr/rapports-societe-cotes/{slug}")
-        return ticker, parse_page(html, ticker)
+        documents = parse_page(html, ticker)
+        if not documents:
+            raise RuntimeError("aucun PDF détecté; format de page potentiellement modifié")
+        return ticker, documents
 
     all_docs: list[dict] = []
     errors = 0
@@ -200,6 +216,11 @@ def main() -> None:
         f"{len(all_docs)} documents ({len(SLUGS) - errors}/{len(SLUGS)} fiches) "
         f"-> {args.out} {by_type}"
     )
+    if errors:
+        print(
+            f"ATTENTION: {errors} fiche(s) indisponible(s); dernières données "
+            "connues conservées et nouvelle tentative au prochain passage."
+        )
 
 
 if __name__ == "__main__":

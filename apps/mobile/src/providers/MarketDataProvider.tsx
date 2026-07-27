@@ -7,6 +7,7 @@ import { useSettingsStore } from "../stores";
 
 const EMPTY: MarketPayload = {
   quotes: {}, fundamentals: {}, indices: [], alerts: [], dividends: {}, documents: [],
+  periodicResults: {},
   operations: { avis: [], operations: [] }, news: [],
 };
 

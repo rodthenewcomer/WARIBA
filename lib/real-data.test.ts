@@ -51,29 +51,44 @@ describe("real data snapshot", () => {
     }
   }, 30_000);
 
-  it("keeps STBC 5Y and MAX anchored to its own trusted history", async () => {
+  it("keeps STBC 5Y dynamic and MAX anchored to its own trusted history", async () => {
     const fiveYears = await realSeriesForTimeframe("STBC", "5Y");
     const full = await realSeriesForTimeframe("STBC", "MAX");
     const fiveYearSummary = summarizePeriod(fiveYears.data, "5Y");
     const fullSummary = summarizePeriod(full.data, "MAX");
+    const quote = getAllRealQuotes().find((item) => item.ticker === "STBC");
+    expect(quote).toBeDefined();
+    const cutoff = timeframeStartDate(quote!.asOfDate, "5Y");
+    const expectedFiveYears = full.data.filter(
+      (bar) => !cutoff || String(bar.time) >= cutoff
+    );
 
+    expect(fiveYears.data).toEqual(expectedFiveYears);
     expect(fiveYearSummary).toMatchObject({
-      startDate: "2021-07-19",
-      endDate: "2026-07-17",
-      initialClose: 3350,
-      finalClose: 23900,
-      high: 25000,
-      low: 3350,
+      startDate: String(expectedFiveYears[0].time),
+      endDate: quote!.asOfDate,
+      initialClose: expectedFiveYears[0].close,
+      finalClose: quote!.lastClose,
+      high: Math.max(...expectedFiveYears.map((bar) => bar.high)),
+      low: Math.min(...expectedFiveYears.map((bar) => bar.low)),
     });
-    expect(fiveYearSummary?.priceReturnPct).toBeCloseTo(613.43, 2);
+    expect(fiveYearSummary?.priceReturnPct).toBeCloseTo(
+      ((quote!.lastClose - expectedFiveYears[0].close) /
+        expectedFiveYears[0].close) *
+        100,
+      6
+    );
     expect(fullSummary).toMatchObject({
       startDate: "2019-01-02",
-      endDate: "2026-07-17",
+      endDate: quote!.asOfDate,
       initialClose: 1970,
-      finalClose: 23900,
-      high: 25000,
+      finalClose: quote!.lastClose,
+      high: Math.max(...full.data.map((bar) => bar.high)),
       low: 440,
     });
-    expect(fullSummary?.priceReturnPct).toBeCloseTo(1113.2, 1);
+    expect(fullSummary?.priceReturnPct).toBeCloseTo(
+      ((quote!.lastClose - 1970) / 1970) * 100,
+      6
+    );
   });
 });

@@ -5,7 +5,7 @@ import type { LiveMarketPayload, RealQuote } from "@wariba/core/types";
 import type { MarketPayload, SeriesPayload } from "./types";
 import {
   alertsSchema, dividendsSchema, documentsSchema, fundamentalsSchema, indicesSchema, liveMarketSchema,
-  newsSchema, operationsSchema, quoteMapSchema, seriesSchema,
+  newsSchema, operationsSchema, periodicResultsSchema, quoteMapSchema, seriesSchema,
 } from "./validation";
 
 // L'apex wariba.app redirige vers www. Utiliser directement l'origine finale
@@ -85,12 +85,18 @@ export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; of
     }
   };
 
-  const [fundamentals, indices, alerts, dividends, documents, operations, news, live] = await Promise.all([
+  const [fundamentals, indices, alerts, dividends, documents, periodicResults, operations, news, live] = await Promise.all([
     optional("fondamentaux", "real/fundamentals.json", fundamentalsSchema, {}),
     optional("indices", "real/indices.json", indicesSchema, []),
     optional("alertes", "real/alerts.json", alertsSchema, []),
     optional("dividendes", "real/dividends.json", dividendsSchema, {}),
     optional("documents", "real/documents.json", documentsSchema, []),
+    optional(
+      "résultats intermédiaires",
+      "real/periodic-results.json",
+      periodicResultsSchema,
+      { generatedAt: "1970-01-01T00:00:00+00:00", results: {} }
+    ),
     optional("opérations", "real/operations.json", operationsSchema, { avis: [], operations: [] }),
     optional("actualités", "news/news.json", newsSchema, []),
     optional<LiveMarketPayload>("cours différés", "real/live.json", liveMarketSchema, {
@@ -101,7 +107,7 @@ export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; of
       quotes: {},
     }),
   ]);
-  const secondary = [fundamentals, indices, alerts, dividends, documents, operations, news, live];
+  const secondary = [fundamentals, indices, alerts, dividends, documents, periodicResults, operations, news, live];
   const mergedQuotes = mergeLiveQuoteMap(
     quotes.data as Record<string, RealQuote>,
     live.data
@@ -119,6 +125,7 @@ export async function fetchMarketPayload(): Promise<{ payload: MarketPayload; of
       alerts: alerts.data,
       dividends: dividends.data,
       documents: documents.data,
+      periodicResults: periodicResults.data.results,
       operations: operations.data,
       news: news.data.filter((item) =>
         item.tickers.some((ticker) => Object.prototype.hasOwnProperty.call(mergedQuotes, ticker))

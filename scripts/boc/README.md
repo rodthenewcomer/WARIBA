@@ -210,6 +210,10 @@ Le compromis retenu est donc hybride :
    pour chacun des 48 tickers. Il essaie le texte natif puis OCR, énumère les
    unités et l'ordre N/N-1, et n'accepte que la combinaison dont N-1 recoupe le
    dernier exercice validé pour le CA/PNB et le résultat net.
+5. `refresh_periodic_results.py` applique les mêmes garde-fous aux T1-T4 et
+   S1-S2, mais conserve ces chiffres dans un registre séparé. Le web et les
+   apps iOS/Android affichent ainsi la dernière période publiée immédiatement
+   sans annualiser ni remplacer les métriques de l'exercice complet.
 
 Cette architecture conserve l'automatisation là où elle est reproductible
 et rend chaque exception explicite dans le registre. SNTS, ORAC, FTSC,
@@ -217,8 +221,11 @@ SCRC et TTLS ont notamment été résolus par lecture visuelle des publications
 approuvées ; le millésime SICC est 2024 malgré le nom de fichier BRVM qui
 mentionne 2025.
 
-Le workflow `documents.yml` exécute ce rafraîchissement dès qu'un nouveau PDF
-apparaît. CFAO/CFAC constitue le test scanné de non-régression : le rapport
+Le workflow `documents.yml` exécute ces rafraîchissements dès qu'un nouveau PDF
+apparaît et retente tout exercice annuel non intégré même si le fichier
+`documents.json` n'a plus changé. Les résultats intermédiaires sont traités
+par lots récents pour conserver un cycle inférieur à cinq minutes. CFAO/CFAC
+constitue le test scanné de non-régression : le rapport
 annuel 2025 publié le 13 juillet 2026 actualise automatiquement le CA à
 180 545 M FCFA, le résultat net à 8 416 M et le résultat ordinaire à
 11 413 M. Son ROE 2024 est retiré, car ce rapport d'activité ne publie pas les

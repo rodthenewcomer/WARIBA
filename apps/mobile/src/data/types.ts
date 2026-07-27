@@ -54,6 +54,39 @@ export interface DocumentRecord {
   url: string;
 }
 
+interface PeriodicResultBase {
+  ticker: string;
+  fiscalYear: number;
+  periodType: "quarterly" | "semiannual";
+  periodCode: string;
+  periodLabel: string;
+  comparisonLabel: string;
+  asOfDate: string;
+  source: string;
+  publishedOn: string;
+  confidence: "high" | "medium" | "low";
+  sourceType: string;
+}
+
+export interface IntegratedPeriodicResult extends PeriodicResultBase {
+  status: "integrated";
+  revenueLabel: "CA" | "PNB";
+  revenueM: number;
+  revenuePrevM: number;
+  netIncomeM: number;
+  netIncomePrevM: number;
+  ordinaryIncomeM: number | null;
+  ordinaryIncomePrevM: number | null;
+  unit: string;
+}
+
+export interface ReviewPeriodicResult extends PeriodicResultBase {
+  status: "review_required";
+  detail: string;
+}
+
+export type PeriodicResult = IntegratedPeriodicResult | ReviewPeriodicResult;
+
 export interface NewsRecord {
   title: string;
   link: string;
@@ -93,6 +126,7 @@ export interface MarketPayload {
   alerts: AlertItem[];
   dividends: DividendMap;
   documents: DocumentRecord[];
+  periodicResults: Record<string, PeriodicResult>;
   operations: OperationsPayload;
   news: NewsRecord[];
 }
