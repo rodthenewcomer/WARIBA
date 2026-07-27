@@ -1,5 +1,82 @@
 [
  {
+  "id": "prix-BICB-2026-07-27-3c5d5a1a5a",
+  "type": "prix",
+  "ticker": "BICB",
+  "title": "BICB au plus haut 52 semaines",
+  "detail": "BIIC BN clôture à 7 850 FCFA le 2026-07-27 — au-delà de son plus haut des 52 dernières semaines (7 615 FCFA).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAC-2026-07-27-5a7825584d",
+  "type": "prix",
+  "ticker": "BOAC",
+  "title": "BOAC : +5,83 % sur la séance",
+  "detail": "BANK OF AFRICA CI clôture à 10 795 FCFA le 2026-07-27  contre 10 200 FCFA la séance précédente (7 319 titres échangés).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAC-2026-07-27-cfa1b0a2a6",
+  "type": "prix",
+  "ticker": "BOAC",
+  "title": "BOAC au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA CI clôture à 10 795 FCFA le 2026-07-27 — au-delà de son plus haut des 52 dernières semaines (10 200 FCFA).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIBC-2026-07-27-0ae524e53f",
+  "type": "prix",
+  "ticker": "SIBC",
+  "title": "SIBC au plus haut 52 semaines",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 100 FCFA le 2026-07-27 — au-delà de son plus haut des 52 dernières semaines (9 015 FCFA).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SOGC-2026-07-27-cdd94b44db",
+  "type": "volume",
+  "ticker": "SOGC",
+  "title": "Volume inhabituel sur SOGC",
+  "detail": "15 144 titres SOGB CI échangés le 2026-07-27  soit 5.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-07-27-7bc277eca0",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : -7,4 % sur la séance",
+  "detail": "SETAO CI clôture à 2 690 FCFA le 2026-07-27  contre 2 905 FCFA la séance précédente (5 480 titres échangés).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNXC-2026-07-27-e3103156ef",
+  "type": "prix",
+  "ticker": "UNXC",
+  "title": "UNXC : +6,49 % sur la séance",
+  "detail": "UNIWAX CI clôture à 1 970 FCFA le 2026-07-27  contre 1 850 FCFA la séance précédente (25 581 titres échangés).",
+  "time": "2026-07-27T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-ABJC-2026-07-24-d4d056ed80",
   "type": "volume",
   "ticker": "ABJC",
@@ -16,28 +93,6 @@
   "ticker": "BICB",
   "title": "BICB : +7,48 % sur la séance",
   "detail": "BIIC BN clôture à 7 615 FCFA le 2026-07-24  contre 7 085 FCFA la séance précédente (1 771 titres échangés).",
-  "time": "2026-07-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICB-2026-07-24-3c5d5a1a5a",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB au plus haut 52 semaines",
-  "detail": "BIIC BN clôture à 7 615 FCFA le 2026-07-24 — au-delà de son plus haut des 52 dernières semaines (7 085 FCFA).",
-  "time": "2026-07-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAC-2026-07-24-cfa1b0a2a6",
-  "type": "prix",
-  "ticker": "BOAC",
-  "title": "BOAC au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA CI clôture à 10 200 FCFA le 2026-07-24 — au-delà de son plus haut des 52 dernières semaines (10 000 FCFA).",
   "time": "2026-07-24T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -278,94 +333,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-BNBC-2026-07-20-a13f08bdbc",
-  "type": "prix",
-  "ticker": "BNBC",
-  "title": "BNBC : +6,13 % sur la séance",
-  "detail": "BERNABE CI clôture à 1 990 FCFA le 2026-07-20  contre 1 875 FCFA la séance précédente (2 117 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CFAC-2026-07-20-c805e2dee0",
-  "type": "prix",
-  "ticker": "CFAC",
-  "title": "CFAC : +6,25 % sur la séance",
-  "detail": "CFAO MOTORS CI clôture à 1 700 FCFA le 2026-07-20  contre 1 600 FCFA la séance précédente (10 079 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ETIT-2026-07-20-7def416160",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : -7,35 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 63 FCFA le 2026-07-20  contre 68 FCFA la séance précédente (2 070 178 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SDCC-2026-07-20-b5666f51bf",
-  "type": "prix",
-  "ticker": "SDCC",
-  "title": "SDCC : +5,31 % sur la séance",
-  "detail": "SODE CI clôture à 11 900 FCFA le 2026-07-20  contre 11 300 FCFA la séance précédente (1 672 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SDSC-2026-07-20-40b6dbca66",
-  "type": "prix",
-  "ticker": "SDSC",
-  "title": "SDSC au plus haut 52 semaines",
-  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 2 820 FCFA le 2026-07-20 — au-delà de son plus haut des 52 dernières semaines (2 720 FCFA).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SEMC-2026-07-20-539f9a5629",
-  "type": "prix",
-  "ticker": "SEMC",
-  "title": "SEMC : -6 % sur la séance",
-  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 410 FCFA le 2026-07-20  contre 1 500 FCFA la séance précédente (4 303 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-20-e5fe20e294",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : +5,66 % sur la séance",
-  "detail": "SICOR CI clôture à 5 600 FCFA le 2026-07-20  contre 5 300 FCFA la séance précédente (85 titres échangés).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-20-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 5 600 FCFA le 2026-07-20 — au-delà de son plus haut des 52 dernières semaines (5 300 FCFA).",
-  "time": "2026-07-20T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-SHEC-2026-07-20-2013626c9a",
   "type": "document",
   "ticker": "SHEC",
@@ -493,51 +460,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260703_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_exercice_2024-_safca_ci.pdf"
- },
- {
-  "id": "document-SIVC-2026-06-26-436619705c",
-  "type": "document",
-  "ticker": "SIVC",
-  "title": "SIVC : nouvelle publication financière",
-  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) a publié « Etats financiers — exercice 2025 » le 2026-06-26. Source officielle à consulter avant toute décision.",
-  "time": "2026-06-26T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260626_-_etats_financiers_-_exercice_2025_-_erium_ci.pdf"
- },
- {
-  "id": "fondamental-SIVC-2026-06-26-34a875ff92",
-  "type": "fondamental",
-  "ticker": "SIVC",
-  "title": "SIVC : états financiers 2025 publiés",
-  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) a publié ses états financiers 2025 le 2026-06-26. Résultat net : 179 000 000 FCFA contre 377 000 000 FCFA en 2024.",
-  "time": "2026-06-26T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "document-STBC-2026-06-25-d593b39e79",
-  "type": "document",
-  "ticker": "STBC",
-  "title": "STBC : nouvelle publication financière",
-  "detail": "SITAB CI a publié « Etats financiers — exercice 2025 » le 2026-06-25. Source officielle à consulter avant toute décision.",
-  "time": "2026-06-25T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260625_-_etats_financiers_-_exercice_2025_-_sitab_ci_annule_et_remplace_le_precedent.pdf"
- },
- {
-  "id": "fondamental-STBC-2026-06-25-6d7d7294dd",
-  "type": "fondamental",
-  "ticker": "STBC",
-  "title": "STBC : états financiers 2025 publiés",
-  "detail": "SITAB CI a publié ses états financiers 2025 le 2026-06-25. Résultat net : 36 464 000 000 FCFA contre 44 174 000 000 FCFA en 2024.",
-  "time": "2026-06-25T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  }
 ]
