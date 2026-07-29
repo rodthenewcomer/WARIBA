@@ -1,11 +1,99 @@
 [
  {
-  "id": "prix-BOAC-2026-07-28-cfa1b0a2a6",
+  "id": "prix-BOAC-2026-07-29-cfa1b0a2a6",
   "type": "prix",
   "ticker": "BOAC",
   "title": "BOAC au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA CI clôture à 10 895 FCFA le 2026-07-28 — au-delà de son plus haut des 52 dernières semaines (10 795 FCFA).",
-  "time": "2026-07-28T15:30:00+00:00",
+  "detail": "BANK OF AFRICA CI clôture à 11 195 FCFA le 2026-07-29 — au-delà de son plus haut des 52 dernières semaines (10 895 FCFA).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ETIT-2026-07-29-5d5fd6887a",
+  "type": "prix",
+  "ticker": "ETIT",
+  "title": "ETIT : -7,25 % sur la séance",
+  "detail": "ECOBANK TRANS. INCORP. TG clôture à 64 FCFA le 2026-07-29  contre 69 FCFA la séance précédente (2 659 250 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORGT-2026-07-29-f4992dfe2a",
+  "type": "prix",
+  "ticker": "ORGT",
+  "title": "ORGT : +7,45 % sur la séance",
+  "detail": "ORAGROUP TOGO clôture à 2 955 FCFA le 2026-07-29  contre 2 750 FCFA la séance précédente (8 261 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SAFC-2026-07-29-423ab111c2",
+  "type": "prix",
+  "ticker": "SAFC",
+  "title": "SAFC : +7,42 % sur la séance",
+  "detail": "SAFCA CI clôture à 5 355 FCFA le 2026-07-29  contre 4 985 FCFA la séance précédente (12 625 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SEMC-2026-07-29-3f10c86bc2",
+  "type": "prix",
+  "ticker": "SEMC",
+  "title": "SEMC : -5 % sur la séance",
+  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 425 FCFA le 2026-07-29  contre 1 500 FCFA la séance précédente (5 915 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIBC-2026-07-29-0ae524e53f",
+  "type": "prix",
+  "ticker": "SIBC",
+  "title": "SIBC au plus haut 52 semaines",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 250 FCFA le 2026-07-29 — au-delà de son plus haut des 52 dernières semaines (9 100 FCFA).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-07-29-e5ff3e4138",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +7,46 % sur la séance",
+  "detail": "SICOR CI clôture à 6 340 FCFA le 2026-07-29  contre 5 900 FCFA la séance précédente (64 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-07-29-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 6 340 FCFA le 2026-07-29 — au-delà de son plus haut des 52 dernières semaines (5 900 FCFA).",
+  "time": "2026-07-29T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNLC-2026-07-29-f3073d962a",
+  "type": "prix",
+  "ticker": "UNLC",
+  "title": "UNLC : +7,49 % sur la séance",
+  "detail": "UNILEVER CI clôture à 55 875 FCFA le 2026-07-29  contre 51 980 FCFA la séance précédente (28 titres échangés).",
+  "time": "2026-07-29T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
@@ -77,17 +165,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SICC-2026-07-28-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 5 900 FCFA le 2026-07-28 — au-delà de son plus haut des 52 dernières semaines (5 600 FCFA).",
-  "time": "2026-07-28T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "volume-SLBC-2026-07-28-1cc43b86f9",
   "type": "volume",
   "ticker": "SLBC",
@@ -137,17 +214,6 @@
   "ticker": "BOAC",
   "title": "BOAC : +5,83 % sur la séance",
   "detail": "BANK OF AFRICA CI clôture à 10 795 FCFA le 2026-07-27  contre 10 200 FCFA la séance précédente (7 319 titres échangés).",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SIBC-2026-07-27-0ae524e53f",
-  "type": "prix",
-  "ticker": "SIBC",
-  "title": "SIBC au plus haut 52 semaines",
-  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 100 FCFA le 2026-07-27 — au-delà de son plus haut des 52 dernières semaines (9 015 FCFA).",
   "time": "2026-07-27T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -275,94 +341,6 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260723_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bn.pdf"
- },
- {
-  "id": "prix-ABJC-2026-07-22-f19994ab63",
-  "type": "prix",
-  "ticker": "ABJC",
-  "title": "ABJC : +7,43 % sur la séance",
-  "detail": "SERVAIR ABIDJAN CI clôture à 3 180 FCFA le 2026-07-22  contre 2 960 FCFA la séance précédente (7 995 titres échangés).",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CFAC-2026-07-22-64435749d7",
-  "type": "prix",
-  "ticker": "CFAC",
-  "title": "CFAC : +5,61 % sur la séance",
-  "detail": "CFAO MOTORS CI clôture à 1 695 FCFA le 2026-07-22  contre 1 605 FCFA la séance précédente (2 615 titres échangés).",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ETIT-2026-07-22-1d56d8c879",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : +6,06 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 70 FCFA le 2026-07-22  contre 66 FCFA la séance précédente (1 042 412 titres échangés).",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-LNBB-2026-07-22-aac0ad6333",
-  "type": "prix",
-  "ticker": "LNBB",
-  "title": "LNBB : +5,12 % sur la séance",
-  "detail": "LOTERIE NATIONALE DU BENIN clôture à 4 310 FCFA le 2026-07-22  contre 4 100 FCFA la séance précédente (1 497 titres échangés).",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SLBC-2026-07-22-1cc43b86f9",
-  "type": "volume",
-  "ticker": "SLBC",
-  "title": "Volume inhabituel sur SLBC",
-  "detail": "8 608 titres SOLIBRA CI échangés le 2026-07-22  soit 6.0× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SMBC-2026-07-22-01c37c2d6a",
-  "type": "volume",
-  "ticker": "SMBC",
-  "title": "Volume inhabituel sur SMBC",
-  "detail": "6 867 titres SMB CI échangés le 2026-07-22  soit 5.4× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-STAC-2026-07-22-bc83ef8d2b",
-  "type": "volume",
-  "ticker": "STAC",
-  "title": "Volume inhabituel sur STAC",
-  "detail": "18 883 titres SETAO CI échangés le 2026-07-22  soit 4.1× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-TTLS-2026-07-22-2e74520f51",
-  "type": "volume",
-  "ticker": "TTLS",
-  "title": "Volume inhabituel sur TTLS",
-  "detail": "11 890 titres TOTALENERGIES MARKETING SN échangés le 2026-07-22  soit 3.5× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-22T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "document-BICB-2026-07-22-c1118f2feb",
