@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T00:22:29.446001+00:00",
+  "generatedAt": "2026-07-29T20:45:37.218191+00:00",
   "results": {
     "ABJC": {
       "ticker": "ABJC",
@@ -290,24 +290,25 @@
     "ETIT": {
       "ticker": "ETIT",
       "fiscalYear": 2026,
-      "periodType": "quarterly",
-      "periodCode": "T1",
-      "periodLabel": "T1 2026",
-      "comparisonLabel": "T1 2025",
-      "asOfDate": "2026-03-31",
+      "periodType": "semiannual",
+      "periodCode": "S1",
+      "periodLabel": "S1 2026",
+      "comparisonLabel": "S1 2025",
+      "asOfDate": "2026-06-30",
       "revenueLabel": "PNB",
-      "revenueM": 636223,
-      "revenuePrevM": 356715,
-      "netIncomeM": 92613,
-      "netIncomePrevM": 51926,
+      "revenueM": 1281330,
+      "revenuePrevM": 721318,
+      "netIncomeM": 197957,
+      "netIncomePrevM": 111438,
       "ordinaryIncomeM": null,
       "ordinaryIncomePrevM": null,
-      "source": "https://www.brvm.org/sites/default/files/20260429_-_rapport_dactivites_-_1er_trimestre_2026_-_eti_tg.pdf",
-      "publishedOn": "2026-04-29",
+      "source": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dactivites_-_1er_semestre_2026_-_eti_tg.pdf",
+      "publishedOn": "2026-07-29",
       "status": "integrated",
       "confidence": "high",
       "sourceType": "publication officielle BRVM",
-      "unit": "millions FCFA"
+      "unit": "millions FCFA",
+      "exceptionalItem": "Élément exceptionnel non récurrent : résultat net soutenu par une cession d'actif, selon la publication officielle."
     },
     "FTSC": {
       "ticker": "FTSC",

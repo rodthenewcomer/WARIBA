@@ -1,5 +1,19 @@
 [
  {
+  "ticker": "ETIT",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-07-29",
+  "url": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dactivites_-_1er_semestre_2026_-_eti_tg.pdf"
+ },
+ {
+  "ticker": "ETIT",
+  "title": "Rapport dexamen limite sur les informations financieres intermediaires — 1er semestre 2026",
+  "type": "Communiqué",
+  "date": "2026-07-29",
+  "url": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dexamen_limite_sur_les_informations_financieres_intermediaires_-_1er_semestre_2026_-_eti_tg.pdf"
+ },
+ {
   "ticker": "SNTS",
   "title": "Rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -5738,13 +5752,6 @@
   "type": "États financiers",
   "date": "2022-02-10",
   "url": "https://www.brvm.org/sites/default/files/20220210_-_rapport_des_commissaires_aux_comptes_au_conseil_dadministration_exercice_2020_-_unilever_ci.pdf"
- },
- {
-  "ticker": "ETIT",
-  "title": "Etats financiers exercice 2021",
-  "type": "États financiers",
-  "date": "2022-01-28",
-  "url": "https://www.brvm.org/sites/default/files/20220128_-_etats_financiers_exercice_2021_-_eti_tg.pdf"
  },
  {
   "ticker": "SAFC",

@@ -99,6 +99,18 @@
   "basis": "réel"
  },
  {
+  "id": "document-ETIT-2026-07-29-d25757d8df",
+  "type": "document",
+  "ticker": "ETIT",
+  "title": "ETIT : nouvelle publication financière",
+  "detail": "ECOBANK TRANS. INCORP. TG a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-29. S1 2026 : PNB 1 281,3 Md FCFA (+77,64 % vs S1 2025) ; résultat net 198,0 Md FCFA (+77,64 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-07-29T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dactivites_-_1er_semestre_2026_-_eti_tg.pdf"
+ },
+ {
   "id": "prix-BOAM-2026-07-28-bb61bed85f",
   "type": "prix",
   "ticker": "BOAM",
