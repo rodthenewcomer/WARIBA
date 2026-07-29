@@ -26,6 +26,7 @@ from refresh_fundamentals import (
     download,
     extract_pairs,
     extract_pdf_text,
+    matching_alias,
     normalized,
     parse_number,
     to_millions,
@@ -116,7 +117,7 @@ def descriptor_is_newer_than_annual(document: dict, annual: dict | None) -> bool
 
 def relative_scale_score(value: int, annual: float, expected_ratio: float) -> float:
     ratio = abs(value) / max(abs(annual), 1)
-    if ratio < 0.015 or ratio > 1.75:
+    if ratio < 0.005 or ratio > 1.75:
         return math.inf
     return abs(math.log(max(ratio, 1e-9) / expected_ratio))
 
@@ -134,7 +135,7 @@ def extract_strict_pairs(
     pairs: list[tuple[float, float]] = []
     for raw_line in text.splitlines():
         line = normalized(raw_line)
-        alias = next((item for item in aliases if item in line), None)
+        alias = matching_alias(line, aliases)
         if alias is None:
             continue
         # pdftotext -layout sépare les cellules par au moins deux espaces.
@@ -145,7 +146,7 @@ def extract_strict_pairs(
             (
                 index
                 for index, cell in enumerate(cells)
-                if alias in normalized(cell)
+                if matching_alias(normalized(cell), (alias,)) is not None
             ),
             0,
         )
@@ -162,20 +163,119 @@ def extract_strict_pairs(
     return pairs
 
 
+def extract_prose_million_pairs(
+    text: str, aliases: tuple[str, ...]
+) -> list[tuple[float, float]]:
+    """Extrait les comparaisons explicites « X millions ... contre Y millions ».
+
+    Le commentaire de direction répète souvent les chiffres du tableau et
+    permet de corriger une cellule dont l'OCR confond 1/7 ou 0/8. Ces paires
+    sont déjà libellées en millions et sont converties en FCFA bruts afin de
+    rester compatibles avec la sélection d'unité existante.
+    """
+
+    prose = normalized(text)
+    amount_re = re.compile(
+        r"(?P<sign>\(\s*-\s*\)|[-−])?\s*"
+        r"(?P<value>\d{1,3}(?:[ .]\d{3})*|\d+)\s+millions?"
+    )
+    pairs: list[tuple[float, float]] = []
+
+    def amount(match: re.Match[str]) -> float | None:
+        value = parse_number(match.group("value"))
+        if value is None:
+            return None
+        if match.group("sign"):
+            value = -abs(value)
+        return value * 1_000_000
+
+    for alias in aliases:
+        for found in re.finditer(re.escape(alias), prose):
+            window = prose[found.end() : found.end() + 420]
+            if "contre" not in window:
+                continue
+            before, after = window.split("contre", 1)
+            boundaries = (
+                "chiffre d'affaires",
+                "chiffres d'affaires",
+                "produit net bancaire",
+                "resultat d'exploitation",
+                "resultat financier",
+                "resultat des activites ordinaires",
+                "resultat net",
+            )
+            if any(boundary in before for boundary in boundaries):
+                continue
+            current_matches = list(amount_re.finditer(before))
+            previous_match = amount_re.search(after)
+            if not current_matches or previous_match is None:
+                continue
+            current = amount(current_matches[-1])
+            previous = amount(previous_match)
+            if current is None or previous is None:
+                continue
+            pair = (current, previous)
+            if pair not in pairs:
+                pairs.append(pair)
+    return pairs
+
+
+def columns_reversed_hint(text: str, fiscal_year: int) -> bool | None:
+    current = str(fiscal_year)
+    previous = str(fiscal_year - 1)
+    for raw_line in text.splitlines():
+        line = normalized(raw_line)
+        is_compact_header = len(line) <= 60 or "/" in line
+        if is_compact_header and current in line and previous in line:
+            return line.find(current) > line.find(previous)
+    return None
+
+
+def exceptional_item_note(text: str) -> str | None:
+    prose = normalized(text)
+    if "cession" in prose and (
+        "resultat hao" in prose or "resultat net" in prose
+    ):
+        return (
+            "Élément exceptionnel non récurrent : résultat net soutenu par "
+            "une cession d'actif, selon la publication officielle."
+        )
+    return None
+
+
 def choose_periodic_values(
     text: str, annual: dict, descriptor: dict
 ) -> tuple[dict, dict] | None:
     revenue_key = "pnb" if annual.get("revenueLabel") == "PNB" else "revenue"
-    revenue_pairs = extract_strict_pairs(text, LABELS[revenue_key])
-    income_pairs = extract_strict_pairs(text, LABELS["net_income"])
-    if not revenue_pairs:
-        revenue_pairs = extract_pairs(text, LABELS[revenue_key])
-    if not income_pairs:
-        income_pairs = extract_pairs(text, LABELS["net_income"])
+    prose_revenue_pairs = extract_prose_million_pairs(text, LABELS[revenue_key])
+    prose_income_pairs = extract_prose_million_pairs(text, LABELS["net_income"])
+    prose_recouped = bool(prose_revenue_pairs and prose_income_pairs)
+    if prose_recouped:
+        revenue_pairs = prose_revenue_pairs
+        income_pairs = prose_income_pairs
+    else:
+        revenue_pairs = list(
+            dict.fromkeys(
+                prose_revenue_pairs
+                + extract_strict_pairs(text, LABELS[revenue_key])
+                + extract_pairs(text, LABELS[revenue_key])
+            )
+        )
+        income_pairs = list(
+            dict.fromkeys(
+                prose_income_pairs
+                + extract_strict_pairs(text, LABELS["net_income"])
+                + extract_pairs(text, LABELS["net_income"])
+            )
+        )
     if not revenue_pairs or not income_pairs:
         return None
 
     expected_ratio = descriptor["expectedAnnualRatio"]
+    reversed_hint = columns_reversed_hint(text, descriptor["fiscalYear"])
+    expected_reversed = reversed_hint if reversed_hint is not None else False
+    exceptional_item = exceptional_item_note(text)
+    max_income_multiple = 4 if exceptional_item else 2
     choices = []
     for unit in UNITS:
         for reverse in (False, True):
@@ -200,7 +300,10 @@ def choose_periodic_values(
                     )
                     income_current = to_millions(income_current_raw, unit)
                     income_previous = to_millions(income_previous_raw, unit)
-                    if max(abs(income_current), abs(income_previous)) > revenue_current * 2:
+                    if (
+                        max(abs(income_current), abs(income_previous))
+                        > revenue_current * max_income_multiple
+                    ):
                         continue
                     income_score = income_scale_score(
                         income_current,
@@ -222,8 +325,8 @@ def choose_periodic_values(
                         + income_score * 0.2
                         + previous_income_score * 0.2
                     )
-                    if reverse:
-                        score += 0.15
+                    if reverse != expected_reversed:
+                        score += 3
                     choices.append(
                         (
                             score,
@@ -246,7 +349,10 @@ def choose_periodic_values(
         income_current,
         income_previous,
     ) = min(choices, key=lambda item: item[0])
-    if score > 3:
+    # Deux phrases de gestion donnant explicitement N et N-1 constituent un
+    # second tableau narratif. Elles autorisent une saisonnalité atypique tout
+    # en conservant une confiance moyenne via le scaleScore public.
+    if score > (7 if prose_recouped else 3):
         return None
 
     values = {
@@ -281,7 +387,10 @@ def choose_periodic_values(
     return values, {
         "unit": unit,
         "columnsReversed": reverse,
+        "columnsReversedHint": reversed_hint,
+        "exceptionalItem": exceptional_item,
         "scaleScore": round(score, 3),
+        "proseRecouped": prose_recouped,
     }
 
 
@@ -309,6 +418,11 @@ def build_record(ticker: str, annual: dict, document: dict, text: str) -> dict |
         "confidence": "high" if audit["scaleScore"] <= 1.5 else "medium",
         "sourceType": "publication officielle BRVM",
         "unit": "millions FCFA",
+        **(
+            {"exceptionalItem": audit["exceptionalItem"]}
+            if audit.get("exceptionalItem")
+            else {}
+        ),
     }
 
 
@@ -319,6 +433,12 @@ def main() -> None:
     parser.add_argument("--out", default="data/real/periodic-results.json")
     parser.add_argument("--pending-count", action="store_true")
     parser.add_argument("--retry-review", action="store_true")
+    parser.add_argument(
+        "--force-ticker",
+        action="append",
+        default=[],
+        help="Réextrait un ticker déjà intégré après une amélioration du parseur.",
+    )
     parser.add_argument("--max-documents", type=int, default=6)
     args = parser.parse_args()
 
@@ -330,6 +450,14 @@ def main() -> None:
     pending = pending_documents(
         documents, fundamentals, results, retry_review=args.retry_review
     )
+    if args.force_ticker:
+        latest = latest_periodic_documents(documents)
+        for ticker in {item.upper() for item in args.force_ticker}:
+            document = latest.get(ticker)
+            if document and descriptor_is_newer_than_annual(
+                document, fundamentals.get(ticker)
+            ):
+                pending[ticker] = document
     if args.pending_count:
         print(len(pending))
         return

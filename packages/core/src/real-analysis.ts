@@ -158,14 +158,18 @@ function median(input: readonly number[]): number {
     : (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
-/** Rang centile avec rang moyen pour les ex-aequo. */
+/**
+ * Rang centile lissé avec rang moyen pour les ex-aequo.
+ * La position au milieu de chaque observation évite qu'une petite cohorte
+ * transforme mécaniquement ses extrêmes en certitudes 0/100.
+ */
 export function percentileRank(value: number, input: readonly number[]): number {
   const cohort = input.filter(Number.isFinite);
   if (cohort.length <= 1) return 50;
   const lower = cohort.filter((item) => item < value).length;
   const equal = cohort.filter((item) => item === value).length;
-  const midRank = lower + Math.max(0, equal - 1) / 2;
-  return Math.round((midRank / (cohort.length - 1)) * 100);
+  const midRank = lower + equal / 2;
+  return Math.round((midRank / cohort.length) * 100);
 }
 
 function percentileScore(
@@ -578,7 +582,7 @@ export function analyzeRealEquity(args: {
     coveragePct < 55 ||
     fiscalLag >= 2 ||
     benchmarkScope === "market" ||
-    cohort.length < 2 ||
+    cohort.length < 4 ||
     financialPeriods < 2
   ) {
     confidenceLevel = "low";
@@ -586,7 +590,7 @@ export function analyzeRealEquity(args: {
   const confidenceReasons = [
     `${financialPeriods} exercice${financialPeriods > 1 ? "s" : ""} financier${financialPeriods > 1 ? "s" : ""} comparable${financialPeriods > 1 ? "s" : ""} (N${financialPeriods > 1 ? " et N-1" : ""}) ; 3 exercices sont requis pour une confiance élevée.`,
     benchmarkScope === "sector"
-      ? `${cohort.length} sociétés dans le benchmark sectoriel.`
+      ? `${cohort.length} sociétés dans le benchmark sectoriel${cohort.length < 4 ? " ; petite cohorte, confiance limitée" : ""}.`
       : "Secteur sans pair coté comparable : benchmark de marché et confiance limitée.",
     `${coveragePct} % des pondérations du modèle sont alimentées par des métriques disponibles.`,
   ];

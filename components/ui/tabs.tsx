@@ -42,9 +42,32 @@ export function PillTabs<T extends string>({
           key={opt.value}
           role="tab"
           aria-selected={value === opt.value}
+          tabIndex={value === opt.value ? 0 : -1}
           onClick={() => onChange(opt.value)}
+          onKeyDown={(event) => {
+            if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+            event.preventDefault();
+            const current = options.findIndex((item) => item.value === opt.value);
+            const next =
+              event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? options.length - 1
+                  : event.key === "ArrowRight"
+                    ? (current + 1) % options.length
+                    : (current - 1 + options.length) % options.length;
+            const option = options[next];
+            if (!option) return;
+            onChange(option.value);
+            requestAnimationFrame(() => {
+              listRef.current
+                ?.querySelectorAll<HTMLElement>('[role="tab"]')
+                .item(next)
+                .focus();
+            });
+          }}
           className={cn(
-            "snap-start rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-colors cursor-pointer",
+            "min-h-10 snap-start rounded-md px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-colors cursor-pointer sm:min-h-0",
             value === opt.value
               ? "bg-surface text-ink shadow-sm border border-line"
               : "text-ink-3 hover:text-ink"

@@ -1,8 +1,8 @@
 # WARIBA senior audit — web, iOS and Android
 
 Baseline audit: 2026-07-14  
-Implementation update: 2026-07-20
-Access/fundamentals update: 2026-07-20
+Implementation update: 2026-07-28
+Access/fundamentals update: 2026-07-28
 Scope: product, code, data, auth, API, billing, native UX, security,
 operations, release and commercial readiness.
 
@@ -28,6 +28,9 @@ with older local exports is handled without exposing the former brand.
 - Dividends now separates verified last-paid net yields, historical seasonality and the factual payment journal on web, iOS and Android.
 - Every stock fundamental now exposes its definition/formula, and all verified N/N-1 fields are presented in a visual comparison block rather than only as small percentage text.
 - WARIBA Pro exposes the 48-stock factual universe with search, factor sorting, three-stock web comparison, two-stock native comparison, CSV export, publication date, confidence, coverage and score reasons. The spreadsheet's prescriptive buy/avoid labels were not imported.
+- The latest 37/37 intermediate financial releases newer than annual accounts are now parsed and sourced. Multi-layout OCR reconciles scanned rows and isolated cells before publication; ambiguous values still fail closed.
+- WARIBA Factuel v1.1 smooths peer percentiles and lowers confidence when a sector has fewer than four comparable issuers.
+- Mobile web, iOS and Android expose all six chart types in a 3×2 touch grid. Web tabs have roving focus and keyboard navigation; the guided tour is limited to the market home.
 
 - Visual thesis: obsidian market intelligence with a luminous jade W-signal
   and a restrained gold origin point.
@@ -66,7 +69,7 @@ The previous discoverability failure is fixed:
 | Senior Frontend Engineer | Responsive web shell, auth routes and PWA metadata implemented |
 | Applied AI / LLM Engineer | No investment-advice AI shipped; intentionally out of scope |
 | Data Engineer | Official BRVM ingestion and freshness automation remain product foundation |
-| Market Data QA | 48/48 actions, fundamentals and publication pages covered; stale suspended values excluded from session rankings |
+| Market Data QA | 48/48 actions, fundamentals and publication pages plus 37/37 current intermediate releases covered; stale suspended values excluded from session rankings |
 | DevOps / Cloud Engineer | Vercel/Supabase active; EAS and provider secrets remain |
 | Security & Compliance | RLS, security headers, protected secrets and deletion flow implemented; legal/store declarations remain |
 | Product Designer | WARIBA brand, icon system, splash, onboarding and auth hierarchy delivered |

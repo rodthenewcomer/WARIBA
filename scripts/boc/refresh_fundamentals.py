@@ -16,6 +16,7 @@ statut, sans écraser un chiffre fiable.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import math
 import re
@@ -109,7 +110,7 @@ def parse_number(raw: str) -> float | None:
     sign = -1 if value.startswith("-") else 1
     value = value.lstrip("- ")
     if " " in value or (value.count(".") > 1):
-        value = value.replace(" ", "").replace(".", "")
+        value = value.replace(" ", "").replace(".", "").replace(",", ".")
     else:
         value = value.replace(" ", "").replace(",", ".")
     try:
@@ -119,7 +120,12 @@ def parse_number(raw: str) -> float | None:
 
 
 LABELS = {
-    "revenue": ("chiffre d'affaires", "chiffre daffaires"),
+    "revenue": (
+        "chiffre d'affaires",
+        "chiffre daffaires",
+        "chiffres d'affaires",
+        "chiffres daffaires",
+    ),
     "pnb": ("produit net bancaire", "pnb"),
     "net_income": ("resultat net",),
     "ordinary_income": ("resultat des activites ordinaires",),
@@ -139,19 +145,67 @@ LABELS = {
 }
 
 
+def matching_alias(text: str, aliases: tuple[str, ...]) -> str | None:
+    exact = next((alias for alias in aliases if alias in text), None)
+    if exact is not None:
+        return exact
+    compact_text = re.sub(r"[^a-z]", "", text)
+    for alias in aliases:
+        compact_alias = re.sub(r"[^a-z]", "", alias)
+        if len(compact_alias) < 10 or len(compact_text) < len(compact_alias):
+            continue
+        width = len(compact_alias)
+        similarity = max(
+            difflib.SequenceMatcher(
+                None, compact_alias, compact_text[index : index + width]
+            ).ratio()
+            for index in range(len(compact_text) - width + 1)
+        )
+        if similarity >= 0.82:
+            return alias
+    return None
+
+
 def extract_pairs(text: str, aliases: tuple[str, ...]) -> list[tuple[float, float]]:
     pairs: list[tuple[float, float]] = []
     lines = text.splitlines()
+    all_aliases = tuple(
+        alias
+        for metric_aliases in LABELS.values()
+        for alias in metric_aliases
+    )
     for index, raw_line in enumerate(lines):
         line = normalized(raw_line)
-        alias = next((item for item in aliases if item in line), None)
+        alias = matching_alias(line, aliases)
         if alias is None:
             continue
-        # PSM 3 garde normalement la ligne du tableau. PSM 11 peut isoler
-        # le libellé : deux lignes suivantes sont alors incluses.
-        window = " ".join(lines[index : index + 3])
+        # Une lecture tabulaire garde les cellules sur la même ligne; une
+        # lecture « sparse text » isole chaque cellule avec des lignes vides.
+        # On collecte les quatre prochaines cellules non vides, sans franchir
+        # le libellé d'un autre indicateur.
+        window_lines = [raw_line]
+        alias_position = line.find(alias)
+        inline_content = (
+            line[alias_position + len(alias) :] if alias_position >= 0 else line
+        )
+        if not NUMBER_RE.search(inline_content):
+            for candidate in lines[index + 1 :]:
+                if not candidate.strip():
+                    continue
+                candidate_normalized = normalized(candidate)
+                if any(item in candidate_normalized for item in all_aliases):
+                    break
+                window_lines.append(candidate)
+                if len(window_lines) >= 5:
+                    break
+        window = " ".join(window_lines)
         normalized_window = normalized(window)
-        start = normalized_window.find(alias) + len(alias)
+        window_alias_position = normalized_window.find(alias)
+        start = (
+            window_alias_position + len(alias)
+            if window_alias_position >= 0
+            else 0
+        )
         values = [parse_number(match) for match in NUMBER_RE.findall(normalized_window[start:])]
         values = [value for value in values if value is not None]
         if len(values) >= 2:
@@ -368,10 +422,29 @@ def extract_pdf_text(pdf_path: Path, workdir: Path) -> str:
     pages = sorted(workdir.glob("page-*.png"))
     if not pages:
         raise RuntimeError("rendu PDF vide")
-    return "\n".join(
-        run(["tesseract", str(page), "stdout", "-l", "fra+eng", "--psm", "3"])
-        for page in pages
-    )
+    separator = "\n" + "\nLECTURE OCR SEPAREE" * 5 + "\n"
+    layouts = []
+    # PSM 4 préserve les colonnes, PSM 6 les lignes denses et PSM 11 les
+    # cellules isolées. Le recoupement aval conserve la paire la plus cohérente
+    # avec le dernier exercice annuel validé.
+    for mode in ("4", "6", "11"):
+        layouts.append(
+            separator.join(
+                run(
+                    [
+                        "tesseract",
+                        str(page),
+                        "stdout",
+                        "-l",
+                        "fra+eng",
+                        "--psm",
+                        mode,
+                    ]
+                )
+                for page in pages
+            )
+        )
+    return separator.join(layouts)
 
 
 def download(url: str, destination: Path) -> None:

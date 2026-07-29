@@ -19,6 +19,7 @@ from refresh_fundamentals import (
     choose_core_values,
     extract_pairs,
     is_annual_document,
+    parse_number,
 )
 
 
@@ -41,6 +42,10 @@ class ToMillionsTest(unittest.TestCase):
 
     def test_absent_reste_absent(self) -> None:
         self.assertIsNone(to_millions(None, 1_000))
+
+    def test_ocr_thousands_with_decimal_comma(self) -> None:
+        self.assertEqual(parse_number("5 170,0"), 5_170)
+        self.assertEqual(parse_number("- 1 467,3"), -1_467.3)
 
 
 class NormalizeTest(unittest.TestCase):
@@ -173,6 +178,27 @@ class AutomaticRefreshTest(unittest.TestCase):
         "netIncomeM": 4_693,
         "equityM": 19_453,
     }
+
+    def test_sparse_ocr_cells_are_paired_without_crossing_next_metric(self) -> None:
+        text = """
+        Produit net bancaire
+
+        11 776
+
+        12 580
+
+        Résultat net
+
+        5 230
+
+        5 741
+        """
+        self.assertIn((11_776, 12_580), extract_pairs(text, LABELS["pnb"]))
+        self.assertIn((5_230, 5_741), extract_pairs(text, LABELS["net_income"]))
+
+    def test_fuzzy_ocr_label_recovers_bank_table(self) -> None:
+        text = "PRODUICNEDEANCAIRES | 11 776 | 12 580"
+        self.assertIn((11_776, 12_580), extract_pairs(text, LABELS["pnb"]))
 
     def test_annual_filter_excludes_quarters(self) -> None:
         self.assertTrue(

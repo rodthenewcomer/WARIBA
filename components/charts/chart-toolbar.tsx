@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { CalendarDays, ChevronDown, GitCompareArrows, Maximize2, Minimize2, Ruler, SlidersHorizontal, Trash2 } from "lucide-react";
 import type { ChartType, IndicatorId, Timeframe } from "@wariba/core/types";
 import { TIMEFRAME_OPTIONS } from "@wariba/core/market-series";
@@ -59,8 +59,11 @@ function Dropdown({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-label={`${label}${count > 0 ? `, ${count} actif${count > 1 ? "s" : ""}` : ""}`}
+        aria-expanded={open}
+        aria-haspopup="menu"
         className={cn(
-          "inline-flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors",
+          "inline-flex h-10 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors sm:h-8",
           count > 0
             ? "border-accent/30 bg-accent/10 text-accent"
             : "border-line bg-surface/60 text-ink-2 hover:bg-surface-2"
@@ -97,6 +100,7 @@ function CheckItem({
     <button
       onClick={onToggle}
       disabled={disabled}
+      aria-pressed={checked}
       className={cn(
         "flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-xs cursor-pointer disabled:opacity-40",
         checked ? "text-ink" : "text-ink-2 hover:bg-surface-2"
@@ -169,6 +173,29 @@ export function ChartToolbar(props: ChartToolbarProps) {
           : [...props.compare, code]
     );
   };
+  const moveChartTypeFocus = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    let nextIndex = index;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (index + 1) % CHART_TYPES.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex = (index - 1 + CHART_TYPES.length) % CHART_TYPES.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = CHART_TYPES.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    props.onChartType(CHART_TYPES[nextIndex].value);
+    const tabs = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>(
+      '[role="tab"]'
+    );
+    requestAnimationFrame(() => tabs?.[nextIndex]?.focus());
+  };
 
   return (
     // Deux rangées délibérées (au lieu d'un flex-wrap imprévisible qui
@@ -204,21 +231,47 @@ export function ChartToolbar(props: ChartToolbarProps) {
             menus déroulants Indicateurs/Comparer s'ils partageaient ce
             conteneur — leur panneau de ~270px se retrouvait rogné à la
             hauteur de la rangée (34px), invisible bien qu'ouvert. */}
-        <div className="relative min-w-0 w-full sm:flex-1">
+        <div className="min-w-0 w-full sm:flex-1">
+          <div
+            role="tablist"
+            aria-label="Type de graphique"
+            className="grid grid-cols-3 gap-1 rounded-xl border border-line bg-surface-2/60 p-1 sm:hidden"
+          >
+            {CHART_TYPES.map((type, index) => (
+              <button
+                key={type.value}
+                type="button"
+                role="tab"
+                aria-selected={props.chartType === type.value}
+                tabIndex={props.chartType === type.value ? 0 : -1}
+                onClick={() => props.onChartType(type.value)}
+                onKeyDown={(event) => moveChartTypeFocus(event, index)}
+                className={cn(
+                  "min-h-10 rounded-lg px-1.5 text-[11px] font-semibold transition-colors",
+                  props.chartType === type.value
+                    ? "border border-line bg-surface text-ink shadow-sm"
+                    : "text-ink-3 hover:bg-surface hover:text-ink"
+                )}
+              >
+                {type.label}
+              </button>
+            ))}
+          </div>
           <PillTabs
             options={CHART_TYPES.map((t) => ({ value: t.value, label: t.label }))}
             value={props.chartType}
             onChange={props.onChartType}
             label="Type de graphique"
-            className="min-w-0 snap-x"
+            className="hidden min-w-0 snap-x sm:flex"
           />
-          <span className="pointer-events-none absolute inset-y-0 right-0 w-5 rounded-r-lg bg-gradient-to-l from-surface-2/90 to-transparent sm:hidden" aria-hidden="true" />
         </div>
         <div className="flex min-w-0 flex-wrap items-center gap-2 sm:ml-auto sm:shrink-0 sm:flex-nowrap">
         <button
           onClick={() => props.onShowVolume(!props.showVolume)}
+          aria-pressed={props.showVolume}
+          aria-label="Afficher ou masquer les volumes"
           className={cn(
-            "h-8 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors",
+            "h-10 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors sm:h-8",
             props.showVolume
               ? "border-accent/30 bg-accent/10 text-accent"
               : "border-line bg-surface/60 text-ink-3 hover:bg-surface-2"
@@ -228,9 +281,11 @@ export function ChartToolbar(props: ChartToolbarProps) {
         </button>
         <button
           onClick={() => props.onShowEvents(!props.showEvents)}
+          aria-pressed={props.showEvents}
+          aria-label="Afficher ou masquer les événements"
           title="Afficher ou masquer dividendes, résultats et opérations sur le graphique"
           className={cn(
-            "inline-flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors",
+            "inline-flex h-10 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors sm:h-8",
             props.showEvents
               ? "border-accent/30 bg-accent/10 text-accent"
               : "border-line bg-surface/60 text-ink-3 hover:bg-surface-2"
@@ -242,13 +297,15 @@ export function ChartToolbar(props: ChartToolbarProps) {
         <button
           onClick={() => props.onAdjusted(!props.adjusted)}
           disabled={props.intraday}
+          aria-pressed={props.adjusted}
+          aria-label="Afficher les cours ajustés des dividendes"
           title={
             props.isReal
               ? "Cours ajustés des dividendes nets réels (bulletins officiels) — utile pour juger la performance totale"
               : "Cours ajustés des dividendes"
           }
           className={cn(
-            "h-8 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40",
+            "h-10 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40 sm:h-8",
             props.adjusted
               ? "border-gold/40 bg-gold/10 text-gold"
               : "border-line bg-surface/60 text-ink-3 hover:bg-surface-2"
@@ -259,13 +316,15 @@ export function ChartToolbar(props: ChartToolbarProps) {
         <button
           onClick={() => props.onLogScale(!props.logScale)}
           disabled={props.comparing}
+          aria-pressed={props.logScale}
+          aria-label="Utiliser l'échelle logarithmique"
           title={
             props.comparing
               ? "Indisponible en comparaison (échelle en %)"
               : "Échelle logarithmique — les variations en % ont la même hauteur partout"
           }
           className={cn(
-            "h-8 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40",
+            "h-10 rounded-lg border px-2.5 text-xs font-medium cursor-pointer transition-colors disabled:opacity-40 sm:h-8",
             props.logScale
               ? "border-accent/30 bg-accent/10 text-accent"
               : "border-line bg-surface/60 text-ink-3 hover:bg-surface-2"

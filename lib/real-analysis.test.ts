@@ -17,6 +17,11 @@ describe("getRealAnalysis (univers réel committé)", () => {
       expect(analysis?.overallScore, quote.ticker).toBeGreaterThanOrEqual(0);
       expect(analysis?.overallScore, quote.ticker).toBeLessThanOrEqual(100);
       expect(analysis?.confidence.coveragePct, quote.ticker).toBeGreaterThan(0);
+      for (const key of ["quality", "valuation", "momentum", "liquidity"] as const) {
+        expect(analysis?.scores[key], `${quote.ticker} ${key}`).toBeGreaterThan(0);
+        expect(analysis?.scores[key], `${quote.ticker} ${key}`).toBeLessThan(100);
+      }
+      expect(analysis?.scores.dividend, `${quote.ticker} dividend`).toBeLessThan(100);
     }
   });
 

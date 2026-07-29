@@ -8,7 +8,7 @@ import { migratedStorageKey } from "@/lib/storage-keys";
 
 /**
  * Première visite — bannière discrète (pas de carrousel bloquant sur le
- * web) qui propose une visite guidée en 4 étapes ancrées sur les vrais
+ * web, uniquement sur l'accueil) qui propose une visite guidée en 4 étapes ancrées sur les vrais
  * éléments de l'interface via [data-tour]. Si un ancrage n'est pas
  * visible (ex. Screener replié dans la feuille « + » sur mobile), la
  * carte est centrée sans projecteur. Un seul enregistrement
@@ -27,17 +27,17 @@ const STEPS = [
   {
     anchor: "screener",
     title: "Filtrez le marché",
-    body: "Le screener classe les valeurs par secteur, rendement du dividende, PER ou liquidité — et vos filtres se sauvegardent pour la prochaine visite.",
+    body: "Le screener classe les valeurs par secteur, rendement du dividende, PER ou liquidité. Avec un compte gratuit, vos filtres vous suivent sur web, iPhone et Android.",
   },
   {
     anchor: "alerts",
     title: "Posez des seuils de prix",
-    body: "Vos alertes sont évaluées contre le cours officiel de clôture à chaque ouverture — honnête, sans promettre du temps réel.",
+    body: "Vos alertes sont évaluées automatiquement sur les dernières données officielles. Vous choisissez les notifications utiles, sans promesse de temps réel.",
   },
   {
     anchor: "portfolio",
     title: "Suivez votre portefeuille",
-    body: "Transactions, PRU, plus/moins-values et dividendes perçus, calculés dans votre navigateur. Rien n'est envoyé — pensez à la sauvegarde JSON dans Réglages.",
+    body: "Transactions, PRU, plus ou moins-values et dividendes restent privés dans votre compte et se synchronisent sans écrasement entre vos appareils.",
   },
 ] as const;
 

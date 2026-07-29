@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { cn } from "@wariba/core/utils";
-import { Bell, FileText, Sparkles } from "lucide-react";
+import { Bell, FileText, Sparkles, TriangleAlert } from "lucide-react";
 import { getSectorStats, getSnapshot, getSnapshots } from "@/lib/data";
 import { getRealQuote, LATEST_TRADING_DATE } from "@/lib/real-data";
 import { getRealFundamentals, growthPct } from "@/lib/real-fundamentals";
@@ -96,7 +96,7 @@ export function StockView({ ticker }: { ticker: string }) {
   );
   const latestPeriodicResult =
     periodicResult?.status === "integrated" &&
-    periodicResult.source === latestFinancialDoc?.url
+    periodicResult.fiscalYear > (realFund?.fiscalYear ?? 0)
       ? periodicResult
       : undefined;
   const latestFinancialIntegrated =
@@ -551,6 +551,12 @@ export function StockView({ ticker }: { ticker: string }) {
                     </div>
                   ))}
                 </div>
+                {latestPeriodicResult.exceptionalItem ? (
+                  <div className="mt-2.5 flex items-start gap-2 rounded-lg border border-warning/35 bg-warning/10 px-3 py-2.5 text-[10px] leading-4 text-ink-2">
+                    <TriangleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-warning" />
+                    <span>{latestPeriodicResult.exceptionalItem}</span>
+                  </div>
+                ) : null}
                 <p className="mt-2.5 text-[10px] leading-4 text-ink-3">
                   Publication officielle du {dateFr(latestPeriodicResult.publishedOn)} · résultats intermédiaires non annualisés · ratios PER, ROE et rendement toujours calculés sur leur base annuelle ou BRVM explicitement indiquée.
                 </p>

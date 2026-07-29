@@ -81,11 +81,13 @@ function fundamental(
 }
 
 describe("real-analysis", () => {
-  it("calcule un rang centile robuste et un rang moyen pour les ex-aequo", () => {
-    expect(percentileRank(1, [1, 2, 3])).toBe(0);
+  it("calcule un rang centile lissé et un rang moyen pour les ex-aequo", () => {
+    expect(percentileRank(1, [1, 2, 3])).toBe(17);
     expect(percentileRank(2, [1, 2, 3])).toBe(50);
-    expect(percentileRank(3, [1, 2, 3])).toBe(100);
+    expect(percentileRank(3, [1, 2, 3])).toBe(83);
     expect(percentileRank(2, [1, 2, 2, 3])).toBe(50);
+    expect(percentileRank(1, [1, 2])).toBe(25);
+    expect(percentileRank(2, [1, 2])).toBe(75);
   });
 
   it("mesure correctement une amélioration quand la base est négative", () => {

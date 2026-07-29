@@ -289,7 +289,7 @@ export default function StockScreen() {
     [documents]
   );
   const latestPeriodicResult = market.periodicResults[ticker]?.status === "integrated"
-    && market.periodicResults[ticker]?.source === latestFinancialDocument?.url
+    && market.periodicResults[ticker]?.fiscalYear > (fundamental?.fiscalYear ?? 0)
     ? market.periodicResults[ticker]
     : undefined;
   const periodicNetTrend = latestPeriodicResult
@@ -666,6 +666,14 @@ export default function StockScreen() {
                 value={`${millions(latestPeriodicResult.netIncomeM)} · ${periodicNetTrend?.label ?? "comparaison N/D"}`}
                 tone={periodicNetTrend?.tone === "negative" ? "down" : periodicNetTrend?.tone === "warning" ? "warn" : "up"}
               />
+              {latestPeriodicResult.exceptionalItem ? (
+                <View style={styles.exceptionalNotice}>
+                  <Ionicons name="warning-outline" size={16} color={colors.gold} />
+                  <Text style={styles.exceptionalNoticeText}>
+                    {latestPeriodicResult.exceptionalItem}
+                  </Text>
+                </View>
+              ) : null}
               <Text style={styles.periodicFootnote}>
                 Résultats intermédiaires non annualisés. PER, ROE et rendement gardent leur base annuelle ou BRVM indiquée.
               </Text>
@@ -894,6 +902,12 @@ const styles = StyleSheet.create({
   },
   periodicTitle: { ...type.title, fontSize: 14 },
   periodicDetail: { ...type.caption, marginTop: 2 },
+  exceptionalNotice: {
+    flexDirection: "row", alignItems: "flex-start", gap: 8, padding: 10,
+    borderRadius: radius.md, borderWidth: 1, borderColor: "rgba(230,168,44,0.4)",
+    backgroundColor: "rgba(230,168,44,0.1)",
+  },
+  exceptionalNoticeText: { ...type.caption, color: colors.ink2, flex: 1, lineHeight: 16 },
   periodicFootnote: { ...type.caption, fontSize: 9.5, lineHeight: 14 },
   infoChips: { flexDirection: "row", flexWrap: "wrap", gap: 7, marginTop: 9 },
   infoChip: {

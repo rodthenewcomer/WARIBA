@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T02:41:50.643702+00:00",
+  "generatedAt": "2026-07-29T00:22:29.446001+00:00",
   "results": {
     "ABJC": {
       "ticker": "ABJC",
@@ -185,12 +185,19 @@
       "periodLabel": "T1 2026",
       "comparisonLabel": "T1 2025",
       "asOfDate": "2026-03-31",
+      "revenueLabel": "PNB",
+      "revenueM": 5170,
+      "revenuePrevM": 4791,
+      "netIncomeM": 1467,
+      "netIncomePrevM": 1138,
+      "ordinaryIncomeM": null,
+      "ordinaryIncomePrevM": null,
       "source": "https://www.brvm.org/sites/default/files/20260430_-_rapport_dactivites_-_1er_trimestre_2026_-_boa_ng.pdf",
       "publishedOn": "2026-04-30",
-      "status": "review_required",
-      "confidence": "low",
+      "status": "integrated",
+      "confidence": "high",
       "sourceType": "publication officielle BRVM",
-      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
+      "unit": "millions FCFA"
     },
     "BOAS": {
       "ticker": "BOAS",
@@ -200,12 +207,19 @@
       "periodLabel": "T1 2026",
       "comparisonLabel": "T1 2025",
       "asOfDate": "2026-03-31",
+      "revenueLabel": "PNB",
+      "revenueM": 12580,
+      "revenuePrevM": 11776,
+      "netIncomeM": 5741,
+      "netIncomePrevM": 5230,
+      "ordinaryIncomeM": null,
+      "ordinaryIncomePrevM": null,
       "source": "https://www.brvm.org/sites/default/files/20260422_-_etats_financiers_-_1er_trimestre_2026_-_boa_sn.pdf",
       "publishedOn": "2026-04-22",
-      "status": "review_required",
-      "confidence": "low",
+      "status": "integrated",
+      "confidence": "high",
       "sourceType": "publication officielle BRVM",
-      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
+      "unit": "millions FCFA"
     },
     "CABC": {
       "ticker": "CABC",
@@ -347,12 +361,19 @@
       "periodLabel": "T1 2026",
       "comparisonLabel": "T1 2025",
       "asOfDate": "2026-03-31",
+      "revenueLabel": "CA",
+      "revenueM": 115,
+      "revenuePrevM": 49,
+      "netIncomeM": -169,
+      "netIncomePrevM": -190,
+      "ordinaryIncomeM": null,
+      "ordinaryIncomePrevM": null,
       "source": "https://www.brvm.org/sites/default/files/20260423_-_rapport_dactivites_-_1er_trimestre_2026_-_nei_ceda_ci.pdf",
       "publishedOn": "2026-04-23",
-      "status": "review_required",
-      "confidence": "low",
+      "status": "integrated",
+      "confidence": "medium",
       "sourceType": "publication officielle BRVM",
-      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
+      "unit": "millions FCFA"
     },
     "NSBC": {
       "ticker": "NSBC",
@@ -516,12 +537,19 @@
       "periodLabel": "T1 2026",
       "comparisonLabel": "T1 2025",
       "asOfDate": "2026-03-31",
+      "revenueLabel": "CA",
+      "revenueM": 40916,
+      "revenuePrevM": 41642,
+      "netIncomeM": 1318,
+      "netIncomePrevM": 604,
+      "ordinaryIncomeM": 2571,
+      "ordinaryIncomePrevM": 914,
       "source": "https://www.brvm.org/sites/default/files/20260427_-_rapport_dactivites_-_1er_trimestre_2026_-_sodeci.pdf",
       "publishedOn": "2026-04-27",
-      "status": "review_required",
-      "confidence": "low",
+      "status": "integrated",
+      "confidence": "high",
       "sourceType": "publication officielle BRVM",
-      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
+      "unit": "millions FCFA"
     },
     "SDSC": {
       "ticker": "SDSC",
@@ -707,12 +735,20 @@
       "periodLabel": "T1 2020",
       "comparisonLabel": "T1 2019",
       "asOfDate": "2020-03-31",
+      "revenueLabel": "CA",
+      "revenueM": 2671,
+      "revenuePrevM": 4271,
+      "netIncomeM": 6664,
+      "netIncomePrevM": -544,
+      "ordinaryIncomeM": null,
+      "ordinaryIncomePrevM": null,
       "source": "https://www.brvm.org/sites/default/files/20201022_-_rapport_dactivites_du_1er_trimestre_2020_-_movis_ci.pdf",
       "publishedOn": "2020-10-22",
-      "status": "review_required",
-      "confidence": "low",
+      "status": "integrated",
+      "confidence": "high",
       "sourceType": "publication officielle BRVM",
-      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
+      "unit": "millions FCFA",
+      "exceptionalItem": "Élément exceptionnel non récurrent : résultat net soutenu par une cession d'actif, selon la publication officielle."
     },
     "TTLC": {
       "ticker": "TTLC",

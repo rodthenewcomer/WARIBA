@@ -200,7 +200,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Contenu */}
       <main className="px-4 pb-24 pt-5 sm:px-6 lg:pb-10 lg:pl-[264px] xl:pr-8">
         <div className="mx-auto max-w-[1400px]">
-          <WelcomeTour />
+          {pathname === "/" || pathname === "/dashboard" ? <WelcomeTour /> : null}
           {children}
         </div>
       </main>

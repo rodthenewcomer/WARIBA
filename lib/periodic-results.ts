@@ -25,6 +25,7 @@ export interface PeriodicResult extends PeriodicResultBase {
   ordinaryIncomeM: number | null;
   ordinaryIncomePrevM: number | null;
   unit: string;
+  exceptionalItem?: string;
 }
 
 interface ReviewPeriodicResult extends PeriodicResultBase {

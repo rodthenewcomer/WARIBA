@@ -57,8 +57,10 @@ export default function MethodologiePage() {
         <p className="mt-1 text-sm text-ink-3">
           La règle qui gouverne tout le site : <strong className="text-ink-2">
           l&apos;absence de donnée vaut mieux qu&apos;une donnée fausse</strong>.
-          Chaque chiffre affiché est soit lu dans un document officiel (lié),
-          soit calculé par une formule décrite ici — jamais estimé.
+          Chaque métrique affiche son statut : vérifiée dans une publication
+          officielle, calculée par une formule publiée, estimée avec une
+          hypothèse visible, ou N/D. Une estimation n&apos;est jamais présentée
+          comme un fait.
         </p>
       </div>
 
@@ -159,14 +161,17 @@ export default function MethodologiePage() {
             L&apos;ancienne analyse était masquée sur les valeurs réelles parce
             que ses scores provenaient encore d&apos;un petit jeu pédagogique. Les
             afficher aurait mélangé cotations officielles et fondamentaux
-            fictifs. <strong className="text-ink">WARIBA Factuel v1.0</strong>
+            fictifs. <strong className="text-ink">WARIBA Factuel v1.1</strong>
             remplace ce blocage par un calcul déterministe commun au web et au
             mobile, exécuté à nouveau dès que la cotation ou le registre des
             fondamentaux est actualisé.
           </p>
           <p>
             Chaque métrique est convertie en <strong className="text-ink">rang
-            centile dans son secteur</strong>. CD et ENE sont réunis dans
+            centile lissé dans son secteur</strong>. Le rang place chaque
+            observation au milieu de sa position : une petite cohorte ne crée
+            donc plus automatiquement des scores extrêmes de 0 ou 100. CD et
+            ENE sont réunis dans
             Distribution. Si une société est seule dans son secteur, le modèle
             se replie explicitement sur le marché BRVM et baisse sa confiance.
             Les comparaisons affichent la médiane — moins sensible aux valeurs
@@ -227,9 +232,9 @@ export default function MethodologiePage() {
             l&apos;échantillon, l&apos;exercice et la date source. Le registre
             actuel normalise N et N-1 : la confiance est donc volontairement
             plafonnée à « moyenne ». Elle ne pourra devenir « élevée » qu&apos;avec
-            au moins trois exercices comparables. Les petites cohortes, les
-            données anciennes ou une couverture inférieure à 55 % passent en
-            confiance « limitée ».
+            au moins trois exercices comparables. Une cohorte de moins de quatre
+            sociétés, des données anciennes ou une couverture inférieure à 55 %
+            passent en confiance « limitée ».
           </p>
         </Section>
       </div>
@@ -240,9 +245,10 @@ export default function MethodologiePage() {
           les bulletins (variation ≥ 5 %, extrême 52 semaines strict, volume
           ≥ 3× la moyenne avec plancher, dividende payé, publication récente).
           Chacune énonce un fait daté et sourcé — aucune ne recommande
-          d&apos;acheter ou de vendre. Vos alertes de prix personnelles sont
-          évaluées à l&apos;ouverture de l&apos;application contre le dernier
-          cours officiel, dans votre navigateur.
+          d&apos;acheter ou de vendre. Vos alertes personnelles sont enregistrées
+          dans votre compte, évaluées côté serveur sur les dernières données
+          officielles et distribuées uniquement selon vos préférences de
+          notification.
         </p>
       </Section>
 
@@ -256,8 +262,10 @@ export default function MethodologiePage() {
           PER officiels sont calculés par la BRVM sur un référentiel différent
           des comptes déposés (consolidé vs individuel) — signalé sur les
           fiches concernées ; les scénarios de l&apos;onglet « Apprendre »
-          (IPO) sont pédagogiques et étiquetés comme tels. Les données restent
-          dans votre navigateur : rien n&apos;est envoyé à un serveur.
+          (IPO) sont pédagogiques et étiquetés comme tels. Les données publiques
+          peuvent être mises en cache pour accélérer l&apos;affichage. Watchlists,
+          portefeuilles, alertes, filtres et préférences sont isolés par compte
+          dans Supabase et synchronisés sans écrasement entre web, iOS et Android.
         </p>
       </Section>
 

@@ -151,17 +151,14 @@ export function AdvancedChart({
       ))}
     </ScrollView>
   );
-  const typeChips = (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.toolbar}
-      accessibilityLabel="Choisir le type de graphique"
-    >
+  const typeSelector = (
+    <View accessible={false} accessibilityLabel="Choisir le type de graphique" style={styles.typeGrid}>
       {TYPES.map((item) => (
-        <ActionButton key={item.id} label={item.label} active={chartType === item.id} onPress={() => setType(item.id)} />
+        <View key={item.id} style={styles.typeCell}>
+          <ActionButton label={item.label} active={chartType === item.id} onPress={() => setType(item.id)} />
+        </View>
       ))}
-    </ScrollView>
+    </View>
   );
 
   return (
@@ -205,7 +202,7 @@ export function AdvancedChart({
       ) : null}
       <View style={styles.selectorBlock}>
         <Text style={styles.selectorLabel}>Type de graphique</Text>
-        {typeChips}
+        {typeSelector}
       </View>
       <WebChart ref={chartRef} payload={payload} height={height} onLevelTap={(price) => toggleLevel(ticker, price)} />
       {levelMode ? <Text style={styles.levelHint}>Touchez le graphique pour poser ou retirer un niveau de prix.</Text> : null}
@@ -244,7 +241,7 @@ export function AdvancedChart({
             </Pressable>
           </View>
           {rangeChips}
-          {typeChips}
+          {typeSelector}
           {fullscreen ? (
             <WebChart
               payload={{ ...payload, fit: true }}
@@ -264,6 +261,8 @@ const styles = StyleSheet.create({
   toolbar: { gap: 7 },
   selectorBlock: { gap: 6 },
   selectorLabel: { ...type.label, color: colors.ink2 },
+  typeGrid: { flexDirection: "row", flexWrap: "wrap", gap: 7 },
+  typeCell: { width: "31.5%" },
   sessionNotice: {
     ...type.caption,
     color: colors.ink2,

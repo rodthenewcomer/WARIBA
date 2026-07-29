@@ -39,6 +39,11 @@ dérivées du bulletin
 (`lib/real-universe.ts` : secteur via code BOC, pays via suffixe du
 ticker).
 
+Les **37/37 dernières publications trimestrielles ou semestrielles** plus
+récentes que les comptes annuels sont également structurées et sourcées. Les
+PDF scannés sont lus avec trois mises en page OCR complémentaires, puis
+recoupés avec N-1 et le dernier exercice avant toute publication.
+
 ## Démarrage local
 
 - Node.js 20+ (testé sur v20.20.2)
@@ -168,6 +173,8 @@ artefacts JSON committés dans `data/real/`, `data/news/`, `data/live/` et
 - **`refresh_periodic_results.py`** — traite séparément les publications
   trimestrielles et semestrielles : CA/PNB et résultat net N/N-1 sont
   structurés dans `periodic-results.json` sans remplacer les ratios annuels.
+  Les tableaux scannés sont recoupés en lectures colonnes/lignes/cellules,
+  avec détection de l'ordre des exercices et réextraction ciblée d'un ticker.
   Une extraction insuffisante reste détectée et sourcée, sans chiffre inventé.
 - **`build_alerts.py`** — alertes factuelles des 5 dernières séances.
 - **`fetch_documents.py`** / **`fetch_operations.py`** — publications
@@ -210,6 +217,9 @@ Dividende et Liquidité. Chaque métrique distingue Vérifié, Calculé, Estimé
 N/D ; la grille financière garde cinq exercices visibles et n'invente jamais
 les trois années antérieures quand seules N/N-1 sont normalisées. Le moteur
 publie couverture, confiance, raisons et benchmark, sans verdict d'achat/vente.
+Les percentiles sont lissés pour ne pas produire artificiellement 0/100 dans
+un petit secteur ; moins de quatre pairs comparables impose une confiance
+faible explicitement expliquée.
 
 **Mis à jour (2026-07-08)** : `lib/data.ts` centralise le remplacement
 prix/volume/PER/dividende réel pour toute l'app via `StockSnapshot.real`.

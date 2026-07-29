@@ -161,6 +161,7 @@ const periodicResultSchema = z.discriminatedUnion("status", [
   ordinaryIncomeM: nullableNumber,
   ordinaryIncomePrevM: nullableNumber,
   unit: z.string().min(1),
+  exceptionalItem: z.string().min(1).optional(),
   }),
   z.object({
     ...periodicResultBase,
