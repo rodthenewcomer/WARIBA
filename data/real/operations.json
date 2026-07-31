@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Calendrier de paiement de dividendes",
+      "date": "2026-07-31",
+      "pdf": "https://www.brvm.org/sites/default/files/20260730_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
+    },
+    {
       "title": "Avis : Augmentation de capital - Admission à la cote des actions nouvelles de la société SAFCA CI",
       "date": "2026-07-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260724_-_avis_ndeg220_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
@@ -144,11 +149,6 @@
       "title": "Appel à candidatures : Recrutement BRVM ACADEMY",
       "date": "2026-06-15",
       "pdf": "https://www.brvm.org/sites/default/files/appel_a_candidatures_recrutement_brvm_academy.pdf"
-    },
-    {
-      "title": "APPEL À CANDIDATURES :  PRIX DE LA RECHERCHE DU 30ème ANNIVERSAIRE DE LA BRVM",
-      "date": "2026-06-15",
-      "pdf": "https://www.brvm.org/sites/default/files/30_ans_-_brvm_appel_a_candidatures_prix_recherche_2026_-_v9.pdf"
     }
   ],
   "operations": [

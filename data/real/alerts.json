@@ -1,5 +1,82 @@
 [
  {
+  "id": "prix-ETIT-2026-07-30-b948544956",
+  "type": "prix",
+  "ticker": "ETIT",
+  "title": "ETIT : +6,25 % sur la séance",
+  "detail": "ECOBANK TRANS. INCORP. TG clôture à 68 FCFA le 2026-07-30  contre 64 FCFA la séance précédente (1 520 546 titres échangés).",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SAFC-2026-07-30-7bc31cf9ea",
+  "type": "volume",
+  "ticker": "SAFC",
+  "title": "Volume inhabituel sur SAFC",
+  "detail": "19 464 titres SAFCA CI échangés le 2026-07-30  soit 3.2× la moyenne des 30 séances précédentes.",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SEMC-2026-07-30-e6976653d8",
+  "type": "prix",
+  "ticker": "SEMC",
+  "title": "SEMC : +5,26 % sur la séance",
+  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 500 FCFA le 2026-07-30  contre 1 425 FCFA la séance précédente (3 398 titres échangés).",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-07-30-cc0a1529d9",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : -5,76 % sur la séance",
+  "detail": "SICOR CI clôture à 5 975 FCFA le 2026-07-30  contre 6 340 FCFA la séance précédente (172 titres échangés).",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SLBC-2026-07-30-22e531fe12",
+  "type": "prix",
+  "ticker": "SLBC",
+  "title": "SLBC : +5,28 % sur la séance",
+  "detail": "SOLIBRA CI clôture à 39 690 FCFA le 2026-07-30  contre 37 700 FCFA la séance précédente (171 titres échangés).",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-07-30-450c2a2156",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : -7,36 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 2 770 FCFA le 2026-07-30  contre 2 990 FCFA la séance précédente (8 892 titres échangés).",
+  "time": "2026-07-30T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-SLBC-2026-07-30-6f3c58c0e9",
+  "type": "dividende",
+  "ticker": "SLBC",
+  "title": "Dividende SLBC : 1 872 FCFA net par action",
+  "detail": "SOLIBRA CI a payé un dividende net de 1 872 FCFA par action le 2026-07-30 (source : bulletin officiel).",
+  "time": "2026-07-30T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-BOAC-2026-07-29-cfa1b0a2a6",
   "type": "prix",
   "ticker": "BOAC",
@@ -299,50 +376,6 @@
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260724_-_rapport_dactivites_-_1er_semestre_2026_-_sonatel_sn.pdf"
  },
  {
-  "id": "prix-BICB-2026-07-23-7982a971c7",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB : +7,43 % sur la séance",
-  "detail": "BIIC BN clôture à 7 085 FCFA le 2026-07-23  contre 6 595 FCFA la séance précédente (3 881 titres échangés).",
-  "time": "2026-07-23T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ETIT-2026-07-23-422e883fd7",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : +7,14 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 75 FCFA le 2026-07-23  contre 70 FCFA la séance précédente (3 805 473 titres échangés).",
-  "time": "2026-07-23T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SEMC-2026-07-23-3195c3be8f",
-  "type": "prix",
-  "ticker": "SEMC",
-  "title": "SEMC : +6,29 % sur la séance",
-  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 520 FCFA le 2026-07-23  contre 1 430 FCFA la séance précédente (8 238 titres échangés).",
-  "time": "2026-07-23T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-23-d26ba4a238",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : -5,36 % sur la séance",
-  "detail": "SICOR CI clôture à 5 300 FCFA le 2026-07-23  contre 5 600 FCFA la séance précédente (51 titres échangés).",
-  "time": "2026-07-23T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOAB-2026-07-23-ad329c9da6",
   "type": "document",
   "ticker": "BOAB",
@@ -361,7 +394,7 @@
   "title": "BICB : nouvelle publication financière",
   "detail": "BIIC BN a publié « Rapport dactivites — 1er trimestre 2026 » le 2026-07-22. T1 2026 : PNB 14,6 Md FCFA (+35,38 % vs T1 2025) ; résultat net 8,0 Md FCFA (+47,6 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-07-22T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260722_-_rapport_dactivites_-_1er_trimestre_2026_-_biic_bn.pdf"
