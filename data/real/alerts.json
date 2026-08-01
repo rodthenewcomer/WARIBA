@@ -1,5 +1,104 @@
 [
  {
+  "id": "volume-CABC-2026-07-31-d1246a994b",
+  "type": "volume",
+  "ticker": "CABC",
+  "title": "Volume inhabituel sur CABC",
+  "detail": "10 266 titres SICABLE CI échangés le 2026-07-31  soit 4.6× la moyenne des 30 séances précédentes.",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-LNBB-2026-07-31-e06d9c8d23",
+  "type": "prix",
+  "ticker": "LNBB",
+  "title": "LNBB : +7,4 % sur la séance",
+  "detail": "LOTERIE NATIONALE DU BENIN clôture à 4 500 FCFA le 2026-07-31  contre 4 350 FCFA la séance précédente (1 094 titres échangés).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NSBC-2026-07-31-ec4caf3cca",
+  "type": "prix",
+  "ticker": "NSBC",
+  "title": "NSBC au plus haut 52 semaines",
+  "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 24 000 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (23 650 FCFA).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ONTBF-2026-07-31-04866d2a43",
+  "type": "prix",
+  "ticker": "ONTBF",
+  "title": "ONTBF : +6,77 % sur la séance",
+  "detail": "ONATEL BF clôture à 2 995 FCFA le 2026-07-31  contre 2 805 FCFA la séance précédente (5 108 titres échangés).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-07-31-0fa9c4afbd",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC au plus haut 52 semaines",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 16 995 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (16 975 FCFA).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-07-31-3c22156012",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +7,11 % sur la séance",
+  "detail": "SICOR CI clôture à 6 400 FCFA le 2026-07-31  contre 5 975 FCFA la séance précédente (78 titres échangés).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-07-31-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 6 400 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (6 340 FCFA).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-07-31-47c1ff5946",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : +7,4 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 2 975 FCFA le 2026-07-31  contre 2 770 FCFA la séance précédente (2 184 titres échangés).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNLC-2026-07-31-9ad87fcc5a",
+  "type": "prix",
+  "ticker": "UNLC",
+  "title": "UNLC : -5,56 % sur la séance",
+  "detail": "UNILEVER CI clôture à 51 000 FCFA le 2026-07-31  contre 54 000 FCFA la séance précédente (4 titres échangés).",
+  "time": "2026-07-31T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "document-LNBB-2026-07-31-d02e9fbc88",
   "type": "document",
   "ticker": "LNBB",
@@ -10,6 +109,28 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260731_-_rapport_dactivites_et_rapport_dexamen_limite_des_cacs-_1er_semestre_2026_-_lnb_bn.pdf"
+ },
+ {
+  "id": "dividende-BICB-2026-07-31-807638d710",
+  "type": "dividende",
+  "ticker": "BICB",
+  "title": "Dividende BICB : 255 FCFA net par action",
+  "detail": "BIIC BN a payé un dividende net de 255 FCFA par action le 2026-07-31 (source : bulletin officiel).",
+  "time": "2026-07-31T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-SIBC-2026-07-31-f00cd9ece6",
+  "type": "dividende",
+  "ticker": "SIBC",
+  "title": "Dividende SIBC : 374 FCFA net par action",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE a payé un dividende net de 374 FCFA par action le 2026-07-31 (source : bulletin officiel).",
+  "time": "2026-07-31T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
  },
  {
   "id": "prix-ETIT-2026-07-30-b948544956",
@@ -160,17 +281,6 @@
   "ticker": "SICC",
   "title": "SICC : +7,46 % sur la séance",
   "detail": "SICOR CI clôture à 6 340 FCFA le 2026-07-29  contre 5 900 FCFA la séance précédente (64 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-29-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 6 340 FCFA le 2026-07-29 — au-delà de son plus haut des 52 dernières semaines (5 900 FCFA).",
   "time": "2026-07-29T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -349,28 +459,6 @@
   "title": "UNXC : +6,49 % sur la séance",
   "detail": "UNIWAX CI clôture à 1 970 FCFA le 2026-07-27  contre 1 850 FCFA la séance précédente (25 581 titres échangés).",
   "time": "2026-07-27T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-ABJC-2026-07-24-d4d056ed80",
-  "type": "volume",
-  "ticker": "ABJC",
-  "title": "Volume inhabituel sur ABJC",
-  "detail": "9 553 titres SERVAIR ABIDJAN CI échangés le 2026-07-24  soit 3.2× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-24T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICB-2026-07-24-bd4d37b55d",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB : +7,48 % sur la séance",
-  "detail": "BIIC BN clôture à 7 615 FCFA le 2026-07-24  contre 7 085 FCFA la séance précédente (1 771 titres échangés).",
-  "time": "2026-07-24T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
