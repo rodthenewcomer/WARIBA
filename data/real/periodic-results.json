@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T20:45:37.218191+00:00",
+  "generatedAt": "2026-08-01T07:25:05.586042+00:00",
   "results": {
     "ABJC": {
       "ticker": "ABJC",
@@ -335,24 +335,17 @@
     "LNBB": {
       "ticker": "LNBB",
       "fiscalYear": 2026,
-      "periodType": "quarterly",
-      "periodCode": "T1",
-      "periodLabel": "T1 2026",
-      "comparisonLabel": "T1 2025",
-      "asOfDate": "2026-03-31",
-      "revenueLabel": "CA",
-      "revenueM": 25521,
-      "revenuePrevM": 24189,
-      "netIncomeM": 848,
-      "netIncomePrevM": 1574,
-      "ordinaryIncomeM": null,
-      "ordinaryIncomePrevM": null,
-      "source": "https://www.brvm.org/sites/default/files/20260507_-_rapport_dactivites_-_1er_trimestre_2026_-_lnb_bn.pdf",
-      "publishedOn": "2026-05-07",
-      "status": "integrated",
-      "confidence": "high",
+      "periodType": "semiannual",
+      "periodCode": "S1",
+      "periodLabel": "S1 2026",
+      "comparisonLabel": "S1 2025",
+      "asOfDate": "2026-06-30",
+      "source": "https://www.brvm.org/sites/default/files/20260731_-_rapport_dactivites_et_rapport_dexamen_limite_des_cacs-_1er_semestre_2026_-_lnb_bn.pdf",
+      "publishedOn": "2026-07-31",
+      "status": "review_required",
+      "confidence": "low",
       "sourceType": "publication officielle BRVM",
-      "unit": "millions FCFA"
+      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
     },
     "NEIC": {
       "ticker": "NEIC",

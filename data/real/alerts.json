@@ -1,5 +1,17 @@
 [
  {
+  "id": "document-LNBB-2026-07-31-d02e9fbc88",
+  "type": "document",
+  "ticker": "LNBB",
+  "title": "LNBB : nouvelle publication financière",
+  "detail": "LOTERIE NATIONALE DU BENIN a publié « Rapport dactivites et rapport dexamen limite des cacs- 1er semestre 2026 » le 2026-07-31. Source officielle à consulter avant toute décision.",
+  "time": "2026-07-31T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260731_-_rapport_dactivites_et_rapport_dexamen_limite_des_cacs-_1er_semestre_2026_-_lnb_bn.pdf"
+ },
+ {
   "id": "prix-ETIT-2026-07-30-b948544956",
   "type": "prix",
   "ticker": "ETIT",
@@ -382,7 +394,7 @@
   "title": "BOAB : nouvelle publication financière",
   "detail": "BANK OF AFRICA BN a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-23. S1 2026 : PNB 25,9 Md FCFA (+5,41 % vs S1 2025) ; résultat net 10,3 Md FCFA (-6,04 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-07-23T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260723_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bn.pdf"
