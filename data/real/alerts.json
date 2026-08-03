@@ -1,5 +1,104 @@
 [
  {
+  "id": "prix-BOAC-2026-08-03-cfa1b0a2a6",
+  "type": "prix",
+  "ticker": "BOAC",
+  "title": "BOAC au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA CI clôture à 11 350 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (11 195 FCFA).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-LNBB-2026-08-03-24104927d6",
+  "type": "volume",
+  "ticker": "LNBB",
+  "title": "Volume inhabituel sur LNBB",
+  "detail": "9 055 titres LOTERIE NATIONALE DU BENIN échangés le 2026-08-03  soit 3.3× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NSBC-2026-08-03-ec4caf3cca",
+  "type": "prix",
+  "ticker": "NSBC",
+  "title": "NSBC au plus haut 52 semaines",
+  "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 24 020 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (24 000 FCFA).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-08-03-0fa9c4afbd",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC au plus haut 52 semaines",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 17 000 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (16 995 FCFA).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SAFC-2026-08-03-7bc31cf9ea",
+  "type": "volume",
+  "ticker": "SAFC",
+  "title": "Volume inhabituel sur SAFC",
+  "detail": "18 854 titres SAFCA CI échangés le 2026-08-03  soit 3.6× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SHEC-2026-08-03-793b3b0de1",
+  "type": "prix",
+  "ticker": "SHEC",
+  "title": "SHEC : +5,68 % sur la séance",
+  "detail": "VIVO ENERGY CI clôture à 2 325 FCFA le 2026-08-03  contre 2 200 FCFA la séance précédente (5 795 titres échangés).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-03-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 6 600 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (6 400 FCFA).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-08-03-7231def2b2",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : +5,22 % sur la séance",
+  "detail": "SETAO CI clôture à 2 820 FCFA le 2026-08-03  contre 2 680 FCFA la séance précédente (4 652 titres échangés).",
+  "time": "2026-08-03T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-LNBB-2026-08-03-29c8ef2927",
+  "type": "dividende",
+  "ticker": "LNBB",
+  "title": "Dividende LNBB : 164 FCFA net par action",
+  "detail": "LOTERIE NATIONALE DU BENIN a payé un dividende net de 164 FCFA par action le 2026-08-03 (source : bulletin officiel).",
+  "time": "2026-08-03T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-CABC-2026-07-31-d1246a994b",
   "type": "volume",
   "ticker": "CABC",
@@ -22,17 +121,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-NSBC-2026-07-31-ec4caf3cca",
-  "type": "prix",
-  "ticker": "NSBC",
-  "title": "NSBC au plus haut 52 semaines",
-  "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 24 000 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (23 650 FCFA).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-ONTBF-2026-07-31-04866d2a43",
   "type": "prix",
   "ticker": "ONTBF",
@@ -44,33 +132,11 @@
   "basis": "réel"
  },
  {
-  "id": "prix-ORAC-2026-07-31-0fa9c4afbd",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC au plus haut 52 semaines",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 16 995 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (16 975 FCFA).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-SICC-2026-07-31-3c22156012",
   "type": "prix",
   "ticker": "SICC",
   "title": "SICC : +7,11 % sur la séance",
   "detail": "SICOR CI clôture à 6 400 FCFA le 2026-07-31  contre 5 975 FCFA la séance précédente (78 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-31-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 6 400 FCFA le 2026-07-31 — au-delà de son plus haut des 52 dernières semaines (6 340 FCFA).",
   "time": "2026-07-31T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -206,17 +272,6 @@
   "detail": "SOLIBRA CI a payé un dividende net de 1 872 FCFA par action le 2026-07-30 (source : bulletin officiel).",
   "time": "2026-07-30T09:00:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAC-2026-07-29-cfa1b0a2a6",
-  "type": "prix",
-  "ticker": "BOAC",
-  "title": "BOAC au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA CI clôture à 11 195 FCFA le 2026-07-29 — au-delà de son plus haut des 52 dernières semaines (10 895 FCFA).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -409,68 +464,13 @@
   "basis": "réel"
  },
  {
-  "id": "prix-BICB-2026-07-27-3c5d5a1a5a",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB au plus haut 52 semaines",
-  "detail": "BIIC BN clôture à 7 850 FCFA le 2026-07-27 — au-delà de son plus haut des 52 dernières semaines (7 615 FCFA).",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAC-2026-07-27-5a7825584d",
-  "type": "prix",
-  "ticker": "BOAC",
-  "title": "BOAC : +5,83 % sur la séance",
-  "detail": "BANK OF AFRICA CI clôture à 10 795 FCFA le 2026-07-27  contre 10 200 FCFA la séance précédente (7 319 titres échangés).",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SOGC-2026-07-27-cdd94b44db",
-  "type": "volume",
-  "ticker": "SOGC",
-  "title": "Volume inhabituel sur SOGC",
-  "detail": "15 144 titres SOGB CI échangés le 2026-07-27  soit 5.7× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-07-27-7bc277eca0",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : -7,4 % sur la séance",
-  "detail": "SETAO CI clôture à 2 690 FCFA le 2026-07-27  contre 2 905 FCFA la séance précédente (5 480 titres échangés).",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNXC-2026-07-27-e3103156ef",
-  "type": "prix",
-  "ticker": "UNXC",
-  "title": "UNXC : +6,49 % sur la séance",
-  "detail": "UNIWAX CI clôture à 1 970 FCFA le 2026-07-27  contre 1 850 FCFA la séance précédente (25 581 titres échangés).",
-  "time": "2026-07-27T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-SNTS-2026-07-24-c1a4d012b2",
   "type": "document",
   "ticker": "SNTS",
   "title": "SNTS : nouvelle publication financière",
   "detail": "SONATEL SN a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-24. S1 2026 : CA 1 049,8 Md FCFA (+9,33 % vs S1 2025) ; résultat net 230,0 Md FCFA (+10,5 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-07-24T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260724_-_rapport_dactivites_-_1er_semestre_2026_-_sonatel_sn.pdf"
@@ -603,29 +603,5 @@
   "severity": "info",
   "active": true,
   "basis": "réel"
- },
- {
-  "id": "document-SAFC-2026-07-03-7d08e684e6",
-  "type": "document",
-  "ticker": "SAFC",
-  "title": "SAFC : nouvelle publication financière",
-  "detail": "SAFCA CI a publié « Rapport dactivites — 4e trimestre 2024 » le 2026-07-03. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-03T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260703_-_rapport_dactivites_-_4e_trimestre_2024_-_safca_ci.pdf"
- },
- {
-  "id": "document-SAFC-2026-07-03-70a5489835",
-  "type": "document",
-  "ticker": "SAFC",
-  "title": "SAFC : nouvelle publication financière",
-  "detail": "SAFCA CI a publié « Rapport des commissaires aux comptes sur les etats financiers » le 2026-07-03. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-03T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260703_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_exercice_2024-_safca_ci.pdf"
  }
 ]
