@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T19:20:45.305489+00:00",
+  "generatedAt": "2026-08-04T10:14:55.024035+00:00",
   "coverage": 48,
   "current": 48,
   "reviewRequired": 0,
@@ -208,11 +208,11 @@
       "source": "https://www.brvm.org/sites/default/files/20260427_-_etats_financiers_-_exercice_2025_-_sodeci.pdf"
     },
     "SDSC": {
-      "fiscalYear": 2024,
-      "latestAnnualYear": 2024,
+      "fiscalYear": 2025,
+      "latestAnnualYear": 2025,
       "status": "current",
-      "detail": "Publication annuelle intégrée ou aucun exercice plus récent détecté.",
-      "source": "https://www.brvm.org/sites/default/files/20250829_-_etats_financiers_et_rapport_des_cac_-_exercice_2024_-_africa_global_logistics_ci.pdf"
+      "detail": "Exercice 2025 intégré automatiquement; recoupement N-1 0.000 %.",
+      "source": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
     },
     "SEMC": {
       "fiscalYear": 2023,

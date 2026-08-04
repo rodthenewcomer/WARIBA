@@ -23,5 +23,30 @@
     "sharesOutstanding": null,
     "source": "https://www.brvm.org/sites/default/files/20260713_-_rapport_annuel_-_exercice_2025_-_cfao_motors_ci.pdf",
     "publishedOn": "2026-07-13"
+  },
+  "SDSC": {
+    "ticker": "SDSC",
+    "fiscalYear": 2025,
+    "revenueLabel": "CA",
+    "revenueM": 92004,
+    "revenuePrevM": 85643,
+    "netIncomeM": 785,
+    "netIncomePrevM": 21069,
+    "ordinaryIncomeM": 4809,
+    "ordinaryIncomePrevM": 21812,
+    "equityM": null,
+    "equityPrevM": 77095,
+    "cirPct": null,
+    "cirPrevPct": null,
+    "depositsM": null,
+    "depositsPrevM": null,
+    "loansM": null,
+    "loansPrevM": null,
+    "costOfRiskM": null,
+    "costOfRiskPrevM": null,
+    "proposedGrossDividend": null,
+    "sharesOutstanding": null,
+    "source": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf",
+    "publishedOn": "2026-08-03"
   }
 }

@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "SDSC",
+  "title": "Etats financiers — exercice 2025",
+  "type": "États financiers",
+  "date": "2026-08-03",
+  "url": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
+ },
+ {
   "ticker": "LNBB",
   "title": "Rapport dactivites et rapport dexamen limite des cacs- 1er semestre 2026",
   "type": "Résultats",
@@ -5472,13 +5479,6 @@
   "type": "Communiqué",
   "date": "2022-05-18",
   "url": "https://www.brvm.org/sites/default/files/20220518_-_rapport_dactivite_-_1er_trimestre_2022_-_safca_ci.pdf"
- },
- {
-  "ticker": "SDSC",
-  "title": "Rapport dactivite — 1er trimestre 2022",
-  "type": "Communiqué",
-  "date": "2022-05-18",
-  "url": "https://www.brvm.org/sites/default/files/20220518_-_rapport_dactivite_-_1er_trimestre_2022_-_bollore_transport_logistics_ci.pdf"
  },
  {
   "ticker": "NSBC",

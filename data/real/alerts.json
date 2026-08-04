@@ -88,11 +88,34 @@
   "basis": "réel"
  },
  {
+  "id": "document-SDSC-2026-08-03-04ca10643f",
+  "type": "document",
+  "ticker": "SDSC",
+  "title": "SDSC : nouvelle publication financière",
+  "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Etats financiers — exercice 2025 » le 2026-08-03. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-03T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
+ },
+ {
   "id": "dividende-LNBB-2026-08-03-29c8ef2927",
   "type": "dividende",
   "ticker": "LNBB",
   "title": "Dividende LNBB : 164 FCFA net par action",
   "detail": "LOTERIE NATIONALE DU BENIN a payé un dividende net de 164 FCFA par action le 2026-08-03 (source : bulletin officiel).",
+  "time": "2026-08-03T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "fondamental-SDSC-2026-08-03-ccb013bd21",
+  "type": "fondamental",
+  "ticker": "SDSC",
+  "title": "SDSC : états financiers 2025 publiés",
+  "detail": "AFRICA GLOBAL LOGISTICS CI a publié ses états financiers 2025 le 2026-08-03. Résultat net : 785 000 000 FCFA contre 21 069 000 000 FCFA en 2024.",
   "time": "2026-08-03T09:00:00+00:00",
   "severity": "info",
   "active": true,
