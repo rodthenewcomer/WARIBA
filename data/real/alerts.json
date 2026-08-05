@@ -1,5 +1,60 @@
 [
  {
+  "id": "prix-ABJC-2026-08-05-c9ab73c15b",
+  "type": "prix",
+  "ticker": "ABJC",
+  "title": "ABJC : -6,67 % sur la séance",
+  "detail": "SERVAIR ABIDJAN CI clôture à 2 800 FCFA le 2026-08-05  contre 3 000 FCFA la séance précédente (3 530 titres échangés).",
+  "time": "2026-08-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NTLC-2026-08-05-c45f90f152",
+  "type": "prix",
+  "ticker": "NTLC",
+  "title": "NTLC au plus haut 52 semaines",
+  "detail": "NESTLE CI clôture à 16 750 FCFA le 2026-08-05 — au-delà de son plus haut des 52 dernières semaines (16 700 FCFA).",
+  "time": "2026-08-05T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-08-05-0fa9c4afbd",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC au plus haut 52 semaines",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 17 175 FCFA le 2026-08-05 — au-delà de son plus haut des 52 dernières semaines (17 000 FCFA).",
+  "time": "2026-08-05T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SDSC-2026-08-05-fdf7becaa1",
+  "type": "prix",
+  "ticker": "SDSC",
+  "title": "SDSC : -7,47 % sur la séance",
+  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 2 355 FCFA le 2026-08-05  contre 2 545 FCFA la séance précédente (15 283 titres échangés).",
+  "time": "2026-08-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SMBC-2026-08-05-ecceb5f4f1",
+  "type": "prix",
+  "ticker": "SMBC",
+  "title": "SMBC : +5,1 % sur la séance",
+  "detail": "SMB CI clôture à 16 500 FCFA le 2026-08-05  contre 15 700 FCFA la séance précédente (807 titres échangés).",
+  "time": "2026-08-05T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-BOAC-2026-08-04-cfa1b0a2a6",
   "type": "prix",
   "ticker": "BOAC",
@@ -18,17 +73,6 @@
   "detail": "ECOBANK TRANS. INCORP. TG clôture à 64 FCFA le 2026-08-04  contre 69 FCFA la séance précédente (2 726 990 titres échangés).",
   "time": "2026-08-04T15:30:00+00:00",
   "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NTLC-2026-08-04-c45f90f152",
-  "type": "prix",
-  "ticker": "NTLC",
-  "title": "NTLC au plus haut 52 semaines",
-  "detail": "NESTLE CI clôture à 16 700 FCFA le 2026-08-04 — au-delà de son plus haut des 52 dernières semaines (16 550 FCFA).",
-  "time": "2026-08-04T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -148,17 +192,6 @@
   "ticker": "NSBC",
   "title": "NSBC au plus haut 52 semaines",
   "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 24 020 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (24 000 FCFA).",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORAC-2026-08-03-0fa9c4afbd",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC au plus haut 52 semaines",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 17 000 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (16 995 FCFA).",
   "time": "2026-08-03T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -405,72 +438,6 @@
   "detail": "SOLIBRA CI a payé un dividende net de 1 872 FCFA par action le 2026-07-30 (source : bulletin officiel).",
   "time": "2026-07-30T09:00:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ETIT-2026-07-29-5d5fd6887a",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : -7,25 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 64 FCFA le 2026-07-29  contre 69 FCFA la séance précédente (2 659 250 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORGT-2026-07-29-f4992dfe2a",
-  "type": "prix",
-  "ticker": "ORGT",
-  "title": "ORGT : +7,45 % sur la séance",
-  "detail": "ORAGROUP TOGO clôture à 2 955 FCFA le 2026-07-29  contre 2 750 FCFA la séance précédente (8 261 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SAFC-2026-07-29-423ab111c2",
-  "type": "prix",
-  "ticker": "SAFC",
-  "title": "SAFC : +7,42 % sur la séance",
-  "detail": "SAFCA CI clôture à 5 355 FCFA le 2026-07-29  contre 4 985 FCFA la séance précédente (12 625 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SEMC-2026-07-29-3f10c86bc2",
-  "type": "prix",
-  "ticker": "SEMC",
-  "title": "SEMC : -5 % sur la séance",
-  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 425 FCFA le 2026-07-29  contre 1 500 FCFA la séance précédente (5 915 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-29-e5ff3e4138",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : +7,46 % sur la séance",
-  "detail": "SICOR CI clôture à 6 340 FCFA le 2026-07-29  contre 5 900 FCFA la séance précédente (64 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNLC-2026-07-29-f3073d962a",
-  "type": "prix",
-  "ticker": "UNLC",
-  "title": "UNLC : +7,49 % sur la séance",
-  "detail": "UNILEVER CI clôture à 55 875 FCFA le 2026-07-29  contre 51 980 FCFA la séance précédente (28 titres échangés).",
-  "time": "2026-07-29T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },

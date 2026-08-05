@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Communiqué AMF-UMOA - Liste des cartes professionnelles délivrées en juin 2026",
+      "date": "2026-08-05",
+      "pdf": "https://www.brvm.org/sites/default/files/20260805_-_communique_amf-umoa_-_liste_des_cartes_professionnelles_delivrees_en_juin_2026.pdf"
+    },
+    {
       "title": "Avis : Rappel, Vendredi 7 août 2026, jour férié",
       "date": "2026-08-05",
       "pdf": "https://www.brvm.org/sites/default/files/20260804_-_avis_ndeg229_brvmdg_-_rappel_7_aout_2026_jour_ferie.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-06-18",
       "pdf": "https://www.brvm.org/sites/default/files/20260617_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-06-17",
-      "pdf": "https://www.brvm.org/sites/default/files/20260616_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
