@@ -1,5 +1,19 @@
 [
  {
+  "ticker": "BOABF",
+  "title": "Etats financiers — 1er semestre 2026",
+  "type": "États financiers",
+  "date": "2026-08-05",
+  "url": "https://www.brvm.org/sites/default/files/20260805_-_etats_financiers_-_1er_semestre_2026_-_boa_bf.pdf"
+ },
+ {
+  "ticker": "BOABF",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-08-05",
+  "url": "https://www.brvm.org/sites/default/files/20260805_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bf.pdf"
+ },
+ {
   "ticker": "SDSC",
   "title": "Etats financiers — exercice 2025",
   "type": "États financiers",
@@ -4947,20 +4961,6 @@
   "type": "Communiqué",
   "date": "2023-03-03",
   "url": "https://www.brvm.org/sites/default/files/20230303_-_rapport_dactivite_2eme_semestre_2022_-_air_liquide_ci.pdf"
- },
- {
-  "ticker": "BOABF",
-  "title": "Etats financiers exercice 2022",
-  "type": "États financiers",
-  "date": "2023-02-23",
-  "url": "https://www.brvm.org/sites/default/files/20230223_-_etats_financiers_exercice_2022_-_boa_bf.pdf"
- },
- {
-  "ticker": "BOABF",
-  "title": "Rapport dactivite — 2eme semestre 2022",
-  "type": "Communiqué",
-  "date": "2023-02-23",
-  "url": "https://www.brvm.org/sites/default/files/20230223_-_rapport_dactivite_-_2eme_semestre_2022_-_boa_bf.pdf"
  },
  {
   "ticker": "SAFC",

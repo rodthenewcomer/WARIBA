@@ -55,6 +55,30 @@
   "basis": "réel"
  },
  {
+  "id": "document-BOABF-2026-08-05-9bc6dd86ed",
+  "type": "document",
+  "ticker": "BOABF",
+  "title": "BOABF : nouvelle publication financière",
+  "detail": "BANK OF AFRICA BF a publié « Etats financiers — 1er semestre 2026 » le 2026-08-05. S1 2026 : PNB 27,5 Md FCFA (-5,24 % vs S1 2025) ; résultat net 10,8 Md FCFA (+30,94 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-05T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_etats_financiers_-_1er_semestre_2026_-_boa_bf.pdf"
+ },
+ {
+  "id": "document-BOABF-2026-08-05-e485248536",
+  "type": "document",
+  "ticker": "BOABF",
+  "title": "BOABF : nouvelle publication financière",
+  "detail": "BANK OF AFRICA BF a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-05. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-05T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bf.pdf"
+ },
+ {
   "id": "prix-BOAC-2026-08-04-cfa1b0a2a6",
   "type": "prix",
   "ticker": "BOAC",
