@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "Avis : Rappel, Vendredi 7 août 2026, jour férié",
+      "date": "2026-08-05",
+      "pdf": "https://www.brvm.org/sites/default/files/20260804_-_avis_ndeg229_brvmdg_-_rappel_7_aout_2026_jour_ferie.pdf"
+    },
+    {
+      "title": "Avis : Horaires de cotation du 06 août 2026",
+      "date": "2026-08-04",
+      "pdf": "https://www.brvm.org/sites/default/files/20260804_-_avis_ndeg230_brvmdg_-_horaires_de_cotation_du_06_aout_2026.pdf"
+    },
+    {
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-07-31",
       "pdf": "https://www.brvm.org/sites/default/files/20260730_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-06-17",
       "pdf": "https://www.brvm.org/sites/default/files/20260616_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "BRVM :  Transactions Sur Dossier",
-      "date": "2026-06-17",
-      "pdf": "https://www.brvm.org/sites/default/files/20260616_-_avis_ndeg171_brvmdg_-_transaction_sur_dossier.pdf"
-    },
-    {
-      "title": "Appel à candidatures : Recrutement BRVM ACADEMY",
-      "date": "2026-06-15",
-      "pdf": "https://www.brvm.org/sites/default/files/appel_a_candidatures_recrutement_brvm_academy.pdf"
     }
   ],
   "operations": [
