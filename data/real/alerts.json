@@ -1,5 +1,82 @@
 [
  {
+  "id": "prix-ABJC-2026-08-06-4bd9885af1",
+  "type": "prix",
+  "ticker": "ABJC",
+  "title": "ABJC : +7,5 % sur la séance",
+  "detail": "SERVAIR ABIDJAN CI clôture à 3 010 FCFA le 2026-08-06  contre 2 800 FCFA la séance précédente (499 titres échangés).",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NEIC-2026-08-06-1bf17ef31e",
+  "type": "prix",
+  "ticker": "NEIC",
+  "title": "NEIC : -6,42 % sur la séance",
+  "detail": "NEI-CEDA CI clôture à 2 115 FCFA le 2026-08-06  contre 2 260 FCFA la séance précédente (878 titres échangés).",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SAFC-2026-08-06-ffb045021c",
+  "type": "prix",
+  "ticker": "SAFC",
+  "title": "SAFC : +5 % sur la séance",
+  "detail": "SAFCA CI clôture à 5 250 FCFA le 2026-08-06  contre 5 000 FCFA la séance précédente (3 742 titres échangés).",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SDSC-2026-08-06-3a65d32fc1",
+  "type": "prix",
+  "ticker": "SDSC",
+  "title": "SDSC : +7,43 % sur la séance",
+  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 2 530 FCFA le 2026-08-06  contre 2 355 FCFA la séance précédente (63 031 titres échangés).",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SDSC-2026-08-06-4c49f38081",
+  "type": "volume",
+  "ticker": "SDSC",
+  "title": "Volume inhabituel sur SDSC",
+  "detail": "63 031 titres AFRICA GLOBAL LOGISTICS CI échangés le 2026-08-06  soit 4.3× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-08-06-1c4f0e5240",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : -5,87 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 2 805 FCFA le 2026-08-06  contre 2 980 FCFA la séance précédente (3 506 titres échangés).",
+  "time": "2026-08-06T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-SOGC-2026-08-06-fc49add307",
+  "type": "dividende",
+  "ticker": "SOGC",
+  "title": "Dividende SOGC : 502 FCFA net par action",
+  "detail": "SOGB CI a payé un dividende net de 502 FCFA par action le 2026-08-06 (source : bulletin officiel).",
+  "time": "2026-08-06T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-ABJC-2026-08-05-c9ab73c15b",
   "type": "prix",
   "ticker": "ABJC",
@@ -389,90 +466,13 @@
   "basis": "réel"
  },
  {
-  "id": "prix-ETIT-2026-07-30-b948544956",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : +6,25 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 68 FCFA le 2026-07-30  contre 64 FCFA la séance précédente (1 520 546 titres échangés).",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SAFC-2026-07-30-7bc31cf9ea",
-  "type": "volume",
-  "ticker": "SAFC",
-  "title": "Volume inhabituel sur SAFC",
-  "detail": "19 464 titres SAFCA CI échangés le 2026-07-30  soit 3.2× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SEMC-2026-07-30-e6976653d8",
-  "type": "prix",
-  "ticker": "SEMC",
-  "title": "SEMC : +5,26 % sur la séance",
-  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 500 FCFA le 2026-07-30  contre 1 425 FCFA la séance précédente (3 398 titres échangés).",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-30-cc0a1529d9",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : -5,76 % sur la séance",
-  "detail": "SICOR CI clôture à 5 975 FCFA le 2026-07-30  contre 6 340 FCFA la séance précédente (172 titres échangés).",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SLBC-2026-07-30-22e531fe12",
-  "type": "prix",
-  "ticker": "SLBC",
-  "title": "SLBC : +5,28 % sur la séance",
-  "detail": "SOLIBRA CI clôture à 39 690 FCFA le 2026-07-30  contre 37 700 FCFA la séance précédente (171 titres échangés).",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-TTLC-2026-07-30-450c2a2156",
-  "type": "prix",
-  "ticker": "TTLC",
-  "title": "TTLC : -7,36 % sur la séance",
-  "detail": "TOTALENERGIES MARKETING CI clôture à 2 770 FCFA le 2026-07-30  contre 2 990 FCFA la séance précédente (8 892 titres échangés).",
-  "time": "2026-07-30T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "dividende-SLBC-2026-07-30-6f3c58c0e9",
-  "type": "dividende",
-  "ticker": "SLBC",
-  "title": "Dividende SLBC : 1 872 FCFA net par action",
-  "detail": "SOLIBRA CI a payé un dividende net de 1 872 FCFA par action le 2026-07-30 (source : bulletin officiel).",
-  "time": "2026-07-30T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-ETIT-2026-07-29-d25757d8df",
   "type": "document",
   "ticker": "ETIT",
   "title": "ETIT : nouvelle publication financière",
   "detail": "ECOBANK TRANS. INCORP. TG a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-29. S1 2026 : PNB 1 281,3 Md FCFA (+77,64 % vs S1 2025) ; résultat net 198,0 Md FCFA (+77,64 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-07-29T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dactivites_-_1er_semestre_2026_-_eti_tg.pdf"
