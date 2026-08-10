@@ -1,5 +1,115 @@
 [
  {
+  "id": "prix-BOABF-2026-08-10-997f654fc2",
+  "type": "prix",
+  "ticker": "BOABF",
+  "title": "BOABF au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA BF clôture à 7 325 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (7 255 FCFA).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-FTSC-2026-08-10-b803627cba",
+  "type": "prix",
+  "ticker": "FTSC",
+  "title": "FTSC : +6,75 % sur la séance",
+  "detail": "FILTISAC CI clôture à 2 135 FCFA le 2026-08-10  contre 2 000 FCFA la séance précédente (5 553 titres échangés).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-LNBB-2026-08-10-24104927d6",
+  "type": "volume",
+  "ticker": "LNBB",
+  "title": "Volume inhabituel sur LNBB",
+  "detail": "16 471 titres LOTERIE NATIONALE DU BENIN échangés le 2026-08-10  soit 5.8× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NEIC-2026-08-10-e09a8f161e",
+  "type": "prix",
+  "ticker": "NEIC",
+  "title": "NEIC : +7,09 % sur la séance",
+  "detail": "NEI-CEDA CI clôture à 2 265 FCFA le 2026-08-10  contre 2 115 FCFA la séance précédente (1 702 titres échangés).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIBC-2026-08-10-0ae524e53f",
+  "type": "prix",
+  "ticker": "SIBC",
+  "title": "SIBC au plus haut 52 semaines",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 320 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (9 300 FCFA).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-10-a4a29cc81c",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +7,48 % sur la séance",
+  "detail": "SICOR CI clôture à 7 615 FCFA le 2026-08-10  contre 7 085 FCFA la séance précédente (43 titres échangés).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-10-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 7 615 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (7 095 FCFA).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIVC-2026-08-10-99d737f468",
+  "type": "prix",
+  "ticker": "SIVC",
+  "title": "SIVC : +7,29 % sur la séance",
+  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 280 FCFA le 2026-08-10  contre 2 125 FCFA la séance précédente (8 372 titres échangés).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-STBC-2026-08-10-d3554bfb20",
+  "type": "volume",
+  "ticker": "STBC",
+  "title": "Volume inhabituel sur STBC",
+  "detail": "12 559 titres SITAB CI échangés le 2026-08-10  soit 3.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-08-10-98a3005921",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : +6,77 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 2 995 FCFA le 2026-08-10  contre 2 805 FCFA la séance précédente (2 907 titres échangés).",
+  "time": "2026-08-10T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-ABJC-2026-08-06-4bd9885af1",
   "type": "prix",
   "ticker": "ABJC",
@@ -200,33 +310,11 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SIBC-2026-08-04-0ae524e53f",
-  "type": "prix",
-  "ticker": "SIBC",
-  "title": "SIBC au plus haut 52 semaines",
-  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 300 FCFA le 2026-08-04 — au-delà de son plus haut des 52 dernières semaines (9 250 FCFA).",
-  "time": "2026-08-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-SICC-2026-08-04-4e6f30cbdf",
   "type": "prix",
   "ticker": "SICC",
   "title": "SICC : +7,5 % sur la séance",
   "detail": "SICOR CI clôture à 7 095 FCFA le 2026-08-04  contre 6 600 FCFA la séance précédente (319 titres échangés).",
-  "time": "2026-08-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-08-04-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 7 095 FCFA le 2026-08-04 — au-delà de son plus haut des 52 dernières semaines (6 600 FCFA).",
   "time": "2026-08-04T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -366,104 +454,16 @@
   "basis": "réel"
  },
  {
-  "id": "volume-CABC-2026-07-31-d1246a994b",
-  "type": "volume",
-  "ticker": "CABC",
-  "title": "Volume inhabituel sur CABC",
-  "detail": "10 266 titres SICABLE CI échangés le 2026-07-31  soit 4.6× la moyenne des 30 séances précédentes.",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-LNBB-2026-07-31-e06d9c8d23",
-  "type": "prix",
-  "ticker": "LNBB",
-  "title": "LNBB : +7,4 % sur la séance",
-  "detail": "LOTERIE NATIONALE DU BENIN clôture à 4 500 FCFA le 2026-07-31  contre 4 350 FCFA la séance précédente (1 094 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ONTBF-2026-07-31-04866d2a43",
-  "type": "prix",
-  "ticker": "ONTBF",
-  "title": "ONTBF : +6,77 % sur la séance",
-  "detail": "ONATEL BF clôture à 2 995 FCFA le 2026-07-31  contre 2 805 FCFA la séance précédente (5 108 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-07-31-3c22156012",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : +7,11 % sur la séance",
-  "detail": "SICOR CI clôture à 6 400 FCFA le 2026-07-31  contre 5 975 FCFA la séance précédente (78 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-TTLC-2026-07-31-47c1ff5946",
-  "type": "prix",
-  "ticker": "TTLC",
-  "title": "TTLC : +7,4 % sur la séance",
-  "detail": "TOTALENERGIES MARKETING CI clôture à 2 975 FCFA le 2026-07-31  contre 2 770 FCFA la séance précédente (2 184 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNLC-2026-07-31-9ad87fcc5a",
-  "type": "prix",
-  "ticker": "UNLC",
-  "title": "UNLC : -5,56 % sur la séance",
-  "detail": "UNILEVER CI clôture à 51 000 FCFA le 2026-07-31  contre 54 000 FCFA la séance précédente (4 titres échangés).",
-  "time": "2026-07-31T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-LNBB-2026-07-31-d02e9fbc88",
   "type": "document",
   "ticker": "LNBB",
   "title": "LNBB : nouvelle publication financière",
   "detail": "LOTERIE NATIONALE DU BENIN a publié « Rapport dactivites et rapport dexamen limite des cacs- 1er semestre 2026 » le 2026-07-31. Source officielle à consulter avant toute décision.",
   "time": "2026-07-31T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260731_-_rapport_dactivites_et_rapport_dexamen_limite_des_cacs-_1er_semestre_2026_-_lnb_bn.pdf"
- },
- {
-  "id": "dividende-BICB-2026-07-31-807638d710",
-  "type": "dividende",
-  "ticker": "BICB",
-  "title": "Dividende BICB : 255 FCFA net par action",
-  "detail": "BIIC BN a payé un dividende net de 255 FCFA par action le 2026-07-31 (source : bulletin officiel).",
-  "time": "2026-07-31T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "dividende-SIBC-2026-07-31-f00cd9ece6",
-  "type": "dividende",
-  "ticker": "SIBC",
-  "title": "Dividende SIBC : 374 FCFA net par action",
-  "detail": "SOCIETE IVOIRIENNE DE BANQUE a payé un dividende net de 374 FCFA par action le 2026-07-31 (source : bulletin officiel).",
-  "time": "2026-07-31T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "document-ETIT-2026-07-29-d25757d8df",
@@ -591,29 +591,6 @@
   "title": "UNXC : états financiers 2025 publiés",
   "detail": "UNIWAX CI a publié ses états financiers 2025 le 2026-07-13. Résultat net : -624 000 000 FCFA contre -2 189 000 000 FCFA en 2024.",
   "time": "2026-07-13T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "document-CBIBF-2026-07-07-3fb6812fe8",
-  "type": "document",
-  "ticker": "CBIBF",
-  "title": "CBIBF : nouvelle publication financière",
-  "detail": "CORIS BANK INTERNATIONAL a publié « Etats financiers — exercice 2025 » le 2026-07-07. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-07T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260707_-_etats_financiers_-_exercice_2025_-_coris_bank_international_bf.pdf"
- },
- {
-  "id": "fondamental-CBIBF-2026-07-07-b8eb8fc038",
-  "type": "fondamental",
-  "ticker": "CBIBF",
-  "title": "CBIBF : états financiers 2025 publiés",
-  "detail": "CORIS BANK INTERNATIONAL a publié ses états financiers 2025 le 2026-07-07. Résultat net : 65 495 000 000 FCFA contre 47 937 000 000 FCFA en 2024.",
-  "time": "2026-07-07T09:00:00+00:00",
   "severity": "info",
   "active": true,
   "basis": "réel"
