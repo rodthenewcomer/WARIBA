@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Admission à la cote des actions nouvelles - ALIOS FINANCE",
+      "date": "2026-08-11",
+      "pdf": "https://www.brvm.org/sites/default/files/20260811_-_avis_ndeg237_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
+    },
+    {
       "title": "Avis : Suspension de l’emprunt obligataire - TPCI.O77",
       "date": "2026-08-11",
       "pdf": "https://www.brvm.org/sites/default/files/20260810_-_avis_ndeg235_brvmdg_-_suspension_titre_tpci.o77.pdf"
@@ -144,11 +149,6 @@
       "title": "Communiqué AMF-UMOA - Liste des cartes professionnelles délivrées en mai 2026 - AMF-UMOA",
       "date": "2026-06-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260624_-_liste_des_cartes_professionnelles_delivrees_en_mai_2026_-_amf-umoa.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-06-25",
-      "pdf": "https://www.brvm.org/sites/default/files/20260624_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
