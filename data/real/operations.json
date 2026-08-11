@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Suspension de l’emprunt obligataire - TPCI.O77",
+      "date": "2026-08-11",
+      "pdf": "https://www.brvm.org/sites/default/files/20260810_-_avis_ndeg235_brvmdg_-_suspension_titre_tpci.o77.pdf"
+    },
+    {
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-08-10",
       "pdf": "https://www.brvm.org/sites/default/files/20260806_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-06-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260624_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-06-24",
-      "pdf": "https://www.brvm.org/sites/default/files/20260623_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [

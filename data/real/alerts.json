@@ -1,11 +1,99 @@
 [
  {
-  "id": "prix-BOABF-2026-08-10-997f654fc2",
+  "id": "prix-BICB-2026-08-11-3c5d5a1a5a",
+  "type": "prix",
+  "ticker": "BICB",
+  "title": "BICB au plus haut 52 semaines",
+  "detail": "BIIC BN clôture à 7 950 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (7 850 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOABF-2026-08-11-997f654fc2",
   "type": "prix",
   "ticker": "BOABF",
   "title": "BOABF au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA BF clôture à 7 325 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (7 255 FCFA).",
-  "time": "2026-08-10T15:30:00+00:00",
+  "detail": "BANK OF AFRICA BF clôture à 7 350 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (7 325 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAC-2026-08-11-cfa1b0a2a6",
+  "type": "prix",
+  "ticker": "BOAC",
+  "title": "BOAC au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA CI clôture à 11 905 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (11 600 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAM-2026-08-11-b1bdbba16c",
+  "type": "prix",
+  "ticker": "BOAM",
+  "title": "BOAM au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA ML clôture à 5 850 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (5 770 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NTLC-2026-08-11-c45f90f152",
+  "type": "prix",
+  "ticker": "NTLC",
+  "title": "NTLC au plus haut 52 semaines",
+  "detail": "NESTLE CI clôture à 16 900 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (16 750 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIBC-2026-08-11-0ae524e53f",
+  "type": "prix",
+  "ticker": "SIBC",
+  "title": "SIBC au plus haut 52 semaines",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 500 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (9 320 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-11-953ab52e91",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +6,7 % sur la séance",
+  "detail": "SICOR CI clôture à 8 125 FCFA le 2026-08-11  contre 7 615 FCFA la séance précédente (84 titres échangés).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-11-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 8 125 FCFA le 2026-08-11 — au-delà de son plus haut des 52 dernières semaines (7 615 FCFA).",
+  "time": "2026-08-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIVC-2026-08-11-e6de0db98a",
+  "type": "prix",
+  "ticker": "SIVC",
+  "title": "SIVC : +6,58 % sur la séance",
+  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 430 FCFA le 2026-08-11  contre 2 280 FCFA la séance précédente (6 068 titres échangés).",
+  "time": "2026-08-11T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
@@ -44,33 +132,11 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SIBC-2026-08-10-0ae524e53f",
-  "type": "prix",
-  "ticker": "SIBC",
-  "title": "SIBC au plus haut 52 semaines",
-  "detail": "SOCIETE IVOIRIENNE DE BANQUE clôture à 9 320 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (9 300 FCFA).",
-  "time": "2026-08-10T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-SICC-2026-08-10-a4a29cc81c",
   "type": "prix",
   "ticker": "SICC",
   "title": "SICC : +7,48 % sur la séance",
   "detail": "SICOR CI clôture à 7 615 FCFA le 2026-08-10  contre 7 085 FCFA la séance précédente (43 titres échangés).",
-  "time": "2026-08-10T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-08-10-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 7 615 FCFA le 2026-08-10 — au-delà de son plus haut des 52 dernières semaines (7 095 FCFA).",
   "time": "2026-08-10T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -198,17 +264,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-NTLC-2026-08-05-c45f90f152",
-  "type": "prix",
-  "ticker": "NTLC",
-  "title": "NTLC au plus haut 52 semaines",
-  "detail": "NESTLE CI clôture à 16 750 FCFA le 2026-08-05 — au-delà de son plus haut des 52 dernières semaines (16 700 FCFA).",
-  "time": "2026-08-05T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-ORAC-2026-08-05-0fa9c4afbd",
   "type": "prix",
   "ticker": "ORAC",
@@ -264,17 +319,6 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bf.pdf"
- },
- {
-  "id": "prix-BOAC-2026-08-04-cfa1b0a2a6",
-  "type": "prix",
-  "ticker": "BOAC",
-  "title": "BOAC au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA CI clôture à 11 600 FCFA le 2026-08-04 — au-delà de son plus haut des 52 dernières semaines (11 350 FCFA).",
-  "time": "2026-08-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "prix-ETIT-2026-08-04-5d5fd6887a",
@@ -365,82 +409,16 @@
   "basis": "réel"
  },
  {
-  "id": "volume-LNBB-2026-08-03-24104927d6",
-  "type": "volume",
-  "ticker": "LNBB",
-  "title": "Volume inhabituel sur LNBB",
-  "detail": "9 055 titres LOTERIE NATIONALE DU BENIN échangés le 2026-08-03  soit 3.3× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NSBC-2026-08-03-ec4caf3cca",
-  "type": "prix",
-  "ticker": "NSBC",
-  "title": "NSBC au plus haut 52 semaines",
-  "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 24 020 FCFA le 2026-08-03 — au-delà de son plus haut des 52 dernières semaines (24 000 FCFA).",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SAFC-2026-08-03-7bc31cf9ea",
-  "type": "volume",
-  "ticker": "SAFC",
-  "title": "Volume inhabituel sur SAFC",
-  "detail": "18 854 titres SAFCA CI échangés le 2026-08-03  soit 3.6× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SHEC-2026-08-03-793b3b0de1",
-  "type": "prix",
-  "ticker": "SHEC",
-  "title": "SHEC : +5,68 % sur la séance",
-  "detail": "VIVO ENERGY CI clôture à 2 325 FCFA le 2026-08-03  contre 2 200 FCFA la séance précédente (5 795 titres échangés).",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-08-03-7231def2b2",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : +5,22 % sur la séance",
-  "detail": "SETAO CI clôture à 2 820 FCFA le 2026-08-03  contre 2 680 FCFA la séance précédente (4 652 titres échangés).",
-  "time": "2026-08-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-SDSC-2026-08-03-04ca10643f",
   "type": "document",
   "ticker": "SDSC",
   "title": "SDSC : nouvelle publication financière",
   "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Etats financiers — exercice 2025 » le 2026-08-03. Source officielle à consulter avant toute décision.",
   "time": "2026-08-03T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
- },
- {
-  "id": "dividende-LNBB-2026-08-03-29c8ef2927",
-  "type": "dividende",
-  "ticker": "LNBB",
-  "title": "Dividende LNBB : 164 FCFA net par action",
-  "detail": "LOTERIE NATIONALE DU BENIN a payé un dividende net de 164 FCFA par action le 2026-08-03 (source : bulletin officiel).",
-  "time": "2026-08-03T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "fondamental-SDSC-2026-08-03-ccb013bd21",
