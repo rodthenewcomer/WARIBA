@@ -1,34 +1,155 @@
 [
  {
-  "id": "prix-BICB-2026-08-12-3c5d5a1a5a",
+  "id": "prix-BICB-2026-08-13-3c5d5a1a5a",
   "type": "prix",
   "ticker": "BICB",
   "title": "BICB au plus haut 52 semaines",
-  "detail": "BIIC BN clôture à 8 095 FCFA le 2026-08-12 — au-delà de son plus haut des 52 dernières semaines (7 950 FCFA).",
-  "time": "2026-08-12T15:30:00+00:00",
+  "detail": "BIIC BN clôture à 8 475 FCFA le 2026-08-13 — au-delà de son plus haut des 52 dernières semaines (8 095 FCFA).",
+  "time": "2026-08-13T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
  },
  {
-  "id": "prix-BOAC-2026-08-12-cfa1b0a2a6",
+  "id": "volume-BICB-2026-08-13-658d652235",
+  "type": "volume",
+  "ticker": "BICB",
+  "title": "Volume inhabituel sur BICB",
+  "detail": "62 268 titres BIIC BN échangés le 2026-08-13  soit 7.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAC-2026-08-13-cfa1b0a2a6",
   "type": "prix",
   "ticker": "BOAC",
   "title": "BOAC au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA CI clôture à 12 480 FCFA le 2026-08-12 — au-delà de son plus haut des 52 dernières semaines (11 905 FCFA).",
-  "time": "2026-08-12T15:30:00+00:00",
+  "detail": "BANK OF AFRICA CI clôture à 12 500 FCFA le 2026-08-13 — au-delà de son plus haut des 52 dernières semaines (12 480 FCFA).",
+  "time": "2026-08-13T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
  },
  {
-  "id": "prix-BOAM-2026-08-12-b1bdbba16c",
+  "id": "prix-BOAM-2026-08-13-b1bdbba16c",
   "type": "prix",
   "ticker": "BOAM",
   "title": "BOAM au plus haut 52 semaines",
-  "detail": "BANK OF AFRICA ML clôture à 6 050 FCFA le 2026-08-12 — au-delà de son plus haut des 52 dernières semaines (5 850 FCFA).",
-  "time": "2026-08-12T15:30:00+00:00",
+  "detail": "BANK OF AFRICA ML clôture à 6 140 FCFA le 2026-08-13 — au-delà de son plus haut des 52 dernières semaines (6 050 FCFA).",
+  "time": "2026-08-13T15:30:00+00:00",
   "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-LNBB-2026-08-13-20069957f2",
+  "type": "prix",
+  "ticker": "LNBB",
+  "title": "LNBB : -5,77 % sur la séance",
+  "detail": "LOTERIE NATIONALE DU BENIN clôture à 4 000 FCFA le 2026-08-13  contre 4 245 FCFA la séance précédente (7 009 titres échangés).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-NSBC-2026-08-13-20aafb3a5a",
+  "type": "volume",
+  "ticker": "NSBC",
+  "title": "Volume inhabituel sur NSBC",
+  "detail": "5 208 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-08-13  soit 3.6× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-08-13-0fa9c4afbd",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC au plus haut 52 semaines",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 18 000 FCFA le 2026-08-13 — au-delà de son plus haut des 52 dernières semaines (17 255 FCFA).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SAFC-2026-08-13-4baeaf3698",
+  "type": "prix",
+  "ticker": "SAFC",
+  "title": "SAFC : +7,45 % sur la séance",
+  "detail": "SAFCA CI clôture à 5 555 FCFA le 2026-08-13  contre 5 170 FCFA la séance précédente (12 062 titres échangés).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-13-52dbafe6bc",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +7,45 % sur la séance",
+  "detail": "SICOR CI clôture à 9 380 FCFA le 2026-08-13  contre 8 730 FCFA la séance précédente (367 titres échangés).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-08-13-bae23f91b8",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC au plus haut 52 semaines",
+  "detail": "SICOR CI clôture à 9 380 FCFA le 2026-08-13 — au-delà de son plus haut des 52 dernières semaines (8 730 FCFA).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SOGC-2026-08-13-707b279361",
+  "type": "prix",
+  "ticker": "SOGC",
+  "title": "SOGC : -6,93 % sur la séance",
+  "detail": "SOGB CI clôture à 7 315 FCFA le 2026-08-13  contre 7 860 FCFA la séance précédente (160 654 titres échangés).",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SOGC-2026-08-13-cdd94b44db",
+  "type": "volume",
+  "ticker": "SOGC",
+  "title": "Volume inhabituel sur SOGC",
+  "detail": "160 654 titres SOGB CI échangés le 2026-08-13  soit 56.4× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SPHC-2026-08-13-986aa69858",
+  "type": "volume",
+  "ticker": "SPHC",
+  "title": "Volume inhabituel sur SPHC",
+  "detail": "5 536 titres SAPH CI échangés le 2026-08-13  soit 3.1× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-13T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-STBC-2026-08-13-4330c7fd5c",
+  "type": "dividende",
+  "ticker": "STBC",
+  "title": "Dividende STBC : 1 707 FCFA net par action",
+  "detail": "SITAB CI a payé un dividende net de 1 707 FCFA par action le 2026-08-13 (source : bulletin officiel).",
+  "time": "2026-08-13T09:00:00+00:00",
+  "severity": "info",
   "active": true,
   "basis": "réel"
  },
@@ -66,17 +187,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-ORAC-2026-08-12-0fa9c4afbd",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC au plus haut 52 semaines",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 17 255 FCFA le 2026-08-12 — au-delà de son plus haut des 52 dernières semaines (17 175 FCFA).",
-  "time": "2026-08-12T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-SAFC-2026-08-12-7ff7168029",
   "type": "prix",
   "ticker": "SAFC",
@@ -93,17 +203,6 @@
   "ticker": "SICC",
   "title": "SICC : +7,45 % sur la séance",
   "detail": "SICOR CI clôture à 8 730 FCFA le 2026-08-12  contre 8 125 FCFA la séance précédente (86 titres échangés).",
-  "time": "2026-08-12T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-08-12-bae23f91b8",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC au plus haut 52 semaines",
-  "detail": "SICOR CI clôture à 8 730 FCFA le 2026-08-12 — au-delà de son plus haut des 52 dernières semaines (8 125 FCFA).",
   "time": "2026-08-12T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -308,46 +407,13 @@
   "basis": "réel"
  },
  {
-  "id": "prix-ABJC-2026-08-05-c9ab73c15b",
-  "type": "prix",
-  "ticker": "ABJC",
-  "title": "ABJC : -6,67 % sur la séance",
-  "detail": "SERVAIR ABIDJAN CI clôture à 2 800 FCFA le 2026-08-05  contre 3 000 FCFA la séance précédente (3 530 titres échangés).",
-  "time": "2026-08-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SDSC-2026-08-05-fdf7becaa1",
-  "type": "prix",
-  "ticker": "SDSC",
-  "title": "SDSC : -7,47 % sur la séance",
-  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 2 355 FCFA le 2026-08-05  contre 2 545 FCFA la séance précédente (15 283 titres échangés).",
-  "time": "2026-08-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SMBC-2026-08-05-ecceb5f4f1",
-  "type": "prix",
-  "ticker": "SMBC",
-  "title": "SMBC : +5,1 % sur la séance",
-  "detail": "SMB CI clôture à 16 500 FCFA le 2026-08-05  contre 15 700 FCFA la séance précédente (807 titres échangés).",
-  "time": "2026-08-05T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOABF-2026-08-05-9bc6dd86ed",
   "type": "document",
   "ticker": "BOABF",
   "title": "BOABF : nouvelle publication financière",
   "detail": "BANK OF AFRICA BF a publié « Etats financiers — 1er semestre 2026 » le 2026-08-05. S1 2026 : PNB 27,5 Md FCFA (-5,24 % vs S1 2025) ; résultat net 10,8 Md FCFA (+30,94 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-08-05T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_etats_financiers_-_1er_semestre_2026_-_boa_bf.pdf"
@@ -359,7 +425,7 @@
   "title": "BOABF : nouvelle publication financière",
   "detail": "BANK OF AFRICA BF a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-05. Source officielle à consulter avant toute décision.",
   "time": "2026-08-05T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bf.pdf"
@@ -470,63 +536,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260715_-_rapport_annuel_-_exercice_2025_-_sitab_ci.pdf"
- },
- {
-  "id": "document-CFAC-2026-07-13-dd1aa6e4e8",
-  "type": "document",
-  "ticker": "CFAC",
-  "title": "CFAC : nouvelle publication financière",
-  "detail": "CFAO MOTORS CI a publié « Rapport annuel — exercice 2025 » le 2026-07-13. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-13T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260713_-_rapport_annuel_-_exercice_2025_-_cfao_motors_ci.pdf"
- },
- {
-  "id": "document-UNXC-2026-07-13-2a40eb6ca7",
-  "type": "document",
-  "ticker": "UNXC",
-  "title": "UNXC : nouvelle publication financière",
-  "detail": "UNIWAX CI a publié « Etats financiers — exercice 2025 » le 2026-07-13. Exercice 2025 : chiffre d'affaires 29,032 Md FCFA contre 27,333 Md ; perte nette ramenée à 624 M FCFA contre 2,189 Md en 2024. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-13T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260713_-_etats_financiers_-_exercice_2025_-_uniwax_ci.pdf"
- },
- {
-  "id": "document-UNXC-2026-07-13-2fb18846b2",
-  "type": "document",
-  "ticker": "UNXC",
-  "title": "UNXC : nouvelle publication financière",
-  "detail": "UNIWAX CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-13. S1 2026 : CA 15,8 Md FCFA (+0,26 % vs S1 2025) ; résultat net 771 M FCFA (-90,62 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-13T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260713_-_rapport_dactivites_-_1er_semestre_2026_-_uniwax_ci.pdf"
- },
- {
-  "id": "fondamental-CFAC-2026-07-13-7101c6339d",
-  "type": "fondamental",
-  "ticker": "CFAC",
-  "title": "CFAC : états financiers 2025 publiés",
-  "detail": "CFAO MOTORS CI a publié ses états financiers 2025 le 2026-07-13. Résultat net : 8 416 000 000 FCFA contre 4 693 000 000 FCFA en 2024.",
-  "time": "2026-07-13T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "fondamental-UNXC-2026-07-13-c62997b93b",
-  "type": "fondamental",
-  "ticker": "UNXC",
-  "title": "UNXC : états financiers 2025 publiés",
-  "detail": "UNIWAX CI a publié ses états financiers 2025 le 2026-07-13. Résultat net : -624 000 000 FCFA contre -2 189 000 000 FCFA en 2024.",
-  "time": "2026-07-13T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  }
 ]
