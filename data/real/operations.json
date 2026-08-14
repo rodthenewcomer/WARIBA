@@ -1,6 +1,26 @@
 {
   "avis": [
     {
+      "title": "Avis : Horaires de cotation du 14 août 2026",
+      "date": "2026-08-13",
+      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg243_brvmdg_-_horaires_de_cotation_du_14_aout_2026.pdf"
+    },
+    {
+      "title": "Avis  : Fixation du taux d'intérêt trimestriel - TPCI (TAUX DE BASE + SPREAD) % 2022-2029 (TPCI.O77)",
+      "date": "2026-08-13",
+      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg242_brvmdg_-_fixation_du_taux_dinteret_trimestriel_tpci.o77.pdf"
+    },
+    {
+      "title": "Avis : Levée de la suspension du titre TPCI (TAUX DE BASE + SPREAD) % 2022-2029 (TPCI.O77)",
+      "date": "2026-08-13",
+      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg241_brvmdg_-_levee_de_la_suspension_du_titre_tpci_taux_de_base_spread_2022-2029_tpci.o77.pdf"
+    },
+    {
+      "title": "Avis : Transactions sur dossier",
+      "date": "2026-08-13",
+      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg240_brvmdg_-_transactions_sur_dossier.pdf"
+    },
+    {
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-08-12",
       "pdf": "https://www.brvm.org/sites/default/files/20260812_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
@@ -129,26 +149,6 @@
       "title": "Avis : Seuils minimaux des transactions par opération d’Acheté – Vendu",
       "date": "2026-07-02",
       "pdf": "https://www.brvm.org/sites/default/files/20260701_-_avis_ndeg192_brvmdg_-_seuils_minimaux_des_transactions_par_operation_dachete_-_vendu.pdf"
-    },
-    {
-      "title": "Avis : Composition de l'indice BRVM 30",
-      "date": "2026-07-01",
-      "pdf": "https://www.brvm.org/sites/default/files/20260701_-_avis_ndeg191_brvmdg_-_composition_de_lindice_brvm_30.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-06-30",
-      "pdf": "https://www.brvm.org/sites/default/files/20260629_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "BRVM :  Transactions Sur Dossier",
-      "date": "2026-06-30",
-      "pdf": "https://www.brvm.org/sites/default/files/20260629_-_avis_ndeg190_brvmdg_-_transaction_sur_dossier.pdf"
-    },
-    {
-      "title": "ETI TG : Paiement de dividendes - Exercice 2025 - modification du montant du dividende",
-      "date": "2026-06-30",
-      "pdf": "https://www.brvm.org/sites/default/files/20250629_-_avis_ndeg189_brvmdg_-_paiement_de_dividendes_exo_2025_-_eti_tg_modification_du_montant_du_dividence.pdf"
     }
   ],
   "operations": [
