@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "Avis : Calendrier de paiement de dividendes",
+      "date": "2026-08-14",
+      "pdf": "https://www.brvm.org/sites/default/files/20260814_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
+    },
+    {
+      "title": "SERVAIR ABIDJAN CI : Modification du montant du dividende - Exercice 2025",
+      "date": "2026-08-14",
+      "pdf": "https://www.brvm.org/sites/default/files/20260814_-_avis_ndeg244_brvmdg_-_paiement_de_dividendes_exo_2025_-_servair_abidjan_ci_modification_du_montant_du_dividende.pdf"
+    },
+    {
       "title": "Avis : Horaires de cotation du 14 août 2026",
       "date": "2026-08-13",
       "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg243_brvmdg_-_horaires_de_cotation_du_14_aout_2026.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : RADIATION - SUKUK ETAT DU SENEGAL 6% 2016-2026",
       "date": "2026-07-05",
       "pdf": "https://www.brvm.org/sites/default/files/20260703_-_avis_ndeg197_brvmdg_-_radiation_-_sukuk_etat_du_senegal_6_2016-2026_suksn.s2.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-02",
-      "pdf": "https://www.brvm.org/sites/default/files/20260701_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Seuils minimaux des transactions par opération d’Acheté – Vendu",
-      "date": "2026-07-02",
-      "pdf": "https://www.brvm.org/sites/default/files/20260701_-_avis_ndeg192_brvmdg_-_seuils_minimaux_des_transactions_par_operation_dachete_-_vendu.pdf"
     }
   ],
   "operations": [
