@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "STBC",
+  "title": "Rapport dactivites — 2eme trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-08-17",
+  "url": "https://www.brvm.org/sites/default/files/20260817_-_rapport_dactivites_-_2eme_trimestre_2026_-_sitab_ci.pdf"
+ },
+ {
   "ticker": "BOABF",
   "title": "Etats financiers — 1er semestre 2026",
   "type": "États financiers",
@@ -4422,13 +4429,6 @@
   "type": "États financiers",
   "date": "2023-08-14",
   "url": "https://www.brvm.org/sites/default/files/20230814_-_attestation_dexecution_de_la_mission_de_commissariat_aux_comptes_-_etats_financiers_exercice_2022_-_sitab_ci.pdf"
- },
- {
-  "ticker": "STBC",
-  "title": "Etats financiers certifies et approuves — exercice 2022",
-  "type": "États financiers",
-  "date": "2023-08-14",
-  "url": "https://www.brvm.org/sites/default/files/20230814_-_etats_financiers_certifies_et_approuves_-_exercice_2022_-_sitab_ci.pdf"
  },
  {
   "ticker": "PRSC",

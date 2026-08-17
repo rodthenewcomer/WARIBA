@@ -1,5 +1,17 @@
 [
  {
+  "id": "document-STBC-2026-08-17-b490d33382",
+  "type": "document",
+  "ticker": "STBC",
+  "title": "STBC : nouvelle publication financière",
+  "detail": "SITAB CI a publié « Rapport dactivites — 2eme trimestre 2026 » le 2026-08-17. T2 2026 : CA 70,0 Md FCFA (+0,74 % vs T2 2025) ; résultat net 8,6 Md FCFA (-0,2 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-17T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260817_-_rapport_dactivites_-_2eme_trimestre_2026_-_sitab_ci.pdf"
+ },
+ {
   "id": "prix-BICB-2026-08-14-3c5d5a1a5a",
   "type": "prix",
   "ticker": "BICB",
@@ -524,17 +536,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260720_-_rapport_dactivites_-_2eme_trimestre_2026_-_vivo_energy_ci.pdf"
- },
- {
-  "id": "document-STBC-2026-07-15-e12dd16df8",
-  "type": "document",
-  "ticker": "STBC",
-  "title": "STBC : nouvelle publication financière",
-  "detail": "SITAB CI a publié « Rapport annuel — exercice 2025 » le 2026-07-15. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-15T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260715_-_rapport_annuel_-_exercice_2025_-_sitab_ci.pdf"
  }
 ]
