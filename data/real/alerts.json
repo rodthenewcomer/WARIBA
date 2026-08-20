@@ -1,5 +1,159 @@
 [
  {
+  "id": "prix-BOAB-2026-08-20-607af6de91",
+  "type": "prix",
+  "ticker": "BOAB",
+  "title": "BOAB au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA BN clôture à 9 500 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (9 420 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOABF-2026-08-20-997f654fc2",
+  "type": "prix",
+  "ticker": "BOABF",
+  "title": "BOABF au plus haut 52 semaines",
+  "detail": "BANK OF AFRICA BF clôture à 7 500 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (7 350 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-BOABF-2026-08-20-fc37c425b3",
+  "type": "volume",
+  "ticker": "BOABF",
+  "title": "Volume inhabituel sur BOABF",
+  "detail": "20 341 titres BANK OF AFRICA BF échangés le 2026-08-20  soit 3.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-BOAC-2026-08-20-9cd99b15f5",
+  "type": "volume",
+  "ticker": "BOAC",
+  "title": "Volume inhabituel sur BOAC",
+  "detail": "32 196 titres BANK OF AFRICA CI échangés le 2026-08-20  soit 4.1× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-CBIBF-2026-08-20-b5fc3b37b7",
+  "type": "volume",
+  "ticker": "CBIBF",
+  "title": "Volume inhabituel sur CBIBF",
+  "detail": "5 967 titres CORIS BANK INTERNATIONAL échangés le 2026-08-20  soit 4.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-CIEC-2026-08-20-291fde974e",
+  "type": "prix",
+  "ticker": "CIEC",
+  "title": "CIEC : +5,19 % sur la séance",
+  "detail": "CIE CI clôture à 7 190 FCFA le 2026-08-20  contre 6 835 FCFA la séance précédente (9 091 titres échangés).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-CIEC-2026-08-20-8d0cfad942",
+  "type": "prix",
+  "ticker": "CIEC",
+  "title": "CIEC au plus haut 52 semaines",
+  "detail": "CIE CI clôture à 7 190 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (6 835 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NEIC-2026-08-20-63c0c583f6",
+  "type": "prix",
+  "ticker": "NEIC",
+  "title": "NEIC : +7,06 % sur la séance",
+  "detail": "NEI-CEDA CI clôture à 2 350 FCFA le 2026-08-20  contre 2 195 FCFA la séance précédente (1 263 titres échangés).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-08-20-0fa9c4afbd",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC au plus haut 52 semaines",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 20 205 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (19 510 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SGBC-2026-08-20-bb68b5e658",
+  "type": "prix",
+  "ticker": "SGBC",
+  "title": "SGBC au plus haut 52 semaines",
+  "detail": "SOCIETE GENERALE COTE D'IVOIRE clôture à 40 000 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (39 300 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SPHC-2026-08-20-d8d7cf300b",
+  "type": "prix",
+  "ticker": "SPHC",
+  "title": "SPHC : -7,45 % sur la séance",
+  "detail": "SAPH CI clôture à 8 940 FCFA le 2026-08-20  contre 9 660 FCFA la séance précédente (17 861 titres échangés).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SPHC-2026-08-20-986aa69858",
+  "type": "volume",
+  "ticker": "SPHC",
+  "title": "Volume inhabituel sur SPHC",
+  "detail": "17 861 titres SAPH CI échangés le 2026-08-20  soit 4.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLS-2026-08-20-30527f5a63",
+  "type": "prix",
+  "ticker": "TTLS",
+  "title": "TTLS : +7,16 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING SN clôture à 3 965 FCFA le 2026-08-20  contre 3 700 FCFA la séance précédente (1 964 titres échangés).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNXC-2026-08-20-dec5b1a9bc",
+  "type": "prix",
+  "ticker": "UNXC",
+  "title": "UNXC au plus haut 52 semaines",
+  "detail": "UNIWAX CI clôture à 2 470 FCFA le 2026-08-20 — au-delà de son plus haut des 52 dernières semaines (2 425 FCFA).",
+  "time": "2026-08-20T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-BICB-2026-08-19-658d652235",
   "type": "volume",
   "ticker": "BICB",
@@ -44,17 +198,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-CIEC-2026-08-19-8d0cfad942",
-  "type": "prix",
-  "ticker": "CIEC",
-  "title": "CIEC au plus haut 52 semaines",
-  "detail": "CIE CI clôture à 6 835 FCFA le 2026-08-19 — au-delà de son plus haut des 52 dernières semaines (6 360 FCFA).",
-  "time": "2026-08-19T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "volume-NTLC-2026-08-19-427b6ec99a",
   "type": "volume",
   "ticker": "NTLC",
@@ -62,17 +205,6 @@
   "detail": "2 701 titres NESTLE CI échangés le 2026-08-19  soit 4.0× la moyenne des 30 séances précédentes.",
   "time": "2026-08-19T15:30:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORAC-2026-08-19-0fa9c4afbd",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC au plus haut 52 semaines",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 19 510 FCFA le 2026-08-19 — au-delà de son plus haut des 52 dernières semaines (19 000 FCFA).",
-  "time": "2026-08-19T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -148,17 +280,6 @@
   "ticker": "UNXC",
   "title": "UNXC : +7,3 % sur la séance",
   "detail": "UNIWAX CI clôture à 2 425 FCFA le 2026-08-19  contre 2 260 FCFA la séance précédente (34 846 titres échangés).",
-  "time": "2026-08-19T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNXC-2026-08-19-dec5b1a9bc",
-  "type": "prix",
-  "ticker": "UNXC",
-  "title": "UNXC au plus haut 52 semaines",
-  "detail": "UNIWAX CI clôture à 2 425 FCFA le 2026-08-19 — au-delà de son plus haut des 52 dernières semaines (2 400 FCFA).",
   "time": "2026-08-19T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -330,17 +451,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SGBC-2026-08-17-bb68b5e658",
-  "type": "prix",
-  "ticker": "SGBC",
-  "title": "SGBC au plus haut 52 semaines",
-  "detail": "SOCIETE GENERALE COTE D'IVOIRE clôture à 39 300 FCFA le 2026-08-17 — au-delà de son plus haut des 52 dernières semaines (39 200 FCFA).",
-  "time": "2026-08-17T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "volume-SGBC-2026-08-17-ee5a0e9bc4",
   "type": "volume",
   "ticker": "SGBC",
@@ -485,105 +595,6 @@
   "basis": "réel"
  },
  {
-  "id": "volume-BICB-2026-08-13-658d652235",
-  "type": "volume",
-  "ticker": "BICB",
-  "title": "Volume inhabituel sur BICB",
-  "detail": "62 268 titres BIIC BN échangés le 2026-08-13  soit 7.7× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-LNBB-2026-08-13-20069957f2",
-  "type": "prix",
-  "ticker": "LNBB",
-  "title": "LNBB : -5,77 % sur la séance",
-  "detail": "LOTERIE NATIONALE DU BENIN clôture à 4 000 FCFA le 2026-08-13  contre 4 245 FCFA la séance précédente (7 009 titres échangés).",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-NSBC-2026-08-13-20aafb3a5a",
-  "type": "volume",
-  "ticker": "NSBC",
-  "title": "Volume inhabituel sur NSBC",
-  "detail": "5 208 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-08-13  soit 3.6× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SAFC-2026-08-13-4baeaf3698",
-  "type": "prix",
-  "ticker": "SAFC",
-  "title": "SAFC : +7,45 % sur la séance",
-  "detail": "SAFCA CI clôture à 5 555 FCFA le 2026-08-13  contre 5 170 FCFA la séance précédente (12 062 titres échangés).",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-08-13-52dbafe6bc",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : +7,45 % sur la séance",
-  "detail": "SICOR CI clôture à 9 380 FCFA le 2026-08-13  contre 8 730 FCFA la séance précédente (367 titres échangés).",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SOGC-2026-08-13-707b279361",
-  "type": "prix",
-  "ticker": "SOGC",
-  "title": "SOGC : -6,93 % sur la séance",
-  "detail": "SOGB CI clôture à 7 315 FCFA le 2026-08-13  contre 7 860 FCFA la séance précédente (160 654 titres échangés).",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SOGC-2026-08-13-cdd94b44db",
-  "type": "volume",
-  "ticker": "SOGC",
-  "title": "Volume inhabituel sur SOGC",
-  "detail": "160 654 titres SOGB CI échangés le 2026-08-13  soit 56.4× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SPHC-2026-08-13-986aa69858",
-  "type": "volume",
-  "ticker": "SPHC",
-  "title": "Volume inhabituel sur SPHC",
-  "detail": "5 536 titres SAPH CI échangés le 2026-08-13  soit 3.1× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-13T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "dividende-STBC-2026-08-13-4330c7fd5c",
-  "type": "dividende",
-  "ticker": "STBC",
-  "title": "Dividende STBC : 1 707 FCFA net par action",
-  "detail": "SITAB CI a payé un dividende net de 1 707 FCFA par action le 2026-08-13 (source : bulletin officiel).",
-  "time": "2026-08-13T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOABF-2026-08-05-9bc6dd86ed",
   "type": "document",
   "ticker": "BOABF",
@@ -689,17 +700,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260722_-_rapport_dactivites_-_1er_trimestre_2026_-_biic_bn.pdf"
- },
- {
-  "id": "document-SHEC-2026-07-20-2013626c9a",
-  "type": "document",
-  "ticker": "SHEC",
-  "title": "SHEC : nouvelle publication financière",
-  "detail": "VIVO ENERGY CI a publié « Rapport dactivites — 2eme trimestre 2026 » le 2026-07-20. T2 2026 : CA 305,0 Md FCFA (-0,74 % vs T2 2025) ; résultat net 3,0 Md FCFA (+14,98 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-20T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260720_-_rapport_dactivites_-_2eme_trimestre_2026_-_vivo_energy_ci.pdf"
  }
 ]
