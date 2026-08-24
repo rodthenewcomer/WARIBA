@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "TPBF DIASPORA BONDS 6,75 % 2026-2031 (TPBF.O26) et TPBF DIASPORA BONDS 6,85 % 2026-2033 (TPBF.O27) : Première cotation",
+      "date": "2026-08-24",
+      "pdf": "https://www.brvm.org/sites/default/files/20260824_-_avis_ndeg251_brvmdg_-_premiere_cotation_-_tpbf_diaspora_bonds_675_2026-2031_et_tpbf_diaspora_bonds_685_2026-2033_.pdf"
+    },
+    {
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-08-21",
       "pdf": "https://www.brvm.org/sites/default/files/20260821_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
@@ -144,11 +149,6 @@
       "title": "BRVM :  Transactions Sur Dossier",
       "date": "2026-07-10",
       "pdf": "https://www.brvm.org/sites/default/files/20260709_-_avis_ndeg202_brvmdg_-_transactions_sur_dossier.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-09",
-      "pdf": "https://www.brvm.org/sites/default/files/20260708_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [

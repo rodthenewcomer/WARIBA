@@ -2,12 +2,11 @@
   {
     "code": "BRVMC",
     "name": "BRVM Composite",
-    "asOfDate": "2026-08-21",
-    "level": 529.15,
-    "dayChangePct": 1.84,
-    "ytdChangePct": 53.61,
+    "asOfDate": "2026-08-24",
+    "level": 530.07,
+    "dayChangePct": 0.17,
+    "ytdChangePct": 53.88,
     "spark": [
-      420.33,
       422.81,
       425.54,
       426.0,
@@ -66,18 +65,18 @@
       507.13,
       515.72,
       519.59,
-      529.15
+      529.15,
+      530.07
     ]
   },
   {
     "code": "BRVM30",
     "name": "BRVM 30",
-    "asOfDate": "2026-08-21",
-    "level": 255.75,
-    "dayChangePct": 2.31,
-    "ytdChangePct": 54.7,
+    "asOfDate": "2026-08-24",
+    "level": 256.23,
+    "dayChangePct": 0.19,
+    "ytdChangePct": 54.99,
     "spark": [
-      197.33,
       198.37,
       199.55,
       200.18,
@@ -136,18 +135,18 @@
       242.89,
       247.63,
       249.97,
-      255.75
+      255.75,
+      256.23
     ]
   },
   {
     "code": "BRVMPRES",
     "name": "BRVM Prestige",
-    "asOfDate": "2026-08-21",
-    "level": 196.68,
-    "dayChangePct": 2.0,
-    "ytdChangePct": 37.08,
+    "asOfDate": "2026-08-24",
+    "level": 196.44,
+    "dayChangePct": -0.12,
+    "ytdChangePct": 36.91,
     "spark": [
-      163.73,
       164.8,
       166.09,
       166.95,
@@ -206,7 +205,8 @@
       188.07,
       190.74,
       192.83,
-      196.68
+      196.68,
+      196.44
     ]
   }
 ]
