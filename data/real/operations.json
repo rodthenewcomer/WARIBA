@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Résultats de première cotation - ETAT DU MALI 6,55 % 2026-2036 (EOM.O23) - ETAT DU MALI 6,35 % 2026-2033",
+      "date": "2026-08-27",
+      "pdf": "https://www.brvm.org/sites/default/files/20260827_-_avis_ndeg253_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_mali_655_2026-2036_eom.o23_-_etat_du_mali_635_2026-2033_eom.o24.pdf"
+    },
+    {
       "title": "TPBF DIASPORA BONDS 6,75 % 2026-2031 (TPBF.O26) et TPBF DIASPORA BONDS 6,85 % 2026-2033 (TPBF.O27) : Première cotation",
       "date": "2026-08-24",
       "pdf": "https://www.brvm.org/sites/default/files/20260824_-_avis_ndeg251_brvmdg_-_premiere_cotation_-_tpbf_diaspora_bonds_675_2026-2031_et_tpbf_diaspora_bonds_685_2026-2033_.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-07-11",
       "pdf": "https://www.brvm.org/sites/default/files/20260710_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "BRVM :  Transactions Sur Dossier",
-      "date": "2026-07-10",
-      "pdf": "https://www.brvm.org/sites/default/files/20260709_-_avis_ndeg202_brvmdg_-_transactions_sur_dossier.pdf"
     }
   ],
   "operations": [
