@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Emprunts ETAT DU SENEGAL 6,40 % 2026-2029 (EOS.O34), ETAT DU SENEGAL 6,60 % 2026-2031 (EOS.O35), ETAT DU SENEGAL 6,75 % 2026-2033 (EOS.O36) et ETAT DU SENEGAL 6,95 % 2026-2036 (EOS.O37) : Première cotation",
+      "date": "2026-09-01",
+      "pdf": "https://www.brvm.org/sites/default/files/20260901_-_avis_ndeg256_brvmdg_-_premiere_cotation_-_emprunts_etat_du_senegal_640_2026-2029_etat_du_senegal_660_2026-2031_etat_du_senegal_675_2026-2033_et_etat_du_senegal_695_2026-2036.pdf"
+    },
+    {
       "title": "TPCI : Offre Publique d'Echange - Levée de la suspension de titres",
       "date": "2026-08-31",
       "pdf": "https://www.brvm.org/sites/default/files/20260831_-_avis_ndeg255_brvmdg_-_offre_publique_dechange_-_levee_de_la_suspension_des_titres_tpci.pdf"
@@ -144,11 +149,6 @@
       "title": "BRVM :  Transactions Sur Dossier",
       "date": "2026-07-16",
       "pdf": "https://www.brvm.org/sites/default/files/20260715_-_avis_ndeg209_brvmdg_-_transactions_sur_dossier.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-16",
-      "pdf": "https://www.brvm.org/sites/default/files/20260715_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
