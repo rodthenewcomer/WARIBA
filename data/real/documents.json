@@ -1,5 +1,26 @@
 [
  {
+  "ticker": "CBIBF",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-08-31",
+  "url": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_coris_bank_international_bf.pdf"
+ },
+ {
+  "ticker": "CBIBF",
+  "title": "Rapport dexamen limite des cac sur les etats financiers au 30 juin 2026",
+  "type": "États financiers",
+  "date": "2026-08-31",
+  "url": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dexamen_limite_des_cac_sur_les_etats_financiers_au_30_juin_2026_-_coris_bank_international_bf.pdf"
+ },
+ {
+  "ticker": "SGBC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-08-31",
+  "url": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_societe_generale_ci.pdf"
+ },
+ {
   "ticker": "STBC",
   "title": "Rapport dactivites — 2eme trimestre 2026",
   "type": "Résultats",

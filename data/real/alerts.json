@@ -1,5 +1,41 @@
 [
  {
+  "id": "document-CBIBF-2026-08-31-cc32e58883",
+  "type": "document",
+  "ticker": "CBIBF",
+  "title": "CBIBF : nouvelle publication financière",
+  "detail": "CORIS BANK INTERNATIONAL a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-31. S1 2026 : PNB 79,0 Md FCFA (+272,64 % vs S1 2025) ; résultat net 41,7 Md FCFA (+77,45 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-31T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_coris_bank_international_bf.pdf"
+ },
+ {
+  "id": "document-CBIBF-2026-08-31-15b6f417c7",
+  "type": "document",
+  "ticker": "CBIBF",
+  "title": "CBIBF : nouvelle publication financière",
+  "detail": "CORIS BANK INTERNATIONAL a publié « Rapport dexamen limite des cac sur les etats financiers au 30 juin 2026 » le 2026-08-31. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-31T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dexamen_limite_des_cac_sur_les_etats_financiers_au_30_juin_2026_-_coris_bank_international_bf.pdf"
+ },
+ {
+  "id": "document-SGBC-2026-08-31-6be85ebc0c",
+  "type": "document",
+  "ticker": "SGBC",
+  "title": "SGBC : nouvelle publication financière",
+  "detail": "SOCIETE GENERALE COTE D'IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-31. S1 2026 : PNB 132,0 Md FCFA (-1,53 % vs S1 2025) ; résultat net 53,1 Md FCFA (-0,51 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-08-31T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_societe_generale_ci.pdf"
+ },
+ {
   "id": "prix-BNBC-2026-08-28-aec92f42e8",
   "type": "prix",
   "ticker": "BNBC",
@@ -596,29 +632,5 @@
   "severity": "info",
   "active": true,
   "basis": "réel"
- },
- {
-  "id": "document-LNBB-2026-07-31-d02e9fbc88",
-  "type": "document",
-  "ticker": "LNBB",
-  "title": "LNBB : nouvelle publication financière",
-  "detail": "LOTERIE NATIONALE DU BENIN a publié « Rapport dactivites et rapport dexamen limite des cacs- 1er semestre 2026 » le 2026-07-31. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-31T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260731_-_rapport_dactivites_et_rapport_dexamen_limite_des_cacs-_1er_semestre_2026_-_lnb_bn.pdf"
- },
- {
-  "id": "document-ETIT-2026-07-29-d25757d8df",
-  "type": "document",
-  "ticker": "ETIT",
-  "title": "ETIT : nouvelle publication financière",
-  "detail": "ECOBANK TRANS. INCORP. TG a publié « Rapport dactivites — 1er semestre 2026 » le 2026-07-29. S1 2026 : PNB 1 281,3 Md FCFA (+77,64 % vs S1 2025) ; résultat net 198,0 Md FCFA (+77,64 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-07-29T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260729_-_rapport_dactivites_-_1er_semestre_2026_-_eti_tg.pdf"
  }
 ]

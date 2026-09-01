@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-04T10:14:55.024035+00:00",
+  "generatedAt": "2026-09-01T09:44:02.289139+00:00",
   "coverage": 48,
-  "current": 48,
-  "reviewRequired": 0,
+  "current": 47,
+  "reviewRequired": 1,
   "tickers": {
     "ABJC": {
       "fiscalYear": 2025,
@@ -83,9 +83,9 @@
     },
     "CBIBF": {
       "fiscalYear": 2025,
-      "latestAnnualYear": 2025,
-      "status": "current",
-      "detail": "Publication annuelle intégrée ou aucun exercice plus récent détecté.",
+      "latestAnnualYear": 2026,
+      "status": "review_required",
+      "detail": "Publication détectée, mais extraction ou recoupement N-1 insuffisant; anciens chiffres préservés.",
       "source": "https://www.brvm.org/sites/default/files/20260707_-_etats_financiers_-_exercice_2025_-_coris_bank_international_bf.pdf"
     },
     "CFAC": {
@@ -211,7 +211,7 @@
       "fiscalYear": 2025,
       "latestAnnualYear": 2025,
       "status": "current",
-      "detail": "Exercice 2025 intégré automatiquement; recoupement N-1 0.000 %.",
+      "detail": "Publication annuelle intégrée ou aucun exercice plus récent détecté.",
       "source": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
     },
     "SEMC": {
