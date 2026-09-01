@@ -1,5 +1,93 @@
 [
  {
+  "id": "prix-ABJC-2026-08-31-05a75f1bf2",
+  "type": "prix",
+  "ticker": "ABJC",
+  "title": "ABJC au plus haut 52 semaines",
+  "detail": "SERVAIR ABIDJAN CI clôture à 3 800 FCFA le 2026-08-31 — au-delà de son plus haut des 52 dernières semaines (3 790 FCFA).",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BICB-2026-08-31-3c5d5a1a5a",
+  "type": "prix",
+  "ticker": "BICB",
+  "title": "BICB au plus haut 52 semaines",
+  "detail": "BIIC BN clôture à 8 900 FCFA le 2026-08-31 — au-delà de son plus haut des 52 dernières semaines (8 510 FCFA).",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-BOABF-2026-08-31-fc37c425b3",
+  "type": "volume",
+  "ticker": "BOABF",
+  "title": "Volume inhabituel sur BOABF",
+  "detail": "54 708 titres BANK OF AFRICA BF échangés le 2026-08-31  soit 8.1× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-NSBC-2026-08-31-20aafb3a5a",
+  "type": "volume",
+  "ticker": "NSBC",
+  "title": "Volume inhabituel sur NSBC",
+  "detail": "8 332 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-08-31  soit 4.0× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-NTLC-2026-08-31-f8971f0ac4",
+  "type": "prix",
+  "ticker": "NTLC",
+  "title": "NTLC : +5,35 % sur la séance",
+  "detail": "NESTLE CI clôture à 16 750 FCFA le 2026-08-31  contre 15 900 FCFA la séance précédente (1 395 titres échangés).",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SCRC-2026-08-31-aeaa737e7e",
+  "type": "prix",
+  "ticker": "SCRC",
+  "title": "SCRC : +7,41 % sur la séance",
+  "detail": "SUCRIVOIRE clôture à 3 625 FCFA le 2026-08-31  contre 3 375 FCFA la séance précédente (9 992 titres échangés).",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SDCC-2026-08-31-5e9b5d4ae6",
+  "type": "volume",
+  "ticker": "SDCC",
+  "title": "Volume inhabituel sur SDCC",
+  "detail": "6 285 titres SODE CI échangés le 2026-08-31  soit 5.2× la moyenne des 30 séances précédentes.",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-08-31-b87a6e25ae",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : +5,59 % sur la séance",
+  "detail": "SETAO CI clôture à 2 740 FCFA le 2026-08-31  contre 2 595 FCFA la séance précédente (7 190 titres échangés).",
+  "time": "2026-08-31T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "document-CBIBF-2026-08-31-cc32e58883",
   "type": "document",
   "ticker": "CBIBF",
@@ -34,6 +122,17 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_societe_generale_ci.pdf"
+ },
+ {
+  "id": "dividende-TTLC-2026-08-31-e705ad28fe",
+  "type": "dividende",
+  "ticker": "TTLC",
+  "title": "Dividende TTLC : 140 FCFA net par action",
+  "detail": "TOTALENERGIES MARKETING CI a payé un dividende net de 140 FCFA par action le 2026-08-31 (source : bulletin officiel).",
+  "time": "2026-08-31T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
  },
  {
   "id": "prix-BNBC-2026-08-28-aec92f42e8",
@@ -131,17 +230,6 @@
   "detail": "SAPH CI a payé un dividende net de 430 FCFA par action le 2026-08-28 (source : bulletin officiel).",
   "time": "2026-08-28T09:00:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICB-2026-08-27-3c5d5a1a5a",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB au plus haut 52 semaines",
-  "detail": "BIIC BN clôture à 8 510 FCFA le 2026-08-27 — au-delà de son plus haut des 52 dernières semaines (8 500 FCFA).",
-  "time": "2026-08-27T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -505,72 +593,6 @@
   "detail": "SOCIETE GENERALE COTE D'IVOIRE a payé un dividende net de 2 299 FCFA par action le 2026-08-24 (source : bulletin officiel).",
   "time": "2026-08-24T09:00:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAB-2026-08-21-4804822364",
-  "type": "prix",
-  "ticker": "BOAB",
-  "title": "BOAB : +5,11 % sur la séance",
-  "detail": "BANK OF AFRICA BN clôture à 9 985 FCFA le 2026-08-21  contre 9 500 FCFA la séance précédente (1 454 titres échangés).",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-LNBB-2026-08-21-24104927d6",
-  "type": "volume",
-  "ticker": "LNBB",
-  "title": "Volume inhabituel sur LNBB",
-  "detail": "15 058 titres LOTERIE NATIONALE DU BENIN échangés le 2026-08-21  soit 3.5× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-08-21-9b9f8cc8bf",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : -7,49 % sur la séance",
-  "detail": "SICOR CI clôture à 8 650 FCFA le 2026-08-21  contre 9 350 FCFA la séance précédente (270 titres échangés).",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SNTS-2026-08-21-4b46d1d582",
-  "type": "prix",
-  "ticker": "SNTS",
-  "title": "SNTS : +7,5 % sur la séance",
-  "detail": "SONATEL SN clôture à 36 980 FCFA le 2026-08-21  contre 34 400 FCFA la séance précédente (13 615 titres échangés).",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SNTS-2026-08-21-d84fddd485",
-  "type": "prix",
-  "ticker": "SNTS",
-  "title": "SNTS au plus haut 52 semaines",
-  "detail": "SONATEL SN clôture à 36 980 FCFA le 2026-08-21 — au-delà de son plus haut des 52 dernières semaines (34 400 FCFA).",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SPHC-2026-08-21-abe76662d7",
-  "type": "prix",
-  "ticker": "SPHC",
-  "title": "SPHC : +5,59 % sur la séance",
-  "detail": "SAPH CI clôture à 9 440 FCFA le 2026-08-21  contre 8 940 FCFA la séance précédente (7 434 titres échangés).",
-  "time": "2026-08-21T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },

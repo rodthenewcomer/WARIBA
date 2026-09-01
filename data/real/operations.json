@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "TPCI : Offre Publique d'Echange - Levée de la suspension de titres",
+      "date": "2026-08-31",
+      "pdf": "https://www.brvm.org/sites/default/files/20260831_-_avis_ndeg255_brvmdg_-_offre_publique_dechange_-_levee_de_la_suspension_des_titres_tpci.pdf"
+    },
+    {
+      "title": "Avis : Transactions sur dossier",
+      "date": "2026-08-31",
+      "pdf": "https://www.brvm.org/sites/default/files/20260831_-_avis_ndeg254_brvmdg_-_transaction_sur_dossier.pdf"
+    },
+    {
       "title": "Résultats de première cotation - ETAT DU MALI 6,55 % 2026-2036 (EOM.O23) - ETAT DU MALI 6,35 % 2026-2033",
       "date": "2026-08-27",
       "pdf": "https://www.brvm.org/sites/default/files/20260827_-_avis_ndeg253_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_mali_655_2026-2036_eom.o23_-_etat_du_mali_635_2026-2033_eom.o24.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-07-16",
       "pdf": "https://www.brvm.org/sites/default/files/20260715_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-14",
-      "pdf": "https://www.brvm.org/sites/default/files/20260713_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260710_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
