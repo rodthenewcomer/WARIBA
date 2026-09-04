@@ -1,5 +1,17 @@
 [
  {
+  "id": "document-SAFC-2026-09-03-31eb3dc659",
+  "type": "document",
+  "ticker": "SAFC",
+  "title": "SAFC : nouvelle publication financière",
+  "detail": "SAFCA CI a publié « Rapport dactivites — 2eme trimestre 2026 » le 2026-09-03. T2 2026 : PNB 2,9 Md FCFA (+36,99 % vs T2 2025) ; résultat net 731 M FCFA (+230,77 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-03T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260903_-_rapport_dactivites_-_2eme_trimestre_2026_-_safca_ci.pdf"
+ },
+ {
   "id": "prix-BICB-2026-09-02-3c5d5a1a5a",
   "type": "prix",
   "ticker": "BICB",
@@ -565,18 +577,6 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260805_-_rapport_dactivites_-_1er_semestre_2026_-_boa_bf.pdf"
- },
- {
-  "id": "document-SDSC-2026-08-03-04ca10643f",
-  "type": "document",
-  "ticker": "SDSC",
-  "title": "SDSC : nouvelle publication financière",
-  "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Etats financiers — exercice 2025 » le 2026-08-03. Source officielle à consulter avant toute décision.",
-  "time": "2026-08-03T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260803_-_etats_financiers_-_exercice_2025_-_africa_global_logistics_ci.pdf"
  },
  {
   "id": "fondamental-SDSC-2026-08-03-ccb013bd21",

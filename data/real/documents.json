@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "SAFC",
+  "title": "Rapport dactivites — 2eme trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-03",
+  "url": "https://www.brvm.org/sites/default/files/20260903_-_rapport_dactivites_-_2eme_trimestre_2026_-_safca_ci.pdf"
+ },
+ {
   "ticker": "CBIBF",
   "title": "Rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -5780,13 +5787,6 @@
   "type": "États financiers",
   "date": "2022-02-10",
   "url": "https://www.brvm.org/sites/default/files/20220210_-_rapport_des_commissaires_aux_comptes_au_conseil_dadministration_exercice_2020_-_unilever_ci.pdf"
- },
- {
-  "ticker": "SAFC",
-  "title": "Rapport dactivite au 1er semestre 2021",
-  "type": "Communiqué",
-  "date": "2021-11-24",
-  "url": "https://www.brvm.org/sites/default/files/20211124_-_rapport_dactivite_au_1er_semestre_2021_-_safca_ci.pdf"
  },
  {
   "ticker": "SICC",
