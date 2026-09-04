@@ -1,5 +1,159 @@
 [
  {
+  "id": "prix-BICB-2026-09-04-3c5d5a1a5a",
+  "type": "prix",
+  "ticker": "BICB",
+  "title": "BICB au plus haut 52 semaines",
+  "detail": "BIIC BN clôture à 10 400 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (10 110 FCFA).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BICC-2026-09-04-cebddaf506",
+  "type": "prix",
+  "ticker": "BICC",
+  "title": "BICC au plus haut 52 semaines",
+  "detail": "BICI CI clôture à 33 005 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (32 680 FCFA).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-BICC-2026-09-04-f086d93dfe",
+  "type": "volume",
+  "ticker": "BICC",
+  "title": "Volume inhabituel sur BICC",
+  "detail": "2 551 titres BICI CI échangés le 2026-09-04  soit 3.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-CBIBF-2026-09-04-74bafa3ccd",
+  "type": "prix",
+  "ticker": "CBIBF",
+  "title": "CBIBF au plus haut 52 semaines",
+  "detail": "CORIS BANK INTERNATIONAL clôture à 33 450 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (33 100 FCFA).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-NSBC-2026-09-04-20aafb3a5a",
+  "type": "volume",
+  "ticker": "NSBC",
+  "title": "Volume inhabituel sur NSBC",
+  "detail": "10 119 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-09-04  soit 3.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-NTLC-2026-09-04-427b6ec99a",
+  "type": "volume",
+  "ticker": "NTLC",
+  "title": "Volume inhabituel sur NTLC",
+  "detail": "5 096 titres NESTLE CI échangés le 2026-09-04  soit 5.9× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-PALC-2026-09-04-434a98f46e",
+  "type": "volume",
+  "ticker": "PALC",
+  "title": "Volume inhabituel sur PALC",
+  "detail": "8 553 titres PALM CI échangés le 2026-09-04  soit 3.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SAFC-2026-09-04-7bc31cf9ea",
+  "type": "volume",
+  "ticker": "SAFC",
+  "title": "Volume inhabituel sur SAFC",
+  "detail": "42 420 titres SAFCA CI échangés le 2026-09-04  soit 6.0× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SDCC-2026-09-04-5e9b5d4ae6",
+  "type": "volume",
+  "ticker": "SDCC",
+  "title": "Volume inhabituel sur SDCC",
+  "detail": "5 189 titres SODE CI échangés le 2026-09-04  soit 3.8× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SDSC-2026-09-04-40b6dbca66",
+  "type": "prix",
+  "ticker": "SDSC",
+  "title": "SDSC au plus haut 52 semaines",
+  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 3 205 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (3 100 FCFA).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SEMC-2026-09-04-7329a8202d",
+  "type": "prix",
+  "ticker": "SEMC",
+  "title": "SEMC : +5,33 % sur la séance",
+  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 580 FCFA le 2026-09-04  contre 1 500 FCFA la séance précédente (6 759 titres échangés).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SIBC-2026-09-04-7c353d6018",
+  "type": "volume",
+  "ticker": "SIBC",
+  "title": "Volume inhabituel sur SIBC",
+  "detail": "49 736 titres SOCIETE IVOIRIENNE DE BANQUE échangés le 2026-09-04  soit 4.8× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SICC-2026-09-04-4e6f30cbdf",
+  "type": "prix",
+  "ticker": "SICC",
+  "title": "SICC : +7,5 % sur la séance",
+  "detail": "SICOR CI clôture à 8 385 FCFA le 2026-09-04  contre 7 800 FCFA la séance précédente (106 titres échangés).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SNTS-2026-09-04-d84fddd485",
+  "type": "prix",
+  "ticker": "SNTS",
+  "title": "SNTS au plus haut 52 semaines",
+  "detail": "SONATEL SN clôture à 38 500 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (38 000 FCFA).",
+  "time": "2026-09-04T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "document-SPHC-2026-09-04-501296b2b3",
   "type": "document",
   "ticker": "SPHC",
@@ -34,33 +188,11 @@
   "basis": "réel"
  },
  {
-  "id": "prix-BICB-2026-09-03-3c5d5a1a5a",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB au plus haut 52 semaines",
-  "detail": "BIIC BN clôture à 10 110 FCFA le 2026-09-03 — au-delà de son plus haut des 52 dernières semaines (9 600 FCFA).",
-  "time": "2026-09-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-BICC-2026-09-03-209db324be",
   "type": "prix",
   "ticker": "BICC",
   "title": "BICC : +7,5 % sur la séance",
   "detail": "BICI CI clôture à 32 680 FCFA le 2026-09-03  contre 30 400 FCFA la séance précédente (605 titres échangés).",
-  "time": "2026-09-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICC-2026-09-03-cebddaf506",
-  "type": "prix",
-  "ticker": "BICC",
-  "title": "BICC au plus haut 52 semaines",
-  "detail": "BICI CI clôture à 32 680 FCFA le 2026-09-03 — au-delà de son plus haut des 52 dernières semaines (30 400 FCFA).",
   "time": "2026-09-03T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -74,17 +206,6 @@
   "detail": "12 763 titres BERNABE CI échangés le 2026-09-03  soit 4.4× la moyenne des 30 séances précédentes.",
   "time": "2026-09-03T15:30:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CBIBF-2026-09-03-74bafa3ccd",
-  "type": "prix",
-  "ticker": "CBIBF",
-  "title": "CBIBF au plus haut 52 semaines",
-  "detail": "CORIS BANK INTERNATIONAL clôture à 33 100 FCFA le 2026-09-03 — au-delà de son plus haut des 52 dernières semaines (32 500 FCFA).",
-  "time": "2026-09-03T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -133,17 +254,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SDSC-2026-09-03-40b6dbca66",
-  "type": "prix",
-  "ticker": "SDSC",
-  "title": "SDSC au plus haut 52 semaines",
-  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 3 100 FCFA le 2026-09-03 — au-delà de son plus haut des 52 dernières semaines (2 935 FCFA).",
-  "time": "2026-09-03T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "volume-SHEC-2026-09-03-d3efb91623",
   "type": "volume",
   "ticker": "SHEC",
@@ -162,17 +272,6 @@
   "detail": "16 264 titres ERIUM CI (Ex AIR LIQUIDE CI) échangés le 2026-09-03  soit 4.4× la moyenne des 30 séances précédentes.",
   "time": "2026-09-03T15:30:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SNTS-2026-09-03-d84fddd485",
-  "type": "prix",
-  "ticker": "SNTS",
-  "title": "SNTS au plus haut 52 semaines",
-  "detail": "SONATEL SN clôture à 38 000 FCFA le 2026-09-03 — au-delà de son plus haut des 52 dernières semaines (37 150 FCFA).",
-  "time": "2026-09-03T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
@@ -462,72 +561,6 @@
   "title": "Dividende TTLC : 140 FCFA net par action",
   "detail": "TOTALENERGIES MARKETING CI a payé un dividende net de 140 FCFA par action le 2026-08-31 (source : bulletin officiel).",
   "time": "2026-08-31T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-LNBB-2026-08-28-24104927d6",
-  "type": "volume",
-  "ticker": "LNBB",
-  "title": "Volume inhabituel sur LNBB",
-  "detail": "18 125 titres LOTERIE NATIONALE DU BENIN échangés le 2026-08-28  soit 3.9× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-28T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NEIC-2026-08-28-008b9c6b32",
-  "type": "prix",
-  "ticker": "NEIC",
-  "title": "NEIC : +7,14 % sur la séance",
-  "detail": "NEI-CEDA CI clôture à 3 000 FCFA le 2026-08-28  contre 2 800 FCFA la séance précédente (4 044 titres échangés).",
-  "time": "2026-08-28T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NEIC-2026-08-28-da51bfb4d5",
-  "type": "prix",
-  "ticker": "NEIC",
-  "title": "NEIC au plus haut 52 semaines",
-  "detail": "NEI-CEDA CI clôture à 3 000 FCFA le 2026-08-28 — au-delà de son plus haut des 52 dernières semaines (2 800 FCFA).",
-  "time": "2026-08-28T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NTLC-2026-08-28-0bad1e52cd",
-  "type": "prix",
-  "ticker": "NTLC",
-  "title": "NTLC : -5,92 % sur la séance",
-  "detail": "NESTLE CI clôture à 15 900 FCFA le 2026-08-28  contre 16 900 FCFA la séance précédente (1 745 titres échangés).",
-  "time": "2026-08-28T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SEMC-2026-08-28-e45776e44f",
-  "type": "volume",
-  "ticker": "SEMC",
-  "title": "Volume inhabituel sur SEMC",
-  "detail": "20 746 titres EVIOSYS PACKAGING SIEM CI échangés le 2026-08-28  soit 3.3× la moyenne des 30 séances précédentes.",
-  "time": "2026-08-28T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "dividende-SPHC-2026-08-28-406cce016a",
-  "type": "dividende",
-  "ticker": "SPHC",
-  "title": "Dividende SPHC : 430 FCFA net par action",
-  "detail": "SAPH CI a payé un dividende net de 430 FCFA par action le 2026-08-28 (source : bulletin officiel).",
-  "time": "2026-08-28T09:00:00+00:00",
   "severity": "info",
   "active": true,
   "basis": "réel"
