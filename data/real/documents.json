@@ -1,5 +1,12 @@
 [
  {
+  "ticker": "SPHC",
+  "title": "Rapport dactivites et attestation des cac sur le rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-04",
+  "url": "https://www.brvm.org/sites/default/files/20260904_-_rapport_dactivites_et_attestation_des_cac_sur_le_rapport_dactivites_-_1er_semestre_2026_-_saph_ci.pdf"
+ },
+ {
   "ticker": "SAFC",
   "title": "Rapport dactivites — 2eme trimestre 2026",
   "type": "Résultats",
@@ -4464,13 +4471,6 @@
   "type": "États financiers",
   "date": "2023-08-03",
   "url": "https://www.brvm.org/sites/default/files/20230803_-_etats_financiers_certifies_et_approuves_-_exercice_2022_-_tractafric_motors_ci.pdf"
- },
- {
-  "ticker": "SPHC",
-  "title": "Etats financiers certifies et approuves — exercice 2022",
-  "type": "États financiers",
-  "date": "2023-08-02",
-  "url": "https://www.brvm.org/sites/default/files/20230802_-_etats_financiers_certifies_et_approuves_-_exercice_2022_-_saph_ci.pdf"
  },
  {
   "ticker": "BNBC",

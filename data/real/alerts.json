@@ -1,5 +1,17 @@
 [
  {
+  "id": "document-SPHC-2026-09-04-501296b2b3",
+  "type": "document",
+  "ticker": "SPHC",
+  "title": "SPHC : nouvelle publication financière",
+  "detail": "SAPH CI a publié « Rapport dactivites et attestation des cac sur le rapport dactivites — 1er semestre 2026 » le 2026-09-04. S1 2026 : CA 138,0 Md FCFA (-20,23 % vs S1 2025) ; résultat net 11,0 Md FCFA (+57,14 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-04T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260904_-_rapport_dactivites_et_attestation_des_cac_sur_le_rapport_dactivites_-_1er_semestre_2026_-_saph_ci.pdf"
+ },
+ {
   "id": "prix-ABJC-2026-09-03-05a75f1bf2",
   "type": "prix",
   "ticker": "ABJC",
