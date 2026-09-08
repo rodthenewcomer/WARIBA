@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "BRIDGE BANK GROUP COTE D’IVOIRE : Première cotation",
+      "date": "2026-09-08",
+      "pdf": "https://www.brvm.org/sites/default/files/20260908_-_avis_ndeg263_brvmdg_-_premiere_cotation_-bridge_bank_group_cote_divoire.pdf"
+    },
+    {
+      "title": "Avis : Transactions sur dossier",
+      "date": "2026-09-08",
+      "pdf": "https://www.brvm.org/sites/default/files/20260908_-_avis_ndeg264_brvmdg_-_transactions_sur_dossier.pdf"
+    },
+    {
       "title": "Emprunts ETAT DU SENEGAL 6,40 % 2026-2029, ETAT DU SENEGAL 6,60 % 2026-2031, ETAT DU SENEGAL 6,75 % 2026-2033 et ETAT DU SENEGAL 6,95 % 2026-2036 : Report de la date de première cotation",
       "date": "2026-09-07",
       "pdf": "https://www.brvm.org/sites/default/files/20260709_-_avis_ndeg262_brvmdg_-_report_de_la_date_de_premiere_cotation_-_emprunts_etat_du_senegal.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : Augmentation de capital - Admission à la cote des actions nouvelles de la société SAFCA CI",
       "date": "2026-07-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260724_-_avis_ndeg220_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-23",
-      "pdf": "https://www.brvm.org/sites/default/files/20260722_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "SUKUK ETAT DU TOGO 6,5 % 2016-2026 (SUKTG.S1) - RADIATION DE LA COTE",
-      "date": "2026-07-23",
-      "pdf": "https://www.brvm.org/sites/default/files/20260722_-_avis_ndeg216_brvmdg_-_radiation_-_sukuk_etat_du_togo_65_2016-2026_suktg.s1.pdf"
     }
   ],
   "operations": [
