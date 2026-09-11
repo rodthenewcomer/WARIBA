@@ -1,11 +1,44 @@
 [
  {
-  "id": "prix-ABJC-2026-09-10-05a75f1bf2",
+  "id": "prix-ABJC-2026-09-11-05a75f1bf2",
   "type": "prix",
   "ticker": "ABJC",
   "title": "ABJC au plus haut 52 semaines",
-  "detail": "SERVAIR ABIDJAN CI clôture à 4 005 FCFA le 2026-09-10 — au-delà de son plus haut des 52 dernières semaines (3 995 FCFA).",
-  "time": "2026-09-10T15:30:00+00:00",
+  "detail": "SERVAIR ABIDJAN CI clôture à 4 095 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (4 005 FCFA).",
+  "time": "2026-09-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-CBIBF-2026-09-11-74bafa3ccd",
+  "type": "prix",
+  "ticker": "CBIBF",
+  "title": "CBIBF au plus haut 52 semaines",
+  "detail": "CORIS BANK INTERNATIONAL clôture à 34 300 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (33 600 FCFA).",
+  "time": "2026-09-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SHEC-2026-09-11-26053a2eab",
+  "type": "prix",
+  "ticker": "SHEC",
+  "title": "SHEC au plus haut 52 semaines",
+  "detail": "VIVO ENERGY CI clôture à 2 550 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (2 510 FCFA).",
+  "time": "2026-09-11T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SNTS-2026-09-11-d84fddd485",
+  "type": "prix",
+  "ticker": "SNTS",
+  "title": "SNTS au plus haut 52 semaines",
+  "detail": "SONATEL SN clôture à 39 275 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (39 200 FCFA).",
+  "time": "2026-09-11T15:30:00+00:00",
   "severity": "positive",
   "active": true,
   "basis": "réel"
@@ -27,17 +60,6 @@
   "ticker": "BOAM",
   "title": "BOAM au plus haut 52 semaines",
   "detail": "BANK OF AFRICA ML clôture à 7 195 FCFA le 2026-09-10 — au-delà de son plus haut des 52 dernières semaines (7 005 FCFA).",
-  "time": "2026-09-10T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CBIBF-2026-09-10-74bafa3ccd",
-  "type": "prix",
-  "ticker": "CBIBF",
-  "title": "CBIBF au plus haut 52 semaines",
-  "detail": "CORIS BANK INTERNATIONAL clôture à 33 600 FCFA le 2026-09-10 — au-delà de son plus haut des 52 dernières semaines (33 500 FCFA).",
   "time": "2026-09-10T15:30:00+00:00",
   "severity": "positive",
   "active": true,
@@ -264,17 +286,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-SNTS-2026-09-08-d84fddd485",
-  "type": "prix",
-  "ticker": "SNTS",
-  "title": "SNTS au plus haut 52 semaines",
-  "detail": "SONATEL SN clôture à 39 200 FCFA le 2026-09-08 — au-delà de son plus haut des 52 dernières semaines (38 700 FCFA).",
-  "time": "2026-09-08T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "prix-SOGC-2026-09-08-4594c73f78",
   "type": "prix",
   "ticker": "SOGC",
@@ -473,116 +484,6 @@
   "basis": "réel"
  },
  {
-  "id": "volume-BICC-2026-09-04-f086d93dfe",
-  "type": "volume",
-  "ticker": "BICC",
-  "title": "Volume inhabituel sur BICC",
-  "detail": "2 551 titres BICI CI échangés le 2026-09-04  soit 3.7× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-NSBC-2026-09-04-20aafb3a5a",
-  "type": "volume",
-  "ticker": "NSBC",
-  "title": "Volume inhabituel sur NSBC",
-  "detail": "10 119 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-09-04  soit 3.7× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-NTLC-2026-09-04-427b6ec99a",
-  "type": "volume",
-  "ticker": "NTLC",
-  "title": "Volume inhabituel sur NTLC",
-  "detail": "5 096 titres NESTLE CI échangés le 2026-09-04  soit 5.9× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-PALC-2026-09-04-434a98f46e",
-  "type": "volume",
-  "ticker": "PALC",
-  "title": "Volume inhabituel sur PALC",
-  "detail": "8 553 titres PALM CI échangés le 2026-09-04  soit 3.5× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SAFC-2026-09-04-7bc31cf9ea",
-  "type": "volume",
-  "ticker": "SAFC",
-  "title": "Volume inhabituel sur SAFC",
-  "detail": "42 420 titres SAFCA CI échangés le 2026-09-04  soit 6.0× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SDCC-2026-09-04-5e9b5d4ae6",
-  "type": "volume",
-  "ticker": "SDCC",
-  "title": "Volume inhabituel sur SDCC",
-  "detail": "5 189 titres SODE CI échangés le 2026-09-04  soit 3.8× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SDSC-2026-09-04-40b6dbca66",
-  "type": "prix",
-  "ticker": "SDSC",
-  "title": "SDSC au plus haut 52 semaines",
-  "detail": "AFRICA GLOBAL LOGISTICS CI clôture à 3 205 FCFA le 2026-09-04 — au-delà de son plus haut des 52 dernières semaines (3 100 FCFA).",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SEMC-2026-09-04-7329a8202d",
-  "type": "prix",
-  "ticker": "SEMC",
-  "title": "SEMC : +5,33 % sur la séance",
-  "detail": "EVIOSYS PACKAGING SIEM CI clôture à 1 580 FCFA le 2026-09-04  contre 1 500 FCFA la séance précédente (6 759 titres échangés).",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-SIBC-2026-09-04-7c353d6018",
-  "type": "volume",
-  "ticker": "SIBC",
-  "title": "Volume inhabituel sur SIBC",
-  "detail": "49 736 titres SOCIETE IVOIRIENNE DE BANQUE échangés le 2026-09-04  soit 4.8× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SICC-2026-09-04-4e6f30cbdf",
-  "type": "prix",
-  "ticker": "SICC",
-  "title": "SICC : +7,5 % sur la séance",
-  "detail": "SICOR CI clôture à 8 385 FCFA le 2026-09-04  contre 7 800 FCFA la séance précédente (106 titres échangés).",
-  "time": "2026-09-04T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-SPHC-2026-09-04-501296b2b3",
   "type": "document",
   "ticker": "SPHC",
@@ -601,7 +502,7 @@
   "title": "SAFC : nouvelle publication financière",
   "detail": "SAFCA CI a publié « Rapport dactivites — 2eme trimestre 2026 » le 2026-09-03. T2 2026 : PNB 2,9 Md FCFA (+36,99 % vs T2 2025) ; résultat net 731 M FCFA (+230,77 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-09-03T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260903_-_rapport_dactivites_-_2eme_trimestre_2026_-_safca_ci.pdf"
