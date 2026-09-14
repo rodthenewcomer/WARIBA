@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Transactions sur dossier",
+      "date": "2026-09-12",
+      "pdf": "https://www.brvm.org/sites/default/files/20260911_-_avis_ndeg267_brvmdg_-_transactions_sur_dossier.pdf"
+    },
+    {
       "title": "BRIDGE BANK GROUP COTE D’IVOIRE : Première cotation",
       "date": "2026-09-08",
       "pdf": "https://www.brvm.org/sites/default/files/20260908_-_avis_ndeg263_brvmdg_-_premiere_cotation_-bridge_bank_group_cote_divoire.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-07-31",
       "pdf": "https://www.brvm.org/sites/default/files/20260730_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Augmentation de capital - Admission à la cote des actions nouvelles de la société SAFCA CI",
-      "date": "2026-07-25",
-      "pdf": "https://www.brvm.org/sites/default/files/20260724_-_avis_ndeg220_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
     }
   ],
   "operations": [
