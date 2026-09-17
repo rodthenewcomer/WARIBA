@@ -1,6 +1,26 @@
 {
   "avis": [
     {
+      "title": "Avis : Calendrier de paiement de dividendes",
+      "date": "2026-09-17",
+      "pdf": "https://www.brvm.org/sites/default/files/20260904_-_calendrier_de_paiement_des_dividendes_-_exercice_2025_0.pdf"
+    },
+    {
+      "title": "SONOCO METAL PACKAGING SIEM CI (Ex-EVIOSYS PACKAGING SIEM CI) : Suspension de la cotation",
+      "date": "2026-09-17",
+      "pdf": "https://www.brvm.org/sites/default/files/20260916_-_avis_ndeg270_brvmdg_-_suspension_-_sonoco_metal_packaging_siem_ci.pdf"
+    },
+    {
+      "title": "SUCRIVOIRE S.A : Suspension de la cotation",
+      "date": "2026-09-17",
+      "pdf": "https://www.brvm.org/sites/default/files/20260916_-_avis_ndeg269_brvmdg_-_suspension_-_sucrivoire_ci.pdf"
+    },
+    {
+      "title": "SICOR S.A : Suspension de la cotation",
+      "date": "2026-09-17",
+      "pdf": "https://www.brvm.org/sites/default/files/20260916_-_avis_ndeg268_brvmdg_-_suspension_-_sicor_ci.pdf"
+    },
+    {
       "title": "Avis : Transactions sur dossier",
       "date": "2026-09-12",
       "pdf": "https://www.brvm.org/sites/default/files/20260911_-_avis_ndeg267_brvmdg_-_transactions_sur_dossier.pdf"
@@ -129,26 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-08-10",
       "pdf": "https://www.brvm.org/sites/default/files/20260806_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Communiqué AMF-UMOA - Liste des cartes professionnelles délivrées en juin 2026",
-      "date": "2026-08-05",
-      "pdf": "https://www.brvm.org/sites/default/files/20260805_-_communique_amf-umoa_-_liste_des_cartes_professionnelles_delivrees_en_juin_2026.pdf"
-    },
-    {
-      "title": "Avis : Rappel, Vendredi 7 août 2026, jour férié",
-      "date": "2026-08-05",
-      "pdf": "https://www.brvm.org/sites/default/files/20260804_-_avis_ndeg229_brvmdg_-_rappel_7_aout_2026_jour_ferie.pdf"
-    },
-    {
-      "title": "Avis : Horaires de cotation du 06 août 2026",
-      "date": "2026-08-04",
-      "pdf": "https://www.brvm.org/sites/default/files/20260804_-_avis_ndeg230_brvmdg_-_horaires_de_cotation_du_06_aout_2026.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-07-31",
-      "pdf": "https://www.brvm.org/sites/default/files/20260730_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
