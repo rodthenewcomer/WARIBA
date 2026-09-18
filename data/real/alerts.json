@@ -1,5 +1,104 @@
 [
  {
+  "id": "volume-NTLC-2026-09-18-427b6ec99a",
+  "type": "volume",
+  "ticker": "NTLC",
+  "title": "Volume inhabituel sur NTLC",
+  "detail": "4 133 titres NESTLE CI échangés le 2026-09-18  soit 3.1× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-PALC-2026-09-18-434a98f46e",
+  "type": "volume",
+  "ticker": "PALC",
+  "title": "Volume inhabituel sur PALC",
+  "detail": "10 627 titres PALM CI échangés le 2026-09-18  soit 3.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SDCC-2026-09-18-82d56a18aa",
+  "type": "prix",
+  "ticker": "SDCC",
+  "title": "SDCC : -7,48 % sur la séance",
+  "detail": "SODE CI clôture à 12 485 FCFA le 2026-09-18  contre 13 495 FCFA la séance précédente (1 815 titres échangés).",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SHEC-2026-09-18-26633fab4e",
+  "type": "prix",
+  "ticker": "SHEC",
+  "title": "SHEC : -7,38 % sur la séance",
+  "detail": "VIVO ENERGY CI clôture à 2 760 FCFA le 2026-09-18  contre 2 980 FCFA la séance précédente (10 208 titres échangés).",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SNTS-2026-09-18-d2c1c2f206",
+  "type": "prix",
+  "ticker": "SNTS",
+  "title": "SNTS : +7,49 % sur la séance",
+  "detail": "SONATEL SN clôture à 42 190 FCFA le 2026-09-18  contre 39 250 FCFA la séance précédente (65 452 titres échangés).",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SNTS-2026-09-18-d84fddd485",
+  "type": "prix",
+  "ticker": "SNTS",
+  "title": "SNTS au plus haut 52 semaines",
+  "detail": "SONATEL SN clôture à 42 190 FCFA le 2026-09-18 — au-delà de son plus haut des 52 dernières semaines (39 275 FCFA).",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SNTS-2026-09-18-d7beb0e4a2",
+  "type": "volume",
+  "ticker": "SNTS",
+  "title": "Volume inhabituel sur SNTS",
+  "detail": "65 452 titres SONATEL SN échangés le 2026-09-18  soit 5.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-09-18-6ab308ab2e",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : -6,57 % sur la séance",
+  "detail": "SETAO CI clôture à 2 275 FCFA le 2026-09-18  contre 2 435 FCFA la séance précédente (5 894 titres échangés).",
+  "time": "2026-09-18T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "dividende-SMBC-2026-09-18-afb3c31220",
+  "type": "dividende",
+  "ticker": "SMBC",
+  "title": "Dividende SMBC : 704 FCFA net par action",
+  "detail": "SMB CI a payé un dividende net de 704 FCFA par action le 2026-09-18 (source : bulletin officiel).",
+  "time": "2026-09-18T09:00:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-NEIC-2026-09-17-e44572e3fe",
   "type": "prix",
   "ticker": "NEIC",
@@ -284,28 +383,6 @@
   "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 265 FCFA le 2026-09-14  contre 2 400 FCFA la séance précédente (6 672 titres échangés).",
   "time": "2026-09-14T15:30:00+00:00",
   "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ABJC-2026-09-11-05a75f1bf2",
-  "type": "prix",
-  "ticker": "ABJC",
-  "title": "ABJC au plus haut 52 semaines",
-  "detail": "SERVAIR ABIDJAN CI clôture à 4 095 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (4 005 FCFA).",
-  "time": "2026-09-11T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SNTS-2026-09-11-d84fddd485",
-  "type": "prix",
-  "ticker": "SNTS",
-  "title": "SNTS au plus haut 52 semaines",
-  "detail": "SONATEL SN clôture à 39 275 FCFA le 2026-09-11 — au-delà de son plus haut des 52 dernières semaines (39 200 FCFA).",
-  "time": "2026-09-11T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },

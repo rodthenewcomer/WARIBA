@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis : Transactions sur dossier",
+      "date": "2026-09-18",
+      "pdf": "https://www.brvm.org/sites/default/files/20260918_-_avis_ndeg275_brvmdg_-_transactions_sur_dossier.pdf"
+    },
+    {
       "title": "Emprunts obligataires \" TPCI 5,45 % 2026-2031 \" et \" TPCI 5,70 % 2026-2033 \" : Première cotation",
       "date": "2026-09-18",
       "pdf": "https://www.brvm.org/sites/default/files/20260917_-_avis_ndeg271_brvmdg_-_premiere_cotation_-_tpci_545_2026-2031_tpci.o103_-_tpci_570_2026-2033_tpci.o104.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Admission à la cote des actions nouvelles - ALIOS FINANCE",
       "date": "2026-08-11",
       "pdf": "https://www.brvm.org/sites/default/files/20260811_-_avis_ndeg237_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
-    },
-    {
-      "title": "Avis : Suspension de l’emprunt obligataire - TPCI.O77",
-      "date": "2026-08-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260810_-_avis_ndeg235_brvmdg_-_suspension_titre_tpci.o77.pdf"
     }
   ],
   "operations": [
