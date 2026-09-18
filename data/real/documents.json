@@ -1,5 +1,19 @@
 [
  {
+  "ticker": "SDSC",
+  "title": "Etats financiers certifies — exercice 2025",
+  "type": "États financiers",
+  "date": "2026-09-17",
+  "url": "https://www.brvm.org/sites/default/files/20260917_-_etats_financiers_certifies_-_exercice_2025_-_africa_global_logistics_ci.pdf"
+ },
+ {
+  "ticker": "SDSC",
+  "title": "Rapport des commissaires aux comptes sur les etats financiers",
+  "type": "États financiers",
+  "date": "2026-09-17",
+  "url": "https://www.brvm.org/sites/default/files/20260917_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_africa_global_logistics_ci.pdf"
+ },
+ {
   "ticker": "SPHC",
   "title": "Rapport dactivites et attestation des cac sur le rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -5075,13 +5089,6 @@
   "url": "https://www.brvm.org/sites/default/files/20221116_-_rapport_dactivite_-_1er_semestre_2022_-_boa_senegal.pdf"
  },
  {
-  "ticker": "SDSC",
-  "title": "Rapport dactivite et attestation des commissaires aux comptes — 1er semestre 2022",
-  "type": "États financiers",
-  "date": "2022-11-16",
-  "url": "https://www.brvm.org/sites/default/files/20221116_-_rapport_dactivite_et_attestation_des_commissaires_aux_comptes_-_1er_semestre_2022_-_bollore_transport_logistics_ci.pdf"
- },
- {
   "ticker": "BOAC",
   "title": "Rapport dactivite — 3eme trimestre 2022",
   "type": "Communiqué",
@@ -5101,13 +5108,6 @@
   "type": "Communiqué",
   "date": "2022-11-03",
   "url": "https://www.brvm.org/sites/default/files/20221103_-_rapport_dactivite_-_3eme_trimestre_2022_-_nsia_banque_ci.pdf"
- },
- {
-  "ticker": "SDSC",
-  "title": "Rapport dactivite — 3eme trimestre 2022",
-  "type": "Communiqué",
-  "date": "2022-11-03",
-  "url": "https://www.brvm.org/sites/default/files/20221103_-_rapport_dactivite_-_3eme_trimestre_2022_-_bollore_transport_logistics_ci.pdf"
  },
  {
   "ticker": "SOGC",

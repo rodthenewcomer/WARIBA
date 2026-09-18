@@ -55,6 +55,30 @@
   "basis": "réel"
  },
  {
+  "id": "document-SDSC-2026-09-17-857708a3b1",
+  "type": "document",
+  "ticker": "SDSC",
+  "title": "SDSC : nouvelle publication financière",
+  "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Etats financiers certifies — exercice 2025 » le 2026-09-17. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-17T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260917_-_etats_financiers_certifies_-_exercice_2025_-_africa_global_logistics_ci.pdf"
+ },
+ {
+  "id": "document-SDSC-2026-09-17-d5fdea60ac",
+  "type": "document",
+  "ticker": "SDSC",
+  "title": "SDSC : nouvelle publication financière",
+  "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Rapport des commissaires aux comptes sur les etats financiers » le 2026-09-17. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-17T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260917_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_africa_global_logistics_ci.pdf"
+ },
+ {
   "id": "prix-BNBC-2026-09-16-3dce6cf9b6",
   "type": "prix",
   "ticker": "BNBC",
