@@ -1,5 +1,71 @@
 [
  {
+  "id": "prix-BOAM-2026-09-21-7c919f16ab",
+  "type": "prix",
+  "ticker": "BOAM",
+  "title": "BOAM : -7,38 % sur la séance",
+  "detail": "BANK OF AFRICA ML clôture à 6 210 FCFA le 2026-09-21  contre 6 705 FCFA la séance précédente (5 382 titres échangés).",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-09-21-ca83002d77",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC : -5,41 % sur la séance",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 21 000 FCFA le 2026-09-21  contre 22 200 FCFA la séance précédente (8 987 titres échangés).",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SAFC-2026-09-21-ebe663a7d7",
+  "type": "prix",
+  "ticker": "SAFC",
+  "title": "SAFC : -7,43 % sur la séance",
+  "detail": "SAFCA CI clôture à 4 610 FCFA le 2026-09-21  contre 4 980 FCFA la séance précédente (6 125 titres échangés).",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-SIVC-2026-09-21-639a3e960c",
+  "type": "prix",
+  "ticker": "SIVC",
+  "title": "SIVC : -6,67 % sur la séance",
+  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 030 FCFA le 2026-09-21  contre 2 175 FCFA la séance précédente (5 755 titres échangés).",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SNTS-2026-09-21-d7beb0e4a2",
+  "type": "volume",
+  "ticker": "SNTS",
+  "title": "Volume inhabituel sur SNTS",
+  "detail": "41 741 titres SONATEL SN échangés le 2026-09-21  soit 3.0× la moyenne des 30 séances précédentes.",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-09-21-b6bfa98ecf",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : -7,47 % sur la séance",
+  "detail": "SETAO CI clôture à 2 105 FCFA le 2026-09-21  contre 2 275 FCFA la séance précédente (5 088 titres échangés).",
+  "time": "2026-09-21T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-NTLC-2026-09-18-427b6ec99a",
   "type": "volume",
   "ticker": "NTLC",
@@ -339,50 +405,6 @@
   "detail": "VIVO ENERGY CI clôture à 2 910 FCFA le 2026-09-15  contre 2 740 FCFA la séance précédente (7 896 titres échangés).",
   "time": "2026-09-15T15:30:00+00:00",
   "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BNBC-2026-09-14-381a6b653c",
-  "type": "prix",
-  "ticker": "BNBC",
-  "title": "BNBC : +7,49 % sur la séance",
-  "detail": "BERNABE CI clôture à 2 295 FCFA le 2026-09-14  contre 2 135 FCFA la séance précédente (2 352 titres échangés).",
-  "time": "2026-09-14T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORAC-2026-09-14-0fa9c4afbd",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC au plus haut 52 semaines",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 22 500 FCFA le 2026-09-14 — au-delà de son plus haut des 52 dernières semaines (22 450 FCFA).",
-  "time": "2026-09-14T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SHEC-2026-09-14-58403e5b64",
-  "type": "prix",
-  "ticker": "SHEC",
-  "title": "SHEC : +7,45 % sur la séance",
-  "detail": "VIVO ENERGY CI clôture à 2 740 FCFA le 2026-09-14  contre 2 550 FCFA la séance précédente (4 667 titres échangés).",
-  "time": "2026-09-14T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SIVC-2026-09-14-b037ebd936",
-  "type": "prix",
-  "ticker": "SIVC",
-  "title": "SIVC : -5,63 % sur la séance",
-  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 265 FCFA le 2026-09-14  contre 2 400 FCFA la séance précédente (6 672 titres échangés).",
-  "time": "2026-09-14T15:30:00+00:00",
-  "severity": "warning",
   "active": true,
   "basis": "réel"
  },
