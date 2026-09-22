@@ -1,5 +1,26 @@
 [
  {
+  "ticker": "BICB",
+  "title": "Rapport dactivites et etats financiers ifrs — 1er semestre 2026",
+  "type": "États financiers",
+  "date": "2026-09-21",
+  "url": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_et_etats_financiers_ifrs_-_1er_semestre_2026_-_biic_bn.pdf"
+ },
+ {
+  "ticker": "BOAS",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-21",
+  "url": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_-_1er_semestre_2026_-_boa_sn.pdf"
+ },
+ {
+  "ticker": "SCRC",
+  "title": "Rapport dactivites — 1er trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-21",
+  "url": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_-_1er_trimestre_2026_-_sucrivoire_ci.pdf"
+ },
+ {
   "ticker": "SDSC",
   "title": "Etats financiers certifies — exercice 2025",
   "type": "États financiers",
@@ -4744,13 +4765,6 @@
   "type": "Communiqué",
   "date": "2023-04-28",
   "url": "https://www.brvm.org/sites/default/files/20230428_-_rapport_dactivite_-_1er_trimestre_2023_-_nsia_banque_ci.pdf"
- },
- {
-  "ticker": "SCRC",
-  "title": "Etats financiers exercice 2022",
-  "type": "États financiers",
-  "date": "2023-04-28",
-  "url": "https://www.brvm.org/sites/default/files/20230428_-_etats_financiers_exercice_2022_-_sucrivoire_ci.pdf"
  },
  {
   "ticker": "SDCC",

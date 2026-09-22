@@ -66,6 +66,42 @@
   "basis": "réel"
  },
  {
+  "id": "document-BICB-2026-09-21-9fc84eef28",
+  "type": "document",
+  "ticker": "BICB",
+  "title": "BICB : nouvelle publication financière",
+  "detail": "BIIC BN a publié « Rapport dactivites et etats financiers ifrs — 1er semestre 2026 » le 2026-09-21. S1 2026 : PNB 31,9 Md FCFA (+18,51 % vs S1 2025) ; résultat net 18,4 Md FCFA (+10,88 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-21T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_et_etats_financiers_ifrs_-_1er_semestre_2026_-_biic_bn.pdf"
+ },
+ {
+  "id": "document-BOAS-2026-09-21-20bc6ded7d",
+  "type": "document",
+  "ticker": "BOAS",
+  "title": "BOAS : nouvelle publication financière",
+  "detail": "BANK OF AFRICA SENEGAL a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-21. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-21T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_-_1er_semestre_2026_-_boa_sn.pdf"
+ },
+ {
+  "id": "document-SCRC-2026-09-21-847835dd13",
+  "type": "document",
+  "ticker": "SCRC",
+  "title": "SCRC : nouvelle publication financière",
+  "detail": "SUCRIVOIRE a publié « Rapport dactivites — 1er trimestre 2026 » le 2026-09-21. T1 2026 : CA 23,4 Md FCFA (-6,67 % vs T1 2025) ; résultat net 4,4 Md FCFA (+35,69 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-21T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260921_-_rapport_dactivites_-_1er_trimestre_2026_-_sucrivoire_ci.pdf"
+ },
+ {
   "id": "volume-NTLC-2026-09-18-427b6ec99a",
   "type": "volume",
   "ticker": "NTLC",
