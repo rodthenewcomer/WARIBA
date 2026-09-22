@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "SAPH CI : Avis de nomination",
+      "date": "2026-09-22",
+      "pdf": "https://www.brvm.org/sites/default/files/20260921_-_avis_de_nomination_-_saph_ci.pdf"
+    },
+    {
+      "title": "SUCRIVOIRE S.A. : Levée de suspension de la cotation",
+      "date": "2026-09-22",
+      "pdf": "https://www.brvm.org/sites/default/files/20260921_-_avis_ndeg276_brvmdg_-_levee_de_la_suspension_sucrivoire_s.a.pdf"
+    },
+    {
       "title": "Avis : Transactions sur dossier",
       "date": "2026-09-18",
       "pdf": "https://www.brvm.org/sites/default/files/20260918_-_avis_ndeg275_brvmdg_-_transactions_sur_dossier.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : Transactions sur dossier",
       "date": "2026-08-13",
       "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg240_brvmdg_-_transactions_sur_dossier.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-08-12",
-      "pdf": "https://www.brvm.org/sites/default/files/20260812_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "Avis : Admission à la cote des actions nouvelles - ALIOS FINANCE",
-      "date": "2026-08-11",
-      "pdf": "https://www.brvm.org/sites/default/files/20260811_-_avis_ndeg237_brvmdg_-_admission_a_la_cote_actions_nouvelles_safca_ci.pdf"
     }
   ],
   "operations": [
