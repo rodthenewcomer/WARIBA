@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "« ETAT DU SENEGAL 6,40 % 2026-2029 », « ETAT DU SENEGAL 6,60 % 2026-2031 », « ETAT DU SENEGAL 6,75 % 2026-2033 » et « ETAT DU SENEGAL 6,95 % 2026-2036 »  : Résultats de première cotation",
+      "date": "2026-09-22",
+      "pdf": "https://www.brvm.org/sites/default/files/20260922_-_avis_ndeg277_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_senegal_640_2026-2029_etat_du_senegal_660_2026-2031_etat_du_senegal_675_2026-2033_et_etat_du_senegal_695_2026-2036_.pdf"
+    },
+    {
       "title": "SAPH CI : Avis de nomination",
       "date": "2026-09-22",
       "pdf": "https://www.brvm.org/sites/default/files/20260921_-_avis_de_nomination_-_saph_ci.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Levée de la suspension du titre TPCI (TAUX DE BASE + SPREAD) % 2022-2029 (TPCI.O77)",
       "date": "2026-08-13",
       "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg241_brvmdg_-_levee_de_la_suspension_du_titre_tpci_taux_de_base_spread_2022-2029_tpci.o77.pdf"
-    },
-    {
-      "title": "Avis : Transactions sur dossier",
-      "date": "2026-08-13",
-      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg240_brvmdg_-_transactions_sur_dossier.pdf"
     }
   ],
   "operations": [
