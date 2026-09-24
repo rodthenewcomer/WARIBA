@@ -644,6 +644,18 @@
   "basis": "réel"
  },
  {
+  "id": "document-ECOC-2026-09-09-dc96483f55",
+  "type": "document",
+  "ticker": "ECOC",
+  "title": "ECOC : nouvelle publication financière",
+  "detail": "ECOBANK COTE D''IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-09. S1 2026 : PNB 62,8 Md FCFA (-1,93 % vs S1 2025) ; résultat net 28,9 Md FCFA (+9,45 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-09T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260909_-_rapport_dactivites_-_1er_semestre_2026_-_ecobank_ci.pdf"
+ },
+ {
   "id": "document-SPHC-2026-09-04-501296b2b3",
   "type": "document",
   "ticker": "SPHC",

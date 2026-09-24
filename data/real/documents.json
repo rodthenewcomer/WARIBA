@@ -42,6 +42,13 @@
   "url": "https://www.brvm.org/sites/default/files/20260917_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_africa_global_logistics_ci.pdf"
  },
  {
+  "ticker": "ECOC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-09",
+  "url": "https://www.brvm.org/sites/default/files/20260909_-_rapport_dactivites_-_1er_semestre_2026_-_ecobank_ci.pdf"
+ },
+ {
   "ticker": "SPHC",
   "title": "Rapport dactivites et attestation des cac sur le rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -5346,13 +5353,6 @@
   "type": "Communiqué",
   "date": "2022-10-18",
   "url": "https://www.brvm.org/sites/default/files/20221018_-_rapport_dactivite_-_3eme_trimestre_2022_-_bicici_0.pdf"
- },
- {
-  "ticker": "ECOC",
-  "title": "Attestation des commissaires aux comptes et rapport dactivites du 1er semestre 2022",
-  "type": "Résultats",
-  "date": "2022-10-18",
-  "url": "https://www.brvm.org/sites/default/files/20221018_-_attestation_des_commissaires_aux_comptes_et_rapport_dactivites_du_1er_semestre_2022_-_ecobank_ci.pdf"
  },
  {
   "ticker": "PALC",
