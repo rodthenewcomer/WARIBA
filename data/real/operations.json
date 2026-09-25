@@ -1,6 +1,16 @@
 {
   "avis": [
     {
+      "title": "TPCI 6% 2018-2026 : RADIATION",
+      "date": "2026-09-25",
+      "pdf": "https://www.brvm.org/sites/default/files/20260926_-_avis_ndeg287_brvmdg_-_radiation_-_tpci_60_2018-2026_tpci.o29.pdf"
+    },
+    {
+      "title": "Résultats de première cotation - BRIDGE BANK GROUP COTE D'IVOIRE (BBGC)",
+      "date": "2026-09-25",
+      "pdf": "https://www.brvm.org/sites/default/files/20260924_-_avis_ndeg285_brvmdg_-_resultats_de_premiere_cotation_-_bridge_bank_group_cote_divoire_bbgc.pdf"
+    },
+    {
       "title": "« ETAT DU SENEGAL 6,40 % 2026-2029 », « ETAT DU SENEGAL 6,60 % 2026-2031 », « ETAT DU SENEGAL 6,75 % 2026-2033 » et « ETAT DU SENEGAL 6,95 % 2026-2036 »  : Résultats de première cotation",
       "date": "2026-09-22",
       "pdf": "https://www.brvm.org/sites/default/files/20260922_-_avis_ndeg277_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_senegal_640_2026-2029_etat_du_senegal_660_2026-2031_etat_du_senegal_675_2026-2033_et_etat_du_senegal_695_2026-2036_.pdf"
@@ -139,16 +149,6 @@
       "title": "Avis : Horaires de cotation du 14 août 2026",
       "date": "2026-08-13",
       "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg243_brvmdg_-_horaires_de_cotation_du_14_aout_2026.pdf"
-    },
-    {
-      "title": "Avis  : Fixation du taux d'intérêt trimestriel - TPCI (TAUX DE BASE + SPREAD) % 2022-2029 (TPCI.O77)",
-      "date": "2026-08-13",
-      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg242_brvmdg_-_fixation_du_taux_dinteret_trimestriel_tpci.o77.pdf"
-    },
-    {
-      "title": "Avis : Levée de la suspension du titre TPCI (TAUX DE BASE + SPREAD) % 2022-2029 (TPCI.O77)",
-      "date": "2026-08-13",
-      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg241_brvmdg_-_levee_de_la_suspension_du_titre_tpci_taux_de_base_spread_2022-2029_tpci.o77.pdf"
     }
   ],
   "operations": [
