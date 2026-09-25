@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "TPCI 5,45 % 2026-2031 (TPCI.O103) et TPCI 5,70 % 2026-2033 (TPCI.O104) : Résultats de première cotation",
+      "date": "2026-09-25",
+      "pdf": "https://www.brvm.org/sites/default/files/20260925_-_avis_ndeg288_brvmdg_-_resultats_de_premiere_cotation_-_tpci_545_2026-2031_tpci.o103_-_tpci_570_2026-2033_tpci.o104.pdf"
+    },
+    {
       "title": "TPCI 6% 2018-2026 : RADIATION",
       "date": "2026-09-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260926_-_avis_ndeg287_brvmdg_-_radiation_-_tpci_60_2018-2026_tpci.o29.pdf"
@@ -144,11 +149,6 @@
       "title": "SERVAIR ABIDJAN CI : Modification du montant du dividende - Exercice 2025",
       "date": "2026-08-14",
       "pdf": "https://www.brvm.org/sites/default/files/20260814_-_avis_ndeg244_brvmdg_-_paiement_de_dividendes_exo_2025_-_servair_abidjan_ci_modification_du_montant_du_dividende.pdf"
-    },
-    {
-      "title": "Avis : Horaires de cotation du 14 août 2026",
-      "date": "2026-08-13",
-      "pdf": "https://www.brvm.org/sites/default/files/20260813_-_avis_ndeg243_brvmdg_-_horaires_de_cotation_du_14_aout_2026.pdf"
     }
   ],
   "operations": [
