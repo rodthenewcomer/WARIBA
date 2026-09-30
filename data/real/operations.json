@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Communiqué AMF-UMOA - Souscription à des Offres Publiques de Vente hors du territoire de l'UEMOA",
+      "date": "2026-09-30",
+      "pdf": "https://www.brvm.org/sites/default/files/20260930_-_amf-umoa_-_communique_-_souscription_a_des_offres_publiques_de_vente_hors_du_territoire_de_luemoa_0.pdf"
+    },
+    {
       "title": "TPCI 5,45 % 2026-2031 (TPCI.O103) et TPCI 5,70 % 2026-2033 (TPCI.O104) : Résultats de première cotation",
       "date": "2026-09-25",
       "pdf": "https://www.brvm.org/sites/default/files/20260925_-_avis_ndeg288_brvmdg_-_resultats_de_premiere_cotation_-_tpci_545_2026-2031_tpci.o103_-_tpci_570_2026-2033_tpci.o104.pdf"
@@ -144,11 +149,6 @@
       "title": "Avis : Calendrier de paiement de dividendes",
       "date": "2026-08-14",
       "pdf": "https://www.brvm.org/sites/default/files/20260814_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
-    },
-    {
-      "title": "SERVAIR ABIDJAN CI : Modification du montant du dividende - Exercice 2025",
-      "date": "2026-08-14",
-      "pdf": "https://www.brvm.org/sites/default/files/20260814_-_avis_ndeg244_brvmdg_-_paiement_de_dividendes_exo_2025_-_servair_abidjan_ci_modification_du_montant_du_dividende.pdf"
     }
   ],
   "operations": [
