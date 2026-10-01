@@ -1,5 +1,71 @@
 [
  {
+  "id": "prix-ABJC-2026-10-01-85ac36ff1d",
+  "type": "prix",
+  "ticker": "ABJC",
+  "title": "ABJC : -7,42 % sur la séance",
+  "detail": "SERVAIR ABIDJAN CI clôture à 3 370 FCFA le 2026-10-01  contre 3 640 FCFA la séance précédente (4 417 titres échangés).",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-BOAB-2026-10-01-1d50b246f5",
+  "type": "volume",
+  "ticker": "BOAB",
+  "title": "Volume inhabituel sur BOAB",
+  "detail": "24 011 titres BANK OF AFRICA BN échangés le 2026-10-01  soit 4.4× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BOAN-2026-10-01-898b607067",
+  "type": "prix",
+  "ticker": "BOAN",
+  "title": "BOAN : -5,66 % sur la séance",
+  "detail": "BANK OF AFRICA NG clôture à 5 000 FCFA le 2026-10-01  contre 5 300 FCFA la séance précédente (5 879 titres échangés).",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-STAC-2026-10-01-12540011bb",
+  "type": "prix",
+  "ticker": "STAC",
+  "title": "STAC : -6,52 % sur la séance",
+  "detail": "SETAO CI clôture à 2 150 FCFA le 2026-10-01  contre 2 300 FCFA la séance précédente (3 466 titres échangés).",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-10-01-23578d658d",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : -5,94 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 3 010 FCFA le 2026-10-01  contre 3 200 FCFA la séance précédente (1 709 titres échangés).",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNLC-2026-10-01-a5c06554ac",
+  "type": "prix",
+  "ticker": "UNLC",
+  "title": "UNLC : +7,37 % sur la séance",
+  "detail": "UNILEVER CI clôture à 51 000 FCFA le 2026-10-01  contre 47 500 FCFA la séance précédente (1 titres échangés).",
+  "time": "2026-10-01T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-BICC-2026-09-30-10e38e8c4c",
   "type": "prix",
   "ticker": "BICC",
@@ -429,167 +495,13 @@
   "basis": "réel"
  },
  {
-  "id": "prix-BICB-2026-09-24-6fd79b60f8",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB : -7,48 % sur la séance",
-  "detail": "BIIC BN clôture à 7 920 FCFA le 2026-09-24  contre 8 560 FCFA la séance précédente (20 470 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOABF-2026-09-24-07ba6bd17f",
-  "type": "prix",
-  "ticker": "BOABF",
-  "title": "BOABF : +7,43 % sur la séance",
-  "detail": "BANK OF AFRICA BF clôture à 7 950 FCFA le 2026-09-24  contre 7 400 FCFA la séance précédente (5 005 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAC-2026-09-24-993ff96fe7",
-  "type": "prix",
-  "ticker": "BOAC",
-  "title": "BOAC : +6,2 % sur la séance",
-  "detail": "BANK OF AFRICA CI clôture à 11 470 FCFA le 2026-09-24  contre 10 800 FCFA la séance précédente (28 332 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAM-2026-09-24-c389eef057",
-  "type": "prix",
-  "ticker": "BOAM",
-  "title": "BOAM : +7,5 % sur la séance",
-  "detail": "BANK OF AFRICA ML clôture à 5 880 FCFA le 2026-09-24  contre 5 470 FCFA la séance précédente (9 714 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAN-2026-09-24-707b4b4458",
-  "type": "prix",
-  "ticker": "BOAN",
-  "title": "BOAN : +5,05 % sur la séance",
-  "detail": "BANK OF AFRICA NG clôture à 4 780 FCFA le 2026-09-24  contre 4 550 FCFA la séance précédente (11 955 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CBIBF-2026-09-24-6e0acd1b3f",
-  "type": "prix",
-  "ticker": "CBIBF",
-  "title": "CBIBF : +5,67 % sur la séance",
-  "detail": "CORIS BANK INTERNATIONAL clôture à 30 300 FCFA le 2026-09-24  contre 28 675 FCFA la séance précédente (3 632 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ETIT-2026-09-24-b948544956",
-  "type": "prix",
-  "ticker": "ETIT",
-  "title": "ETIT : +6,25 % sur la séance",
-  "detail": "ECOBANK TRANS. INCORP. TG clôture à 68 FCFA le 2026-09-24  contre 64 FCFA la séance précédente (873 985 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-LNBB-2026-09-24-c6fe1a5f3f",
-  "type": "prix",
-  "ticker": "LNBB",
-  "title": "LNBB : +7,43 % sur la séance",
-  "detail": "LOTERIE NATIONALE DU BENIN clôture à 3 975 FCFA le 2026-09-24  contre 3 700 FCFA la séance précédente (4 204 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NSBC-2026-09-24-558b9e5f7c",
-  "type": "prix",
-  "ticker": "NSBC",
-  "title": "NSBC : +5,12 % sur la séance",
-  "detail": "NSIA BANQUE COTE D'IVOIRE clôture à 21 880 FCFA le 2026-09-24  contre 20 815 FCFA la séance précédente (5 312 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORAC-2026-09-24-2726a15d85",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC : +5,15 % sur la séance",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 21 450 FCFA le 2026-09-24  contre 20 400 FCFA la séance précédente (9 085 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SCRC-2026-09-24-e461293b14",
-  "type": "prix",
-  "ticker": "SCRC",
-  "title": "SCRC : +7,43 % sur la séance",
-  "detail": "SUCRIVOIRE clôture à 2 890 FCFA le 2026-09-24  contre 2 690 FCFA la séance précédente (12 112 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SDCC-2026-09-24-465185bf58",
-  "type": "prix",
-  "ticker": "SDCC",
-  "title": "SDCC : +6,67 % sur la séance",
-  "detail": "SODE CI clôture à 11 910 FCFA le 2026-09-24  contre 11 165 FCFA la séance précédente (1 772 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SOGC-2026-09-24-0f30dd0123",
-  "type": "prix",
-  "ticker": "SOGC",
-  "title": "SOGC : +6,1 % sur la séance",
-  "detail": "SOGB CI clôture à 7 745 FCFA le 2026-09-24  contre 7 300 FCFA la séance précédente (512 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-09-24-e43b999e3f",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : +7,14 % sur la séance",
-  "detail": "SETAO CI clôture à 2 250 FCFA le 2026-09-24  contre 2 100 FCFA la séance précédente (1 752 titres échangés).",
-  "time": "2026-09-24T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOAM-2026-09-23-bc30c696d3",
   "type": "document",
   "ticker": "BOAM",
   "title": "BOAM : nouvelle publication financière",
   "detail": "BANK OF AFRICA ML a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-23. S1 2026 : PNB 22,0 Md FCFA (+17,5 % vs S1 2025) ; résultat net 6,7 Md FCFA (+8,22 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
   "time": "2026-09-23T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260923_-_rapport_dactivites_-_1er_semestre_2026_-_boa_mali.pdf"
@@ -689,41 +601,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260903_-_rapport_dactivites_-_2eme_trimestre_2026_-_safca_ci.pdf"
- },
- {
-  "id": "document-CBIBF-2026-08-31-cc32e58883",
-  "type": "document",
-  "ticker": "CBIBF",
-  "title": "CBIBF : nouvelle publication financière",
-  "detail": "CORIS BANK INTERNATIONAL a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-31. S1 2026 : PNB 79,0 Md FCFA (+272,64 % vs S1 2025) ; résultat net 41,7 Md FCFA (+77,45 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-08-31T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_coris_bank_international_bf.pdf"
- },
- {
-  "id": "document-CBIBF-2026-08-31-15b6f417c7",
-  "type": "document",
-  "ticker": "CBIBF",
-  "title": "CBIBF : nouvelle publication financière",
-  "detail": "CORIS BANK INTERNATIONAL a publié « Rapport dexamen limite des cac sur les etats financiers au 30 juin 2026 » le 2026-08-31. Source officielle à consulter avant toute décision.",
-  "time": "2026-08-31T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dexamen_limite_des_cac_sur_les_etats_financiers_au_30_juin_2026_-_coris_bank_international_bf.pdf"
- },
- {
-  "id": "document-SGBC-2026-08-31-6be85ebc0c",
-  "type": "document",
-  "ticker": "SGBC",
-  "title": "SGBC : nouvelle publication financière",
-  "detail": "SOCIETE GENERALE COTE D'IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-08-31. S1 2026 : PNB 132,0 Md FCFA (-1,53 % vs S1 2025) ; résultat net 53,1 Md FCFA (-0,51 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-08-31T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260831_-_rapport_dactivites_-_1er_semestre_2026_-_societe_generale_ci.pdf"
  }
 ]
