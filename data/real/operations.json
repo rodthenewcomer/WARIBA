@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "Avis N°289/BRVM/2026 – Composition de l'indice BRVM 30",
+      "date": "2026-10-02",
+      "pdf": "https://www.brvm.org/sites/default/files/20261001_-_avis_ndeg289_brvmdg_-_composition_de_lindice_brvm_30.pdf"
+    },
+    {
       "title": "Communiqué AMF-UMOA - Souscription à des Offres Publiques de Vente hors du territoire de l'UEMOA",
       "date": "2026-09-30",
       "pdf": "https://www.brvm.org/sites/default/files/20260930_-_amf-umoa_-_communique_-_souscription_a_des_offres_publiques_de_vente_hors_du_territoire_de_luemoa_0.pdf"
@@ -144,11 +149,6 @@
       "title": "TPCI 5,75 % 2019-2026 (TPCI.O36) : RADIATION DE LA COTE",
       "date": "2026-08-19",
       "pdf": "https://www.brvm.org/sites/default/files/20260819_-_avis_ndeg247_brvmdg_-_radiation_-_tpci_575_2019-2026_tpci.o36.pdf"
-    },
-    {
-      "title": "Avis : Calendrier de paiement de dividendes",
-      "date": "2026-08-14",
-      "pdf": "https://www.brvm.org/sites/default/files/20260814_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
     }
   ],
   "operations": [
