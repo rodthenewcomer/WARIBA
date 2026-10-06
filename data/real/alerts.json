@@ -1,5 +1,82 @@
 [
  {
+  "id": "prix-ABJC-2026-10-05-ba0501d06e",
+  "type": "prix",
+  "ticker": "ABJC",
+  "title": "ABJC : -5,71 % sur la séance",
+  "detail": "SERVAIR ABIDJAN CI clôture à 3 300 FCFA le 2026-10-05  contre 3 370 FCFA la séance précédente (4 034 titres échangés).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BICC-2026-10-05-903c3e60df",
+  "type": "prix",
+  "ticker": "BICC",
+  "title": "BICC : -7,38 % sur la séance",
+  "detail": "BICI CI clôture à 31 305 FCFA le 2026-10-05  contre 33 800 FCFA la séance précédente (971 titres échangés).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-BNBC-2026-10-05-c89839a390",
+  "type": "prix",
+  "ticker": "BNBC",
+  "title": "BNBC : -7,18 % sur la séance",
+  "detail": "BERNABE CI clôture à 1 810 FCFA le 2026-10-05  contre 1 900 FCFA la séance précédente (3 655 titres échangés).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-FTSC-2026-10-05-d71950d567",
+  "type": "prix",
+  "ticker": "FTSC",
+  "title": "FTSC : -6,57 % sur la séance",
+  "detail": "FILTISAC CI clôture à 1 850 FCFA le 2026-10-05  contre 1 995 FCFA la séance précédente (6 982 titres échangés).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-FTSC-2026-10-05-8a81d3e66a",
+  "type": "prix",
+  "ticker": "FTSC",
+  "title": "FTSC au plus bas 52 semaines",
+  "detail": "FILTISAC CI clôture à 1 850 FCFA le 2026-10-05 — sous son plus bas des 52 dernières semaines (1 910 FCFA).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-TTLS-2026-10-05-2e74520f51",
+  "type": "volume",
+  "ticker": "TTLS",
+  "title": "Volume inhabituel sur TTLS",
+  "detail": "6 454 titres TOTALENERGIES MARKETING SN échangés le 2026-10-05  soit 3.0× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNLC-2026-10-05-1cf5129992",
+  "type": "prix",
+  "ticker": "UNLC",
+  "title": "UNLC : -6,29 % sur la séance",
+  "detail": "UNILEVER CI clôture à 47 700 FCFA le 2026-10-05  contre 51 000 FCFA la séance précédente (28 titres échangés).",
+  "time": "2026-10-05T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-ABJC-2026-10-01-85ac36ff1d",
   "type": "prix",
   "ticker": "ABJC",
@@ -286,215 +363,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-BBGC-2026-09-25-1a0f3d4c25",
-  "type": "prix",
-  "ticker": "BBGC",
-  "title": "BBGC : +7,44 % sur la séance",
-  "detail": "BRIDGE BANK GROUP CI clôture à 7 795 FCFA le 2026-09-25  contre 7 255 FCFA la séance précédente (17 004 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICB-2026-09-25-f954c68b40",
-  "type": "prix",
-  "ticker": "BICB",
-  "title": "BICB : +7,45 % sur la séance",
-  "detail": "BIIC BN clôture à 8 510 FCFA le 2026-09-25  contre 7 920 FCFA la séance précédente (12 286 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BNBC-2026-09-25-d715c195f4",
-  "type": "prix",
-  "ticker": "BNBC",
-  "title": "BNBC : +6,35 % sur la séance",
-  "detail": "BERNABE CI clôture à 2 010 FCFA le 2026-09-25  contre 1 890 FCFA la séance précédente (1 083 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-BOABF-2026-09-25-fc37c425b3",
-  "type": "volume",
-  "ticker": "BOABF",
-  "title": "Volume inhabituel sur BOABF",
-  "detail": "26 705 titres BANK OF AFRICA BF échangés le 2026-09-25  soit 3.3× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAM-2026-09-25-ac1ba09eac",
-  "type": "prix",
-  "ticker": "BOAM",
-  "title": "BOAM : +6,97 % sur la séance",
-  "detail": "BANK OF AFRICA ML clôture à 6 290 FCFA le 2026-09-25  contre 5 880 FCFA la séance précédente (19 505 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-BOAM-2026-09-25-88c14f00d4",
-  "type": "volume",
-  "ticker": "BOAM",
-  "title": "Volume inhabituel sur BOAM",
-  "detail": "19 505 titres BANK OF AFRICA ML échangés le 2026-09-25  soit 3.2× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAN-2026-09-25-dc56379053",
-  "type": "prix",
-  "ticker": "BOAN",
-  "title": "BOAN : +7,32 % sur la séance",
-  "detail": "BANK OF AFRICA NG clôture à 5 130 FCFA le 2026-09-25  contre 4 780 FCFA la séance précédente (12 078 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CABC-2026-09-25-149d1bcab5",
-  "type": "prix",
-  "ticker": "CABC",
-  "title": "CABC : +6,25 % sur la séance",
-  "detail": "SICABLE CI clôture à 3 400 FCFA le 2026-09-25  contre 3 200 FCFA la séance précédente (300 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-LNBB-2026-09-25-24104927d6",
-  "type": "volume",
-  "ticker": "LNBB",
-  "title": "Volume inhabituel sur LNBB",
-  "detail": "22 725 titres LOTERIE NATIONALE DU BENIN échangés le 2026-09-25  soit 3.5× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-NSBC-2026-09-25-20aafb3a5a",
-  "type": "volume",
-  "ticker": "NSBC",
-  "title": "Volume inhabituel sur NSBC",
-  "detail": "22 915 titres NSIA BANQUE COTE D'IVOIRE échangés le 2026-09-25  soit 5.7× la moyenne des 30 séances précédentes.",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-NTLC-2026-09-25-052b7590f7",
-  "type": "prix",
-  "ticker": "NTLC",
-  "title": "NTLC : +5,52 % sur la séance",
-  "detail": "NESTLE CI clôture à 15 300 FCFA le 2026-09-25  contre 14 500 FCFA la séance précédente (4 484 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ONTBF-2026-09-25-8968d47ae6",
-  "type": "prix",
-  "ticker": "ONTBF",
-  "title": "ONTBF : +7,25 % sur la séance",
-  "detail": "ONATEL BF clôture à 2 960 FCFA le 2026-09-25  contre 2 760 FCFA la séance précédente (3 311 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORGT-2026-09-25-305ea140b7",
-  "type": "prix",
-  "ticker": "ORGT",
-  "title": "ORGT : +5,72 % sur la séance",
-  "detail": "ORAGROUP TOGO clôture à 3 050 FCFA le 2026-09-25  contre 2 885 FCFA la séance précédente (3 131 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SAFC-2026-09-25-1fbe6a5fd8",
-  "type": "prix",
-  "ticker": "SAFC",
-  "title": "SAFC : +7,5 % sur la séance",
-  "detail": "SAFCA CI clôture à 4 300 FCFA le 2026-09-25  contre 4 000 FCFA la séance précédente (685 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SCRC-2026-09-25-9d7cfbffe9",
-  "type": "prix",
-  "ticker": "SCRC",
-  "title": "SCRC : +7,27 % sur la séance",
-  "detail": "SUCRIVOIRE clôture à 3 100 FCFA le 2026-09-25  contre 2 890 FCFA la séance précédente (15 550 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SMBC-2026-09-25-602c16f733",
-  "type": "prix",
-  "ticker": "SMBC",
-  "title": "SMBC : +7,48 % sur la séance",
-  "detail": "SMB CI clôture à 15 810 FCFA le 2026-09-25  contre 14 710 FCFA la séance précédente (711 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-09-25-f551b2d32a",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : -7,33 % sur la séance",
-  "detail": "SETAO CI clôture à 2 085 FCFA le 2026-09-25  contre 2 250 FCFA la séance précédente (5 817 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNXC-2026-09-25-7289b1a66e",
-  "type": "prix",
-  "ticker": "UNXC",
-  "title": "UNXC : +6,82 % sur la séance",
-  "detail": "UNIWAX CI clôture à 2 350 FCFA le 2026-09-25  contre 2 200 FCFA la séance précédente (9 912 titres échangés).",
-  "time": "2026-09-25T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "dividende-SHEC-2026-09-25-a2c9d93779",
-  "type": "dividende",
-  "ticker": "SHEC",
-  "title": "Dividende SHEC : 85 FCFA net par action",
-  "detail": "VIVO ENERGY CI a payé un dividende net de 85 FCFA par action le 2026-09-25 (source : bulletin officiel).",
-  "time": "2026-09-25T09:00:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOAM-2026-09-23-bc30c696d3",
   "type": "document",
   "ticker": "BOAM",
@@ -577,29 +445,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260909_-_rapport_dactivites_-_1er_semestre_2026_-_ecobank_ci.pdf"
- },
- {
-  "id": "document-SPHC-2026-09-04-501296b2b3",
-  "type": "document",
-  "ticker": "SPHC",
-  "title": "SPHC : nouvelle publication financière",
-  "detail": "SAPH CI a publié « Rapport dactivites et attestation des cac sur le rapport dactivites — 1er semestre 2026 » le 2026-09-04. S1 2026 : CA 138,0 Md FCFA (-20,23 % vs S1 2025) ; résultat net 11,0 Md FCFA (+57,14 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-09-04T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260904_-_rapport_dactivites_et_attestation_des_cac_sur_le_rapport_dactivites_-_1er_semestre_2026_-_saph_ci.pdf"
- },
- {
-  "id": "document-SAFC-2026-09-03-31eb3dc659",
-  "type": "document",
-  "ticker": "SAFC",
-  "title": "SAFC : nouvelle publication financière",
-  "detail": "SAFCA CI a publié « Rapport dactivites — 2eme trimestre 2026 » le 2026-09-03. T2 2026 : PNB 2,9 Md FCFA (+36,99 % vs T2 2025) ; résultat net 731 M FCFA (+230,77 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-09-03T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260903_-_rapport_dactivites_-_2eme_trimestre_2026_-_safca_ci.pdf"
  }
 ]
