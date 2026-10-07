@@ -1,5 +1,38 @@
 [
  {
+  "id": "prix-ONTBF-2026-10-07-0d2048240d",
+  "type": "prix",
+  "ticker": "ONTBF",
+  "title": "ONTBF : -5,94 % sur la séance",
+  "detail": "ONATEL BF clôture à 2 770 FCFA le 2026-10-07  contre 2 945 FCFA la séance précédente (9 847 titres échangés).",
+  "time": "2026-10-07T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-PALC-2026-10-07-434a98f46e",
+  "type": "volume",
+  "ticker": "PALC",
+  "title": "Volume inhabituel sur PALC",
+  "detail": "12 463 titres PALM CI échangés le 2026-10-07  soit 3.6× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-07T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-TTLS-2026-10-07-2e74520f51",
+  "type": "volume",
+  "ticker": "TTLS",
+  "title": "Volume inhabituel sur TTLS",
+  "detail": "9 760 titres TOTALENERGIES MARKETING SN échangés le 2026-10-07  soit 4.3× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-07T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-BICC-2026-10-06-f086d93dfe",
   "type": "volume",
   "ticker": "BICC",
@@ -293,83 +326,6 @@
   "detail": "SERVAIR ABIDJAN CI a payé un dividende net de 202 FCFA par action le 2026-09-30 (source : bulletin officiel).",
   "time": "2026-09-30T09:00:00+00:00",
   "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BBGC-2026-09-29-ccbd75125d",
-  "type": "prix",
-  "ticker": "BBGC",
-  "title": "BBGC : +7,46 % sur la séance",
-  "detail": "BRIDGE BANK GROUP CI clôture à 9 000 FCFA le 2026-09-29  contre 8 375 FCFA la séance précédente (21 082 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICC-2026-09-29-43b4016ed6",
-  "type": "prix",
-  "ticker": "BICC",
-  "title": "BICC : +7,37 % sur la séance",
-  "detail": "BICI CI clôture à 34 895 FCFA le 2026-09-29  contre 32 500 FCFA la séance précédente (1 347 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICC-2026-09-29-cebddaf506",
-  "type": "prix",
-  "ticker": "BICC",
-  "title": "BICC au plus haut 52 semaines",
-  "detail": "BICI CI clôture à 34 895 FCFA le 2026-09-29 — au-delà de son plus haut des 52 dernières semaines (34 000 FCFA).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-PRSC-2026-09-29-757ed04973",
-  "type": "prix",
-  "ticker": "PRSC",
-  "title": "PRSC : -6,02 % sur la séance",
-  "detail": "TRACTAFRIC MOTORS CI clôture à 3 900 FCFA le 2026-09-29  contre 4 150 FCFA la séance précédente (604 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SIVC-2026-09-29-a1256b2dbf",
-  "type": "prix",
-  "ticker": "SIVC",
-  "title": "SIVC : +7 % sur la séance",
-  "detail": "ERIUM CI (Ex AIR LIQUIDE CI) clôture à 2 140 FCFA le 2026-09-29  contre 2 000 FCFA la séance précédente (2 340 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-09-29-fe26ad4240",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : +6,25 % sur la séance",
-  "detail": "SETAO CI clôture à 2 380 FCFA le 2026-09-29  contre 2 240 FCFA la séance précédente (1 961 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNLC-2026-09-29-7ed14a992a",
-  "type": "prix",
-  "ticker": "UNLC",
-  "title": "UNLC : -7,42 % sur la séance",
-  "detail": "UNILEVER CI clôture à 47 215 FCFA le 2026-09-29  contre 51 000 FCFA la séance précédente (78 titres échangés).",
-  "time": "2026-09-29T15:30:00+00:00",
-  "severity": "warning",
   "active": true,
   "basis": "réel"
  },
