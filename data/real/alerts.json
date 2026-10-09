@@ -1,5 +1,27 @@
 [
  {
+  "id": "prix-BNBC-2026-10-09-4f37f311ca",
+  "type": "prix",
+  "ticker": "BNBC",
+  "title": "BNBC : -5,51 % sur la séance",
+  "detail": "BERNABE CI clôture à 1 800 FCFA le 2026-10-09  contre 1 905 FCFA la séance précédente (415 titres échangés).",
+  "time": "2026-10-09T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-PALC-2026-10-09-434a98f46e",
+  "type": "volume",
+  "ticker": "PALC",
+  "title": "Volume inhabituel sur PALC",
+  "detail": "15 650 titres PALM CI échangés le 2026-10-09  soit 3.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-09T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-FTSC-2026-10-08-3653b39435",
   "type": "prix",
   "ticker": "FTSC",
@@ -315,72 +337,6 @@
   "detail": "UNILEVER CI clôture à 47 700 FCFA le 2026-10-05  contre 51 000 FCFA la séance précédente (28 titres échangés).",
   "time": "2026-10-05T15:30:00+00:00",
   "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ABJC-2026-10-01-85ac36ff1d",
-  "type": "prix",
-  "ticker": "ABJC",
-  "title": "ABJC : -7,42 % sur la séance",
-  "detail": "SERVAIR ABIDJAN CI clôture à 3 370 FCFA le 2026-10-01  contre 3 640 FCFA la séance précédente (4 417 titres échangés).",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-BOAB-2026-10-01-1d50b246f5",
-  "type": "volume",
-  "ticker": "BOAB",
-  "title": "Volume inhabituel sur BOAB",
-  "detail": "24 011 titres BANK OF AFRICA BN échangés le 2026-10-01  soit 4.4× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BOAN-2026-10-01-898b607067",
-  "type": "prix",
-  "ticker": "BOAN",
-  "title": "BOAN : -5,66 % sur la séance",
-  "detail": "BANK OF AFRICA NG clôture à 5 000 FCFA le 2026-10-01  contre 5 300 FCFA la séance précédente (5 879 titres échangés).",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-STAC-2026-10-01-12540011bb",
-  "type": "prix",
-  "ticker": "STAC",
-  "title": "STAC : -6,52 % sur la séance",
-  "detail": "SETAO CI clôture à 2 150 FCFA le 2026-10-01  contre 2 300 FCFA la séance précédente (3 466 titres échangés).",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-TTLC-2026-10-01-23578d658d",
-  "type": "prix",
-  "ticker": "TTLC",
-  "title": "TTLC : -5,94 % sur la séance",
-  "detail": "TOTALENERGIES MARKETING CI clôture à 3 010 FCFA le 2026-10-01  contre 3 200 FCFA la séance précédente (1 709 titres échangés).",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNLC-2026-10-01-a5c06554ac",
-  "type": "prix",
-  "ticker": "UNLC",
-  "title": "UNLC : +7,37 % sur la séance",
-  "detail": "UNILEVER CI clôture à 51 000 FCFA le 2026-10-01  contre 47 500 FCFA la séance précédente (1 titres échangés).",
-  "time": "2026-10-01T15:30:00+00:00",
-  "severity": "positive",
   "active": true,
   "basis": "réel"
  },
