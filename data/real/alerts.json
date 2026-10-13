@@ -1,5 +1,38 @@
 [
  {
+  "id": "prix-BOAN-2026-10-12-7d5dec9696",
+  "type": "prix",
+  "ticker": "BOAN",
+  "title": "BOAN : -6,48 % sur la séance",
+  "detail": "BANK OF AFRICA NG clôture à 4 475 FCFA le 2026-10-12  contre 4 785 FCFA la séance précédente (9 698 titres échangés).",
+  "time": "2026-10-12T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORGT-2026-10-12-9813398099",
+  "type": "prix",
+  "ticker": "ORGT",
+  "title": "ORGT : -6 % sur la séance",
+  "detail": "ORAGROUP TOGO clôture à 2 820 FCFA le 2026-10-12  contre 3 000 FCFA la séance précédente (4 023 titres échangés).",
+  "time": "2026-10-12T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-STBC-2026-10-12-d3554bfb20",
+  "type": "volume",
+  "ticker": "STBC",
+  "title": "Volume inhabituel sur STBC",
+  "detail": "44 644 titres SITAB CI échangés le 2026-10-12  soit 16.8× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-12T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "prix-BNBC-2026-10-09-4f37f311ca",
   "type": "prix",
   "ticker": "BNBC",
@@ -264,83 +297,6 @@
   "basis": "réel"
  },
  {
-  "id": "prix-ABJC-2026-10-05-ba0501d06e",
-  "type": "prix",
-  "ticker": "ABJC",
-  "title": "ABJC : -5,71 % sur la séance",
-  "detail": "SERVAIR ABIDJAN CI clôture à 3 300 FCFA le 2026-10-05  contre 3 370 FCFA la séance précédente (4 034 titres échangés).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BICC-2026-10-05-903c3e60df",
-  "type": "prix",
-  "ticker": "BICC",
-  "title": "BICC : -7,38 % sur la séance",
-  "detail": "BICI CI clôture à 31 305 FCFA le 2026-10-05  contre 33 800 FCFA la séance précédente (971 titres échangés).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-BNBC-2026-10-05-c89839a390",
-  "type": "prix",
-  "ticker": "BNBC",
-  "title": "BNBC : -7,18 % sur la séance",
-  "detail": "BERNABE CI clôture à 1 810 FCFA le 2026-10-05  contre 1 900 FCFA la séance précédente (3 655 titres échangés).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-FTSC-2026-10-05-d71950d567",
-  "type": "prix",
-  "ticker": "FTSC",
-  "title": "FTSC : -6,57 % sur la séance",
-  "detail": "FILTISAC CI clôture à 1 850 FCFA le 2026-10-05  contre 1 995 FCFA la séance précédente (6 982 titres échangés).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-FTSC-2026-10-05-8a81d3e66a",
-  "type": "prix",
-  "ticker": "FTSC",
-  "title": "FTSC au plus bas 52 semaines",
-  "detail": "FILTISAC CI clôture à 1 850 FCFA le 2026-10-05 — sous son plus bas des 52 dernières semaines (1 910 FCFA).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-TTLS-2026-10-05-2e74520f51",
-  "type": "volume",
-  "ticker": "TTLS",
-  "title": "Volume inhabituel sur TTLS",
-  "detail": "6 454 titres TOTALENERGIES MARKETING SN échangés le 2026-10-05  soit 3.0× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-UNLC-2026-10-05-1cf5129992",
-  "type": "prix",
-  "ticker": "UNLC",
-  "title": "UNLC : -6,29 % sur la séance",
-  "detail": "UNILEVER CI clôture à 47 700 FCFA le 2026-10-05  contre 51 000 FCFA la séance précédente (28 titres échangés).",
-  "time": "2026-10-05T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
   "id": "document-BOAM-2026-09-23-bc30c696d3",
   "type": "document",
   "ticker": "BOAM",
@@ -411,17 +367,5 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20260917_-_rapport_des_commissaires_aux_comptes_sur_les_etats_financiers_-_africa_global_logistics_ci.pdf"
- },
- {
-  "id": "document-ECOC-2026-09-09-dc96483f55",
-  "type": "document",
-  "ticker": "ECOC",
-  "title": "ECOC : nouvelle publication financière",
-  "detail": "ECOBANK COTE D''IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-09. S1 2026 : PNB 62,8 Md FCFA (-1,93 % vs S1 2025) ; résultat net 28,9 Md FCFA (+9,45 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
-  "time": "2026-09-09T09:05:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel",
-  "sourceUrl": "https://www.brvm.org/sites/default/files/20260909_-_rapport_dactivites_-_1er_semestre_2026_-_ecobank_ci.pdf"
  }
 ]

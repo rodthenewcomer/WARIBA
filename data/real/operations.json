@@ -1,6 +1,11 @@
 {
   "avis": [
     {
+      "title": "AVIS : Flottant des sociétés cotées à la BRVM",
+      "date": "2026-10-13",
+      "pdf": "https://www.brvm.org/sites/default/files/20261012_-_avis_ndeg303_brvmdg_-_flottant_des_societes_cotees_a_la_brvm.pdf"
+    },
+    {
       "title": "BRVM : Calendrier de paiement de dividendes",
       "date": "2026-10-12",
       "pdf": "https://www.brvm.org/sites/default/files/20261009_-_calendrier_de_paiement_des_dividendes_-_exercice_2025.pdf"
@@ -144,14 +149,18 @@
       "title": "Résultats de première cotation - ETAT DU MALI 6,55 % 2026-2036 (EOM.O23) - ETAT DU MALI 6,35 % 2026-2033",
       "date": "2026-08-27",
       "pdf": "https://www.brvm.org/sites/default/files/20260827_-_avis_ndeg253_brvmdg_-_resultats_de_premiere_cotation_-_etat_du_mali_655_2026-2036_eom.o23_-_etat_du_mali_635_2026-2033_eom.o24.pdf"
-    },
-    {
-      "title": "TPBF DIASPORA BONDS 6,75 % 2026-2031 (TPBF.O26) et TPBF DIASPORA BONDS 6,85 % 2026-2033 (TPBF.O27) : Première cotation",
-      "date": "2026-08-24",
-      "pdf": "https://www.brvm.org/sites/default/files/20260824_-_avis_ndeg251_brvmdg_-_premiere_cotation_-_tpbf_diaspora_bonds_675_2026-2031_et_tpbf_diaspora_bonds_685_2026-2033_.pdf"
     }
   ],
   "operations": [
+    {
+      "kind": "Fractionnement (split)",
+      "issuer": "SONATEL",
+      "ticker": null,
+      "date": "2026-10-26",
+      "parity": "dix (10) actions nouvelles pour une (1) action ancienne",
+      "avisPdf": "https://www.brvm.org/sites/default/files/20261012_-_avis_ndeg304_brvmdg_-_fractionnement_de_laction_sonatel_sn.pdf",
+      "communiquePdf": "https://www.brvm.org/sites/default/files/20261012_-_avis_ndeg304_brvmdg_-_fractionnement_de_laction_sonatel_sn_0.pdf"
+    },
     {
       "kind": "Augmentation de capital",
       "issuer": "SIB",
@@ -268,15 +277,6 @@
       "parity": "vingt (20) actions nouvelles pour une (1) action ancienne",
       "avisPdf": "https://www.brvm.org/sites/default/files/20180726_-_avis_ndeg121_brvmdg_-_valeur_theorique_-_fractionnement_des_actions_sitab_ci.pdf",
       "communiquePdf": null
-    },
-    {
-      "kind": "Fractionnement (split)",
-      "issuer": "SIB",
-      "ticker": "SIBC",
-      "date": "2018-06-15",
-      "parity": "Cinq (5) nouvelles actions pour une (1) ancienne",
-      "avisPdf": "https://www.brvm.org/sites/default/files/20180518_-_avis_ndeg072_brvmdg_-_fractionnement_sib_ci.pdf",
-      "communiquePdf": "https://www.brvm.org/sites/default/files/20180518_-_communique_de_fractionnement_-_sib_ci.pdf"
     },
     {
       "kind": "Augmentation de capital",
