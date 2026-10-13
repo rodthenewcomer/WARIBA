@@ -138,7 +138,7 @@ export default function SgiPage() {
             </h1>
             <p className="mt-3 text-sm leading-6 text-ink-2">
               Une SGI est l&apos;intermédiaire agréé qui ouvre votre compte-titres
-              et transmet vos ordres à la BRVM. WARIBA compare uniquement les
+              et transmet vos ordres à la BRVM. WARIWARI compare uniquement les
               coordonnées vérifiées et vous prépare les bonnes questions.
             </p>
           </div>
@@ -218,7 +218,7 @@ export default function SgiPage() {
                       <Badge tone="accent">{request.status === "pending" ? "À contacter" : request.status}</Badge>
                     </div>
                     <p className="mt-2 text-[10px] leading-4 text-ink-3">
-                      Suivi privé WARIBA. Aucune transmission automatique à la SGI.
+                      Suivi privé WARIWARI. Aucune transmission automatique à la SGI.
                     </p>
                   </div>
                 );
@@ -322,7 +322,7 @@ export default function SgiPage() {
       </section>
 
       <p className="text-[10px] leading-4 text-ink-3">
-        Vérification du répertoire : 19 juillet 2026. WARIBA ne reçoit aucune
+        Vérification du répertoire : 19 juillet 2026. WARIWARI ne reçoit aucune
         rémunération de classement et ne prétend pas comparer les frais ou la
         qualité tant que ces informations ne sont pas publiées et recoupées.
       </p>

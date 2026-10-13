@@ -145,7 +145,7 @@ export function PriceAlertDialog({
         <fieldset className="space-y-2 rounded-lg border border-line bg-surface-2/40 p-3">
           <legend className="px-1 text-[11px] font-medium text-ink-3">Canaux</legend>
           <label className="flex items-center gap-2 text-xs text-ink-2">
-            <input type="checkbox" checked disabled className="accent-accent" /> Dans WARIBA
+            <input type="checkbox" checked disabled className="accent-accent" /> Dans WARIWARI
           </label>
           <label className="flex items-center gap-2 text-xs text-ink-2">
             <input type="checkbox" checked={email} onChange={(event) => setEmail(event.target.checked)} className="accent-accent" /> E-mail

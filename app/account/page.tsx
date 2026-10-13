@@ -70,7 +70,7 @@ export default function AccountPage() {
 
   if (!configured) return <div className="mx-auto max-w-2xl"><Card><CardHeader title="Compte" /><CardBody className="text-sm text-ink-2">La connexion est temporairement indisponible. Réessayez plus tard ; les données publiques de marché restent accessibles.</CardBody></Card></div>;
   if (loading) return <div className="flex min-h-60 items-center justify-center text-ink-3"><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Chargement du compte…</div>;
-  if (!user) return <div className="mx-auto max-w-xl"><Card><CardHeader title="Votre espace WARIBA" subtitle="Synchronisez vos données sans bloquer le terminal public." /><CardBody className="flex gap-2"><Link href="/connexion" className="rounded-lg bg-accent/15 px-4 py-2 text-sm font-semibold text-accent">Se connecter</Link><Link href="/inscription" className="rounded-lg border border-line px-4 py-2 text-sm font-semibold text-ink">Créer un espace</Link></CardBody></Card></div>;
+  if (!user) return <div className="mx-auto max-w-xl"><Card><CardHeader title="Votre espace WARIWARI" subtitle="Synchronisez vos données sans bloquer le terminal public." /><CardBody className="flex gap-2"><Link href="/connexion" className="rounded-lg bg-accent/15 px-4 py-2 text-sm font-semibold text-accent">Se connecter</Link><Link href="/inscription" className="rounded-lg border border-line px-4 py-2 text-sm font-semibold text-ink">Créer un espace</Link></CardBody></Card></div>;
 
   return (
     <div className="stagger space-y-5">

@@ -20,7 +20,7 @@ const CONCEPTS: { icon: keyof typeof Ionicons.glyphMap; title: string; text: str
   {
     icon: "rocket-outline",
     title: "Introduction en bourse (IPO)",
-    text: "Une société ouvre son capital au public. WARIBA n’affiche une opération que lorsqu’un avis officiel est disponible.",
+    text: "Une société ouvre son capital au public. WARIWARI n’affiche une opération que lorsqu’un avis officiel est disponible.",
   },
   {
     icon: "trending-up-outline",

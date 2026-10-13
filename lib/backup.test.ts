@@ -32,7 +32,7 @@ describe("parseBackup", () => {
   it("rejette un fichier d'une autre application", () => {
     const res = parseBackup(JSON.stringify({ ...VALID, app: "AutreApp" }));
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.error).toContain("WARIBA");
+    if (!res.ok) expect(res.error).toContain("WARIWARI");
   });
 
   it("rejette une version future", () => {
@@ -42,7 +42,16 @@ describe("parseBackup", () => {
   it("importe une sauvegarde historique sans perdre les données", () => {
     const res = parseBackup(JSON.stringify({ ...VALID, app: legacyProductLabel() }));
     expect(res.ok).toBe(true);
-    if (res.ok) expect(res.backup.app).toBe("WARIBA");
+    if (res.ok) expect(res.backup.app).toBe("WARIWARI");
+  });
+
+  it("importe les sauvegardes WARIBA antérieures au rebranding", () => {
+    const res = parseBackup(JSON.stringify({ ...VALID, app: "WARIBA" }));
+    expect(res.ok).toBe(true);
+    if (res.ok) {
+      expect(res.backup.app).toBe("WARIWARI");
+      expect(res.backup.portfolio).toEqual(VALID.portfolio);
+    }
   });
 
   it("tout ou rien : une transaction corrompue rejette le fichier", () => {
@@ -64,7 +73,7 @@ describe("parseBackup", () => {
 
 describe("parseBackup — sauvegarde de l'app mobile", () => {
   const MOBILE = {
-    app: "WARIBA",
+    app: "WARIWARI",
     version: 1,
     exportedAt: "2026-07-13T08:00:00.000Z",
     watchlist: ["SNTS", "ORAC"],

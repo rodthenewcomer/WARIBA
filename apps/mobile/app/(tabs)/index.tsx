@@ -125,7 +125,7 @@ export default function DashboardScreen() {
 
   return (
     <Page
-      title="WARIBA"
+      title="WARIWARI"
       subtitle={`${market.offline ? "Cache appareil" : "Sources officielles BRVM"} · ${marketLabel}`}
       refreshing={market.refreshing}
       onRefresh={() => void market.refresh()}
@@ -135,7 +135,7 @@ export default function DashboardScreen() {
       {!authLoading && !user ? (
         <View style={styles.accountStrip}>
           <View style={styles.accountCopy}>
-            <Text style={styles.accountTitle}>Votre espace WARIBA</Text>
+            <Text style={styles.accountTitle}>Votre espace WARIWARI</Text>
             <Text style={styles.accountDetail}>Synchronisez vos listes et votre portefeuille.</Text>
           </View>
           <View style={styles.accountActions}>
@@ -197,7 +197,7 @@ export default function DashboardScreen() {
       <Section title="Volumes anormaux" detail={liveQuote ? "Volumes officiels publiés après clôture" : "Ratio au volume moyen des 30 séances précédentes"}>
         {unusualVolumes.length
           ? unusualVolumes.map((quote, index) => <QuoteRow key={quote.ticker} quote={quote} rank={index + 1} />)
-          : <EmptyState icon="stats-chart-outline" title={liveQuote ? "En attente de la clôture" : "Aucun volume inhabituel"} detail={liveQuote ? "WARIBA n'affiche jamais le volume de la veille comme s'il était intraday." : "Aucune valeur ne dépasse 1,5× sa moyenne 30 jours."} />}
+          : <EmptyState icon="stats-chart-outline" title={liveQuote ? "En attente de la clôture" : "Aucun volume inhabituel"} detail={liveQuote ? "WARIWARI n'affiche jamais le volume de la veille comme s'il était intraday." : "Aucune valeur ne dépasse 1,5× sa moyenne 30 jours."} />}
       </Section>
 
       <Section title="Clôtures extrêmes 52 semaines" detail="Franchissements détectés sur les 5 dernières séances">

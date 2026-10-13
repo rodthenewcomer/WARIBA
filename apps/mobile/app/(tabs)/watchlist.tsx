@@ -43,7 +43,7 @@ export default function WatchlistScreen() {
   }
 
   return (
-    <Page title="Watchlist" subtitle="Synchronisée avec votre compte WARIBA" refreshing={market.refreshing} onRefresh={() => void market.refresh()}>
+    <Page title="Watchlist" subtitle="Synchronisée avec votre compte WARIWARI" refreshing={market.refreshing} onRefresh={() => void market.refresh()}>
       {summary ? (
         <View style={styles.metrics}>
           <Metric label="Variation moyenne" value={pct(summary.average, { signed: true, digits: 2 })} tone={summary.average >= 0 ? "up" : "down"} detail={`${quotes.length} titre${quotes.length > 1 ? "s" : ""} suivis`} />

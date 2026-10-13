@@ -223,7 +223,7 @@ function QuantitativeAnalysis({
       <Pressable
         accessibilityRole="link"
         accessibilityLabel="Voir la formule, les pondérations et les limites"
-        onPress={() => void openTrustedExternalUrl("https://wariba.app/methodologie#score-factuel")}
+        onPress={() => void openTrustedExternalUrl("https://wariwari-khaki.vercel.app/methodologie#score-factuel")}
         style={({ pressed }) => [styles.analysisMethodLink, pressed && { opacity: 0.7 }]}
       >
         <Ionicons name="calculator-outline" size={16} color={colors.accent} />
@@ -393,13 +393,13 @@ export default function StockScreen() {
     ? {
         ...annualDisclosure,
         evidenceStatus: "calculated" as const,
-        basisNote: "Calcul WARIBA à partir des montants annuels vérifiés.",
+        basisNote: "Calcul WARIWARI à partir des montants annuels vérifiés.",
       }
     : undefined;
   const calculatedBrvmDisclosure = {
     ...brvmDisclosure,
     evidenceStatus: "calculated" as const,
-    basisNote: "Calcul WARIBA à partir des séances officielles disponibles.",
+    basisNote: "Calcul WARIWARI à partir des séances officielles disponibles.",
   };
   const ownership = fundamental?.ownership ?? null;
   const dividendPerShare = fundamental?.proposedGrossDividend ?? quote.lastDividendNet;
@@ -544,7 +544,7 @@ export default function StockScreen() {
           icon="analytics-outline"
           title={seriesIntegrityErrors.length ? "Historique en contrôle" : "Aucun historique"}
           detail={seriesIntegrityErrors.length
-            ? "Une incohérence entre la cotation et la série a été détectée. WARIBA masque le graphique plutôt que d’afficher un chiffre faux."
+            ? "Une incohérence entre la cotation et la série a été détectée. WARIWARI masque le graphique plutôt que d’afficher un chiffre faux."
             : `Aucune séance exploitable n'est disponible pour ${ticker}.`}
         />}
 
@@ -574,7 +574,7 @@ export default function StockScreen() {
           <View style={styles.factCard}>
             <FactRow label="Ticker / marché" value={`${ticker} · BRVM`} />
             <FactRow label="Secteur" value={sector} />
-            <FactRow label="Sous-secteur WARIBA" value={waribaSubsector(sector)} />
+            <FactRow label="Sous-secteur WARIWARI" value={waribaSubsector(sector)} />
             <FactRow label="Pays / devise" value={`${country ?? "N/D"} · FCFA`} />
             <FactRow label="Statut" value={quote.quoteStatus === "delayed-live" ? "Cours différé 15 min" : "Clôture officielle"} />
             <FactRow label="Dernière donnée" value={`${dateFr(quote.asOfDate)} · source BRVM`} />
@@ -606,7 +606,7 @@ export default function StockScreen() {
             <Text style={styles.buyStep}><Text style={styles.buyStepNumber}>6. </Text>Contrôlez l&apos;exécution et suivez cours, documents et dividendes.</Text>
           </View>
           <ActionButton label="Comparer les SGI" icon="business-outline" onPress={() => router.push("/sgi")} />
-          <Text style={styles.disclaimer}>WARIBA ne reçoit ni n&apos;exécute l&apos;ordre. La transaction est réalisée par la SGI choisie.</Text>
+          <Text style={styles.disclaimer}>WARIWARI ne reçoit ni n&apos;exécute l&apos;ordre. La transaction est réalisée par la SGI choisie.</Text>
         </Section>
       </Animated.View> : null}
 
@@ -615,7 +615,7 @@ export default function StockScreen() {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Comprendre ces chiffres — ouvrir la méthodologie"
-            onPress={() => void openTrustedExternalUrl("https://wariba.app/methodologie")}
+            onPress={() => void openTrustedExternalUrl("https://wariwari-khaki.vercel.app/methodologie")}
             style={({ pressed }) => [styles.beginnerBanner, pressed && { opacity: 0.75 }]}
           >
             <Ionicons name="school-outline" size={17} color={colors.accent} />
@@ -780,7 +780,7 @@ export default function StockScreen() {
             <FactRow label="Prochain détachement" value="N/D · aucune date officielle" />
             <FactRow label="Prochain paiement" value="N/D · aucune date officielle" />
           </View>
-          <Text style={styles.disclaimer}>Dates de détachement historiques N/D dans le pipeline actuel. Rendement calculé par WARIBA au premier cours de clôture disponible à la date de paiement.</Text>
+          <Text style={styles.disclaimer}>Dates de détachement historiques N/D dans le pipeline actuel. Rendement calculé par WARIWARI au premier cours de clôture disponible à la date de paiement.</Text>
         </Section>
         {beginner ? (
           <Section title="Lexique express" detail="Explications sans jargon">

@@ -180,7 +180,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         </form>
 
         <div className="mt-5 space-y-3 text-center text-xs text-ink-3">
-          <p>{mode === "signup" ? "Déjà un compte ?" : "Nouveau sur WARIBA ?"} <Link className="font-semibold text-accent hover:underline" href={mode === "signup" ? "/connexion" : "/inscription"}>{mode === "signup" ? "Se connecter" : "Créer un espace"}</Link></p>
+          <p>{mode === "signup" ? "Déjà un compte ?" : "Nouveau sur WARIWARI ?"} <Link className="font-semibold text-accent hover:underline" href={mode === "signup" ? "/connexion" : "/inscription"}>{mode === "signup" ? "Se connecter" : "Créer un espace"}</Link></p>
           <p><Link className="font-semibold text-ink-2 hover:text-ink" href="/dashboard">Continuer sans compte</Link></p>
           <p className="text-[10px]"><Link href="/terms" className="hover:text-ink">Conditions</Link> · <Link href="/privacy" className="hover:text-ink">Confidentialité</Link></p>
         </div>

@@ -96,7 +96,7 @@ export default function SgiScreen() {
       }
       Alert.alert(
         "Demande enregistrée",
-        "WARIBA conserve ce choix dans votre compte. Elle n’est pas encore transmise à la SGI ; utilisez ses coordonnées vérifiées pour la contacter."
+        "WARIWARI conserve ce choix dans votre compte. Elle n’est pas encore transmise à la SGI ; utilisez ses coordonnées vérifiées pour la contacter."
       );
     } catch (error) {
       Alert.alert("Demande non enregistrée", error instanceof Error ? error.message : "Réessayez plus tard.");
@@ -171,7 +171,7 @@ export default function SgiScreen() {
                 <Text style={styles.requestMeta}>
                   Enregistrée le {new Intl.DateTimeFormat("fr-CI", { dateStyle: "medium" }).format(new Date(request.created_at))}
                 </Text>
-                <Text style={styles.requestMeta}>Suivi privé WARIBA · aucune transmission automatique.</Text>
+                <Text style={styles.requestMeta}>Suivi privé WARIWARI · aucune transmission automatique.</Text>
               </View>
             );
           }) : (

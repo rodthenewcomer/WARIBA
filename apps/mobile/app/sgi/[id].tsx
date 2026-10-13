@@ -42,7 +42,7 @@ export default function SgiDetailScreen() {
         {sgi.unknowns.map((unknown) => <Row key={unknown} icon="help-circle-outline" title={unknown} detail="À confirmer directement auprès de la SGI" />)}
       </Section>
       <View style={styles.warning}>
-        <Text style={styles.warningTitle}>WARIBA ne recommande pas cette SGI.</Text>
+        <Text style={styles.warningTitle}>WARIWARI ne recommande pas cette SGI.</Text>
         <Text style={styles.warningText}>Comparez la grille tarifaire écrite, le dépôt minimum, les canaux d’ordre, les délais et les conditions de retrait avant de signer.</Text>
       </View>
       {sgi.website ? (

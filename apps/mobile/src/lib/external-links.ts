@@ -19,7 +19,7 @@ export async function openTrustedExternalUrl(value: string): Promise<boolean> {
     await Linking.openURL(url.toString());
     return true;
   } catch {
-    Alert.alert("Lien bloqué", "WARIBA n'ouvre que les sources HTTPS reconnues.");
+    Alert.alert("Lien bloqué", "WARIWARI n'ouvre que les sources HTTPS reconnues.");
     return false;
   }
 }

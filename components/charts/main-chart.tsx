@@ -885,7 +885,7 @@ export function MainChart({ ticker }: { ticker: string }) {
               <p className="mt-0.5 text-[10px] text-ink-3">
                 {tf === "1D"
                   ? `Séance du ${fmtPeriodDate(rangeStats.endDate)}`
-                  : `Du ${fmtPeriodDate(rangeStats.startDate)} au ${fmtPeriodDate(rangeStats.endDate)}`} · calculé par WARIBA sur données BRVM vérifiées
+                  : `Du ${fmtPeriodDate(rangeStats.startDate)} au ${fmtPeriodDate(rangeStats.endDate)}`} · calculé par WARIWARI sur données BRVM vérifiées
               </p>
             </div>
             <span

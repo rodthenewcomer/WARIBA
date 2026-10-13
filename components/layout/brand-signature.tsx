@@ -1,5 +1,5 @@
 /**
- * Signature WARIBA animée — le W-signal se trace puis son point-origine
+ * Signature WARIWARI animée — le W-signal se trace puis son point-origine
  * apparaît. Même séquence que l'ouverture de l'app mobile,
  * en SVG + CSS pur (classes sig-* dans globals.css, ≤ 1 s,
  * prefers-reduced-motion respecté). Décorative : aria-hidden.

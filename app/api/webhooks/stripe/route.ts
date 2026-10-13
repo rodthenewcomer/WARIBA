@@ -34,7 +34,7 @@ async function syncSubscription(subscription: Stripe.Subscription) {
       .maybeSingle();
     userId = data?.user_id;
   }
-  if (!userId) throw new Error("Stripe subscription is missing its WARIBA owner");
+  if (!userId) throw new Error("Stripe subscription is missing its WARIWARI owner");
 
   const { data: owner, error: ownerError } = await admin
     .from("profiles")

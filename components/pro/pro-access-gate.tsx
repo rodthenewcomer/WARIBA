@@ -22,7 +22,7 @@ const ACCESS_LAYERS = [
     items: "Suivez vos actions, votre portefeuille et vos alertes sur tous vos appareils.",
   },
   {
-    layer: "WARIBA Pro",
+    layer: "WARIWARI Pro",
     price: "3 000 FCFA / mois",
     items: "Comparez toute la cote, classez par facteurs, utilisez les filtres avancés et exportez vos recherches.",
   },
@@ -41,7 +41,7 @@ export function ProAccessGate({
         <div className="grid gap-7 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone="accent">WARIBA Pro</Badge>
+              <Badge tone="accent">WARIWARI Pro</Badge>
               <Badge tone="neutral"><LockKeyhole className="h-3 w-3" /> Analyse avancée</Badge>
             </div>
             <h1 className="mt-4 max-w-2xl text-3xl font-bold tracking-[-0.04em] text-ink sm:text-4xl">
@@ -59,7 +59,7 @@ export function ProAccessGate({
             <div className="mt-4">
               {authenticated ? (
                 checkoutAvailable ? (
-                  <BillingButton kind="checkout">Activer WARIBA Pro</BillingButton>
+                  <BillingButton kind="checkout">Activer WARIWARI Pro</BillingButton>
                 ) : (
                   <Link href="/account" className="flex h-10 items-center justify-center rounded-lg bg-accent px-3 text-xs font-semibold text-background">
                     Voir mon forfait

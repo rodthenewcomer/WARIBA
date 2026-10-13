@@ -55,7 +55,7 @@ export function StartAnimation({ reduceMotion, onDone }: {
   }));
 
   return (
-    <Animated.View style={[styles.screen, veilStyle]} accessibilityLabel="WARIBA — la BRVM, clairement">
+    <Animated.View style={[styles.screen, veilStyle]} accessibilityLabel="WARIWARI — la BRVM, clairement">
       <View style={styles.ambientOne} />
       <View style={styles.ambientTwo} />
       <View style={styles.stage}>
@@ -74,7 +74,7 @@ export function StartAnimation({ reduceMotion, onDone }: {
         <Animated.View style={[styles.signalDot, dotStyle]}><View style={styles.signalCore} /></Animated.View>
       </View>
       <Animated.View style={[styles.copy, textStyle]}>
-        <Text style={styles.wordmark}>WARIBA</Text>
+        <Text style={styles.wordmark}>WARIWARI</Text>
         <Text style={styles.tagline}>LA BRVM, CLAIREMENT.</Text>
       </Animated.View>
     </Animated.View>

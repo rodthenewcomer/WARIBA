@@ -183,7 +183,7 @@ export function AdvancedChart({
           <Text style={styles.periodDates}>
             {range === "1D"
               ? `Séance du ${dateFr(rangeStats.endDate)}`
-              : `Du ${dateFr(rangeStats.startDate)} au ${dateFr(rangeStats.endDate)}`} · calcul WARIBA sur clôtures officielles
+              : `Du ${dateFr(rangeStats.startDate)} au ${dateFr(rangeStats.endDate)}`} · calcul WARIWARI sur clôtures officielles
           </Text>
           <View style={styles.summaryStrip}>
             <View style={styles.summaryCell}><Text style={styles.summaryLabel}>{range === "1D" ? "Clôture précédente" : "Cours initial"}</Text><Text style={styles.summaryValue}>{fcfa(rangeStats.initialClose)}</Text></View>

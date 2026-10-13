@@ -39,12 +39,13 @@ class CommittedDataQualityTest(unittest.TestCase):
 
     def test_full_universe_is_covered_everywhere(self) -> None:
         tickers = set(self.snapshot)
-        self.assertEqual(len(tickers), 48)
-        self.assertEqual(set(self.fundamentals), tickers)
-        self.assertEqual({item["ticker"] for item in self.documents}, tickers)
+        self.assertEqual(len(tickers), 49)
+        self.assertIn("BBGC", tickers)
+        self.assertEqual(set(self.fundamentals), tickers - {"BBGC"})
+        self.assertEqual({item["ticker"] for item in self.documents}, tickers - {"BBGC"})
         self.assertEqual({path.stem for path in SERIES.glob("*.json")}, tickers)
         self.assertEqual(set(self.live["quotes"]), tickers - {"SVOC"})
-        self.assertEqual(set(self.fundamentals_status["tickers"]), tickers)
+        self.assertEqual(set(self.fundamentals_status["tickers"]), tickers - {"BBGC"})
 
     def test_every_latest_annual_publication_is_integrated_or_explicitly_blocked(self) -> None:
         status = self.fundamentals_status
@@ -98,7 +99,7 @@ class CommittedDataQualityTest(unittest.TestCase):
                 self.assertLessEqual(snapshot["dayLow"], min(last["open"], last["close"]))
                 self.assertEqual(previous["close"], last["prev_close"])
 
-    def test_current_session_has_47_active_quotes_and_one_explicit_stale_quote(self) -> None:
+    def test_official_session_distinguishes_suspended_quotes(self) -> None:
         latest = max(item["asOfDate"] for item in self.snapshot.values())
         active = {
             ticker
@@ -106,8 +107,8 @@ class CommittedDataQualityTest(unittest.TestCase):
             if item["asOfDate"] == latest
         }
         stale = set(self.snapshot) - active
-        self.assertEqual(len(active), 47)
-        self.assertEqual(stale, {"SVOC"})
+        self.assertEqual(len(active), 46)
+        self.assertEqual(stale, {"SVOC", "SEMC", "SICC"})
 
     def test_every_recent_financial_document_has_an_alert(self) -> None:
         latest = date.fromisoformat(max(item["asOfDate"] for item in self.snapshot.values()))
