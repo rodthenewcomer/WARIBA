@@ -1,14 +1,14 @@
-# WARIBA
+# WARIWARI
 
-**La BRVM, clairement.** WARIBA est le terminal premium web, iOS et Android
+**La BRVM, clairement.** WARIWARI est le terminal premium web, iOS et Android
 pour suivre les marchés de l'UEMOA : cours officiels, graphiques, fondamentaux,
 dividendes, portefeuille, documents, alertes et synchronisation privée.
 
-- Web production : [wariba.app](https://wariba.app)
+- Web actuel (ancienne marque) : [wariba.app](https://wariba.app) — migration prévue vers **wariwari.io**, non encore activé
 - Application native : Expo SDK 54, prête pour les builds iOS/Android signés
 - Lancement stores Côte d’Ivoire : [comptes Apple/Google, EAS et checklist](docs/native-release-cote-ivoire.md)
 - Compte : e-mail/mot de passe, Apple et Google via Supabase Auth
-- WARIBA Pro : Laboratoire 48 réservé aux comptes disposant d'un abonnement Pro actif
+- WARIWARI Pro : Laboratoire 48 réservé aux comptes disposant d'un abonnement Pro actif
 - Monétisation : frontière Public / Compte / Pro visible ; Stripe/RevenueCat restent désactivés tant que les produits stores ne sont pas validés
 - Données : pipeline BRVM officiel, aucune valeur inventée
 - Décision Pro et audit du classeur : [Laboratoire 48 et revue 22 rôles](docs/pro-research-workspace.md)

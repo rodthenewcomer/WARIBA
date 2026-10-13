@@ -49,7 +49,7 @@ const THEME_OPTIONS: { id: ColorMode; label: string; icon: keyof typeof Ionicons
   { id: "system", label: "Système", icon: "phone-portrait-outline" },
 ];
 
-const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? process.env.EXPO_PUBLIC_API_URL ?? "https://wariba.app";
+const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? process.env.EXPO_PUBLIC_API_URL ?? "https://wariwari.io";
 
 async function openTrustedUrl(path: string) {
   try {
@@ -123,14 +123,14 @@ export default function SettingsScreen() {
       return;
     }
     const payload = {
-      app: "WARIWARI",
+      app: "WARIBA", // Compatibilité du format de sauvegarde avec les anciennes versions.
       version: 1,
       exportedAt: new Date().toISOString(),
       watchlist: useWatchlistStore.getState().tickers,
       transactions: usePortfolioStore.getState().transactions,
       alerts: usePriceAlertStore.getState().rules,
     };
-    const uri = `${FileSystem.cacheDirectory}wariba-backup.json`;
+    const uri = `${FileSystem.cacheDirectory}wariwari-backup.json`;
     await FileSystem.writeAsStringAsync(uri, JSON.stringify(payload, null, 2));
     if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "application/json" });
   };
