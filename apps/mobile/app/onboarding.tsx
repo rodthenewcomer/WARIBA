@@ -26,7 +26,7 @@ const SLIDES = [
     icon: "analytics-outline" as const,
     eyebrow: "INTELLIGENCE DE MARCHÉ",
     title: "La BRVM devient une décision, pas un déchiffrage.",
-    body: "Cours officiels, 48 sociétés, indices, dividendes et publications vérifiées — une lecture nette du marché ouest-africain.",
+    body: "Cours officiels, actions cotées, indices, dividendes et publications vérifiées — une lecture nette du marché ouest-africain.",
   },
   {
     step: "02",

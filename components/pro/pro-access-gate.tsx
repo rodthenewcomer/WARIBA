@@ -14,7 +14,7 @@ const ACCESS_LAYERS = [
   {
     layer: "Public",
     price: "Accès libre",
-    items: "Explorez le marché, les 48 actions, leurs graphiques, fondamentaux, actualités, documents, dividendes et le screener.",
+    items: "Explorez le marché, les actions cotées, leurs graphiques, fondamentaux, actualités, documents, dividendes et le screener.",
   },
   {
     layer: "Compte gratuit",

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = { title: "Tarifs" };
 
-const free = ["Cours, actualités et 48 fiches actions", "Portefeuille local et synchronisé", "5 watchlists", "3 alertes de prix", "3 filtres enregistrés"];
+const free = ["Cours, actualités et fiches actions de la BRVM", "Portefeuille local et synchronisé", "5 watchlists", "3 alertes de prix", "3 filtres enregistrés"];
 const pro = ["Laboratoire 48 et comparaison multi-facteurs", "Exports du classement et de la recherche", "Watchlists et filtres sans limite", "100 alertes avancées", "Même droit sur web, iOS et Android"];
 
 export default function PricingPage() {

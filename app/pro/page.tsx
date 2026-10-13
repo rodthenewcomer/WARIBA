@@ -10,7 +10,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "WARIWARI Pro — Laboratoire 48",
-  description: "Classement factuel, comparaison multi-facteurs et fraîcheur des comptes pour les 48 actions de la BRVM.",
+  description: "Classement factuel, comparaison multi-facteurs et fraîcheur des comptes pour les 48 sociétés aux fondamentaux vérifiés de la BRVM.",
 };
 
 export const dynamic = "force-dynamic";
