@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = { title: "Tarifs" };
 
-const free = ["Cours, actualités et 48 fiches actions", "Portefeuille local et synchronisé", "5 watchlists", "3 alertes de prix", "3 filtres enregistrés"];
+const free = ["Cours, actualités et fiches actions de la BRVM", "Portefeuille local et synchronisé", "5 watchlists", "3 alertes de prix", "3 filtres enregistrés"];
 const pro = ["Laboratoire 48 et comparaison multi-facteurs", "Exports du classement et de la recherche", "Watchlists et filtres sans limite", "100 alertes avancées", "Même droit sur web, iOS et Android"];
 
 export default function PricingPage() {
@@ -15,7 +15,7 @@ export default function PricingPage() {
         <div className="max-w-3xl">
           <Badge tone="accent">Tarification simple</Badge>
           <h1 className="mt-4 text-4xl font-bold tracking-[-0.045em] text-ink sm:text-5xl">Le marché reste public.<br />Pro accélère la recherche.</h1>
-          <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-2">Les cours, fondamentaux, actualités et fiches restent accessibles. WARIBA Pro finance les comparaisons, exports, alertes et workflows avancés — jamais une promesse de gain ni un conseil personnalisé.</p>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-2">Les cours, fondamentaux, actualités et fiches restent accessibles. WARIWARI Pro finance les comparaisons, exports, alertes et workflows avancés — jamais une promesse de gain ni un conseil personnalisé.</p>
         </div>
         <Link href="/pro" className="group rounded-2xl border border-accent/30 bg-accent/7 p-5 transition-colors hover:bg-accent/10">
           <div className="flex items-center justify-between"><Crown className="h-5 w-5 text-accent" /><ArrowRight className="h-4 w-4 text-ink-3 transition-transform group-hover:translate-x-1" /></div>
@@ -35,11 +35,11 @@ export default function PricingPage() {
 
         <section className="relative overflow-hidden rounded-2xl border border-accent/45 bg-surface p-6 shadow-xl shadow-accent/5 sm:p-7">
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-up to-gold" />
-          <div className="flex flex-wrap items-center justify-between gap-2"><p className="inline-flex items-center gap-2 text-sm font-semibold text-ink"><Crown className="h-4 w-4 text-accent" /> WARIBA Pro</p><Badge tone="accent">Pro</Badge></div>
+          <div className="flex flex-wrap items-center justify-between gap-2"><p className="inline-flex items-center gap-2 text-sm font-semibold text-ink"><Crown className="h-4 w-4 text-accent" /> WARIWARI Pro</p><Badge tone="accent">Pro</Badge></div>
           <p className="num mt-3 text-3xl font-bold tracking-tight text-ink">3 000 FCFA <span className="text-sm font-medium text-ink-3">/ mois</span></p>
           <p className="mt-1 text-xs text-ink-3">30 000 FCFA / an lorsque le forfait annuel sera ouvert</p>
           <ul className="mt-7 space-y-3 text-sm text-ink-2">{pro.map((item) => <li key={item} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />{item}</li>)}</ul>
-          <div className="mt-8"><Link href="/pro" className="flex h-11 items-center justify-center gap-1.5 rounded-lg bg-accent text-sm font-semibold text-background hover:brightness-110">Activer WARIBA Pro <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-8"><Link href="/pro" className="flex h-11 items-center justify-center gap-1.5 rounded-lg bg-accent text-sm font-semibold text-background hover:brightness-110">Activer WARIWARI Pro <ArrowRight className="h-4 w-4" /></Link></div>
         </section>
       </div>
 

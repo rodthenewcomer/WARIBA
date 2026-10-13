@@ -32,7 +32,7 @@ describe("parseBackup", () => {
   it("rejette un fichier d'une autre application", () => {
     const res = parseBackup(JSON.stringify({ ...VALID, app: "AutreApp" }));
     expect(res.ok).toBe(false);
-    if (!res.ok) expect(res.error).toContain("WARIBA");
+    if (!res.ok) expect(res.error).toContain("WARIWARI");
   });
 
   it("rejette une version future", () => {

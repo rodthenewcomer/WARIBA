@@ -245,7 +245,7 @@ export default function ProScreen() {
         <View style={styles.gate}>
           <View style={styles.proBadge}>
             <Ionicons name="lock-closed" size={13} color={colors.accent} />
-            <Text style={styles.proBadgeText}>WARIBA PRO</Text>
+            <Text style={styles.proBadgeText}>WARIWARI PRO</Text>
           </View>
           <Text style={styles.heroTitle}>Comparez les 48 actions en profondeur.</Text>
           <Text style={styles.heroDetail}>
@@ -285,7 +285,7 @@ export default function ProScreen() {
       <View style={styles.hero}>
         <View style={styles.proBadge}>
           <Ionicons name="sparkles" size={13} color={colors.accent} />
-          <Text style={styles.proBadgeText}>WARIBA PRO · COMPTE ACTIF</Text>
+          <Text style={styles.proBadgeText}>WARIWARI PRO · COMPTE ACTIF</Text>
         </View>
         <Text style={styles.heroTitle}>Laboratoire 48</Text>
         <Text style={styles.heroDetail}>Même méthode pour toute la cote : quatre piliers, scores complémentaires Dividende/Liquidité, signaux, confiance et fraîcheur. Aucun verdict d’achat ou de vente.</Text>

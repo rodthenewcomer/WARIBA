@@ -260,7 +260,7 @@ export default function OperationsPage() {
       ) : null}
 
       <p className="text-[10px] text-ink-3">
-        WARIBA référence les sources officielles et ne remplace ni le prospectus,
+        WARIWARI référence les sources officielles et ne remplace ni le prospectus,
         ni l&apos;avis de la BRVM, ni le conseil d&apos;une SGI agréée.
       </p>
     </div>

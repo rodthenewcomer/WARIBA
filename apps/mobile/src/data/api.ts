@@ -8,9 +8,9 @@ import {
   newsSchema, operationsSchema, periodicResultsSchema, quoteMapSchema, seriesSchema,
 } from "./validation";
 
-// L'apex wariba.app redirige vers www. Utiliser directement l'origine finale
-// évite une redirection par fichier lors des rafraîchissements parallèles.
-const PAGE_ROOT = "https://www.wariba.app/data";
+// La source principale vient du site WARIWARI; le miroir GitHub historique reste intact.
+// Utiliser EXPO_PUBLIC_SITE_URL pour les environnements de prépublication.
+const PAGE_ROOT = `${(process.env.EXPO_PUBLIC_SITE_URL ?? "https://wariwari.io").replace(/\/$/, "")}/data`;
 const RAW_ROOT = "https://raw.githubusercontent.com/rodthenewcomer/WARIBA/main/data";
 const CACHE_PREFIX = "@wariba:data:v3:";
 const CACHE_VERSION = 4 as const;

@@ -1,14 +1,14 @@
-# WARIBA
+# WARIWARI
 
-**La BRVM, clairement.** WARIBA est le terminal premium web, iOS et Android
+**La BRVM, clairement.** WARIWARI est le terminal premium web, iOS et Android
 pour suivre les marchés de l'UEMOA : cours officiels, graphiques, fondamentaux,
 dividendes, portefeuille, documents, alertes et synchronisation privée.
 
-- Web production : [wariba.app](https://wariba.app)
+- Web actuel (ancienne marque) : [wariba.app](https://wariba.app) — migration prévue vers **wariwari.io**, non encore activé
 - Application native : Expo SDK 54, prête pour les builds iOS/Android signés
 - Lancement stores Côte d’Ivoire : [comptes Apple/Google, EAS et checklist](docs/native-release-cote-ivoire.md)
 - Compte : e-mail/mot de passe, Apple et Google via Supabase Auth
-- WARIBA Pro : Laboratoire 48 réservé aux comptes disposant d'un abonnement Pro actif
+- WARIWARI Pro : Laboratoire 48 réservé aux comptes disposant d'un abonnement Pro actif
 - Monétisation : frontière Public / Compte / Pro visible ; Stripe/RevenueCat restent désactivés tant que les produits stores ne sont pas validés
 - Données : pipeline BRVM officiel, aucune valeur inventée
 - Décision Pro et audit du classeur : [Laboratoire 48 et revue 22 rôles](docs/pro-research-workspace.md)
@@ -17,14 +17,14 @@ dividendes, portefeuille, documents, alertes et synchronisation privée.
 - Droits BRVM : [questions, message prêt et preuves attendues](docs/brvm-data-rights-contact.md)
 
 Depuis le 2026-07-08, **toute l'app** tourne sur les données réelles
-BRVM : les **48 sociétés cotées** (cours, variations, volumes, PER,
+BRVM : les **49 sociétés cotées** (cours, variations, volumes, PER,
 dividendes, historique depuis 2019) et les **3 indices officiels**
 (BRVM Composite, BRVM 30, BRVM Prestige, depuis 2023) alimentent le
 dashboard, le screener, la watchlist, le portefeuille, la recherche et
-  les fiches actions. Le Laboratoire 48 de WARIBA Pro classe et compare
+  les fiches actions. Le Laboratoire 48 de WARIWARI Pro classe et compare
   les mêmes données sur web, web mobile, iOS et Android, avec score,
   confiance, couverture, exercice et raisons visibles. Les fondamentaux d'états financiers (CA/PNB,
-  résultat net, marges et agrégats bancaires) couvrent les **48 sociétés**
+  résultat net, marges et agrégats bancaires) couvrent **48 des 49 sociétés**
   à partir de PDF officiels vérifiés ; **47** ont des capitaux propres
   lisibles (SGBC ne publie pas le bilan complet dans son rapport 2025) et
   **13** ont un nombre d'actions confirmé par deux recoupements, ce qui

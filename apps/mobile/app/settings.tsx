@@ -49,7 +49,7 @@ const THEME_OPTIONS: { id: ColorMode; label: string; icon: keyof typeof Ionicons
   { id: "system", label: "Système", icon: "phone-portrait-outline" },
 ];
 
-const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? process.env.EXPO_PUBLIC_API_URL ?? "https://wariba.app";
+const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? process.env.EXPO_PUBLIC_API_URL ?? "https://wariwari.io";
 
 async function openTrustedUrl(path: string) {
   try {
@@ -123,14 +123,14 @@ export default function SettingsScreen() {
       return;
     }
     const payload = {
-      app: "WARIBA",
+      app: "WARIBA", // Compatibilité du format de sauvegarde avec les anciennes versions.
       version: 1,
       exportedAt: new Date().toISOString(),
       watchlist: useWatchlistStore.getState().tickers,
       transactions: usePortfolioStore.getState().transactions,
       alerts: usePriceAlertStore.getState().rules,
     };
-    const uri = `${FileSystem.cacheDirectory}wariba-backup.json`;
+    const uri = `${FileSystem.cacheDirectory}wariwari-backup.json`;
     await FileSystem.writeAsStringAsync(uri, JSON.stringify(payload, null, 2));
     if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "application/json" });
   };
@@ -175,7 +175,7 @@ export default function SettingsScreen() {
         ]
       );
     } catch {
-      Alert.alert("Import impossible", "Le fichier n'a pas pu être lu. Réessayez avec une sauvegarde WARIBA au format JSON.");
+      Alert.alert("Import impossible", "Le fichier n'a pas pu être lu. Réessayez avec une sauvegarde WARIWARI au format JSON.");
     }
   };
 
@@ -197,7 +197,7 @@ export default function SettingsScreen() {
           <Text style={styles.monogramText}>W</Text>
         </View>
         <View style={styles.identityCopy}>
-          <Text style={styles.identityName}>WARIBA</Text>
+          <Text style={styles.identityName}>WARIWARI</Text>
           <Text style={styles.identityVersion}>Version {version} · thème {activeScheme === "dark" ? "sombre" : "clair"}</Text>
         </View>
       </View>
@@ -320,14 +320,14 @@ export default function SettingsScreen() {
       <Section title="Sauvegarde portable">
         <Group>
           <Row icon="share-outline" title="Exporter une sauvegarde" detail={session ? "Copie JSON de vos données cloud" : "Compte gratuit requis"} onPress={() => void exportBackup()} />
-          <Row icon="download-outline" title="Importer une sauvegarde" detail={session ? "Restaure puis synchronise un export WARIBA" : "Compte gratuit requis"} onPress={() => void importBackup()} />
+          <Row icon="download-outline" title="Importer une sauvegarde" detail={session ? "Restaure puis synchronise un export WARIWARI" : "Compte gratuit requis"} onPress={() => void importBackup()} />
           <Row icon="trash-outline" title="Effacer le portefeuille" detail={session ? "Supprime les transactions synchronisées du compte" : "Compte gratuit requis"} onPress={confirmClear} />
         </Group>
       </Section>
 
       <Section title="À propos">
         <Group>
-          <Row icon="globe-outline" title="Site web WARIBA" detail="Mêmes données, même pipeline officiel BOC" onPress={() => void openTrustedUrl("/")} />
+          <Row icon="globe-outline" title="Site web WARIWARI" detail="Mêmes données, même pipeline officiel BOC" onPress={() => void openTrustedUrl("/")} />
           <Row icon="shield-checkmark-outline" title="Confidentialité" detail="Données de compte, préférences appareil et synchronisation" onPress={() => void openTrustedUrl("/privacy")} />
           <Row icon="document-text-outline" title="Conditions d'utilisation" detail="Cadre du service et abonnement" onPress={() => void openTrustedUrl("/terms")} />
           <Row icon="help-circle-outline" title="Support" detail="Aide et signalement d'un problème" onPress={() => void openTrustedUrl("/support")} />
@@ -335,7 +335,7 @@ export default function SettingsScreen() {
       </Section>
 
       <Text style={styles.disclaimer}>
-        WARIBA fournit des données et outils descriptifs à partir des publications officielles de la BRVM.
+        WARIWARI fournit des données et outils descriptifs à partir des publications officielles de la BRVM.
         Aucun contenu ne constitue un conseil en investissement ni une affiliation officielle à la BRVM.
       </Text>
     </Page>

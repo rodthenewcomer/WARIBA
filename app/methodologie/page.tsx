@@ -15,7 +15,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 export const metadata: Metadata = {
   title: "Méthodologie & sources",
   description:
-    "Comment WARIBA collecte, vérifie et affiche les données BRVM : sources primaires, règles de double vérification, calculs, et limites assumées.",
+    "Comment WARIWARI collecte, vérifie et affiche les données BRVM : sources primaires, règles de double vérification, calculs, et limites assumées.",
 };
 
 function Section({
@@ -161,7 +161,7 @@ export default function MethodologiePage() {
             L&apos;ancienne analyse était masquée sur les valeurs réelles parce
             que ses scores provenaient encore d&apos;un petit jeu pédagogique. Les
             afficher aurait mélangé cotations officielles et fondamentaux
-            fictifs. <strong className="text-ink">WARIBA Factuel v1.1</strong>
+            fictifs. <strong className="text-ink">WARIWARI Factuel v1.1</strong>
             remplace ce blocage par un calcul déterministe commun au web et au
             mobile, exécuté à nouveau dès que la cotation ou le registre des
             fondamentaux est actualisé.
@@ -286,7 +286,7 @@ export default function MethodologiePage() {
       </Section>
 
       <p className="text-[10px] text-ink-3">
-        Ceci n&apos;est pas un conseil en investissement. WARIBA
+        Ceci n&apos;est pas un conseil en investissement. WARIWARI
         n&apos;est pas affilié à la BRVM.
       </p>
     </div>

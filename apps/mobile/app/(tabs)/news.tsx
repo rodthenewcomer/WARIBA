@@ -156,7 +156,7 @@ export default function NewsScreen() {
         )}
       </Section>
 
-      <Text style={styles.footnote}>Collecte automatique toutes les 5 minutes. WARIBA renvoie vers les éditeurs originaux et ne republie pas leurs articles.</Text>
+      <Text style={styles.footnote}>Collecte automatique toutes les 5 minutes. WARIWARI renvoie vers les éditeurs originaux et ne republie pas leurs articles.</Text>
     </Page>
   );
 }

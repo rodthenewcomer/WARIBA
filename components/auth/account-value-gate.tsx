@@ -28,7 +28,7 @@ export function AccountValueGate({
       <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-            Votre espace WARIBA
+            Votre espace WARIWARI
           </p>
           <h1 className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             {title}

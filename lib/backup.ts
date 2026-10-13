@@ -101,7 +101,7 @@ export function parseBackup(raw: string): BackupParseResult {
   if (b.app !== "WARIBA" && b.app !== legacyProductLabel()) {
     return {
       ok: false,
-      error: "Ce fichier ne provient pas de WARIBA (champ « app » absent).",
+      error: "Ce fichier n’est pas une sauvegarde WARIWARI reconnue (format historique accepté).",
     };
   }
   if (typeof b.version !== "number" || b.version > BACKUP_VERSION) {

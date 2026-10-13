@@ -1,4 +1,4 @@
-# Gates web, API et applications natives sur chaque push et pull request.
+# Gates indépendants : un audit sécurité rouge ne masque ni les builds ni les tests.
 name: ci
 
 on:
@@ -31,8 +31,6 @@ jobs:
         run: npx expo-doctor apps/mobile
       - name: Versions natives compatibles Expo
         run: npm exec --workspace @wariba/mobile -- expo install --check
-      - name: Audit sécurité npm (production, high+)
-        run: npm run audit:prod
       - name: Tests unitaires TypeScript (vitest)
         run: npx vitest run
       - name: Dépendances Python (pdfplumber pour le golden test du parseur)
@@ -43,9 +41,31 @@ jobs:
       - name: Tests Python (pipeline actualités)
         working-directory: scripts/news
         run: python3 -m unittest discover -p "test_*.py" -v
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
       - name: Build Next.js serveur
         run: npm run build
       - name: Export Metro iOS
         run: npm exec --workspace @wariba/mobile -- expo export --platform ios --output-dir dist/ios
       - name: Export Metro Android
         run: npm exec --workspace @wariba/mobile -- expo export --platform android --output-dir dist/android
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Audit sécurité npm (production, high+)
+        run: npm run audit:prod
