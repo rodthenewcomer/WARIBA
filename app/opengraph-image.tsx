@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 import { LATEST_TRADING_DATE, REAL_INDICES } from "@/lib/real-data";
 import { dateFr } from "@wariba/core/format";
 
-export const alt = "WARIBA — La BRVM, clairement";
+export const alt = "WARIWARI — La BRVM, clairement";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default function OgImage() {
             A
           </div>
           <div style={{ display: "flex", fontSize: 40, fontWeight: 700, color: "#fafafa" }}>
-            WARIBA
+            WARIWARI
           </div>
         </div>
 

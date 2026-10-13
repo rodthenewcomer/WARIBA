@@ -96,7 +96,7 @@ export default function OnboardingScreen() {
       <View style={styles.topBar}>
         <View style={styles.brandLockup}>
           <Image source={waribaIcon} alt="" style={styles.brandIcon} />
-          <Text style={styles.brand}>WARIBA</Text>
+          <Text style={styles.brand}>WARIWARI</Text>
         </View>
         <Pressable accessibilityRole="button" accessibilityLabel="Passer l'introduction" hitSlop={10} onPress={() => finish("tabs")}>
           <Text style={styles.skip}>Passer</Text>
@@ -169,7 +169,7 @@ export default function OnboardingScreen() {
 
         <View style={[styles.slide, styles.finalSlide, { width: width || 1 }]}>
           <Animated.View entering={reduceMotion ? undefined : FadeInDown.duration(360)} style={styles.finalCopy}>
-            <Text style={styles.eyebrow}>VOTRE WARIBA</Text>
+            <Text style={styles.eyebrow}>VOTRE WARIWARI</Text>
             <Text accessibilityRole="header" style={styles.slideTitle}>Commencez à votre rythme.</Text>
             <Text style={styles.slideBody}>Choisissez votre niveau. Vous pourrez le modifier à tout moment.</Text>
           </Animated.View>

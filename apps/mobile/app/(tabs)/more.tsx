@@ -8,7 +8,7 @@ export default function MoreScreen() {
   const router = useRouter();
   const { loading, user } = useMobileAuth();
   return (
-    <Page title="WARIBA" subtitle="Marché, compte et outils">
+    <Page title="WARIWARI" subtitle="Marché, compte et outils">
       {!loading && !user ? (
         <View style={styles.accountHero}>
           <Text style={styles.eyebrow}>VOTRE ESPACE</Text>
@@ -25,7 +25,7 @@ export default function MoreScreen() {
         </View>
       ) : null}
       <Section title="Suivi">
-        <Row icon="sparkles-outline" title="WARIBA Pro" detail="Laboratoire des 48 actions, scores et comparaison" onPress={() => router.push("/pro")} />
+        <Row icon="sparkles-outline" title="WARIWARI Pro" detail="Laboratoire des 48 actions, scores et comparaison" onPress={() => router.push("/pro")} />
         <Row icon="wallet-outline" title="Portefeuille" detail="Positions, performance et revenu estimé" onPress={() => router.push("/portfolio")} />
         <Row icon="funnel-outline" title="Screener" detail="Filtres, tris et recherches enregistrées" onPress={() => router.push("/screener")} />
         <Row icon="notifications-outline" title="Alertes" detail="Ce qui compte pour vos actions suivies et détenues" onPress={() => router.push("/alerts")} />

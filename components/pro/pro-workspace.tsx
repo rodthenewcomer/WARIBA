@@ -197,7 +197,7 @@ export function ProWorkspace({ rows, marketLabel, methodologyVersion }: {
         <div className="grid gap-6 px-5 py-6 sm:px-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone="accent" className="font-semibold">WARIBA Pro</Badge>
+              <Badge tone="accent" className="font-semibold">WARIWARI Pro</Badge>
               <span className="text-[11px] text-ink-3">{methodologyVersion}</span>
             </div>
             <h1 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-ink sm:text-4xl">Laboratoire 48</h1>
