@@ -273,12 +273,12 @@ export default function MethodologiePage() {
         <p>
           Pipeline, règles de vérification et interface sont auditables :{" "}
           <a
-            href="https://github.com/rodthenewcomer/WARIWARI"
+            href="https://github.com/rodthenewcomer/WARIBA"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent underline hover:no-underline"
           >
-            github.com/rodthenewcomer/WARIWARI
+            github.com/rodthenewcomer/WARIBA
           </a>
           . Chaque valeur saisie manuellement porte en commentaire sa méthode
           de vérification.
