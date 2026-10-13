@@ -1,6 +1,6 @@
 # WARI WARI
 
-**La BRVM, clairement.** WARIBA est le terminal premium web, iOS et Android
+**La BRVM, clairement.** WARI WARI est le terminal premium web, iOS et Android
 pour suivre les marchés de l'UEMOA : cours officiels, graphiques, fondamentaux,
 dividendes, portefeuille, documents, alertes et synchronisation privée.
 
