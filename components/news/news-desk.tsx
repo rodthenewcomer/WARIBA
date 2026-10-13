@@ -232,7 +232,7 @@ export function NewsDesk({ news }: { news: NewsItem[] }) {
               <div className="flex items-center gap-2 text-xs font-bold text-ink"><Clock3 className="h-4 w-4 text-accent" /> Mise à jour</div>
               <p className="mt-2 text-xs leading-5 text-ink-3">Collecte automatique toutes les 5 minutes. L&apos;heure affichée est celle d&apos;Abidjan.</p>
             </div>
-            <p className="px-1 text-[10px] leading-4 text-ink-3">WARIBA agrège les titres et renvoie vers les éditeurs. Le contenu reste la propriété de sa source.</p>
+            <p className="px-1 text-[10px] leading-4 text-ink-3">WARIWARI agrège les titres et renvoie vers les éditeurs. Le contenu reste la propriété de sa source.</p>
           </aside>
         </div>
       ) : (
