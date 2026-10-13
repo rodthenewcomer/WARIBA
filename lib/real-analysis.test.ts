@@ -9,10 +9,18 @@ describe("getRealAnalysis (univers réel committé)", () => {
     const quotes = getAllRealQuotes();
     const fundamentals = getAllRealFundamentals();
 
-    expect(quotes).toHaveLength(48);
+    // BBGC est cotée depuis septembre 2026 mais ses états financiers n'ont
+    // pas encore été intégrés au registre vérifié : ne jamais inventer son score.
+    expect(quotes).toHaveLength(49);
     expect(fundamentals).toHaveLength(48);
+    const covered = new Set(fundamentals.map((item) => item.ticker));
+    expect(quotes.filter((item) => !covered.has(item.ticker)).map((item) => item.ticker)).toEqual(["BBGC"]);
     for (const quote of quotes) {
       const analysis = getRealAnalysis(quote.ticker);
+      if (!covered.has(quote.ticker)) {
+        expect(analysis, quote.ticker).toBeNull();
+        continue;
+      }
       expect(analysis, quote.ticker).not.toBeNull();
       expect(analysis?.overallScore, quote.ticker).toBeGreaterThanOrEqual(0);
       expect(analysis?.overallScore, quote.ticker).toBeLessThanOrEqual(100);

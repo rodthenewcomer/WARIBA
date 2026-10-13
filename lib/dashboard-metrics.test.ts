@@ -133,10 +133,10 @@ describe("dashboard factual rankings", () => {
     expect(rankWeeklyMovers(rows).map((row) => row.ticker)).toEqual(["A", "B"]);
   });
 
-  it("la cote committée couvre 48 fiches et 47 valeurs à la séance active", () => {
+  it("la cote committée inclut BBGC (49 sociétés dont 48 actives)", () => {
     const snapshots = getSnapshots();
-    expect(snapshots).toHaveLength(48);
-    expect(currentSessionSnapshots(snapshots)).toHaveLength(47);
+    expect(snapshots).toHaveLength(49);
+    expect(currentSessionSnapshots(snapshots)).toHaveLength(48);
     expect(rankGainers(snapshots).every((row) => row.dayChange > 0)).toBe(true);
     expect(rankLosers(snapshots).every((row) => row.dayChange < 0)).toBe(true);
   });
