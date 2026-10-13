@@ -1,5 +1,29 @@
 [
  {
+  "id": "document-BICC-2026-10-13-5c5533a676",
+  "type": "document",
+  "ticker": "BICC",
+  "title": "BICC : nouvelle publication financière",
+  "detail": "BICI CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-13. S1 2026 : PNB 37,1 Md FCFA (-53,31 % vs S1 2025) ; résultat net 16,3 Md FCFA (-18,52 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-13T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261013_-_rapport_dactivites_-_1er_semestre_2026_-_bici_ci.pdf"
+ },
+ {
+  "id": "document-SPHC-2026-10-13-38ae390fb0",
+  "type": "document",
+  "ticker": "SPHC",
+  "title": "SPHC : nouvelle publication financière",
+  "detail": "SAPH CI a publié « Rapport dactivites — 3e trimestre 2026 » le 2026-10-13. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-13T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261013_-_rapport_dactivites_-_3e_trimestre_2026_-_saph_ci.pdf"
+ },
+ {
   "id": "prix-BOAN-2026-10-12-7d5dec9696",
   "type": "prix",
   "ticker": "BOAN",
@@ -53,6 +77,18 @@
   "severity": "info",
   "active": true,
   "basis": "réel"
+ },
+ {
+  "id": "document-ORGT-2026-10-09-ca6defd995",
+  "type": "document",
+  "ticker": "ORGT",
+  "title": "ORGT : nouvelle publication financière",
+  "detail": "ORAGROUP TOGO a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-09. S1 2026 : PNB 98,6 Md FCFA (-1,14 % vs S1 2025) ; résultat net 18,5 Md FCFA (+1,45 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-09T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261009_-_rapport_dactivites_-_1er_semestre_2026_-_oragroup_tg.pdf"
  },
  {
   "id": "prix-FTSC-2026-10-08-3653b39435",
@@ -187,6 +223,30 @@
   "basis": "réel"
  },
  {
+  "id": "document-ORAC-2026-10-08-0ea0ef2f1d",
+  "type": "document",
+  "ticker": "ORAC",
+  "title": "ORAC : nouvelle publication financière",
+  "detail": "ORANGE COTE D'IVOIRE a publié « Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026 » le 2026-10-08. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-08T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261008_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
+ },
+ {
+  "id": "document-ORAC-2026-10-08-40fab68f1f",
+  "type": "document",
+  "ticker": "ORAC",
+  "title": "ORAC : nouvelle publication financière",
+  "detail": "ORANGE COTE D'IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-08. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-08T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261008_-_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
+ },
+ {
   "id": "prix-ONTBF-2026-10-07-0d2048240d",
   "type": "prix",
   "ticker": "ONTBF",
@@ -218,6 +278,30 @@
   "severity": "info",
   "active": true,
   "basis": "réel"
+ },
+ {
+  "id": "document-PALC-2026-10-07-d54ee218dd",
+  "type": "document",
+  "ticker": "PALC",
+  "title": "PALC : nouvelle publication financière",
+  "detail": "PALM CI a publié « Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026 » le 2026-10-07. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-07T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261007_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_palm_ci.pdf"
+ },
+ {
+  "id": "document-PALC-2026-10-07-ab2807c0de",
+  "type": "document",
+  "ticker": "PALC",
+  "title": "PALC : nouvelle publication financière",
+  "detail": "PALM CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-07. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-07T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261007_-_rapport_dactivites_-_1er_semestre_2026_-_palm_ci.pdf"
  },
  {
   "id": "volume-BICC-2026-10-06-f086d93dfe",
@@ -295,6 +379,90 @@
   "severity": "warning",
   "active": true,
   "basis": "réel"
+ },
+ {
+  "id": "document-SDSC-2026-10-05-95d11d16c1",
+  "type": "document",
+  "ticker": "SDSC",
+  "title": "SDSC : nouvelle publication financière",
+  "detail": "AFRICA GLOBAL LOGISTICS CI a publié « Attestation des commissaires aux comptes — etats financiers — exercice 2025 » le 2026-10-05. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-05T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261005_-_attestation_des_commissaires_aux_comptes_-_etats_financiers_-_exercice_2025_-_africa_glogal_logistics_ci.pdf"
+ },
+ {
+  "id": "document-BOAC-2026-10-01-09469a50f6",
+  "type": "document",
+  "ticker": "BOAC",
+  "title": "BOAC : nouvelle publication financière",
+  "detail": "BANK OF AFRICA CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-01. S1 2026 : PNB 36,7 Md FCFA (+1,51 % vs S1 2025) ; résultat net 19,8 Md FCFA (+8 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-01T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dactivites_-_1er_semestre_2026_-_boa_ci.pdf"
+ },
+ {
+  "id": "document-BOAC-2026-10-01-668e3dcc6a",
+  "type": "document",
+  "ticker": "BOAC",
+  "title": "BOAC : nouvelle publication financière",
+  "detail": "BANK OF AFRICA CI a publié « Rapport dexamen limite des etats financiers — 1er semestre 2026 » le 2026-10-01. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-01T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dexamen_limite_des_etats_financiers_-_1er_semestre_2026_-_boa_ci.pdf"
+ },
+ {
+  "id": "document-ONTBF-2026-10-01-b0f5bdd0e2",
+  "type": "document",
+  "ticker": "ONTBF",
+  "title": "ONTBF : nouvelle publication financière",
+  "detail": "ONATEL BF a publié « Rapport dactivites et attestation des commissaires aux comptes — 1er semestre 2026 » le 2026-10-01. S1 2026 : CA 75,9 Md FCFA (+2,9 % vs S1 2025) ; résultat net 7,3 Md FCFA (-8,58 %). Extraction automatique recoupée, confiance élevée. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-01T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dactivites_et_attestation_des_commissaires_aux_comptes_-_1er_semestre_2026_-_onatel_bf.pdf"
+ },
+ {
+  "id": "document-SIBC-2026-09-28-df9f74c844",
+  "type": "document",
+  "ticker": "SIBC",
+  "title": "SIBC : nouvelle publication financière",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE a publié « Attestation des commissaires aux comptes — 1er semestre 2026 » le 2026-09-28. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-28T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260928_-_attestation_des_commissaires_aux_comptes_-_1er_semestre_2026_-_sib_ci.pdf"
+ },
+ {
+  "id": "document-SIBC-2026-09-28-639576f65f",
+  "type": "document",
+  "ticker": "SIBC",
+  "title": "SIBC : nouvelle publication financière",
+  "detail": "SOCIETE IVOIRIENNE DE BANQUE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-28. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-28T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260928_-_rapport_dactivites_-_1er_semestre_2026_-_sib_ci.pdf"
+ },
+ {
+  "id": "document-BOAN-2026-09-25-f63366d32c",
+  "type": "document",
+  "ticker": "BOAN",
+  "title": "BOAN : nouvelle publication financière",
+  "detail": "BANK OF AFRICA NG a publié « Attestation des commissaires aux comptes et rapport dactivites — 1er semestre 2026 » le 2026-09-25. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-25T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260925_-_attestation_des_commissaires_aux_comptes_et_rapport_dactivites_-_1er_semestre_2026_-_boa_niger.pdf"
  },
  {
   "id": "document-BBGC-2026-09-24-28e8851e16",

@@ -1,5 +1,103 @@
 [
  {
+  "ticker": "BICC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-13",
+  "url": "https://www.brvm.org/sites/default/files/20261013_-_rapport_dactivites_-_1er_semestre_2026_-_bici_ci.pdf"
+ },
+ {
+  "ticker": "SPHC",
+  "title": "Rapport dactivites — 3e trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-13",
+  "url": "https://www.brvm.org/sites/default/files/20261013_-_rapport_dactivites_-_3e_trimestre_2026_-_saph_ci.pdf"
+ },
+ {
+  "ticker": "ORGT",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-09",
+  "url": "https://www.brvm.org/sites/default/files/20261009_-_rapport_dactivites_-_1er_semestre_2026_-_oragroup_tg.pdf"
+ },
+ {
+  "ticker": "ORAC",
+  "title": "Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-08",
+  "url": "https://www.brvm.org/sites/default/files/20261008_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
+ },
+ {
+  "ticker": "ORAC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-08",
+  "url": "https://www.brvm.org/sites/default/files/20261008_-_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
+ },
+ {
+  "ticker": "PALC",
+  "title": "Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-07",
+  "url": "https://www.brvm.org/sites/default/files/20261007_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_palm_ci.pdf"
+ },
+ {
+  "ticker": "PALC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-07",
+  "url": "https://www.brvm.org/sites/default/files/20261007_-_rapport_dactivites_-_1er_semestre_2026_-_palm_ci.pdf"
+ },
+ {
+  "ticker": "SDSC",
+  "title": "Attestation des commissaires aux comptes — etats financiers — exercice 2025",
+  "type": "États financiers",
+  "date": "2026-10-05",
+  "url": "https://www.brvm.org/sites/default/files/20261005_-_attestation_des_commissaires_aux_comptes_-_etats_financiers_-_exercice_2025_-_africa_glogal_logistics_ci.pdf"
+ },
+ {
+  "ticker": "BOAC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-01",
+  "url": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dactivites_-_1er_semestre_2026_-_boa_ci.pdf"
+ },
+ {
+  "ticker": "BOAC",
+  "title": "Rapport dexamen limite des etats financiers — 1er semestre 2026",
+  "type": "États financiers",
+  "date": "2026-10-01",
+  "url": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dexamen_limite_des_etats_financiers_-_1er_semestre_2026_-_boa_ci.pdf"
+ },
+ {
+  "ticker": "ONTBF",
+  "title": "Rapport dactivites et attestation des commissaires aux comptes — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-01",
+  "url": "https://www.brvm.org/sites/default/files/20261001_-_rapport_dactivites_et_attestation_des_commissaires_aux_comptes_-_1er_semestre_2026_-_onatel_bf.pdf"
+ },
+ {
+  "ticker": "SIBC",
+  "title": "Attestation des commissaires aux comptes — 1er semestre 2026",
+  "type": "États financiers",
+  "date": "2026-09-28",
+  "url": "https://www.brvm.org/sites/default/files/20260928_-_attestation_des_commissaires_aux_comptes_-_1er_semestre_2026_-_sib_ci.pdf"
+ },
+ {
+  "ticker": "SIBC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-28",
+  "url": "https://www.brvm.org/sites/default/files/20260928_-_rapport_dactivites_-_1er_semestre_2026_-_sib_ci.pdf"
+ },
+ {
+  "ticker": "BOAN",
+  "title": "Attestation des commissaires aux comptes et rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-25",
+  "url": "https://www.brvm.org/sites/default/files/20260925_-_attestation_des_commissaires_aux_comptes_et_rapport_dactivites_-_1er_semestre_2026_-_boa_niger.pdf"
+ },
+ {
   "ticker": "BBGC",
   "title": "Rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -4088,13 +4186,6 @@
   "url": "https://www.brvm.org/sites/default/files/20231102_-_rapport_dactivites_-_3eme_trimestre_2023_-_saph_ci.pdf"
  },
  {
-  "ticker": "SPHC",
-  "title": "Rapport dactivites et attestation des cac — 1er semestre 2023",
-  "type": "Résultats",
-  "date": "2023-11-02",
-  "url": "https://www.brvm.org/sites/default/files/20231102_-_rapport_dactivites_et_attestation_des_cac_-_1er_semestre_2023_-_saph_ci.pdf"
- },
- {
   "ticker": "CIEC",
   "title": "Rapport dactivites — 1er semestre 2023",
   "type": "Résultats",
@@ -4226,20 +4317,6 @@
   "type": "Résultats",
   "date": "2023-10-30",
   "url": "https://www.brvm.org/sites/default/files/20231030_-_rapport_dactivites_-_3eme_trimestre_2023_-_nestle_ci.pdf"
- },
- {
-  "ticker": "ORAC",
-  "title": "Rapport dactivites — 3eme trimestre 2023",
-  "type": "Résultats",
-  "date": "2023-10-30",
-  "url": "https://www.brvm.org/sites/default/files/20231030_-_rapport_dactivites_-_3eme_trimestre_2023_-_orange_ci.pdf"
- },
- {
-  "ticker": "ORAC",
-  "title": "Rapport dactivites et attestation des cac — 1er semestre 2023",
-  "type": "Résultats",
-  "date": "2023-10-30",
-  "url": "https://www.brvm.org/sites/default/files/20231030_-_rapport_dactivites_et_attestation_des_cac_-_1er_semestre_2023_-_orange_ci.pdf"
  },
  {
   "ticker": "ORGT",
@@ -4564,13 +4641,6 @@
   "url": "https://www.brvm.org/sites/default/files/20230721_-_rapport_dactivites_-_1er_semestre_2023_-_sonatel_sn.pdf"
  },
  {
-  "ticker": "ONTBF",
-  "title": "Etats financiers certifies et approuves exercice 2022",
-  "type": "États financiers",
-  "date": "2023-07-20",
-  "url": "https://www.brvm.org/sites/default/files/20230720_-_etats_financiers_certifies_et_approuves_exercice_2022_-_onatel_bf.pdf"
- },
- {
   "ticker": "SMBC",
   "title": "Rapport annuel 2022",
   "type": "Résultats",
@@ -4800,13 +4870,6 @@
   "type": "États financiers",
   "date": "2023-04-28",
   "url": "https://www.brvm.org/sites/default/files/20230428_-_etats_financiers_ifrs_exercice_2022_-_sodeci.pdf"
- },
- {
-  "ticker": "SDSC",
-  "title": "Rapport dactivite — 1er trimestre 2023",
-  "type": "Communiqué",
-  "date": "2023-04-28",
-  "url": "https://www.brvm.org/sites/default/files/20230428_-_rapport_dactivite_-_1er_trimestre_2023_-_africa_global_logistics_ex_bollore.pdf"
  },
  {
   "ticker": "SGBC",
@@ -5677,13 +5740,6 @@
   "url": "https://www.brvm.org/sites/default/files/20220429_-_rapport_dactivite_-_1er_trimestre_2022_-_sgci_ci.pdf"
  },
  {
-  "ticker": "SIBC",
-  "title": "Rapport dactivite — 1er trimestre 2022",
-  "type": "Communiqué",
-  "date": "2022-04-29",
-  "url": "https://www.brvm.org/sites/default/files/20220429_-_rapport_dactivite_-_1er_trimestre_2022_-_sib_ci.pdf"
- },
- {
   "ticker": "SOGC",
   "title": "Etats financiers exercice 2021",
   "type": "États financiers",
@@ -5705,25 +5761,11 @@
   "url": "https://www.brvm.org/sites/default/files/20220426_-_etats_financiers_exercice_2021_-_oragroup_tg.pdf"
  },
  {
-  "ticker": "ORGT",
-  "title": "Rapport dactivite — 1er trimestre 2022",
-  "type": "Communiqué",
-  "date": "2022-04-26",
-  "url": "https://www.brvm.org/sites/default/files/20220426_-_rapport_dactivite_-_1er_trimestre_2022_-_oragroup_tg.pdf"
- },
- {
   "ticker": "PALC",
   "title": "Etats financiers exercice 2021",
   "type": "États financiers",
   "date": "2022-04-26",
   "url": "https://www.brvm.org/sites/default/files/20220426_-_etats_financiers_exercice_2021_-_palm_ci.pdf"
- },
- {
-  "ticker": "PALC",
-  "title": "Rapport dactivite — 1er trimestre 2022",
-  "type": "Communiqué",
-  "date": "2022-04-26",
-  "url": "https://www.brvm.org/sites/default/files/20220426_-_rapport_dactivite_-_1er_trimestre_2022_-_palm_ci.pdf"
  },
  {
   "ticker": "SDCC",
@@ -5880,13 +5922,6 @@
   "url": "https://www.brvm.org/sites/default/files/20211108_-_rapport_dactivite_du_1er_semestre_2021_-_air_liquide_ci.pdf"
  },
  {
-  "ticker": "BOAC",
-  "title": "Rapport dactivite au 3eme trimestre 2021",
-  "type": "Communiqué",
-  "date": "2021-11-02",
-  "url": "https://www.brvm.org/sites/default/files/20211102_-_rapport_dactivite_au_3eme_trimestre_2021_-_boa_ci.pdf"
- },
- {
   "ticker": "FTSC",
   "title": "Rapport dactivite au 3eme trimestre 2021",
   "type": "Communiqué",
@@ -5927,13 +5962,6 @@
   "type": "Communiqué",
   "date": "2021-10-22",
   "url": "https://www.brvm.org/sites/default/files/20211022_-_rapport_dactivite_au_1er_semestre_2021_-_solibra_ci.pdf"
- },
- {
-  "ticker": "PALC",
-  "title": "Rapport dactivite au 3eme trimestre 2021",
-  "type": "Communiqué",
-  "date": "2021-10-20",
-  "url": "https://www.brvm.org/sites/default/files/20211020_-_rapport_dactivite_au_3eme_trimestre_2021_-_palm_ci.pdf"
  },
  {
   "ticker": "SEMC",
