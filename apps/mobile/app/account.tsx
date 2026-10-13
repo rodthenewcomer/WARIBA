@@ -29,7 +29,7 @@ export default function AccountScreen() {
   const request = useCallback(async (path: string, init?: RequestInit) => {
     if (!session?.access_token) throw new Error("Session requise");
     const base = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, "");
-    if (!base) throw new Error("Serveur WARIBA non configuré");
+    if (!base) throw new Error("Serveur WARIWARI non configuré");
     const response = await fetch(`${base}${path}`, {
       ...init,
       headers: { Authorization: `Bearer ${session.access_token}`, ...init?.headers },
@@ -58,7 +58,7 @@ export default function AccountScreen() {
     try {
       const active = await purchaseNativePackage(item);
       if (!active) return;
-      Alert.alert("WARIBA Pro activé", "Votre achat est reconnu sur vos appareils connectés à ce compte.");
+      Alert.alert("WARIWARI Pro activé", "Votre achat est reconnu sur vos appareils connectés à ce compte.");
       await request("/api/v1/billing/native/refresh", { method: "POST" });
       await refreshAccount();
     } catch (caught) {
@@ -128,7 +128,7 @@ export default function AccountScreen() {
     <Page subtitle="Identité, synchronisation et forfait">
       <Section title="Compte">
         <View style={styles.group}>
-          <Row icon="person-circle-outline" title={account?.profile.display_name || user.email || "Compte WARIBA"} detail={user.email ?? undefined} />
+          <Row icon="person-circle-outline" title={account?.profile.display_name || user.email || "Compte WARIWARI"} detail={user.email ?? undefined} />
           <Row icon="log-out-outline" title="Se déconnecter" onPress={() => void signOut().then(() => router.replace("/(tabs)"))} />
         </View>
       </Section>

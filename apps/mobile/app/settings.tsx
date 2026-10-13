@@ -123,7 +123,7 @@ export default function SettingsScreen() {
       return;
     }
     const payload = {
-      app: "WARIBA",
+      app: "WARIWARI",
       version: 1,
       exportedAt: new Date().toISOString(),
       watchlist: useWatchlistStore.getState().tickers,
@@ -175,7 +175,7 @@ export default function SettingsScreen() {
         ]
       );
     } catch {
-      Alert.alert("Import impossible", "Le fichier n'a pas pu être lu. Réessayez avec une sauvegarde WARIBA au format JSON.");
+      Alert.alert("Import impossible", "Le fichier n'a pas pu être lu. Réessayez avec une sauvegarde WARIWARI au format JSON.");
     }
   };
 
@@ -197,7 +197,7 @@ export default function SettingsScreen() {
           <Text style={styles.monogramText}>W</Text>
         </View>
         <View style={styles.identityCopy}>
-          <Text style={styles.identityName}>WARIBA</Text>
+          <Text style={styles.identityName}>WARIWARI</Text>
           <Text style={styles.identityVersion}>Version {version} · thème {activeScheme === "dark" ? "sombre" : "clair"}</Text>
         </View>
       </View>
@@ -320,14 +320,14 @@ export default function SettingsScreen() {
       <Section title="Sauvegarde portable">
         <Group>
           <Row icon="share-outline" title="Exporter une sauvegarde" detail={session ? "Copie JSON de vos données cloud" : "Compte gratuit requis"} onPress={() => void exportBackup()} />
-          <Row icon="download-outline" title="Importer une sauvegarde" detail={session ? "Restaure puis synchronise un export WARIBA" : "Compte gratuit requis"} onPress={() => void importBackup()} />
+          <Row icon="download-outline" title="Importer une sauvegarde" detail={session ? "Restaure puis synchronise un export WARIWARI" : "Compte gratuit requis"} onPress={() => void importBackup()} />
           <Row icon="trash-outline" title="Effacer le portefeuille" detail={session ? "Supprime les transactions synchronisées du compte" : "Compte gratuit requis"} onPress={confirmClear} />
         </Group>
       </Section>
 
       <Section title="À propos">
         <Group>
-          <Row icon="globe-outline" title="Site web WARIBA" detail="Mêmes données, même pipeline officiel BOC" onPress={() => void openTrustedUrl("/")} />
+          <Row icon="globe-outline" title="Site web WARIWARI" detail="Mêmes données, même pipeline officiel BOC" onPress={() => void openTrustedUrl("/")} />
           <Row icon="shield-checkmark-outline" title="Confidentialité" detail="Données de compte, préférences appareil et synchronisation" onPress={() => void openTrustedUrl("/privacy")} />
           <Row icon="document-text-outline" title="Conditions d'utilisation" detail="Cadre du service et abonnement" onPress={() => void openTrustedUrl("/terms")} />
           <Row icon="help-circle-outline" title="Support" detail="Aide et signalement d'un problème" onPress={() => void openTrustedUrl("/support")} />
@@ -335,7 +335,7 @@ export default function SettingsScreen() {
       </Section>
 
       <Text style={styles.disclaimer}>
-        WARIBA fournit des données et outils descriptifs à partir des publications officielles de la BRVM.
+        WARIWARI fournit des données et outils descriptifs à partir des publications officielles de la BRVM.
         Aucun contenu ne constitue un conseil en investissement ni une affiliation officielle à la BRVM.
       </Text>
     </Page>
