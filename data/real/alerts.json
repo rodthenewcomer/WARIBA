@@ -1,5 +1,60 @@
 [
  {
+  "id": "volume-BOAM-2026-10-13-88c14f00d4",
+  "type": "volume",
+  "ticker": "BOAM",
+  "title": "Volume inhabituel sur BOAM",
+  "detail": "55 693 titres BANK OF AFRICA ML échangés le 2026-10-13  soit 9.5× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-CABC-2026-10-13-fab43f48c7",
+  "type": "prix",
+  "ticker": "CABC",
+  "title": "CABC : -6,99 % sur la séance",
+  "detail": "SICABLE CI clôture à 3 060 FCFA le 2026-10-13  contre 3 290 FCFA la séance précédente (1 053 titres échangés).",
+  "time": "2026-10-13T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-PRSC-2026-10-13-c773cb8219",
+  "type": "prix",
+  "ticker": "PRSC",
+  "title": "PRSC : +6,02 % sur la séance",
+  "detail": "TRACTAFRIC MOTORS CI clôture à 4 400 FCFA le 2026-10-13  contre 4 150 FCFA la séance précédente (479 titres échangés).",
+  "time": "2026-10-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-STBC-2026-10-13-d3554bfb20",
+  "type": "volume",
+  "ticker": "STBC",
+  "title": "Volume inhabituel sur STBC",
+  "detail": "18 894 titres SITAB CI échangés le 2026-10-13  soit 4.6× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-13T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-TTLC-2026-10-13-fd17c3fa9b",
+  "type": "prix",
+  "ticker": "TTLC",
+  "title": "TTLC : +6,83 % sur la séance",
+  "detail": "TOTALENERGIES MARKETING CI clôture à 3 205 FCFA le 2026-10-13  contre 3 000 FCFA la séance précédente (7 065 titres échangés).",
+  "time": "2026-10-13T15:30:00+00:00",
+  "severity": "positive",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "document-BICC-2026-10-13-5c5533a676",
   "type": "document",
   "ticker": "BICC",
@@ -302,83 +357,6 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20261007_-_rapport_dactivites_-_1er_semestre_2026_-_palm_ci.pdf"
- },
- {
-  "id": "volume-BICC-2026-10-06-f086d93dfe",
-  "type": "volume",
-  "ticker": "BICC",
-  "title": "Volume inhabituel sur BICC",
-  "detail": "2 629 titres BICI CI échangés le 2026-10-06  soit 3.2× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-CFAC-2026-10-06-d011a45494",
-  "type": "prix",
-  "ticker": "CFAC",
-  "title": "CFAC : +5,14 % sur la séance",
-  "detail": "CFAO MOTORS CI clôture à 1 535 FCFA le 2026-10-06  contre 1 460 FCFA la séance précédente (1 837 titres échangés).",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-FTSC-2026-10-06-38dc64dbcf",
-  "type": "prix",
-  "ticker": "FTSC",
-  "title": "FTSC : +6,76 % sur la séance",
-  "detail": "FILTISAC CI clôture à 1 975 FCFA le 2026-10-06  contre 1 850 FCFA la séance précédente (769 titres échangés).",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-ONTBF-2026-10-06-2d9b3d6d65",
-  "type": "volume",
-  "ticker": "ONTBF",
-  "title": "Volume inhabituel sur ONTBF",
-  "detail": "17 451 titres ONATEL BF échangés le 2026-10-06  soit 3.5× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-ORAC-2026-10-06-a69bf8a208",
-  "type": "prix",
-  "ticker": "ORAC",
-  "title": "ORAC : +7,49 % sur la séance",
-  "detail": "ORANGE COTE D'IVOIRE clôture à 21 390 FCFA le 2026-10-06  contre 19 900 FCFA la séance précédente (1 744 titres échangés).",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-PRSC-2026-10-06-e145cb295c",
-  "type": "prix",
-  "ticker": "PRSC",
-  "title": "PRSC : +7,4 % sur la séance",
-  "detail": "TRACTAFRIC MOTORS CI clôture à 4 135 FCFA le 2026-10-06  contre 3 850 FCFA la séance précédente (251 titres échangés).",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "positive",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "prix-SMBC-2026-10-06-4fac7b1726",
-  "type": "prix",
-  "ticker": "SMBC",
-  "title": "SMBC : -5,85 % sur la séance",
-  "detail": "SMB CI clôture à 16 000 FCFA le 2026-10-06  contre 16 995 FCFA la séance précédente (1 434 titres échangés).",
-  "time": "2026-10-06T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "document-SDSC-2026-10-05-95d11d16c1",
