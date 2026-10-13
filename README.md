@@ -1,10 +1,10 @@
-# WARIBA
+# WARI WARI
 
 **La BRVM, clairement.** WARIBA est le terminal premium web, iOS et Android
 pour suivre les marchés de l'UEMOA : cours officiels, graphiques, fondamentaux,
 dividendes, portefeuille, documents, alertes et synchronisation privée.
 
-- Web production : [wariba.app](https://wariba.app)
+
 - Application native : Expo SDK 54, prête pour les builds iOS/Android signés
 - Lancement stores Côte d’Ivoire : [comptes Apple/Google, EAS et checklist](docs/native-release-cote-ivoire.md)
 - Compte : e-mail/mot de passe, Apple et Google via Supabase Auth
