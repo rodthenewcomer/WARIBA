@@ -11,7 +11,7 @@ const PREVIOUS_DEVICE_ID_KEY = legacyStorageKey("push-device-id");
 
 function apiUrl(): string {
   const value = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, "");
-  if (!value) throw new Error("Serveur WARIBA non configuré");
+  if (!value) throw new Error("Serveur WARIWARI non configuré");
   return value;
 }
 

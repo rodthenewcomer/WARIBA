@@ -9,7 +9,7 @@ import { hasSupabasePublicEnv } from "@/lib/supabase/env";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "WARIBA Pro — Laboratoire 48",
+  title: "WARIWARI Pro — Laboratoire 48",
   description: "Classement factuel, comparaison multi-facteurs et fraîcheur des comptes pour les 48 actions de la BRVM.",
 };
 

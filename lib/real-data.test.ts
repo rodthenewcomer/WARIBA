@@ -37,7 +37,7 @@ describe("real data snapshot", () => {
         ).toBe(true);
         const cutoff = timeframeStartDate(quote.asOfDate, timeframe);
         if (cutoff) {
-          expect(String(data[0].time) >= cutoff, `${quote.ticker} ${timeframe} exact cutoff`).toBe(true);
+          expect((typeof data[0].time === "number" ? new Date(data[0].time * 1000).toISOString().slice(0, 10) : String(data[0].time)) >= cutoff, `${quote.ticker} ${timeframe} exact cutoff`).toBe(true);
         }
         expect(data.at(-1)?.close, `${quote.ticker} ${timeframe} latest close`).toBe(quote.lastClose);
       }

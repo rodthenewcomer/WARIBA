@@ -142,7 +142,7 @@ export function AuthScreen({ mode }: { mode: Mode }) {
         <View style={styles.glow} />
         <View style={styles.brandRow}>
           <Image source={waribaIcon} alt="" style={styles.mark} />
-          <Text style={styles.wordmark}>WARIBA</Text>
+          <Text style={styles.wordmark}>WARIWARI</Text>
         </View>
         <Text style={styles.eyebrow}>ESPACE PRIVÉ · SYNCHRONISÉ</Text>
         <Text accessibilityRole="header" style={styles.title}>{title}</Text>

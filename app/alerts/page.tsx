@@ -93,7 +93,7 @@ export default function AlertsPage() {
     return (
       <AccountValueGate
         title="Ce qui compte aujourd'hui pour vos actions"
-        description="Ajoutez des actions à votre watchlist ou votre portefeuille : WARIBA filtre automatiquement les publications, résultats, dividendes, volumes et mouvements qui vous concernent."
+        description="Ajoutez des actions à votre watchlist ou votre portefeuille : WARIWARI filtre automatiquement les publications, résultats, dividendes, volumes et mouvements qui vous concernent."
         next="/alerts"
         benefits={[
           "Priorité, raison et conséquence possible expliquées en français simple.",

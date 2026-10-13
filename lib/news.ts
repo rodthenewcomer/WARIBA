@@ -7,7 +7,7 @@ export {
 /**
  * Actualités réelles agrégées depuis Sika Finance et Financial Afrik
  * (pipeline scripts/news/fetch_news.py, rafraîchi par GitHub Actions).
- * Chaque item pointe vers l'article original — WARIBA agrège et
+ * Chaque item pointe vers l'article original — WARIWARI agrège et
  * rattache aux tickers, il ne republie pas le contenu.
  */
 export interface NewsItem {

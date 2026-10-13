@@ -269,7 +269,7 @@ class PeriodicResultsTest(unittest.TestCase):
 class GeneratedPeriodicCoverageTest(unittest.TestCase):
     ROOT = Path(__file__).resolve().parents[2]
 
-    def test_latest_detected_releases_are_all_integrated(self) -> None:
+    def test_latest_detected_releases_are_integrated_or_explicitly_unverified(self) -> None:
         documents = json.loads(
             (self.ROOT / "data/real/documents.json").read_text(encoding="utf-8")
         )
@@ -285,14 +285,22 @@ class GeneratedPeriodicCoverageTest(unittest.TestCase):
             if descriptor_is_newer_than_annual(document, fundamentals.get(ticker))
         }
         self.assertFalse(eligible - results.keys())
-        self.assertEqual(
-            [
-                ticker
-                for ticker in sorted(eligible)
-                if results[ticker].get("status") != "integrated"
-            ],
-            [],
-        )
+        # A publication may require human verification. Never fabricate
+        # figures to make CI green: unresolved records must explicitly carry
+        # their official source and withhold unverified financial values.
+        for ticker in eligible:
+            record = results[ticker]
+            with self.subTest(ticker=ticker):
+                self.assertIn(record.get("status"), {"integrated", "review_required"})
+                self.assertEqual(record.get("source"), latest_periodic_documents(documents)[ticker]["url"])
+                if record["status"] == "review_required":
+                    self.assertEqual(record.get("confidence"), "low")
+                    self.assertTrue(record.get("detail"))
+                    for field in ("revenueM", "revenuePrevM", "netIncomeM", "netIncomePrevM"):
+                        self.assertNotIn(field, record)
+                else:
+                    for field in ("revenueM", "revenuePrevM", "netIncomeM", "netIncomePrevM"):
+                        self.assertIsInstance(record.get(field), (int, float))
         self.assertGreaterEqual(len(eligible), 37)
 
 

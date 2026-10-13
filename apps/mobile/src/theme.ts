@@ -10,7 +10,7 @@ export type ColorMode = "dark" | "light" | "system";
 /**
  * Couleurs sémantiques natives : iOS bascule via DynamicColorIOS et Android
  * via les attributs de thème de la plateforme. Les deux modes restent
- * volontairement neutres ; le jade WARIBA est réservé aux actions et états.
+ * volontairement neutres ; le jade WARIWARI est réservé aux actions et états.
  */
 function adaptiveColor(
   light: string,

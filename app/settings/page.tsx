@@ -250,7 +250,7 @@ export default function SettingsPage() {
               checked={advanced}
               onChange={setAdvanced}
               label="Mode avancé"
-              hint="Les indicateurs avancés sont maintenant regroupés dans WARIBA Pro."
+              hint="Les indicateurs avancés sont maintenant regroupés dans WARIWARI Pro."
               disabled
             />
           </div>
@@ -416,7 +416,7 @@ export default function SettingsPage() {
       </div>
 
       <p className="text-[10px] text-ink-3">
-        WARIBA — version publique. Les informations présentées sont fournies à titre
+        WARIWARI — version publique. Les informations présentées sont fournies à titre
         éducatif et informatif. Elles ne constituent pas un conseil en
         investissement.
       </p>

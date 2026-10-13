@@ -131,7 +131,7 @@ export async function PUT(request: Request) {
     }
     if (request.headers.get("x-sync-mode") === "replace") {
       return NextResponse.json(
-        { error: "Cette ancienne synchronisation destructive est désactivée. Mettez WARIBA à jour puis réessayez." },
+        { error: "Cette ancienne synchronisation destructive est désactivée. Mettez WARIWARI à jour puis réessayez." },
         { status: 409 },
       );
     }

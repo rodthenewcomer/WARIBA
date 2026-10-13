@@ -45,7 +45,7 @@ export default async function SgiDetailPage({
           </ul>
           <p className="mt-4 text-[11px] leading-4 text-ink-3">
             Ces champs ne sont pas publiés de façon comparable dans la source
-            officielle consultée. WARIBA ne les estime pas.
+            officielle consultée. WARIWARI ne les estime pas.
           </p>
         </div>
       </section>

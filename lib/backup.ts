@@ -13,7 +13,7 @@ import { legacyProductLabel } from "@wariba/core/legacy";
 export const BACKUP_VERSION = 1;
 
 export interface BackupFile {
-  app: "WARIBA";
+  app: "WARIWARI";
   version: number;
   exportedAt: string;
   portfolio: PortfolioTransaction[];
@@ -27,7 +27,7 @@ export function buildBackup(data: {
   savedFilters: SavedFilter[];
 }): BackupFile {
   return {
-    app: "WARIBA",
+    app: "WARIWARI",
     version: BACKUP_VERSION,
     exportedAt: new Date().toISOString(),
     ...data,
@@ -98,10 +98,10 @@ export function parseBackup(raw: string): BackupParseResult {
     return { ok: false, error: "Structure de fichier inattendue." };
   }
   const b = json as Record<string, unknown>;
-  if (b.app !== "WARIBA" && b.app !== legacyProductLabel()) {
+  if (b.app !== "WARIWARI" && b.app !== "WARIBA" && b.app !== legacyProductLabel()) {
     return {
       ok: false,
-      error: "Ce fichier ne provient pas de WARIBA (champ « app » absent).",
+      error: "Ce fichier ne provient pas de WARIWARI (champ « app » absent).",
     };
   }
   if (typeof b.version !== "number" || b.version > BACKUP_VERSION) {
@@ -130,7 +130,7 @@ export function parseBackup(raw: string): BackupParseResult {
     return {
       ok: true,
       backup: {
-        app: "WARIBA",
+        app: "WARIWARI",
         version: BACKUP_VERSION,
         exportedAt: typeof b.exportedAt === "string" ? b.exportedAt : new Date().toISOString(),
         portfolio,
@@ -155,5 +155,5 @@ export function parseBackup(raw: string): BackupParseResult {
   if (!Array.isArray(b.savedFilters) || !b.savedFilters.every(isSavedFilter)) {
     return { ok: false, error: "Filtres enregistrés invalides." };
   }
-  return { ok: true, backup: { ...b, app: "WARIBA" } as unknown as BackupFile };
+  return { ok: true, backup: { ...b, app: "WARIWARI" } as unknown as BackupFile };
 }

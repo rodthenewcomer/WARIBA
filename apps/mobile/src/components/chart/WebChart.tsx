@@ -433,7 +433,7 @@ export const WebChart = forwardRef<WebChartHandle, {
     if (!base64) return;
     const uri = `${FileSystem.cacheDirectory}${payload.ticker}-chart.png`;
     await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
-    if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "image/png", dialogTitle: `${payload.ticker} · WARIBA` });
+    if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(uri, { mimeType: "image/png", dialogTitle: `${payload.ticker} · WARIWARI` });
   }, [payload.ticker]);
 
   const onMessage = useCallback((event: WebViewMessageEvent) => {

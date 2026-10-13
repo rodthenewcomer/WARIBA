@@ -13,7 +13,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 export const metadata: Metadata = {
   title: "Statut des données",
   description:
-    "Fraîcheur et provenance de chaque source de données WARIBA : bulletins officiels BRVM, indices, actualités, fondamentaux, documents.",
+    "Fraîcheur et provenance de chaque source de données WARIWARI : bulletins officiels BRVM, indices, actualités, fondamentaux, documents.",
 };
 
 /** Figé au build : le site étant statique, cette date EST celle du dernier déploiement. */
@@ -112,7 +112,7 @@ export default function StatusPage() {
             Si un cours, un dividende ou un chiffre vous semble faux,
             signalez-le :{" "}
             <a
-              href="mailto:support@wariba.app?subject=Signalement%20donnée%20WARIBA"
+              href="mailto:support@wariba.app?subject=Signalement%20donnée%20WARIWARI"
               className="text-accent underline hover:no-underline"
             >
               contacter le support

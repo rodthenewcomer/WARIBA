@@ -2,7 +2,7 @@
 
 import { legacyStorageKey } from "@wariba/core/legacy";
 
-/** Copie une valeur locale existante vers son namespace WARIBA, puis retire
+/** Copie une valeur locale existante vers son namespace WARIWARI, puis retire
  * l'ancienne clé. L'opération est idempotente et sans effet pendant le SSR. */
 export function migratedStorageKey(
   current: string,

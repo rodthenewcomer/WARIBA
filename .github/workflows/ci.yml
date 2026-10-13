@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
       - run: npm ci
       - name: TypeScript web, API et packages partagés
@@ -31,8 +31,6 @@ jobs:
         run: npx expo-doctor apps/mobile
       - name: Versions natives compatibles Expo
         run: npm exec --workspace @wariba/mobile -- expo install --check
-      - name: Audit sécurité npm (production, high+)
-        run: npm run audit:prod
       - name: Tests unitaires TypeScript (vitest)
         run: npx vitest run
       - name: Dépendances Python (pdfplumber pour le golden test du parseur)
@@ -49,3 +47,5 @@ jobs:
         run: npm exec --workspace @wariba/mobile -- expo export --platform ios --output-dir dist/ios
       - name: Export Metro Android
         run: npm exec --workspace @wariba/mobile -- expo export --platform android --output-dir dist/android
+      - name: Audit sécurité npm (production, high+)
+        run: npm run audit:prod

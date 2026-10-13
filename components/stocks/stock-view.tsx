@@ -165,14 +165,14 @@ export function StockView({ ticker }: { ticker: string }) {
     ? {
         ...annualDisclosure,
         evidenceStatus: "calculated" as const,
-        basisNote: "Calcul WARIBA à partir des montants annuels vérifiés.",
+        basisNote: "Calcul WARIWARI à partir des montants annuels vérifiés.",
       }
     : undefined;
   const calculatedBrvmDisclosure = brvmDisclosure
     ? {
         ...brvmDisclosure,
         evidenceStatus: "calculated" as const,
-        basisNote: "Calcul WARIBA à partir des séances officielles disponibles.",
+        basisNote: "Calcul WARIWARI à partir des séances officielles disponibles.",
       }
     : undefined;
 
@@ -368,7 +368,7 @@ export function StockView({ ticker }: { ticker: string }) {
                 <div><dt className="text-ink-3">Ticker</dt><dd className="font-semibold text-ink">{stock.ticker}</dd></div>
                 <div><dt className="text-ink-3">Marché</dt><dd className="font-semibold text-ink">BRVM</dd></div>
                 <div><dt className="text-ink-3">Secteur</dt><dd className="font-semibold text-ink">{stock.sector}</dd></div>
-                <div><dt className="text-ink-3">Sous-secteur WARIBA</dt><dd className="font-semibold text-ink">{waribaSubsector(stock.sector)}</dd></div>
+                <div><dt className="text-ink-3">Sous-secteur WARIWARI</dt><dd className="font-semibold text-ink">{waribaSubsector(stock.sector)}</dd></div>
                 <div><dt className="text-ink-3">Pays</dt><dd className="font-semibold text-ink">{stock.country}</dd></div>
                 <div><dt className="text-ink-3">Devise</dt><dd className="font-semibold text-ink">FCFA</dd></div>
                 <div><dt className="text-ink-3">Statut</dt><dd className="font-semibold text-ink">{staleQuote ? "Cotation suspendue" : real?.quoteStatus === "delayed-live" ? "Différé 15 min" : "Clôture officielle"}</dd></div>
@@ -420,7 +420,7 @@ export function StockView({ ticker }: { ticker: string }) {
           <Card>
             <CardHeader
               title={`Acheter ${stock.ticker}`}
-              subtitle="WARIBA vous aide à choisir un intermédiaire agréé"
+              subtitle="WARIWARI vous aide à choisir un intermédiaire agréé"
             />
             <CardBody className="space-y-3">
               <ol className="space-y-1.5 text-[11px] text-ink-2">
@@ -429,7 +429,7 @@ export function StockView({ ticker }: { ticker: string }) {
                 <li><strong className="text-ink">3.</strong> Ouvrez un compte-titres et terminez les contrôles d&apos;identité de la SGI.</li>
                 <li><strong className="text-ink">4.</strong> Alimentez le compte auprès de la SGI choisie.</li>
                 <li><strong className="text-ink">5.</strong> Envoyez l&apos;ordre {stock.ticker} avec quantité, prix limite et validité.</li>
-                <li><strong className="text-ink">6.</strong> Contrôlez l&apos;exécution et suivez cours, documents et dividendes dans WARIBA.</li>
+                <li><strong className="text-ink">6.</strong> Contrôlez l&apos;exécution et suivez cours, documents et dividendes dans WARIWARI.</li>
               </ol>
               <Link
                 href={`/sgi?ticker=${stock.ticker}`}
@@ -438,7 +438,7 @@ export function StockView({ ticker }: { ticker: string }) {
                 <Landmark className="h-4 w-4" /> Comparer les SGI
               </Link>
               <p className="text-[10px] leading-4 text-ink-3">
-                WARIBA ne reçoit ni n&apos;exécute votre ordre : la transaction est réalisée par la SGI que vous choisissez.
+                WARIWARI ne reçoit ni n&apos;exécute votre ordre : la transaction est réalisée par la SGI que vous choisissez.
               </p>
             </CardBody>
           </Card>

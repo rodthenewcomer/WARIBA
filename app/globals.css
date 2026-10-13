@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* WARIBA 2026 : neutres francs, sans dominante verte. */
+  /* WARIWARI 2026 : neutres francs, sans dominante verte. */
   color-scheme: light;
   --background: #f7f8fa;
   --surface: #ffffff;

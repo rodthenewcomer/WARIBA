@@ -141,7 +141,7 @@ export default function AlertsScreen() {
       <Page title="Alertes" subtitle="Ce qui compte aujourd’hui pour vos actions">
         <AccountGate
           title="Recevez moins de bruit et davantage de signaux utiles."
-          detail="WARIBA rapproche automatiquement vos actions suivies et détenues des publications, prix, volumes, dividendes et fondamentaux."
+          detail="WARIWARI rapproche automatiquement vos actions suivies et détenues des publications, prix, volumes, dividendes et fondamentaux."
           benefits={[
             "Priorités expliquées avec leur conséquence possible",
             "Alertes personnalisées watchlist et portefeuille",

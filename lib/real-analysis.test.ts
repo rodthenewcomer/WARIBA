@@ -9,9 +9,9 @@ describe("getRealAnalysis (univers réel committé)", () => {
     const quotes = getAllRealQuotes();
     const fundamentals = getAllRealFundamentals();
 
-    expect(quotes).toHaveLength(48);
+    expect(quotes).toHaveLength(49);
     expect(fundamentals).toHaveLength(48);
-    for (const quote of quotes) {
+    for (const quote of quotes.filter((quote) => fundamentals.some((fundamental) => fundamental.ticker === quote.ticker))) {
       const analysis = getRealAnalysis(quote.ticker);
       expect(analysis, quote.ticker).not.toBeNull();
       expect(analysis?.overallScore, quote.ticker).toBeGreaterThanOrEqual(0);
@@ -23,6 +23,12 @@ describe("getRealAnalysis (univers réel committé)", () => {
       }
       expect(analysis?.scores.dividend, `${quote.ticker} dividend`).toBeLessThan(100);
     }
+  });
+
+  it("ne fabrique pas de fondamentaux pour la nouvelle cotation BBGC", () => {
+    expect(getAllRealQuotes().some((quote) => quote.ticker === "BBGC")).toBe(true);
+    expect(getAllRealFundamentals().some((fundamental) => fundamental.ticker === "BBGC")).toBe(false);
+    expect(getRealAnalysis("BBGC")).toBeNull();
   });
 
   it("n'invente rien pour un ticker inconnu", () => {

@@ -34,7 +34,7 @@ const NAV = [
   { href: "/dashboard", label: "Accueil", icon: LayoutDashboard },
   { href: "/map", label: "Carte du marché", icon: Grid3X3 },
   { href: "/screener", label: "Screener", icon: Filter },
-  { href: "/pro", label: "WARIBA Pro", icon: Crown },
+  { href: "/pro", label: "WARIWARI Pro", icon: Crown },
   { href: "/sgi", label: "Choisir une SGI", icon: Handshake },
   { href: "/charts", label: "Graphiques", icon: CandlestickChart },
   { href: "/news", label: "Actualités", icon: Newspaper },
@@ -60,7 +60,7 @@ const MOBILE_NAV = [
  * Documents, Actualités, Statut et Réglages étaient introuvables au
  * doigt (le 5e onglet menait directement aux Réglages). */
 const MOBILE_MORE = [
-  { href: "/pro", label: "WARIBA Pro", icon: Crown },
+  { href: "/pro", label: "WARIWARI Pro", icon: Crown },
   { href: "/sgi", label: "Choisir une SGI", icon: Handshake },
   { href: "/alerts", label: "Alertes", icon: Bell },
   { href: "/portfolio", label: "Portefeuille", icon: Briefcase },
@@ -82,7 +82,7 @@ const TOUR_BY_HREF: Record<string, string> = {
 
 function Logo() {
   return (
-    <Link href="/dashboard" aria-label="WARIBA — Accueil" className="group flex items-center gap-2.5 px-1">
+    <Link href="/dashboard" aria-label="WARIWARI — Accueil" className="group flex items-center gap-2.5 px-1">
       <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-[10px] bg-[#071612] shadow-lg shadow-accent/15 ring-1 ring-white/10">
         <svg viewBox="0 0 32 32" aria-hidden="true" className="h-7 w-7">
           <path d="M5.4 8.4 10 23l6-9.4L22 23l4.6-14.6" fill="none" stroke="#31d690" strokeWidth="2.9" strokeLinecap="round" strokeLinejoin="round" />
@@ -90,7 +90,7 @@ function Logo() {
         </svg>
       </span>
       <span className="text-[15px] font-extrabold tracking-[0.08em] text-ink transition-colors group-hover:text-accent">
-        WARIBA
+        WARIWARI
       </span>
     </Link>
   );

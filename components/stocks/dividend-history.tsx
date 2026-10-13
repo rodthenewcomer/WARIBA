@@ -134,7 +134,7 @@ export function DividendHistory({ ticker }: { ticker: string }) {
           <div><dt className="text-ink-3">Prochain paiement</dt><dd className="mt-0.5 font-semibold text-ink">N/D · aucune date officielle</dd></div>
         </dl>
         <p className="text-[10px] text-ink-3">
-          Vérifié : bulletins officiels BRVM, montants nets après IRVM 10 %. Les dates de détachement historiques ne sont pas enregistrées par ce pipeline et restent N/D. Rendement calculé par WARIBA au premier cours de clôture disponible à la date de paiement. Régularité {regularity >= 0.8 ? "élevée" : regularity >= 0.5 ? "intermédiaire" : "faible"} sur l&apos;historique couvert.
+          Vérifié : bulletins officiels BRVM, montants nets après IRVM 10 %. Les dates de détachement historiques ne sont pas enregistrées par ce pipeline et restent N/D. Rendement calculé par WARIWARI au premier cours de clôture disponible à la date de paiement. Régularité {regularity >= 0.8 ? "élevée" : regularity >= 0.5 ? "intermédiaire" : "faible"} sur l&apos;historique couvert.
         </p>
       </CardBody>
     </Card>

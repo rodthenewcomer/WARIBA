@@ -108,7 +108,7 @@ export default async function OgImage({
               A
             </div>
             <div style={{ display: "flex", fontSize: 26, fontWeight: 700, color: "#a1a1aa" }}>
-              WARIBA
+              WARIWARI
             </div>
           </div>
         </div>

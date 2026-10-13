@@ -8,8 +8,8 @@ export const dynamic = "force-static";
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "WARIBA — La BRVM, clairement",
-    short_name: "WARIBA",
+    name: "WARIWARI — La BRVM, clairement",
+    short_name: "WARIWARI",
     description:
       "Terminal BRVM : cours officiels, carte du marché, alertes et actualités des 48 sociétés cotées.",
     start_url: "/",
