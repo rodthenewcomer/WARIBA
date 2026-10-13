@@ -1,5 +1,19 @@
 [
  {
+  "ticker": "BBGC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-09-24",
+  "url": "https://www.brvm.org/sites/default/files/20260924_-_rapport_dactivites_-_1er_semestre_2026_-_bridge_bank_group_ci.pdf"
+ },
+ {
+  "ticker": "BBGC",
+  "title": "Rapport des commissaires aux comptes — 1er semestre 2026",
+  "type": "États financiers",
+  "date": "2026-09-24",
+  "url": "https://www.brvm.org/sites/default/files/20260924_-_rapport_des_commissaires_aux_comptes_-_1er_semestre_2026_-_bridge_bank_group_ci.pdf"
+ },
+ {
   "ticker": "BOAM",
   "title": "Rapport dactivites — 1er semestre 2026",
   "type": "Résultats",

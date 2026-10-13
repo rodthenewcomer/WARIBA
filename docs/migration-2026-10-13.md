@@ -9,3 +9,5 @@ Validation locale : 164 tests TypeScript, 102 tests données BOC, 8 tests actual
 La base Supabase `lxcjiocyzptrrnzvywmn` est suspendue. Sa restauration est refusée car les deux emplacements gratuits actifs du compte sont occupés par d'autres projets. Aucun projet tiers n'a été suspendu et aucun abonnement payant n'a été engagé. Authentification, synchronisation cloud et traitements de cron ne sont pas certifiés tant que cette base n'est pas restaurée. Les tâches ne doivent pas être présentées comme opérationnelles sur des données réelles.
 
 La mise à niveau Expo SDK/React Native nécessite la validation sur appareil prévue par les instructions du dépôt. Les contrôles natifs et l'audit restent une condition de finalisation, sans masquer les erreurs.
+
+Le nom du projet Supabase a également été corrigé en WARIWARI. Le pipeline documents couvre maintenant BBGC via sa fiche officielle BRVM et ses deux rapports semestriels. Ses fondamentaux annuels restent explicitement indisponibles, sans chiffres inventés.

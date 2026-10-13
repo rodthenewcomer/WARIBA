@@ -1,7 +1,7 @@
 # Surveille les publications officielles (PDF) des sociétés BRVM. Une
 # publication financière peut changer une décision le jour même : la
 # détection vise moins de 5 minutes, puis le push sur main déclenche
-# automatiquement le déploiement Vercel de wariba.app.
+# automatiquement le déploiement Vercel de WARIWARI.
 name: documents
 
 on:
@@ -23,7 +23,7 @@ jobs:
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - uses: actions/checkout@v5
-      - name: Référencer les publications (48 sociétés)
+      - name: Référencer les publications (49 sociétés)
         id: documents
         shell: bash
         run: python3 scripts/boc/fetch_documents.py --out data/real/documents.json
