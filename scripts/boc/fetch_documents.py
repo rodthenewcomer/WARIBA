@@ -25,7 +25,7 @@ import time
 import urllib.request
 from pathlib import Path
 
-USER_AGENT = "WARIBA-documents/1.0 (agrégateur non commercial, liens vers la source)"
+USER_AGENT = "WARIWARI-documents/1.0 (agrégateur non commercial, liens vers la source)"
 BASE = "https://www.brvm.org"
 # Conserver assez d'historique pour ne pas perdre un rapport quand plusieurs
 # PDF (activité, états, IFRS, SYSCOHADA, attestation) paraissent le même jour.
@@ -36,6 +36,7 @@ FETCH_ATTEMPTS = 3
 # /fr/rapports-societes-cotees, 2026-07). Les slugs non-actions (FCTC,
 # TPCI...) sont hors périmètre.
 SLUGS: dict[str, str] = {
+    "BBGC": "bbgci",  # Fiche officielle BRVM, cotation du 24 septembre 2026.
     "ABJC": "servair-abidjan-ci", "BICB": "biic", "BICC": "bici-ci",
     "BNBC": "bernabe-ci", "BOAB": "bank-africa-bn", "BOABF": "bank-africa-bf",
     "BOAC": "bank-africa-ci", "BOAM": "bank-africa-ml", "BOAN": "bank-africa-ng",

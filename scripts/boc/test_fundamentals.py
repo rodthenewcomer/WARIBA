@@ -111,7 +111,9 @@ class NormalizeTest(unittest.TestCase):
 class RegistryContractTest(unittest.TestCase):
     def test_full_brvm_universe_is_curated(self) -> None:
         self.assertEqual(len(REGISTRY), 48)
-        self.assertEqual(set(REGISTRY), set(SLUGS))
+        self.assertEqual(set(REGISTRY), set(SLUGS) - {"BBGC"})
+        # BBGC has official interim reports but no validated annual baseline yet.
+        self.assertEqual(SLUGS["BBGC"], "bbgci")
         self.assertEqual(len({meta["pdf"] for meta in REGISTRY.values()}), 48)
         self.assertTrue(
             all(meta["pdf"].startswith("https://www.brvm.org/") for meta in REGISTRY.values())

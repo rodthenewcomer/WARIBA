@@ -297,6 +297,30 @@
   "basis": "réel"
  },
  {
+  "id": "document-BBGC-2026-09-24-28e8851e16",
+  "type": "document",
+  "ticker": "BBGC",
+  "title": "BBGC : nouvelle publication financière",
+  "detail": "BRIDGE BANK GROUP CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-09-24. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-24T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260924_-_rapport_dactivites_-_1er_semestre_2026_-_bridge_bank_group_ci.pdf"
+ },
+ {
+  "id": "document-BBGC-2026-09-24-2e84dc0be4",
+  "type": "document",
+  "ticker": "BBGC",
+  "title": "BBGC : nouvelle publication financière",
+  "detail": "BRIDGE BANK GROUP CI a publié « Rapport des commissaires aux comptes — 1er semestre 2026 » le 2026-09-24. Source officielle à consulter avant toute décision.",
+  "time": "2026-09-24T09:05:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20260924_-_rapport_des_commissaires_aux_comptes_-_1er_semestre_2026_-_bridge_bank_group_ci.pdf"
+ },
+ {
   "id": "document-BOAM-2026-09-23-bc30c696d3",
   "type": "document",
   "ticker": "BOAM",

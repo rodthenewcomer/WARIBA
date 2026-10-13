@@ -42,7 +42,7 @@ class CommittedDataQualityTest(unittest.TestCase):
         self.assertEqual(len(tickers), 49)
         self.assertIn("BBGC", tickers)
         self.assertEqual(set(self.fundamentals), tickers - {"BBGC"})
-        self.assertEqual({item["ticker"] for item in self.documents}, tickers - {"BBGC"})
+        self.assertEqual({item["ticker"] for item in self.documents}, tickers)
         self.assertEqual({path.stem for path in SERIES.glob("*.json")}, tickers)
         self.assertEqual(set(self.live["quotes"]), tickers - {"SVOC"})
         self.assertEqual(set(self.fundamentals_status["tickers"]), tickers - {"BBGC"})
