@@ -51,7 +51,7 @@
     "@types/react-dom": "~19.1.7",
     "eslint": "^9.39.5",
     "eslint-config-next": "15.5.27",
-    "expo": "54.0.36",
+    "expo": "54.0.37",
     "puppeteer-core": "^24.43.1",
     "tailwindcss": "^4.1.11",
     "typescript": "^5",
