@@ -13,7 +13,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/card";
 export const metadata: Metadata = {
   title: "Statut des données",
   description:
-    "Fraîcheur et provenance de chaque source de données WARIBA : bulletins officiels BRVM, indices, actualités, fondamentaux, documents.",
+    "Fraîcheur et provenance de chaque source de données WARIWARI : bulletins officiels BRVM, indices, actualités, fondamentaux, documents.",
 };
 
 /** Figé au build : le site étant statique, cette date EST celle du dernier déploiement. */

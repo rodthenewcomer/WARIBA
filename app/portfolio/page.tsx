@@ -182,7 +182,7 @@ export default function PortfolioPage() {
     return (
       <AccountValueGate
         title="Transformez vos transactions en tableau de bord personnel"
-        description="WARIBA calcule votre prix de revient avec frais, vos dividendes, votre performance, votre concentration et les événements importants des sociétés détenues."
+        description="WARIWARI calcule votre prix de revient avec frais, vos dividendes, votre performance, votre concentration et les événements importants des sociétés détenues."
         next="/portfolio"
         benefits={[
           "Performance totale : cours, dividendes reçus et revenus futurs estimés.",
@@ -227,7 +227,7 @@ export default function PortfolioPage() {
               <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-ink-3">
                 Vous avez acheté des actions via votre SGI mais aucun moyen
                 simple de savoir où vous en êtes ? Enregistrez vos opérations
-                (quand, combien de titres, à quel prix) et WARIBA calcule
+                (quand, combien de titres, à quel prix) et WARIWARI calcule
                 le reste.
               </p>
             </div>
@@ -649,7 +649,7 @@ export default function PortfolioPage() {
         Le portefeuille est un outil de suivi personnel valorisé sur les cours
         officiels BRVM (différé : bulletin quotidien). Il ne constitue ni un
         compte-titres ni un conseil en investissement. Vos données personnelles
-        sont synchronisées avec votre compte WARIBA.
+        sont synchronisées avec votre compte WARIWARI.
       </p>
 
       <TransactionDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
