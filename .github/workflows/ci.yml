@@ -31,8 +31,6 @@ jobs:
         run: npx expo-doctor apps/mobile
       - name: Versions natives compatibles Expo
         run: npm exec --workspace @wariba/mobile -- expo install --check
-      - name: Audit sécurité npm (production, high+)
-        run: npm run audit:prod
       - name: Tests unitaires TypeScript (vitest)
         run: npx vitest run
       - name: Dépendances Python (pdfplumber pour le golden test du parseur)
@@ -49,3 +47,6 @@ jobs:
         run: npm exec --workspace @wariba/mobile -- expo export --platform ios --output-dir dist/ios
       - name: Export Metro Android
         run: npm exec --workspace @wariba/mobile -- expo export --platform android --output-dir dist/android
+      # Keep the security gate mandatory but last to report the full validation outcome.
+      - name: Audit sécurité npm (production, high+)
+        run: npm run audit:prod
