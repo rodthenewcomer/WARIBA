@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   // par la convention opengraph-image.tsx la consomment.
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: "WARIBA — La BRVM, clairement",
-    template: "%s · WARIBA",
+    default: "WARIWARI — La BRVM, clairement",
+    template: "%s · WARIWARI",
   },
   description:
     "Le terminal premium de la BRVM : cours officiels, graphiques, portefeuille, dividendes, documents et alertes pour les investisseurs d'Afrique de l'Ouest.",
-  applicationName: "WARIBA",
+  applicationName: "WARIWARI",
   openGraph: {
-    siteName: "WARIBA",
+    siteName: "WARIWARI",
     locale: "fr_FR",
     type: "website",
   },
