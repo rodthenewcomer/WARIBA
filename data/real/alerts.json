@@ -1,5 +1,49 @@
 [
  {
+  "id": "volume-BICC-2026-10-14-f086d93dfe",
+  "type": "volume",
+  "ticker": "BICC",
+  "title": "Volume inhabituel sur BICC",
+  "detail": "4 292 titres BICI CI échangés le 2026-10-14  soit 5.2× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-14T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-ORAC-2026-10-14-13e60e9953",
+  "type": "prix",
+  "ticker": "ORAC",
+  "title": "ORAC : -6,37 % sur la séance",
+  "detail": "ORANGE COTE D'IVOIRE clôture à 20 505 FCFA le 2026-10-14  contre 21 900 FCFA la séance précédente (4 406 titres échangés).",
+  "time": "2026-10-14T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "volume-SPHC-2026-10-14-986aa69858",
+  "type": "volume",
+  "ticker": "SPHC",
+  "title": "Volume inhabituel sur SPHC",
+  "detail": "17 567 titres SAPH CI échangés le 2026-10-14  soit 3.7× la moyenne des 30 séances précédentes.",
+  "time": "2026-10-14T15:30:00+00:00",
+  "severity": "info",
+  "active": true,
+  "basis": "réel"
+ },
+ {
+  "id": "prix-UNLC-2026-10-14-a9cac001e3",
+  "type": "prix",
+  "ticker": "UNLC",
+  "title": "UNLC : -7,48 % sur la séance",
+  "detail": "UNILEVER CI clôture à 44 410 FCFA le 2026-10-14  contre 48 000 FCFA la séance précédente (7 titres échangés).",
+  "time": "2026-10-14T15:30:00+00:00",
+  "severity": "warning",
+  "active": true,
+  "basis": "réel"
+ },
+ {
   "id": "volume-BOAM-2026-10-13-88c14f00d4",
   "type": "volume",
   "ticker": "BOAM",
@@ -300,39 +344,6 @@
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20261008_-_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
- },
- {
-  "id": "prix-ONTBF-2026-10-07-0d2048240d",
-  "type": "prix",
-  "ticker": "ONTBF",
-  "title": "ONTBF : -5,94 % sur la séance",
-  "detail": "ONATEL BF clôture à 2 770 FCFA le 2026-10-07  contre 2 945 FCFA la séance précédente (9 847 titres échangés).",
-  "time": "2026-10-07T15:30:00+00:00",
-  "severity": "warning",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-PALC-2026-10-07-434a98f46e",
-  "type": "volume",
-  "ticker": "PALC",
-  "title": "Volume inhabituel sur PALC",
-  "detail": "12 463 titres PALM CI échangés le 2026-10-07  soit 3.6× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-07T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
- },
- {
-  "id": "volume-TTLS-2026-10-07-2e74520f51",
-  "type": "volume",
-  "ticker": "TTLS",
-  "title": "Volume inhabituel sur TTLS",
-  "detail": "9 760 titres TOTALENERGIES MARKETING SN échangés le 2026-10-07  soit 4.3× la moyenne des 30 séances précédentes.",
-  "time": "2026-10-07T15:30:00+00:00",
-  "severity": "info",
-  "active": true,
-  "basis": "réel"
  },
  {
   "id": "document-PALC-2026-10-07-d54ee218dd",
