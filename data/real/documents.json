@@ -1,5 +1,26 @@
 [
  {
+  "ticker": "ABJC",
+  "title": "Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-16",
+  "url": "https://www.brvm.org/sites/default/files/20261016_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
+  "ticker": "ABJC",
+  "title": "Rapport dactivites — 1er semestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-16",
+  "url": "https://www.brvm.org/sites/default/files/20261016_-_rapport_dactivites_-_1er_semestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
+  "ticker": "ABJC",
+  "title": "Rapport dactivites — 3e trimestre 2026",
+  "type": "Résultats",
+  "date": "2026-10-16",
+  "url": "https://www.brvm.org/sites/default/files/20261016_-_rapport_dactivites_-_3e_trimestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
   "ticker": "BICC",
   "title": "Rapport dactivites — 1er semestre 2026",
   "type": "Résultats",
@@ -4130,20 +4151,6 @@
   "url": "https://www.brvm.org/sites/default/files/20231103_-_rapport_dactivites_-_3eme_trimestre_2023_-_uniwax_ci_annule_et_remplace_le_precedent.pdf"
  },
  {
-  "ticker": "ABJC",
-  "title": "Rapport dactivites — 1er semestre 2023",
-  "type": "Résultats",
-  "date": "2023-11-02",
-  "url": "https://www.brvm.org/sites/default/files/20231102_-_rapport_dactivites_-_1er_semestre_2023_-_servair_abidjan_ci.pdf"
- },
- {
-  "ticker": "ABJC",
-  "title": "Rapport dactivites et attestation des cac — 1er semestre 2023",
-  "type": "Résultats",
-  "date": "2023-11-02",
-  "url": "https://www.brvm.org/sites/default/files/20231102_-_rapport_dactivites_et_attestation_des_cac_-_1er_semestre_2023_-_servair_abidjan_ci.pdf"
- },
- {
   "ticker": "BNBC",
   "title": "Attestation des cac sur le rapport dactivites du 1er semestre 2023",
   "type": "Résultats",
@@ -4625,13 +4632,6 @@
   "type": "Résultats",
   "date": "2023-07-28",
   "url": "https://www.brvm.org/sites/default/files/20230728_-_rapport_dactivites_-_1er_semestre_2023_-_bicici.pdf"
- },
- {
-  "ticker": "ABJC",
-  "title": "Rapport dactivites — 1er semestre 2023",
-  "type": "Résultats",
-  "date": "2023-07-21",
-  "url": "https://www.brvm.org/sites/default/files/20230721_-_rapport_dactivites_-_1er_semestre_2023_-_servair_abidjan_ci_annule_et_remplace_le_precedent.pdf"
  },
  {
   "ticker": "SNTS",

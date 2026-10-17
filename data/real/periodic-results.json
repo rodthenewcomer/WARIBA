@@ -1,27 +1,20 @@
 {
-  "generatedAt": "2026-10-13T23:23:25.013366+00:00",
+  "generatedAt": "2026-10-17T08:59:48.115885+00:00",
   "results": {
     "ABJC": {
       "ticker": "ABJC",
       "fiscalYear": 2026,
-      "periodType": "quarterly",
-      "periodCode": "T1",
-      "periodLabel": "T1 2026",
-      "comparisonLabel": "T1 2025",
-      "asOfDate": "2026-03-31",
-      "revenueLabel": "CA",
-      "revenueM": 3237,
-      "revenuePrevM": 3176,
-      "netIncomeM": 223,
-      "netIncomePrevM": 346,
-      "ordinaryIncomeM": 328,
-      "ordinaryIncomePrevM": 451,
-      "source": "https://www.brvm.org/sites/default/files/20260427_-_rapport_dactivites_-_1er_trimestre_2026_-_servair_abidjan_ci.pdf",
-      "publishedOn": "2026-04-27",
-      "status": "integrated",
-      "confidence": "high",
+      "periodType": "semiannual",
+      "periodCode": "S1",
+      "periodLabel": "S1 2026",
+      "comparisonLabel": "S1 2025",
+      "asOfDate": "2026-06-30",
+      "source": "https://www.brvm.org/sites/default/files/20261016_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_servair_abidjan_ci.pdf",
+      "publishedOn": "2026-10-16",
+      "status": "review_required",
+      "confidence": "low",
       "sourceType": "publication officielle BRVM",
-      "unit": "millions FCFA"
+      "detail": "Publication détectée; chiffres non publiés faute de recoupement automatique suffisant."
     },
     "BICB": {
       "ticker": "BICB",

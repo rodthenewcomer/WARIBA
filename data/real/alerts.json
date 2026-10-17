@@ -1,5 +1,41 @@
 [
  {
+  "id": "document-ABJC-2026-10-16-5441293d24",
+  "type": "document",
+  "ticker": "ABJC",
+  "title": "ABJC : nouvelle publication financière",
+  "detail": "SERVAIR ABIDJAN CI a publié « Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026 » le 2026-10-16. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-16T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261016_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
+  "id": "document-ABJC-2026-10-16-f94f403248",
+  "type": "document",
+  "ticker": "ABJC",
+  "title": "ABJC : nouvelle publication financière",
+  "detail": "SERVAIR ABIDJAN CI a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-16. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-16T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261016_-_rapport_dactivites_-_1er_semestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
+  "id": "document-ABJC-2026-10-16-68d75201f2",
+  "type": "document",
+  "ticker": "ABJC",
+  "title": "ABJC : nouvelle publication financière",
+  "detail": "SERVAIR ABIDJAN CI a publié « Rapport dactivites — 3e trimestre 2026 » le 2026-10-16. Source officielle à consulter avant toute décision.",
+  "time": "2026-10-16T09:05:00+00:00",
+  "severity": "critical",
+  "active": true,
+  "basis": "réel",
+  "sourceUrl": "https://www.brvm.org/sites/default/files/20261016_-_rapport_dactivites_-_3e_trimestre_2026_-_servair_abidjan_ci.pdf"
+ },
+ {
   "id": "prix-FTSC-2026-10-15-8a81d3e66a",
   "type": "prix",
   "ticker": "FTSC",
@@ -207,7 +243,7 @@
   "title": "ORAC : nouvelle publication financière",
   "detail": "ORANGE COTE D'IVOIRE a publié « Attestation des commissaires aux comptes sur le rapport dactivites — 1er semestre 2026 » le 2026-10-08. Source officielle à consulter avant toute décision.",
   "time": "2026-10-08T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20261008_-_attestation_des_commissaires_aux_comptes_sur_le_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
@@ -219,7 +255,7 @@
   "title": "ORAC : nouvelle publication financière",
   "detail": "ORANGE COTE D'IVOIRE a publié « Rapport dactivites — 1er semestre 2026 » le 2026-10-08. Source officielle à consulter avant toute décision.",
   "time": "2026-10-08T09:05:00+00:00",
-  "severity": "critical",
+  "severity": "warning",
   "active": true,
   "basis": "réel",
   "sourceUrl": "https://www.brvm.org/sites/default/files/20261008_-_rapport_dactivites_-_1er_semestre_2026_-_orange_ci.pdf"
